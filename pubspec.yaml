@@ -8,11 +8,24 @@ version: 1.0.0+1
 environment:
   sdk: '>=3.1.4 <4.0.0'
 
+#----Packages
 dependencies:
   flutter:
     sdk: flutter
 
-  cupertino_icons: ^1.0.2
+#----Utility packs
+
+#Icons
+iconsax: ^0.0.8
+cupertino_icons: ^1.0.2
+
+#----State management
+get: ^4.6.5
+
+#product specific
+
+
+#Packages End
 
 dev_dependencies:
   flutter_test:
@@ -21,3 +34,30 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  #Assets
+  assets:
+  - assets/logos/
+  - assets/icons/
+  - assets/images/
+  
+
+# Fonts
+  fonts:
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/Poppins-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Poppins-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Poppins-Italic.ttf
+          style: italic
+        - asset: assets/fonts/Poppins-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Poppins-MediumItalic.ttf
+          weight: 500
+          style: italic
+        - asset: assets/fonts/Poppins-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Poppins-Bold.ttf
+          weight: 800
