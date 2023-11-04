@@ -1,46 +1,49 @@
 import 'package:flutter/material.dart';
-import 'package:vitkart/utils/theme/custom_theme/appbar_theme.dart';
-import 'package:vitkart/utils/theme/custom_theme/bottom_theme.dart';
-import 'package:vitkart/utils/theme/custom_theme/checkbox_theme.dart';
-import 'package:vitkart/utils/theme/custom_theme/chip_theme.dart';
-import 'package:vitkart/utils/theme/custom_theme/elevated_button_theme.dart';
-import 'package:vitkart/utils/theme/custom_theme/outline_button_theme.dart';
-import 'package:vitkart/utils/theme/custom_theme/text_theme.dart';
-import 'package:vitkart/utils/theme/custom_theme/textfield_theme.dart';
+import 'package:t_store/utils/theme/widget_themes/appbar_theme.dart';
+import 'package:t_store/utils/theme/widget_themes/bottom_sheet_theme.dart';
+import 'package:t_store/utils/theme/widget_themes/checkbox_theme.dart';
+import 'package:t_store/utils/theme/widget_themes/chip_theme.dart';
+import 'package:t_store/utils/theme/widget_themes/elevated_button_theme.dart';
+import 'package:t_store/utils/theme/widget_themes/outlined_button_theme.dart';
+import 'package:t_store/utils/theme/widget_themes/text_field_theme.dart';
+import 'package:t_store/utils/theme/widget_themes/text_theme.dart';
 
-class AppTheme {
-  AppTheme._();
+import '../constants/colors.dart';
 
-  //Light Theme
+class TAppTheme {
+  TAppTheme._();
+
   static ThemeData lightTheme = ThemeData(
-      useMaterial3: true,
-      fontFamily: 'Poppins',
-      brightness: Brightness.light,
-      primaryColor: Colors.blueAccent,
-      scaffoldBackgroundColor: Colors.white,
-      textTheme: TextThemes.lightTextTheme,
-      elevatedButtonTheme: ElevButtonTheme.lightElevatedButtonTheme,
-      appBarTheme: OAppBarTheme.lightAppBarTheme,
-      bottomSheetTheme: OBottomTheme.lightBottomSheetTheme,
-      checkboxTheme: OCheckboxTheme.lightCheckboxTheme,
-      chipTheme: OChipTheme.lightChipTheme,
-      outlinedButtonTheme: OOutlineButtonTheme.lightOutlinedButtonTheme,
-      inputDecorationTheme: OTextFormFieldTheme.lightInputDecorationTheme);
+    useMaterial3: true,
+    fontFamily: 'Poppins',
+    disabledColor: TColors.grey,
+    brightness: Brightness.light,
+    primaryColor: TColors.primary,
+    textTheme: TTextTheme.lightTextTheme,
+    chipTheme: TChipTheme.lightChipTheme,
+    scaffoldBackgroundColor: TColors.white,
+    appBarTheme: TAppBarTheme.lightAppBarTheme,
+    checkboxTheme: TCheckboxTheme.lightCheckboxTheme,
+    bottomSheetTheme: TBottomSheetTheme.lightBottomSheetTheme,
+    elevatedButtonTheme: TElevatedButtonTheme.lightElevatedButtonTheme,
+    outlinedButtonTheme: TOutlinedButtonTheme.lightOutlinedButtonTheme,
+    inputDecorationTheme: TTextFormFieldTheme.lightInputDecorationTheme,
+  );
 
-  //Dark Theme
   static ThemeData darkTheme = ThemeData(
     useMaterial3: true,
     fontFamily: 'Poppins',
+    disabledColor: TColors.grey,
     brightness: Brightness.dark,
-    primaryColor: Colors.lightBlue,
-    scaffoldBackgroundColor: Colors.black,
-    textTheme: TextThemes.darkTextTheme,
-    elevatedButtonTheme: ElevButtonTheme.darkElevatedButtonTheme,
-    appBarTheme: OAppBarTheme.darkAppBarTheme,
-    bottomSheetTheme: OBottomTheme.darkBottomSheetTheme,
-    checkboxTheme: OCheckboxTheme.darkCheckboxTheme,
-    chipTheme: OChipTheme.darkChipTheme,
-    outlinedButtonTheme: OOutlineButtonTheme.darkOutlinedButtonTheme,
-    inputDecorationTheme: OTextFormFieldTheme.darkInputDecorationTheme,
+    primaryColor: TColors.primary,
+    textTheme: TTextTheme.darkTextTheme,
+    chipTheme: TChipTheme.darkChipTheme,
+    scaffoldBackgroundColor: TColors.black,
+    appBarTheme: TAppBarTheme.darkAppBarTheme,
+    checkboxTheme: TCheckboxTheme.darkCheckboxTheme,
+    bottomSheetTheme: TBottomSheetTheme.darkBottomSheetTheme,
+    elevatedButtonTheme: TElevatedButtonTheme.darkElevatedButtonTheme,
+    outlinedButtonTheme: TOutlinedButtonTheme.darkOutlinedButtonTheme,
+    inputDecorationTheme: TTextFormFieldTheme.darkInputDecorationTheme,
   );
 }
