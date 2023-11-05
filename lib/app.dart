@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:t_store/features/authentication/screens/onboarding/onboarding.dart';
 import 'package:t_store/utils/constants/text_strings.dart';
 import 'package:t_store/utils/theme/theme.dart';
 
@@ -14,15 +15,7 @@ class App extends StatelessWidget {
       theme: TAppTheme.lightTheme,
       darkTheme: TAppTheme.darkTheme,
       debugShowCheckedModeBanner: false,
-      // initialBinding: GeneralBindings(),
-      home: const Scaffold(
-        body: Center(
-          child: Text(
-            'Awesome Project Structure is setup and running. \n Happy T Coding 🎊',
-            textAlign: TextAlign.center,
-          ),
-        ),
-      ),
+      home: const OnboardingScreen(),
     );
   }
 }
