@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:t_store/navigation_menu.dart';
 
 class OnBoardingController extends GetxController {
   static OnBoardingController get instance => Get.find();
@@ -18,6 +19,7 @@ class OnBoardingController extends GetxController {
   void nextPage() {
     if (currentPageIndex.value == 2) {
       // Get.to(LoginScren());
+      Get.to(const NavigationMenu());
     } else {
       int page = currentPageIndex.value + 1;
       pageController.jumpToPage(page);
