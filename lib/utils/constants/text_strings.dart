@@ -24,11 +24,11 @@ class TTexts {
   // -- Authentication Forms
   static const String firstName = "First Name";
   static const String lastName = "Last Name";
-  static const String email = "E-Mail";
-  static const String password = "Password";
-  static const String newPassword = "New Password";
-  static const String username = "Username";
-  static const String phoneNo = "Phone Number";
+  static const String regNo = "Registration Number";
+  static const String email = "VIT Bhopal Email address";
+  static const String contact = "Contact";
+  static const String joiningYear = "Year of Joining VIT Bhopal";
+  static const String source = "Source";
   static const String rememberMe = "Remember Me";
   static const String forgetPassword = "Forget Password?";
   static const String signIn = "Sign In";
@@ -56,6 +56,8 @@ class TTexts {
   static const String emailNotReceivedMessage = "Didn’t get the email? Check your junk/spam or resend it.";
   static const String yourAccountCreatedTitle = "Your account successfully created!";
   static const String yourAccountCreatedSubTitle = "Welcome to Your Ultimate Shopping Destination: Your Account is Created, Unleash the Joy of Seamless Online Shopping!";
+  static const String kycTitle = "KYC Verification";
+  static const String kycSubTitle = "Enter your details correctly for a smoother on-boarding.";
 
 
   // -- Product
