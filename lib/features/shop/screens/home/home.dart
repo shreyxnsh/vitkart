@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:t_store/features/shop/screens/home/widgets/circular_widget.dart';
+import 'package:t_store/common/widgets/appbar/appbar.dart';
+import 'package:t_store/common/widgets/products_cart/cart_menu_item.dart';
 import 'package:t_store/utils/constants/colors.dart';
+import 'package:t_store/utils/constants/text_strings.dart';
 
-import '../../../../common/widgets/curved_edges/curved_edges_widget.dart';
 import '../../../../common/widgets/custom_shapes/containers/primary_header_container.dart';
-
-
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -15,11 +14,37 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
-          
           children: [
-          TPrimaryHeaderContainer(child: Container()
-          )
-        ]
+            TPrimaryHeaderContainer(
+              child: Column(
+                children: [
+                  TAppBar(
+                    title: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(TTexts.homeAppbarTitle,
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelMedium!
+                                .apply(color: TColors.grey)),
+                        Text(TTexts.homeAppbarSubTitle,
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineSmall!
+                                .apply(color: TColors.white)),
+                      ],
+                    ),
+                    actions: [
+                      TCartCounterIcon(
+                        onPressed: () {},
+                        iconColor: TColors.white,
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );
