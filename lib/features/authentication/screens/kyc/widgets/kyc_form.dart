@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:t_store/features/authentication/screens/dashboard/dashboard.dart';
+import 'package:t_store/navigation_menu.dart';
 
 import '../../../../../utils/constants/colors.dart';
 import '../../../../../utils/constants/sizes.dart';
@@ -87,7 +87,7 @@ class KYCform extends StatelessWidget {
         TextFormField(
                 expands: false,
                 decoration: const InputDecoration(
-                    labelText: TTexts.Source,
+                    labelText: TTexts.source,
                     prefixIcon: Icon(Iconsax.hashtag)),
               ),
               const SizedBox(
@@ -127,7 +127,7 @@ class KYCform extends StatelessWidget {
         SizedBox(
     width: double.infinity,
     child: ElevatedButton(onPressed: (){
-      Get.to(DashboardScreen());
+      Get.to(NavigationMenu());
     }, child: Text("Submit",)),
           )
 
