@@ -30,10 +30,10 @@ class NavigationMenu extends StatelessWidget {
 
           destinations: const [
             NavigationDestination(icon: Icon(Iconsax.home), label: "Home"),
-            NavigationDestination(icon: Icon(Iconsax.shop), label: "Cart"),
-            NavigationDestination(icon: Icon(Iconsax.add), label: ""),
-            NavigationDestination(icon: Icon(Iconsax.heart), label: "Liked"),
-            NavigationDestination(icon: Icon(Iconsax.user), label: "Profile"),
+            NavigationDestination(icon: Icon(Iconsax.shop), label: "Store"),
+            NavigationDestination(icon: Icon(Iconsax.add), label: "Sell"),
+            NavigationDestination(icon: Icon(Iconsax.heart), label: "Wishlist"),
+            NavigationDestination(icon: Icon(Iconsax.user), label: "Account"),
           ],
         ),
       ),
