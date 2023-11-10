@@ -48,7 +48,7 @@ class LoginScreen extends StatelessWidget {
             width: double.infinity,
             child: ElevatedButton(onPressed: (){
               Get.to(const KYCScreen());
-            }, child: Text("Google Sign-In",)),
+            }, child: const Text("Google Sign-In",)),
           )
 
           ]
