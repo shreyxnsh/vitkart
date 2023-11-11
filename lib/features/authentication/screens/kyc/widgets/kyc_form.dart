@@ -24,7 +24,6 @@ class KYCform extends StatelessWidget {
           children: [
             Expanded(
               child: TextFormField(
-                
                 expands: false,
                 decoration: const InputDecoration(
                     labelText: TTexts.firstName,
@@ -38,8 +37,7 @@ class KYCform extends StatelessWidget {
               child: TextFormField(
                 expands: false,
                 decoration: const InputDecoration(
-                    labelText: TTexts.lastName,
-                    prefixIcon: Icon(Iconsax.user)),
+                    labelText: TTexts.lastName, prefixIcon: Icon(Iconsax.user)),
               ),
             ),
           ],
@@ -48,48 +46,44 @@ class KYCform extends StatelessWidget {
           height: TSizes.spaceBtwInputFields,
         ),
         TextFormField(
-                expands: false,
-                decoration: const InputDecoration(
-                    labelText: TTexts.regNo,
-                    prefixIcon: Icon(Iconsax.hashtag)),
-              ),
-              const SizedBox(
+          expands: false,
+          decoration: const InputDecoration(
+              labelText: TTexts.regNo, prefixIcon: Icon(Iconsax.hashtag)),
+        ),
+        const SizedBox(
           height: TSizes.spaceBtwInputFields,
         ),
         TextFormField(
-                expands: false,
-                decoration: const InputDecoration(
-                    labelText: TTexts.email,
-                    prefixIcon: Icon(Iconsax.sms)),
-              ),
-              const SizedBox(
+          expands: false,
+          decoration: const InputDecoration(
+              labelText: TTexts.email, prefixIcon: Icon(Iconsax.sms)),
+        ),
+        const SizedBox(
           height: TSizes.spaceBtwInputFields,
         ),
         TextFormField(
-                expands: false,
-                decoration: const InputDecoration(
-                    labelText: TTexts.contact,
-                    prefixIcon: Icon(Iconsax.call)),
-              ),
-              const SizedBox(
+          expands: false,
+          decoration: const InputDecoration(
+              labelText: TTexts.contact, prefixIcon: Icon(Iconsax.call)),
+        ),
+        const SizedBox(
           height: TSizes.spaceBtwInputFields,
         ),
         TextFormField(
-                expands: false,
-                decoration: const InputDecoration(
-                    labelText: TTexts.joiningYear,
-                    prefixIcon: Icon(Iconsax.calendar)),
-              ),
-              const SizedBox(
+          expands: false,
+          decoration: const InputDecoration(
+              labelText: TTexts.joiningYear,
+              prefixIcon: Icon(Iconsax.calendar)),
+        ),
+        const SizedBox(
           height: TSizes.spaceBtwInputFields,
         ),
         TextFormField(
-                expands: false,
-                decoration: const InputDecoration(
-                    labelText: TTexts.source,
-                    prefixIcon: Icon(Iconsax.hashtag)),
-              ),
-              const SizedBox(
+          expands: false,
+          decoration: const InputDecoration(
+              labelText: TTexts.source, prefixIcon: Icon(Iconsax.hashtag)),
+        ),
+        const SizedBox(
           height: TSizes.spaceBtwItems,
         ),
         Row(
@@ -97,47 +91,61 @@ class KYCform extends StatelessWidget {
             SizedBox(
               width: 24,
               height: 24,
-              child: Checkbox(value: true, onChanged: (value){}, ),
+              child: Checkbox(
+                value: true,
+                onChanged: (value) {},
+              ),
             ),
             const SizedBox(
-              width: TSizes.spaceBtwItems / 2 ,
+              width: TSizes.spaceBtwItems / 2,
             ),
-            
             Expanded(
-  child: Text.rich(TextSpan(
-    children: [
-      TextSpan(text: '${TTexts.iAgreeTo} ', style: Theme.of(context).textTheme.bodySmall),
-      TextSpan(text: TTexts.privacyPolicy, style: Theme.of(context).textTheme.bodySmall!.apply(
-        color: dark ? TColors.white : TColors.primary,
-        decoration: TextDecoration.underline,
-        decorationColor: dark ? TColors.white : TColors.primary,
-      )),
-      TextSpan(text: ' ${TTexts.and} ', style: Theme.of(context).textTheme.bodySmall),
-      TextSpan(text: TTexts.termsOfUse, style: Theme.of(context).textTheme.bodySmall!.apply(
-        color: dark ? TColors.white : TColors.primary,
-        decoration: TextDecoration.underline,
-        decorationColor: dark ? TColors.white : TColors.primary,
-      )),
-    ],
-  ),
-  overflow: TextOverflow.ellipsis, // Add this line
-),
+              child: Text.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(
+                        text: '${TTexts.iAgreeTo} ',
+                        style: Theme.of(context).textTheme.bodySmall),
+                    TextSpan(
+                        text: TTexts.privacyPolicy,
+                        style: Theme.of(context).textTheme.bodySmall!.apply(
+                              color: dark ? TColors.white : TColors.primary,
+                              decoration: TextDecoration.underline,
+                              decorationColor:
+                                  dark ? TColors.white : TColors.primary,
+                            )),
+                    TextSpan(
+                        text: ' ${TTexts.and} ',
+                        style: Theme.of(context).textTheme.bodySmall),
+                    TextSpan(
+                        text: TTexts.termsOfUse,
+                        style: Theme.of(context).textTheme.bodySmall!.apply(
+                              color: dark ? TColors.white : TColors.primary,
+                              decoration: TextDecoration.underline,
+                              decorationColor:
+                                  dark ? TColors.white : TColors.primary,
+                            )),
+                  ],
+                ),
+                overflow: TextOverflow.ellipsis, // Add this line
+              ),
             )
           ],
         ),
         const SizedBox(
           height: TSizes.spaceBtwSections,
         ),
-
         SizedBox(
-    width: double.infinity,
-    child: ElevatedButton(onPressed: (){
-      Get.to(const NavigationMenu());
-    }, child: const Text("Submit",)),
-          )
-
+          width: double.infinity,
+          child: ElevatedButton(
+              onPressed: () {
+                Get.to(const NavigationMenu());
+              },
+              child: const Text(
+                "Submit",
+              )),
+        )
       ],
-    )
-    );
+    ));
   }
 }

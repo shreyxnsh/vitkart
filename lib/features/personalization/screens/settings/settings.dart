@@ -25,7 +25,7 @@ class SettingScreen extends StatelessWidget {
                 child: Column(
               children: [
                 TAppBar(
-                    leadingIconColor: TColors.white,
+                    showBackArrow: false,
                     title: Text(
                       "Account",
                       style: Theme.of(context).textTheme.headlineMedium!.apply(
