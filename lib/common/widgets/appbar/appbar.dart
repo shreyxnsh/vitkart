@@ -14,7 +14,7 @@ class TAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.leadingIcon,
     this.actions,
     this.leadingOnPressed,
-    this.backBtnColor,
+    this.leadingIconColor,
   });
 
   final Widget? title;
@@ -22,7 +22,7 @@ class TAppBar extends StatelessWidget implements PreferredSizeWidget {
   final IconData? leadingIcon;
   final List<Widget>? actions;
   final VoidCallback? leadingOnPressed;
-  final Color? backBtnColor;
+  final Color? leadingIconColor;
 
   @override
   Widget build(BuildContext context) {
@@ -36,15 +36,16 @@ class TAppBar extends StatelessWidget implements PreferredSizeWidget {
                 onPressed: () => Get.back(),
                 icon: Icon(
                   Iconsax.arrow_left,
-                  color: backBtnColor ?? (dark ? TColors.light : TColors.dark),
+                  color:
+                      leadingIconColor ?? (dark ? TColors.light : TColors.dark),
                 ))
             : leadingIcon != null
                 ? IconButton(
                     onPressed: leadingOnPressed,
                     icon: Icon(
                       leadingIcon,
-                      color:
-                          backBtnColor ?? (dark ? TColors.light : TColors.dark),
+                      color: leadingIconColor ??
+                          (dark ? TColors.light : TColors.dark),
                     ))
                 : null,
         title: title,
