@@ -21,7 +21,7 @@ class HomeScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            TPrimaryHeaderContainer(
+            const TPrimaryHeaderContainer(
               height: 400,
               child: Column(
                 children: [
@@ -62,19 +62,19 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(
+              padding: const EdgeInsets.all(
                 TSizes.defaultSpace,
               ),
               child: Column(
                 children: [
-                  TPromoSlider(banners: [
+                  const TPromoSlider(banners: [
                     TImages.promoBanner1,
                     TImages.promoBanner2,
                     TImages.promoBanner3,
                   ]),
                   TGridLayout(
                     itemCount: 4,
-                    itemBuilder: (_, index) => TProductCardVertical(),
+                    itemBuilder: (_, index) => const TProductCardVertical(),
                   )
                 ],
               ),

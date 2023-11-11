@@ -5,7 +5,6 @@ import 'package:t_store/common/widgets/images/t_rounded_image.dart';
 import 'package:t_store/features/shop/controllers/home_controller.dart';
 import 'package:t_store/features/shop/screens/home/widgets/circular_widget.dart';
 import 'package:t_store/utils/constants/colors.dart';
-import 'package:t_store/utils/constants/image_strings.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 
 class TPromoSlider extends StatelessWidget {
@@ -44,7 +43,7 @@ class TPromoSlider extends StatelessWidget {
                   TCirclularContainer(
                     width: 20,
                     height: 4,
-                    margen: EdgeInsets.only(right: 10),
+                    margen: const EdgeInsets.only(right: 10),
                     backgroundColor: i == controller.carousalCurrentIndex.value
                         ? TColors.primary
                         : TColors.grey,
