@@ -6,6 +6,8 @@ import 'package:t_store/common/widgets/products/products_cart/product_card_verti
 import 'package:t_store/common/widgets/text/section_heading.dart';
 import 'package:t_store/features/shop/screens/home/widgets/home_appbar.dart';
 import 'package:t_store/features/shop/screens/home/widgets/home_categories.dart';
+import 'package:t_store/features/shop/screens/home/widgets/promo_slider.dart';
+import 'package:t_store/utils/constants/image_strings.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 
 import '../../../../common/widgets/custom_shapes/containers/primary_header_container.dart';
@@ -59,10 +61,24 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
             ),
-            TGridLayout(
-              itemCount: 4,
-              itemBuilder: (_, index) => const TProductCardVertical(),
-            ),
+            Padding(
+              padding: EdgeInsets.all(
+                TSizes.defaultSpace,
+              ),
+              child: Column(
+                children: [
+                  TPromoSlider(banners: [
+                    TImages.promoBanner1,
+                    TImages.promoBanner2,
+                    TImages.promoBanner3,
+                  ]),
+                  TGridLayout(
+                    itemCount: 4,
+                    itemBuilder: (_, index) => TProductCardVertical(),
+                  )
+                ],
+              ),
+            )
           ],
         ),
       ),
