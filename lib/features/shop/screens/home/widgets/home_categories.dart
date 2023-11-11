@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:t_store/common/widgets/image_text_widget/vertical_text_image.dart';
+import 'package:t_store/utils/constants/colors.dart';
 import 'package:t_store/utils/constants/image_strings.dart';
 
 class THomeCategories extends StatelessWidget {
@@ -18,6 +19,7 @@ class THomeCategories extends StatelessWidget {
         itemBuilder: (_, index) {
           return TVerticalImageText(
             image: TImages.shoeIcon,
+            backgroundColor: TColors.light,
             title: "Shoes",
             onTap: () {},
           );
