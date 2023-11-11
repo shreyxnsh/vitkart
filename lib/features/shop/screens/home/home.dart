@@ -72,6 +72,15 @@ class HomeScreen extends StatelessWidget {
                     TImages.promoBanner2,
                     TImages.promoBanner3,
                   ]),
+                  const SizedBox(
+                    height: TSizes.spaceBtwSections,
+                  ),
+
+                  const TsectionHeading(title: 'Popular Products'),
+                  const SizedBox(
+                    height: TSizes.spaceBtwItems / 8,
+                  ),
+
                   TGridLayout(
                     itemCount: 4,
                     itemBuilder: (_, index) => const TProductCardVertical(),
