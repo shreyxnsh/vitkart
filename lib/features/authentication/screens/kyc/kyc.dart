@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:t_store/features/authentication/screens/kyc/widgets/kyc_form.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 import 'package:t_store/utils/constants/text_strings.dart';
+import 'package:t_store/common/widgets/appbar/appbar.dart';
 
 import '../../../../utils/helpers/helper_functions.dart';
 
@@ -14,27 +15,25 @@ class KYCScreen extends StatelessWidget {
     final dark = THelperFunctions.isDarkMode(context);
 
     return Scaffold(
-      appBar: AppBar(),
+      appBar: TAppBar(
+        title:
+            Text('KYC Verification', style: Theme.of(context).textTheme.headlineSmall),
+        showBackArrow: true,
+      ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(TSizes.defaultSpace),
+          padding: const EdgeInsets.only(top: TSizes.xs / 2, bottom: TSizes.spaceBtwItems, right: TSizes.spaceBtwItems, left: TSizes.spaceBtwItems),
           child:
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start, 
                 children: [
-            Text(
-              TTexts.kycTitle,
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-            const SizedBox(
-              height: TSizes.sm,
-            ),
+            
             Text(
               TTexts.kycSubTitle,
               style: Theme.of(context).textTheme.bodyMedium,
             ),
             const SizedBox(
-              height: TSizes.spaceBtwSections,
+              height: TSizes.spaceBtwSections/1.5,
             ),
 
             KYCform(dark: dark)
