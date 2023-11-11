@@ -17,11 +17,11 @@ class TCategoryTab extends StatelessWidget {
         padding: const EdgeInsets.all(TSizes.defaultSpace),
         child: Column(
           children: [
-            TsectionHeading(title: 'You might like', showActionButton: true,),
+            const TsectionHeading(title: 'You might like', showActionButton: true,),
             const SizedBox(
               height: TSizes.spaceBtwItems,
             ),
-            TGridLayout(itemCount: 4, itemBuilder: (_,index) => TProductCardVertical()),
+            TGridLayout(itemCount: 4, itemBuilder: (_,index) => const TProductCardVertical()),
             const SizedBox(
               height: TSizes.spaceBtwItems,
             ),

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:t_store/common/widgets/custom_shapes/containers/t_rounded_containers.dart';
-import 'package:t_store/common/widgets/icons/t_circular_icon.dart';
-import 'package:t_store/common/widgets/products/products_cart/product_card_vertical.dart';
 import 'package:t_store/common/widgets/text/product_price_text.dart';
 import 'package:t_store/common/widgets/text/product_title_text.dart';
 import 'package:t_store/features/shop/screens/home/widgets/circular_widget.dart';

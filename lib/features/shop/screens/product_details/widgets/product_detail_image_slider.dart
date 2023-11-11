@@ -3,7 +3,6 @@ import 'package:iconsax/iconsax.dart';
 import 'package:t_store/common/widgets/appbar/appbar.dart';
 import 'package:t_store/common/widgets/icons/t_circular_icon.dart';
 import 'package:t_store/common/widgets/images/t_rounded_image.dart';
-import 'package:t_store/features/shop/screens/product_details/product_detail.dart';
 import 'package:t_store/features/shop/screens/product_details/widgets/rating_share_button.dart';
 import 'package:t_store/utils/constants/colors.dart';
 import 'package:t_store/utils/constants/image_strings.dart';
@@ -24,10 +23,10 @@ class TProductImageSlider extends StatelessWidget {
         child: Stack(
           children: [
             // Main Large Image
-            SizedBox(
+            const SizedBox(
               height: 400,
               child: Padding(
-                padding: const EdgeInsets.all(TSizes.productImageRadius),
+                padding: EdgeInsets.all(TSizes.productImageRadius),
                 child: Center(
                   child: Image(
                     image: AssetImage(TImages.productImage1),
@@ -65,7 +64,7 @@ class TProductImageSlider extends StatelessWidget {
 
             // Appbar Icon
 
-            TAppBar(
+            const TAppBar(
               showBackArrow: true,
               actions: [
                 TCircularIcon(
