@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:t_store/common/widgets/custom_shapes/containers/search_container.dart';
+import 'package:t_store/common/widgets/layout/grid_layout.dart';
+import 'package:t_store/common/widgets/products/products_cart/product_card_vertical.dart';
 import 'package:t_store/common/widgets/text/section_heading.dart';
 import 'package:t_store/features/shop/screens/home/widgets/home_appbar.dart';
 import 'package:t_store/features/shop/screens/home/widgets/home_categories.dart';
@@ -13,7 +15,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -56,6 +58,10 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ],
               ),
+            ),
+            TGridLayout(
+              itemCount: 4,
+              itemBuilder: (_, index) => const TProductCardVertical(),
             ),
           ],
         ),
