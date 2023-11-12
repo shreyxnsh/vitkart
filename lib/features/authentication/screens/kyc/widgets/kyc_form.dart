@@ -69,19 +69,26 @@ class KYCform extends StatelessWidget {
         const SizedBox(
           height: TSizes.spaceBtwInputFields,
         ),
-        TextFormField(
-          expands: false,
-          decoration: const InputDecoration(
-              labelText: TTexts.joiningYear,
-              prefixIcon: Icon(Iconsax.calendar)),
+        DropdownButtonFormField(
+          
+          decoration: const InputDecoration(prefixIcon: Icon(Iconsax.calendar), labelText: TTexts.joiningYear), 
+          onChanged: (value){
+
+        },
+        items: ['2023', '2022', '2021', '2020', '2019', '2018']
+        .map((option) => DropdownMenuItem(value: option, child: Text(option))).toList(),
         ),
         const SizedBox(
           height: TSizes.spaceBtwInputFields,
         ),
-        TextFormField(
-          expands: false,
-          decoration: const InputDecoration(
-              labelText: TTexts.source, prefixIcon: Icon(Iconsax.hashtag)),
+        DropdownButtonFormField(
+          
+          decoration: const InputDecoration(prefixIcon: Icon(Iconsax.hashtag), labelText: TTexts.source), 
+          onChanged: (value){
+
+        },
+        items: ['Word of Mouth', 'Instagram', 'LinkedIn', 'Github']
+        .map((option) => DropdownMenuItem(value: option, child: Text(option))).toList(),
         ),
         const SizedBox(
           height: TSizes.spaceBtwItems,
