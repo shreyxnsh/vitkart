@@ -27,6 +27,8 @@ class TTexts {
   static const String email = "VIT Bhopal Email address";
   static const String contact = "Contact";
   static const String joiningYear = "Year of Joining VIT Bhopal";
+  static const String hostel = "Hostel";
+  static const String block = "Block";
   static const String source = "Source";
   static const String rememberMe = "Remember Me";
   static const String forgetPassword = "Forget Password?";
