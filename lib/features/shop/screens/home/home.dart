@@ -24,7 +24,6 @@ class HomeScreen extends StatelessWidget {
             const TPrimaryHeaderContainer(
               height: 400,
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   /// App Bar
                   ThemeHomeAppBar(),
@@ -54,7 +53,6 @@ class HomeScreen extends StatelessWidget {
                           height: TSizes.spaceBtwItems,
                         ),
 
-                        /// Categories
                         THomeCategories(),
                       ],
                     ),
@@ -73,12 +71,6 @@ class HomeScreen extends StatelessWidget {
                     TImages.promoBanner2,
                     TImages.promoBanner3,
                   ]),
-                  const SizedBox(
-                    height: TSizes.spaceBtwItems,
-                  ),
-
-                  const TsectionHeading(title: 'Popular Products'),
-                
                   TGridLayout(
                     itemCount: 4,
                     itemBuilder: (_, index) => const TProductCardVertical(),
