@@ -28,8 +28,8 @@ class TOrderListItems extends StatelessWidget {
               children: [
     
                 /// icon
-                Icon(Iconsax.ship),
-                SizedBox(width: TSizes.spaceBtwItems/2,),
+                const Icon(Iconsax.ship),
+                const SizedBox(width: TSizes.spaceBtwItems/2,),
     
                 /// status and date
                 Expanded(
@@ -63,8 +63,8 @@ class TOrderListItems extends StatelessWidget {
                   child: Row(
                     children: [
                       /// icon
-                      Icon(Iconsax.tag),
-                      SizedBox(width: TSizes.spaceBtwItems/2,),
+                      const Icon(Iconsax.tag),
+                      const SizedBox(width: TSizes.spaceBtwItems/2,),
                 
                       /// status and date
                       Expanded(
@@ -91,8 +91,8 @@ class TOrderListItems extends StatelessWidget {
                   child: Row(
                     children: [
                       /// icon
-                      Icon(Iconsax.calendar),
-                      SizedBox(width: TSizes.spaceBtwItems/2,),
+                      const Icon(Iconsax.calendar),
+                      const SizedBox(width: TSizes.spaceBtwItems/2,),
                 
                       /// status and date
                       Expanded(
