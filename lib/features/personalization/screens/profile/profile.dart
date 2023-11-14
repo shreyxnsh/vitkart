@@ -25,34 +25,63 @@ class ProfileScreen extends StatelessWidget {
                 child: Column(children: [
                   const CircleAvatar(
                     radius: 40,
-                    backgroundImage: AssetImage('assets/images/content/user.png'),
+                    backgroundImage:
+                        AssetImage('assets/images/content/user.png'),
                   ),
-                  TextButton(onPressed: (){}, child: const Text('Change Profile picture')
-                  ),
-                ]
-                ),
+                  TextButton(
+                      onPressed: () {},
+                      child: const Text('Change Profile picture')),
+                ]),
               ),
 
               ///Details
-              const SizedBox(height: TSizes.spaceBtwItems/2,),
+              const SizedBox(
+                height: TSizes.spaceBtwItems / 2,
+              ),
               const Divider(),
               const SizedBox(height: TSizes.spaceBtwItems),
-              const TsectionHeading(title: 'Personal Information'),
+              const TSectionHeading(title: 'Personal Information'),
               const SizedBox(height: TSizes.spaceBtwItems),
 
-              TProfileMenu(title: 'Name', value: 'Shreyansh Jain', onPressed: (){},),
-              TProfileMenu(title: 'Contact', value: '+91 9494315111', onPressed: (){},),
-              TProfileMenu(title: 'Date of Birth', value: '22 November 2002', onPressed: (){},),
+              TProfileMenu(
+                title: 'Name',
+                value: 'Shreyansh Jain',
+                onPressed: () {},
+              ),
+              TProfileMenu(
+                title: 'Contact',
+                value: '+91 9494315111',
+                onPressed: () {},
+              ),
+              TProfileMenu(
+                title: 'Date of Birth',
+                value: '22 November 2002',
+                onPressed: () {},
+              ),
 
-              const SizedBox(height: TSizes.spaceBtwItems/2,),
+              const SizedBox(
+                height: TSizes.spaceBtwItems / 2,
+              ),
               const Divider(),
               const SizedBox(height: TSizes.spaceBtwItems),
-              const TsectionHeading(title: 'College Information'),
+              const TSectionHeading(title: 'College Information'),
               const SizedBox(height: TSizes.spaceBtwItems),
 
-              TProfileMenu(title: 'Registration Number', value: '21BSA10012', onPressed: (){},),
-              TProfileMenu(title: 'Email', value: 'shreyansh.jain2021@vitbhopal.ac.in', onPressed: (){},),
-              TProfileMenu(title: 'Year of Joining', value: '2021', onPressed: (){},),
+              TProfileMenu(
+                title: 'Registration Number',
+                value: '21BSA10012',
+                onPressed: () {},
+              ),
+              TProfileMenu(
+                title: 'Email',
+                value: 'shreyansh.jain2021@vitbhopal.ac.in',
+                onPressed: () {},
+              ),
+              TProfileMenu(
+                title: 'Year of Joining',
+                value: '2021',
+                onPressed: () {},
+              ),
             ],
           ),
         ),
@@ -60,4 +89,3 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 }
-

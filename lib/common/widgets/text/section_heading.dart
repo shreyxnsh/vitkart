@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class TsectionHeading extends StatelessWidget {
-  const TsectionHeading({
+class TSectionHeading extends StatelessWidget {
+  const TSectionHeading({
     super.key,
     this.textColor,
     this.showActionButton = true,
@@ -16,7 +16,6 @@ class TsectionHeading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -32,7 +31,10 @@ class TsectionHeading extends StatelessWidget {
         if (showActionButton)
           TextButton(
             onPressed: onPressed,
-            child: Text(buttonTitle, style: Theme.of(context).textTheme.bodyMedium,),
+            child: Text(
+              buttonTitle,
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
           ),
       ],
     );

@@ -8,14 +8,12 @@ import 'package:t_store/utils/constants/colors.dart';
 import 'package:t_store/utils/constants/enums.dart';
 import 'package:t_store/utils/constants/image_strings.dart';
 import 'package:t_store/utils/constants/sizes.dart';
-import 'package:t_store/utils/helpers/helper_functions.dart';
 
 class TProductMetaData extends StatelessWidget {
   const TProductMetaData({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final dark = THelperFunctions.isDarkMode(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -103,7 +101,10 @@ class TProductMetaData extends StatelessWidget {
               brandTextSize: TextSizes.medium,
             ),
           ],
-        )
+        ),
+        const SizedBox(
+          height: TSizes.spaceBtwItems / 1.5,
+        ),
       ],
     );
   }
