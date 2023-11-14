@@ -14,20 +14,25 @@ class TCategoryTab extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       children: [
         Padding(
-        padding: const EdgeInsets.all(TSizes.defaultSpace),
-        child: Column(
-          children: [
-            const TsectionHeading(title: 'You might like', showActionButton: true,),
-            const SizedBox(
-              height: TSizes.spaceBtwItems,
-            ),
-            TGridLayout(itemCount: 4, itemBuilder: (_,index) => const TProductCardVertical()),
-            const SizedBox(
-              height: TSizes.spaceBtwItems,
-            ),
-          ],
+          padding: const EdgeInsets.all(TSizes.defaultSpace),
+          child: Column(
+            children: [
+              const TSectionHeading(
+                title: 'You might like',
+                showActionButton: true,
+              ),
+              const SizedBox(
+                height: TSizes.spaceBtwItems,
+              ),
+              TGridLayout(
+                  itemCount: 4,
+                  itemBuilder: (_, index) => const TProductCardVertical()),
+              const SizedBox(
+                height: TSizes.spaceBtwItems,
+              ),
+            ],
+          ),
         ),
-      ),
       ],
     );
   }

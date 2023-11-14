@@ -50,7 +50,7 @@ class SettingScreen extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  const TsectionHeading(title: "Account Settings"),
+                  const TSectionHeading(title: "Account Settings"),
                   const SizedBox(
                     height: TSizes.spaceBtwItems,
                   ),
@@ -105,7 +105,7 @@ class SettingScreen extends StatelessWidget {
                   const SizedBox(
                     height: TSizes.spaceBtwSections,
                   ),
-                  const TsectionHeading(title: "App Settings"),
+                  const TSectionHeading(title: "App Settings"),
                   const SizedBox(
                     height: TSizes.spaceBtwItems,
                   ),

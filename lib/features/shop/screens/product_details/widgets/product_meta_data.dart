@@ -103,7 +103,10 @@ class TProductMetaData extends StatelessWidget {
               brandTextSize: TextSizes.medium,
             ),
           ],
-        )
+        ),
+        const SizedBox(
+          height: TSizes.spaceBtwItems / 1.5,
+        ),
       ],
     );
   }
