@@ -9,16 +9,16 @@ import 'package:t_store/features/shop/screens/categories/other_screen.dart';
 import 'package:t_store/features/shop/screens/categories/tech_screen.dart';
 import 'package:t_store/utils/constants/colors.dart';
 import 'package:t_store/utils/constants/image_strings.dart';
+import 'package:t_store/utils/helpers/helper_functions.dart';
 
 class THomeCategories extends StatelessWidget {
   const THomeCategories({
     super.key,
   });
 
-  
-
   @override
   Widget build(BuildContext context) {
+    final dark = THelperFunctions.isDarkMode(context);
     return SizedBox(
       height: 80,
       child: ListView.builder(
@@ -28,7 +28,7 @@ class THomeCategories extends StatelessWidget {
         itemBuilder: (_, index) {
           return TVerticalImageText(
             image: categories[index].icon,
-            backgroundColor: TColors.light,
+            backgroundColor: dark ? TColors.dark : TColors.light,
             title: categories[index].title,
             onTap: categories[index].onTap,
           );
