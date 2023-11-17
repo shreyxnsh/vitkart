@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:t_store/common/widgets/custom_shapes/containers/search_container.dart';
 import 'package:t_store/common/widgets/layout/grid_layout.dart';
 import 'package:t_store/common/widgets/products/products_cart/product_card_vertical.dart';
 import 'package:t_store/common/widgets/text/section_heading.dart';
+import 'package:t_store/features/shop/screens/categories/popular_products.dart';
 import 'package:t_store/features/shop/screens/home/widgets/home_appbar.dart';
 import 'package:t_store/features/shop/screens/home/widgets/home_categories.dart';
 import 'package:t_store/features/shop/screens/home/widgets/promo_slider.dart';
@@ -69,6 +71,18 @@ class HomeScreen extends StatelessWidget {
                     TImages.promoBanner2,
                     TImages.promoBanner3,
                   ]),
+                  SizedBox(
+                          height: TSizes.spaceBtwItems,
+                        ),
+                  TSectionHeading(
+                          title: "Popular Products",
+                          showActionButton: true,
+                          textColor: Colors.white,
+                          onPressed: (){
+                            Get.to(PopularProductScreen());
+                          },
+                        ),
+                        
                   TGridLayout(
                     itemCount: 4,
                     itemBuilder: (_, index) => const TProductCardVertical(),
