@@ -53,7 +53,7 @@ class KYCform extends StatelessWidget {
         const SizedBox(
           height: TSizes.spaceBtwInputFields,
         ),
-        TextFormField(
+        TextFormField(  
           expands: false,
           decoration: const InputDecoration(
               labelText: TTexts.email, prefixIcon: Icon(Iconsax.sms)),
