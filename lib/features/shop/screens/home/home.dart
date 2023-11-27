@@ -71,7 +71,7 @@ class HomeScreen extends StatelessWidget {
                     TImages.promoBanner2,
                     TImages.promoBanner3,
                   ]),
-                  SizedBox(
+                  const SizedBox(
                           height: TSizes.spaceBtwItems,
                         ),
                   TSectionHeading(
@@ -79,7 +79,7 @@ class HomeScreen extends StatelessWidget {
                           showActionButton: true,
                           textColor: Colors.white,
                           onPressed: (){
-                            Get.to(PopularProductScreen());
+                            Get.to(const PopularProductScreen());
                           },
                         ),
                         

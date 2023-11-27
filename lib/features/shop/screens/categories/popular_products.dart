@@ -19,7 +19,7 @@ class PopularProductScreen extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(TSizes.defaultSpace),
+          padding: const EdgeInsets.all(TSizes.defaultSpace),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -33,7 +33,7 @@ class PopularProductScreen extends StatelessWidget {
         items: ['Lower Price', 'Higher Price', 'Sale', 'Newest', 'Most Popular']
         .map((option) => DropdownMenuItem(value: option, child: Text(option))).toList(),
         ),
-        SizedBox(
+        const SizedBox(
                 height: TSizes.spaceBtwSections,
               ),
               TGridLayout(
