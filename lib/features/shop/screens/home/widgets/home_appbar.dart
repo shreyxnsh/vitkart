@@ -28,12 +28,9 @@ class ThemeHomeAppBar extends StatelessWidget {
                   .apply(color: TColors.white)),
         ],
       ),
-      actions: [
-        TCartCounterIcon(
-          onPressed: () {},
-          iconColor: TColors.white,
-        ),
-      ],
+      // actions: [
+      //   IconButton(onPressed: (){}, icon: Icon(Iconsax))
+      // ],
     );
   }
 }
