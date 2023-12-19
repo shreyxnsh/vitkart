@@ -25,14 +25,18 @@ class TTexts {
   static const String lastName = "Last Name";
   static const String regNo = "Registration Number";
   static const String email = "VIT Bhopal Email address";
+  static const String dontHaveAccount = "Don't have an account?";
   static const String contact = "Contact";
+  static const String password = "Password";
   static const String joiningYear = "Year of Joining VIT Bhopal";
   static const String hostel = "Hostel";
+  static const String toContinue = "To continue, please enter your credentials";
   static const String block = "Block";
   static const String source = "Source";
   static const String rememberMe = "Remember Me";
   static const String forgetPassword = "Forget Password?";
   static const String signIn = "Sign In";
+  static const String signUp = "Sign Up";
   static const String createAccount = "Create Account";
   static const String orSignInWith = "or sign in with";
   static const String orSignUpWith = "or sign up with";
@@ -45,6 +49,7 @@ class TTexts {
   static const String resendEmailIn = "Resend email in";
 
   // -- Authentication Headings
+  static const String login = "Login";
   static const String loginTitle = "Welcome back,";
   static const String loginSubTitle =
       "Discover Limitless Choices and Unmatched Convenience.";
