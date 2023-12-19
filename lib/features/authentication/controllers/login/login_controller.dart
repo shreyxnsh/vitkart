@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/state_manager.dart';
 import 'package:t_store/features/authentication/screens/kyc/kyc.dart';
 import 'package:t_store/features/shop/screens/home/home.dart';
 
@@ -14,11 +13,6 @@ class LoginController extends GetxController {
     super.onClose();
     emailController.dispose();
     passwordController.dispose();
-  }
-
-  @override
-  void onInit() {
-    super.onInit();
   }
 
   void login() {
