@@ -43,6 +43,61 @@ class RegisterScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: TColors.primary,
+      floatingActionButton: Visibility(
+        visible: MediaQuery.of(context).viewInsets.bottom == 0.0,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 4),
+          child: Padding(
+            padding: const EdgeInsets.all(18.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      controller.back(context);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: TColors.primary,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      minimumSize: const Size.square(54),
+                      maximumSize: const Size.square(54),
+                    ),
+                    child: Center(
+                      child: const Icon(
+                        Iconsax.arrow_left_2,
+                        color: TColors.white,
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      controller.register();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: TColors.primary,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      minimumSize: const Size.fromHeight(54),
+                      maximumSize: const Size.fromHeight(54),
+                    ),
+                    child: Text(controller.currentPageIndex.value == 2
+                        ? "Register"
+                        : "Next"),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       body: SingleChildScrollView(
         child: SizedBox(
           height: TSizes.displayHeight(context),
@@ -372,54 +427,6 @@ class RegisterScreen extends StatelessWidget {
                         ),
                       ),
                       const Spacer(),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 4),
-                        child: Row(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  controller.back(context);
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: TColors.primary,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(16),
-                                  ),
-                                  minimumSize: const Size.square(54),
-                                  maximumSize: const Size.square(54),
-                                ),
-                                child: Center(
-                                  child: const Icon(
-                                    Iconsax.arrow_left_2,
-                                    color: TColors.white,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  controller.register();
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: TColors.primary,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(16),
-                                  ),
-                                  minimumSize: const Size.fromHeight(54),
-                                  maximumSize: const Size.fromHeight(54),
-                                ),
-                                child: Text(
-                                    controller.currentPageIndex.value == 2
-                                        ? "Register"
-                                        : "Next"),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
                     ],
                   ),
                 ),
