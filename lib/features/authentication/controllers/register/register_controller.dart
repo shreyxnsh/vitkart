@@ -16,7 +16,7 @@ class RegisterController extends GetxController {
   TextEditingController joiningYearController = TextEditingController();
   TextEditingController knowFromController = TextEditingController();
   Rx<DateTime> dob = DateTime.now().obs;
-  //
+  // Page three
   TextEditingController otpController = TextEditingController();
   RxBool isVerified = false.obs;
   RxBool canResend = true.obs;
@@ -71,6 +71,18 @@ class RegisterController extends GetxController {
       log("Joining Year - ${joiningYearController.text}");
       log("Know From - ${knowFromController.text}");
       log("Dob - ${dob.toString()}");
+      log("Otp - ${otpController.text}");
+      log("Is Verified - ${isVerified.value}");
+      log("Can Resend - ${canResend.value}");
+      log("Page Index - ${currentPageIndex.value}");
+    }
+    if (1 == currentPageIndex.value) {
+      log("Phone - ${phoneController.text}");
+      log("Joining Year - ${joiningYearController.text}");
+      log("Know From - ${knowFromController.text}");
+      log("Dob - ${dob.toString()}");
+    }
+    if (2 == currentPageIndex.value) {
       log("Otp - ${otpController.text}");
       log("Is Verified - ${isVerified.value}");
       log("Can Resend - ${canResend.value}");
