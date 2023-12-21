@@ -25,6 +25,9 @@ class TTexts {
   static const String lastName = "Last Name";
   static const String regNo = "Registration Number";
   static const String email = "VIT Bhopal Email address";
+  static const String yearOfJoining = "Year of Joining";
+  static const String phone = "Phone Number";
+  static const String DOB = "Date of Birth";
   static const String name = "Your Full Name";
   static const String dontHaveAccount = "Don't have an account?";
   static const String contact = "Contact";
