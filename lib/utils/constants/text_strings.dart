@@ -9,9 +9,9 @@ class TTexts {
   static const String tContinue = "Continue";
 
   // -- OnBoarding Texts
-  static const String onBoardingTitle1 = "Choose your product";
-  static const String onBoardingTitle2 = "Select Payment Method";
-  static const String onBoardingTitle3 = "Deliver at your door step";
+  static const String onBoardingTitle1 = "Find your needs!";
+  static const String onBoardingTitle2 = "Select payment method";
+  static const String onBoardingTitle3 = "Contact the seller!";
 
   static const String onBoardingSubTitle1 =
       "Welcome to a World of Limitless Choices - Your Perfect Product Awaits!";
