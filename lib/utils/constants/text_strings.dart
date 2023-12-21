@@ -25,12 +25,16 @@ class TTexts {
   static const String lastName = "Last Name";
   static const String regNo = "Registration Number";
   static const String email = "VIT Bhopal Email address";
+  static const String name = "Your Full Name";
   static const String dontHaveAccount = "Don't have an account?";
   static const String contact = "Contact";
   static const String password = "Password";
+  static const String cpassword = "Confirm Password";
   static const String joiningYear = "Year of Joining VIT Bhopal";
   static const String hostel = "Hostel";
   static const String toContinue = "To continue, please enter your credentials";
+  static const String toGetStarted =
+      "We need some information fo you to get starter.";
   static const String block = "Block";
   static const String source = "Source";
   static const String rememberMe = "Remember Me";
