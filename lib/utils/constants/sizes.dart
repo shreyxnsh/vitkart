@@ -1,5 +1,16 @@
+import 'package:flutter/material.dart';
 
 class TSizes {
+  // Displaty Width
+  static double displayWidth(BuildContext context) {
+    return MediaQuery.of(context).size.width;
+  }
+
+  // Display Height
+  static double displayHeight(BuildContext context) {
+    return MediaQuery.of(context).size.height;
+  }
+
   // Padding and margin sizes
   static const double xs = 4.0;
   static const double sm = 8.0;
@@ -68,6 +79,3 @@ class TSizes {
   // Grid view spacing
   static const double gridViewSpacing = 16.0;
 }
-
-
-

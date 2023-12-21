@@ -1,58 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:t_store/common/styles/spacing_styles.dart';
-import 'package:t_store/features/authentication/screens/kyc/kyc.dart';
-import 'package:t_store/utils/constants/image_strings.dart';
+import 'package:t_store/features/authentication/screens/login/widget/loginPageForm.dart';
+import 'package:t_store/utils/constants/colors.dart';
 import 'package:t_store/utils/constants/sizes.dart';
-import 'package:t_store/utils/constants/text_strings.dart';
-
-import '../../../../utils/helpers/helper_functions.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-
-    final dark = THelperFunctions.isDarkMode(context);
-
     return Scaffold(
+      backgroundColor: TColors.primary,
       body: SingleChildScrollView(
-        child: Padding(padding: TSpacingStyle.paddingWithAppBarHeight,
-        child: Column(
-          children: [
-           Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+        child: SizedBox(
+          height: TSizes.displayHeight(context),
+          width: TSizes.displayWidth(context),
+          child: const Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisSize: MainAxisSize.max,
             children: [
-              Image(
-                height: 150,
-                image: AssetImage(dark ?  TImages.lightAppLogo : TImages.darkAppLogo)
-              ),
-              Text(
-                TTexts.loginTitle,
-                style: Theme.of(context).textTheme.headlineMedium,
-              ),
-              const SizedBox(
-                height: TSizes.sm,
-              ),
-              Text(
-                TTexts.loginSubTitle,
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
-            ]
+              LoginPageForm(),
+            ],
           ),
-          const SizedBox(
-            height: TSizes.spaceBtwSections,
-          ),
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(onPressed: (){
-              Get.to(const KYCScreen());
-            }, child: const Text("Google Sign-In",)),
-          )
-
-          ]
-        ),
         ),
       ),
     );

@@ -77,7 +77,7 @@ class HomeScreen extends StatelessWidget {
                   TSectionHeading(
                           title: "Popular Products",
                           showActionButton: true,
-                          textColor: Colors.white,
+                         
                           onPressed: (){
                             Get.to(const PopularProductScreen());
                           },
