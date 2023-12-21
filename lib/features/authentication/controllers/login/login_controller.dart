@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:t_store/features/authentication/screens/kyc/kyc.dart';
 import 'package:t_store/features/authentication/screens/register/register.dart';
 import 'package:t_store/features/shop/screens/home/home.dart';
 
@@ -26,6 +25,6 @@ class LoginController extends GetxController {
   void forgotPassword() {}
 
   void signUp() {
-    Get.to(const RegisterScreen());
+    Get.to(RegisterScreen());
   }
 }

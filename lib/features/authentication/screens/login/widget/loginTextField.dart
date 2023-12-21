@@ -10,7 +10,9 @@ class LoginScreenTextFeild extends StatelessWidget {
   final TextInputType? keyboardType;
   final VoidCallback? onTap;
   final VoidCallback? onEditingComplete;
+  final bool? enabled;
   const LoginScreenTextFeild({
+    this.enabled,
     this.controller,
     super.key,
     this.labelText = "",
@@ -25,6 +27,7 @@ class LoginScreenTextFeild extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      enabled: enabled,
       controller: controller,
       decoration: InputDecoration(
         labelText: labelText,
