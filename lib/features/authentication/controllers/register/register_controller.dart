@@ -70,6 +70,11 @@ class RegisterController extends GetxController {
       log("Phone - ${phoneController.text}");
     }
     if (1 == currentPageIndex.value) {
+      log("Name - ${nameController.text}");
+      log("Registeration No - ${registerationNoController.text}");
+      log("Email - ${emailController.text}");
+      log("Password - ${passwordController.text}");
+      log("CPassword - ${cpasswordController.text}");
       log("Phone - ${phoneController.text}");
       log("Joining Year - ${joiningYearController.text}");
       log("Know From - ${knowFromController.text}");
