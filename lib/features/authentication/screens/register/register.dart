@@ -157,6 +157,7 @@ class RegisterScreen extends StatelessWidget {
                                       : TColors.grey,
                             ),
                         ],
+                        
                       ),
                       SizedBox(
                         height: TSizes.displayHeight(context) * 0.5,

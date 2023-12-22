@@ -61,6 +61,7 @@ flutter:
     - assets/icons/categories/
     - assets/images/animations/
     - assets/icons/payment_methods/
+    - assets/icons/vitkart/
     - assets/images/on_boarding_images/
 
   #--------------- LOCAL FONTS ------------------#
