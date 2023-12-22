@@ -14,10 +14,18 @@ class LoginScreen extends StatelessWidget {
         child: SizedBox(
           height: TSizes.displayHeight(context),
           width: TSizes.displayWidth(context),
-          child: const Column(
+          child:  Column(
             mainAxisAlignment: MainAxisAlignment.end,
             mainAxisSize: MainAxisSize.max,
             children: [
+              Image.asset(
+                "assets/icons/vitkart/vitkart_logo_white.png",
+                width: 170,
+                height: 170,
+              ),
+              const SizedBox(
+                height: 60,
+              ),
               LoginPageForm(),
             ],
           ),
