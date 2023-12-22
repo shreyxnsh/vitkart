@@ -17,13 +17,9 @@ class LoginScreenHeadings extends StatelessWidget {
           height: TSizes.spaceBtwSections,
           width: TSizes.displayHeight(context) * 0.5,
         ),
-        const Text(
+         Text(
           "Good to see you back!",
-          style: TextStyle(
-            color: TColors.dark,
-            fontSize: 18,
-            fontWeight: FontWeight.w500,
-          ),
+          style: Theme.of(context).textTheme.headlineSmall,
         ),
         const SizedBox(
           height: TSizes.spaceBtwItems,
