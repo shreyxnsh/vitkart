@@ -29,7 +29,7 @@ class TProductCardVertical extends StatelessWidget {
           // boxShadow: [
           //   TShadowsStyle.verticalProductShadow,
           // ],
-          color: dark ? TColors.darkerGrey : TColors.white,
+          color: dark ? TColors.lightDarkBackground : TColors.white,
         ),
         child: Column(
           children: [
@@ -38,8 +38,9 @@ class TProductCardVertical extends StatelessWidget {
               padding: const EdgeInsets.all(TSizes.xs),
               child: TRoundedContainer(
                 height: TSizes.productItemHeight,
-                padding: const EdgeInsets.all(TSizes.sm),
-                backgroundColor: dark ? TColors.dark : TColors.light,
+                margin: const EdgeInsets.only(top: 4),
+                padding: const EdgeInsets.all(TSizes.xs),
+                backgroundColor: dark ? TColors.lightDarkBackground : TColors.light,
                 child: Stack(
                   children: [
                     const TRoundedImage(
@@ -67,8 +68,8 @@ class TProductCardVertical extends StatelessWidget {
 
                     /// Favourite
                     const Positioned(
-                      top: 0,
-                      right: 0,
+                      top: 2,
+                      right: 2,
                       child: TCircularIcon(
                         icon: Iconsax.heart5,
                         color: Colors.red,
@@ -112,7 +113,7 @@ class TProductCardVertical extends StatelessWidget {
                   ),
                   Container(
                     decoration: const BoxDecoration(
-                      color: TColors.dark,
+                      color: TColors.primary,
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(TSizes.cardRadiusMd),
                         bottomRight: Radius.circular(TSizes.productImageRadius),
