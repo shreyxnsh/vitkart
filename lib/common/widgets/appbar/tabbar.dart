@@ -17,7 +17,7 @@ class TTabBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     final dark = THelperFunctions.isDarkMode(context);
     return Material(
-      color: dark ? TColors.black : TColors.white,
+      color: dark ? TColors.darkBackground : TColors.white,
       child: TabBar(
         isScrollable: true,
         indicatorColor: TColors.primary,
