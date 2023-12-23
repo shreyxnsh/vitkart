@@ -23,13 +23,16 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           children: [
             const TPrimaryHeaderContainer(
-              height: 400,
+              height: 370,
               child: Column(
                 children: [
                   /// App Bar
+                  const SizedBox(
+                    height: 16,
+                  ),
                   ThemeHomeAppBar(),
                   SizedBox(
-                    height: TSizes.spaceBtwSections,
+                    height: TSizes.spaceBtwItems,
                   ),
 
                   /// Search Bar

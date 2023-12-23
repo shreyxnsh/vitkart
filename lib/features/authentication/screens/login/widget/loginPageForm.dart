@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -10,6 +12,7 @@ import 'package:t_store/features/authentication/screens/login/widget/loginTextFi
 import 'package:t_store/utils/constants/colors.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 import 'package:t_store/utils/constants/text_strings.dart';
+import 'package:t_store/utils/helpers/helper_functions.dart';
 
 class LoginPageForm extends StatelessWidget {
   const LoginPageForm({
@@ -18,13 +21,21 @@ class LoginPageForm extends StatelessWidget {
 
   LoginController get controller => Get.put(LoginController());
 
+  
+  
   @override
   Widget build(BuildContext context) {
+
+    final dark = THelperFunctions.isDarkMode(context);
+
+
     return Obx(
       () => Ink(
         padding: const EdgeInsets.all(20),
-        decoration: const BoxDecoration(
-          color: TColors.white,
+        
+        decoration:  BoxDecoration(
+          
+          color: dark ? TColors.darkBackground : TColors.light,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),
@@ -32,7 +43,7 @@ class LoginPageForm extends StatelessWidget {
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const LoginScreenHeadings(),
             LoginScreenTextFeild(
@@ -63,8 +74,8 @@ class LoginPageForm extends StatelessWidget {
                   controller.isObscure.value ? Iconsax.eye : Iconsax.eye_slash,
                   size: 18,
                   color: !controller.isObscure.value
-                      ? TColors.black
-                      : TColors.warning,
+                      ? TColors.white
+                      : TColors.primary,
                 ),
               ),
             ),
@@ -73,13 +84,15 @@ class LoginPageForm extends StatelessWidget {
             ),
             const ForgotPasswordTextButton(),
             const SizedBox(
-              height: TSizes.spaceBtwSections,
+              height: TSizes.spaceBtwItems,
             ),
-            LoginPageSignInButton(
-              onPressed: controller.login,
+            Center(
+              child: LoginPageSignInButton(
+                onPressed: controller.login,
+              ),
             ),
             const SizedBox(
-              height: TSizes.spaceBtwSections,
+              height: TSizes.spaceBtwInputFields,
             ),
             DontHaveAccountButtonText(onPressed: controller.signUp),
           ],

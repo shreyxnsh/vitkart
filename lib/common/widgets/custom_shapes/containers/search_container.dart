@@ -37,7 +37,7 @@ class TSearchContainer extends StatelessWidget {
           decoration: BoxDecoration(
             color: showBackground
                 ? dark
-                    ? TColors.dark
+                    ? TColors.lightDarkBackground
                     : TColors.white
                 : Colors.transparent,
             borderRadius: BorderRadius.circular(TSizes.cardRadiusLg),
@@ -47,14 +47,14 @@ class TSearchContainer extends StatelessWidget {
             children: [
               Icon(
                 icon,
-                color: dark ? TColors.darkerGrey : Colors.grey,
+                color: dark ? TColors.grey : Colors.grey,
               ),
               const SizedBox(
                 width: TSizes.spaceBtwItems,
               ),
               Text(
                 text,
-                style: Theme.of(context).textTheme.bodySmall,
+                style: Theme.of(context).textTheme.bodyMedium,
               ),
             ],
           ),

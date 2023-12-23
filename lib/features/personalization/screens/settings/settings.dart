@@ -44,25 +44,32 @@ class SettingScreen extends StatelessWidget {
             )),
 
             //body
-            Padding(
-              padding: const EdgeInsets.all(
-                TSizes.defaultSpace,
-              ),
-              child: Column(
+            Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const TSectionHeading(title: "Account Settings"),
-                  const SizedBox(
-                    height: TSizes.spaceBtwItems,
+                  Padding(
+                    padding: const EdgeInsets.only(right: TSizes.defaultSpace , left: TSizes.defaultSpace),
+                    child: Column(
+                      children: [
+                        const TSectionHeading(title: "Account Settings"),
+                        const SizedBox(
+                      height: TSizes.spaceBtwItems,
+                    ),
+                      ],
+                    ),
                   ),
-                  TSettingsMenuTile(
-                    icon: Iconsax.safe_home,
-                    title: "My Addresses",
-                    subtitle: "Set shopping delivery address",
-                    onTap: () {
-                      Get.to(() => const AddressScreen());
-                    },
-                  ),
-                  TSettingsMenuTile(
+                  
+                  Column(
+                    children: [
+                      TSettingsMenuTile(
+                        icon: Iconsax.safe_home,
+                        title: "My Addresses",
+                        subtitle: "Set shopping delivery address",
+                        onTap: () {
+                          Get.to(() => const AddressScreen());
+                        },
+                      ),
+                      TSettingsMenuTile(
                     icon: Iconsax.shopping_cart,
                     title: "My Cart",
                     subtitle: "Add, remove products and move to checkout",
@@ -101,65 +108,85 @@ class SettingScreen extends StatelessWidget {
                     onTap: () {},
                   ),
 
+                    ],
+                  ),
+                  
+                  
+
                   //app settings
                   const SizedBox(
                     height: TSizes.spaceBtwSections,
                   ),
-                  const TSectionHeading(title: "App Settings"),
-                  const SizedBox(
-                    height: TSizes.spaceBtwItems,
+                  Padding(
+                    padding: const EdgeInsets.only(right: TSizes.defaultSpace , left: TSizes.defaultSpace),
+                    child: Column(
+                      children: [
+                        const TSectionHeading(title: "App Settings"),
+                        const SizedBox(
+                      height: TSizes.spaceBtwItems,
+                    ),
+                      ],
+                    ),
                   ),
-                  TSettingsMenuTile(
-                    icon: Iconsax.document_upload,
-                    title: "Load Data",
-                    subtitle: "Upload data to cloud firestore",
-                    onTap: () {},
-                  ),
+                  Column(
+                    children: [
+                      TSettingsMenuTile(
+                        icon: Iconsax.document_upload,
+                        title: "Load Data",
+                        subtitle: "Upload data to cloud firestore",
+                        onTap: () {},
+                      ),
 
-                  TSettingsMenuTile(
-                    icon: Iconsax.location,
-                    title: "Location",
-                    subtitle: "Let VITKART access your location",
-                    trailing: Switch(
-                      value: true,
-                      onChanged: (value) {},
-                    ),
-                  ),
-                  TSettingsMenuTile(
-                    icon: Iconsax.security_user,
-                    title: "Safe Mode",
-                    subtitle: "Search Result is safe for all ages",
-                    trailing: Switch(
-                      value: false,
-                      onChanged: (value) {},
-                    ),
-                  ),
-                  TSettingsMenuTile(
-                    icon: Iconsax.image,
-                    title: "Enhanced Image Quality",
-                    subtitle: "Set higher image quality",
-                    trailing: Switch(
-                      value: false,
-                      onChanged: (value) {},
-                    ),
-                  ),
+                      TSettingsMenuTile(
+                        icon: Iconsax.location,
+                        title: "Location",
+                        subtitle: "Let VITKART access your location",
+                        trailing: Switch(
+                          value: true,
+                          onChanged: (value) {},
+                        ),
+                      ),
+                      TSettingsMenuTile(
+                        icon: Iconsax.security_user,
+                        title: "Safe Mode",
+                        subtitle: "Search Result is safe for all ages",
+                        trailing: Switch(
+                          value: false,
+                          onChanged: (value) {},
+                        ),
+                      ),
+                      TSettingsMenuTile(
+                        icon: Iconsax.image,
+                        title: "Enhanced Image Quality",
+                        subtitle: "Set higher image quality",
+                        trailing: Switch(
+                          value: false,
+                          onChanged: (value) {},
+                        ),
+                      ),
 
-                  const SizedBox(
-                    height: TSizes.spaceBtwSections,
-                  ),
-                  SizedBox(
-                    width: double.infinity,
-                    child: OutlinedButton(
-                      child: const Text("Logout"),
-                      onPressed: () {},
-                    ),
+                      const SizedBox(
+                        height: TSizes.spaceBtwSections,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(right: TSizes.defaultSpace, left: TSizes.defaultSpace),
+                        child: SizedBox(
+                          
+                          width: double.infinity,
+                          child: OutlinedButton(
+                            child: const Text("Logout"),
+                            onPressed: () {},
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   const SizedBox(
                     height: TSizes.spaceBtwSections * 2.5,
                   ),
                 ],
               ),
-            ),
+            
           ],
         ),
       ),

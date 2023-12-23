@@ -14,18 +14,13 @@ class DontHaveAccountButtonText extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Text(TTexts.dontHaveAccount,
-            style: TextStyle(
-              color: TColors.dark,
-              fontSize: 14,
-            )),
+         Text(TTexts.dontHaveAccount,
+            style: Theme.of(context).textTheme.bodyLarge,),
         TextButton(
           onPressed: onPressed,
-          child: const Text(
+          child:  Text(
             TTexts.signUp,
-            style: TextStyle(
-              color: TColors.primary,
-            ),
+            style:  Theme.of(context).textTheme.bodyLarge!.copyWith(color: TColors.primary),
           ),
         ),
       ],

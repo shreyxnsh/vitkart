@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:t_store/utils/constants/colors.dart';
+import 'package:t_store/utils/helpers/helper_functions.dart';
 
 class LoginScreenTextFeild extends StatelessWidget {
   final TextEditingController? controller;
@@ -26,16 +27,18 @@ class LoginScreenTextFeild extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dark = THelperFunctions.isDarkMode(context);
     return TextField(
       enabled: enabled,
       controller: controller,
       decoration: InputDecoration(
         labelText: labelText,
+        prefixIconColor: dark ? TColors.light : TColors.primary,
         prefixIcon: Icon(prefixIcon),
         suffixIcon: suffixIcon,
         border: const OutlineInputBorder(),
         filled: true,
-        fillColor: TColors.light,
+        fillColor: dark ? TColors.lightDarkBackground : TColors.light,
       ),
       obscureText: obscureText,
       keyboardType: keyboardType,

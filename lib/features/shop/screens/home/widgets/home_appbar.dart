@@ -18,7 +18,7 @@ class ThemeHomeAppBar extends StatelessWidget {
           Text(TTexts.homeAppbarTitle,
               style: Theme.of(context)
                   .textTheme
-                  .labelMedium!
+                  .bodySmall!
                   .apply(color: TColors.grey)),
           Text(TTexts.homeAppbarSubTitle,
               style: Theme.of(context)

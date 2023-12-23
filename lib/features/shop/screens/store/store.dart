@@ -39,8 +39,8 @@ class StoreScreen extends StatelessWidget {
                   SliverAppBar(
                     pinned: true,
                     floating: true,
-                    backgroundColor: dark ? TColors.black : TColors.white,
-                    expandedHeight: 440,
+                    backgroundColor: dark ? TColors.darkBackground : TColors.white,
+                    expandedHeight: 410,
                     automaticallyImplyLeading: false,
 
                     flexibleSpace: Padding(
@@ -50,9 +50,7 @@ class StoreScreen extends StatelessWidget {
                         physics: const NeverScrollableScrollPhysics(),
                         children: [
                           /// search bar
-                          const SizedBox(
-                            height: TSizes.spaceBtwItems,
-                          ),
+                          
                           const TSearchContainer(
                             text: 'Search in Store',
                             showBorder: true,
@@ -60,7 +58,7 @@ class StoreScreen extends StatelessWidget {
                             padding: EdgeInsets.zero,
                           ),
                           const SizedBox(
-                            height: TSizes.spaceBtwSections,
+                            height: TSizes.spaceBtwItems,
                           ),
 
                           /// featured

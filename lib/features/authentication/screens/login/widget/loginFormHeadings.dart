@@ -11,27 +11,24 @@ class LoginScreenHeadings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      
       children: [
         SizedBox(
           height: TSizes.spaceBtwSections,
-          width: TSizes.displayHeight(context) * 0.5,
+        
         ),
          Text(
-          "Good to see you back!",
+          "👋 Good to see you back!",
           style: Theme.of(context).textTheme.headlineSmall,
         ),
         const SizedBox(
           height: TSizes.spaceBtwItems,
         ),
-        const Text(
+         Text(
           TTexts.toContinue,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: TColors.dark,
-            fontSize: 14,
-            fontWeight: FontWeight.w400,
-          ),
+          
+          style: Theme.of(context).textTheme.titleLarge,
         ),
         const SizedBox(
           height: TSizes.spaceBtwSections,

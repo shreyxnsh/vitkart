@@ -21,6 +21,7 @@ class NavigationMenu extends StatelessWidget {
         () => NavigationBar(
           height: 80,
           elevation: 0,
+          
           selectedIndex: controller.selectedIndex.value,
           onDestinationSelected: (int index) =>
               controller.selectedIndex.value = index,
@@ -28,15 +29,15 @@ class NavigationMenu extends StatelessWidget {
           //
           backgroundColor: darkMode ? TColors.dark : TColors.light,
           indicatorColor: darkMode
-              ? TColors.light.withOpacity(0.1)
-              : TColors.dark.withOpacity(0.1),
+              ? Colors.transparent
+              : Colors.transparent,
 
           destinations: const [
-            NavigationDestination(icon: Icon(Iconsax.home), label: "Home"),
-            NavigationDestination(icon: Icon(Iconsax.shop), label: "Store"),
-            NavigationDestination(icon: Icon(Iconsax.add), label: "Sell"),
-            NavigationDestination(icon: Icon(Iconsax.calendar), label: "Events"),
-            NavigationDestination(icon: Icon(Iconsax.user), label: "Account"),
+            NavigationDestination(icon: Icon(Iconsax.home), label: "Home" , selectedIcon: Icon(Iconsax.home5, color: TColors.primary,),),
+            NavigationDestination(icon: Icon(Iconsax.shopping_cart), label: "Store" ,   selectedIcon: Icon(Iconsax.shopping_cart5, color: TColors.primary,),),
+            NavigationDestination(icon: Icon(Iconsax.add_square), label: "Sell" , selectedIcon: Icon(Iconsax.add_square5, color: TColors.primary,),),
+            NavigationDestination(icon: Icon(Iconsax.ticket), label: "Events" , selectedIcon: Icon(Iconsax.ticket, color: TColors.primary,),),
+            NavigationDestination(icon: Icon(Iconsax.personalcard), label: "Account" , selectedIcon: Icon(Iconsax.personalcard5, color: TColors.primary,),),
           ],
         ),
       ),
