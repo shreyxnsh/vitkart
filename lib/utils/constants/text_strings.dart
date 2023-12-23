@@ -35,7 +35,7 @@ class TTexts {
   static const String cpassword = "Confirm Password";
   static const String joiningYear = "Year of Joining VIT Bhopal";
   static const String hostel = "Hostel";
-  static const String toContinue = "To continue, please enter your credentials";
+  static const String toContinue = "Please enter your credentials";
   static const String toGetStarted =
       "We need some information fo you to get starter.";
   static const String block = "Block";
@@ -84,6 +84,6 @@ class TTexts {
   static const String popularProducts = "Popular Products";
 
   // -- Home
-  static const String homeAppbarTitle = "Hola, Hello, Namaste!";
+  static const String homeAppbarTitle = "Welcome back 👋";
   static const String homeAppbarSubTitle = "Shreyansh";
 }

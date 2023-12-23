@@ -23,6 +23,14 @@ class TImages {
   static const String jeweleryIcon = "assets/icons/categories/icons8-sparkling-diamond-64.png";
   static const String electronicsIcon = "assets/icons/categories/icons8-smartphone-64.png";
 
+
+  static const String musicIcon = "assets/icons/categories/music.png";
+  static const String danceIcon = "assets/icons/categories/dance.png";
+  static const String codingIcon = "assets/icons/categories/coding.png";
+  static const String guestIcon = "assets/icons/categories/guest.png";
+  static const String dramaIcon = "assets/icons/categories/drama.png";
+  static const String culturalIcon = "assets/icons/categories/cultural.png";
+
   // vitkart icons
   static const String techIcon = "assets/icons/categories/tech.png";
   static const String cycleIcon = "assets/icons/categories/cycle.png";
