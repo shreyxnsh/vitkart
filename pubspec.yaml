@@ -35,6 +35,8 @@ dependencies:
   flutter_rating_bar: ^4.0.1
   capped_progress_indicator: ^0.0.2
   pinput: ^3.0.1
+  iconify: ^0.0.1
+  iconify_flutter: ^0.0.5
 
 
 
@@ -59,8 +61,10 @@ flutter:
     - assets/images/reviews/
     - assets/images/products/
     - assets/icons/categories/
+    - assets/icons/events/
     - assets/images/animations/
     - assets/icons/payment_methods/
+    - assets/images/content/back.png
     - assets/icons/vitkart/
     - assets/images/on_boarding_images/
 
