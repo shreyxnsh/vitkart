@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:t_store/utils/constants/colors.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 import 'package:t_store/utils/constants/text_strings.dart';
 
@@ -14,7 +13,7 @@ class LoginScreenHeadings extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       
       children: [
-        SizedBox(
+        const SizedBox(
           height: TSizes.spaceBtwSections,
         
         ),
