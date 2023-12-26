@@ -23,13 +23,13 @@ class TEventsHeader extends StatelessWidget {
                     children: [
                       Text(
                         'Events 🎉',
-                        style: Theme.of(context).textTheme.headlineMedium,
+                        style: Theme.of(context).textTheme.headlineMedium!.copyWith(color: Colors.white),
                       ),
                       
                     ],
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   top: 100, // Adjust the top position based on your preference
                   left: 10, // Adjust the left position based on your preference
                   right: 10, // Adjust the left position based on your preference
