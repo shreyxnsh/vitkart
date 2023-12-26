@@ -37,7 +37,7 @@ class TTexts {
   static const String hostel = "Hostel";
   static const String toContinue = "Please enter your credentials";
   static const String toGetStarted =
-      "We need some information fo you to get starter.";
+      "Enter your details to get started";
   static const String block = "Block";
   static const String source = "Source";
   static const String rememberMe = "Remember Me";
@@ -80,8 +80,15 @@ class TTexts {
   static const String kycSubTitle =
       "Enter your details correctly for a smoother on-boarding.";
 
+
+
+  //events
+static const String scanqr = "Scan this QR code or \nshow this ticket \nat the venue.";
+
   // -- Product
+  
   static const String popularProducts = "Popular Products";
+  static const String eventDescription = "You are responsible for operations, service, or customer support and face challenges trying to communicate complex procedures to a global market effectively. ";
 
   // -- Home
   static const String homeAppbarTitle = "Welcome back 👋";
