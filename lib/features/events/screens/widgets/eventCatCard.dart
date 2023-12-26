@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:t_store/utils/constants/colors.dart';
+import 'package:t_store/utils/helpers/helper_functions.dart';
 
 class TEventCategoryCard extends StatelessWidget {
-   TEventCategoryCard({
+   const TEventCategoryCard({
     Key? key,
     required this.image,
     required this.title,
@@ -15,13 +16,14 @@ class TEventCategoryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dark = THelperFunctions.isDarkMode(context);
     return GestureDetector(
       onTap: onPressed,
       child: Container(
 
         padding: const EdgeInsets.all(4),
         decoration: BoxDecoration(
-          color:  TColors.lightDarkBackground,
+          color:  dark ? TColors.lightDarkBackground : TColors.primary,
           borderRadius: BorderRadius.circular(12),
         ),
         child: Column(
@@ -29,13 +31,13 @@ class TEventCategoryCard extends StatelessWidget {
           children: [
             Image.asset(
               image,
-              width: 38,
-              height: 38,
+              width: 40,
+              height: 40,
             ),
             const SizedBox(height: 8),
             Text(
               title,
-              style: Theme.of(context).textTheme.titleMedium,
+              style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Colors.white),
               overflow: TextOverflow.ellipsis, // Display ellipsis for overflow
               maxLines: 1, 
               textAlign: TextAlign.center,
