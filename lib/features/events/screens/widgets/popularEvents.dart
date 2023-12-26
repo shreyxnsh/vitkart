@@ -1,13 +1,15 @@
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:t_store/features/events/screens/eventDetails.dart';
 import 'package:t_store/features/events/screens/widgets/discount.dart';
 import 'package:t_store/utils/constants/colors.dart';
+import 'package:t_store/utils/helpers/helper_functions.dart';
 
 class PopularEventList extends StatelessWidget {
   final List<Map<String, dynamic>> groomingData = [
     {
-      'discount': 'Flat 20% off',
+      'discount': 'OD Provided',
       'eventName': 'Garba Event',
       'clubName': 'Gujrati Club',
       'venue': 'Auditorium',
@@ -17,7 +19,7 @@ class PopularEventList extends StatelessWidget {
       'ticketPrice': '500',
     },
     {
-      'discount': '5% off on 3+ services',
+      'discount': 'Full Day OD',
       'eventName': 'AI Conclave',
       'clubName': 'AI Club',
       'venue': 'MPH',
@@ -27,7 +29,7 @@ class PopularEventList extends StatelessWidget {
       'ticketPrice': '200',
     },
     {
-      'discount': 'Flat 20% off',
+      'discount': 'OD Not Provided',
       'eventName': 'Garba Event',
       'clubName': 'Gujrati Club',
       'venue': 'Auditorium',
@@ -66,48 +68,53 @@ class PopularEventCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 280,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        image: DecorationImage(
-          image: AssetImage(data['backgroundImage']),
-          fit: BoxFit.cover,
-        ),
-      ),
-      child: Stack(
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: DiscountContainer(discount: data['discount']),
-              ),
-              const Spacer(),
-            ],
+    return GestureDetector(
+      onTap: (){
+        Get.to(() => const EventDetailScreen());
+      },
+      child: Container(
+        width: 280,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          image: DecorationImage(
+            image: AssetImage(data['backgroundImage']),
+            fit: BoxFit.cover,
           ),
-          Positioned(
-            bottom: 10,
-            left: 10,
-            right: 10,
-            child: Padding(
-              padding: const EdgeInsets.all(0.0),
-              child: ClipRect(
-                
-                  child: EventDetailsContainer(
-                    eventName: data['eventName'],
-                    venue: data['venue'],
-                    clubName: data['clubName'],
-                    datetime: data['datetime'],
-                    ticketPrice: data['ticketPrice'],
-                  ),
-                
+        ),
+        child: Stack(
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: DiscountContainer(discount: data['discount']),
+                ),
+                const Spacer(),
+              ],
+            ),
+            Positioned(
+              bottom: 10,
+              left: 10,
+              right: 10,
+              child: Padding(
+                padding: const EdgeInsets.all(0.0),
+                child: ClipRect(
+                  
+                    child: EventDetailsContainer(
+                      eventName: data['eventName'],
+                      venue: data['venue'],
+                      clubName: data['clubName'],
+                      datetime: data['datetime'],
+                      ticketPrice: data['ticketPrice'],
+                    ),
+                  
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -130,10 +137,11 @@ class EventDetailsContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dark = THelperFunctions.isDarkMode(context);
     return Container(
       padding: const EdgeInsets.all(10.0),
       decoration: BoxDecoration(
-        color: TColors.lightDarkBackground,
+        color: dark ? TColors.lightDarkBackground : TColors.white,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
           color: TColors.lightDarkBackground,
@@ -146,7 +154,7 @@ class EventDetailsContainer extends StatelessWidget {
             children: [
               Text(
                 eventName,
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Colors.white),
+                style: Theme.of(context).textTheme.titleMedium,
               ),
               const Spacer(),
               Row(
@@ -172,7 +180,7 @@ class EventDetailsContainer extends StatelessWidget {
           ),
           Text(
                 clubName,
-                style: Theme.of(context).textTheme.labelLarge?.copyWith(color: Colors.white , fontStyle: FontStyle.italic),
+                style: Theme.of(context).textTheme.labelLarge?.copyWith( fontStyle: FontStyle.italic),
               ),
               const SizedBox(
             height: 2,
@@ -188,14 +196,14 @@ class EventDetailsContainer extends StatelessWidget {
               
               Text(
                 datetime,
-                style: Theme.of(context).textTheme.labelLarge?.copyWith(color: Colors.white),
+                style: Theme.of(context).textTheme.labelLarge,
               ),
               const SizedBox(
                 width: 4,
               ),
               Text(
                 venue,
-                style: Theme.of(context).textTheme.labelLarge?.copyWith(color: Colors.white),
+                style: Theme.of(context).textTheme.labelLarge,
               ),
             ],
           ),

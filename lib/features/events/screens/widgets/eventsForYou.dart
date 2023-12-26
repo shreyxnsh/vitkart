@@ -1,13 +1,14 @@
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:t_store/features/events/screens/widgets/discount.dart';
+import 'package:get/get.dart';
+import 'package:t_store/features/events/screens/eventDetails.dart';
 import 'package:t_store/utils/constants/colors.dart';
+import 'package:t_store/utils/helpers/helper_functions.dart';
 
 class EventsForYouList extends StatelessWidget {
   final List<Map<String, dynamic>> groomingData = [
     {
-      'discount': 'Flat 20% off',
+      'discount': 'Full Day OD',
       'eventName': 'Garba Event',
       'clubName': 'Gujrati Club',
       'venue': 'Auditorium',
@@ -17,7 +18,7 @@ class EventsForYouList extends StatelessWidget {
       'ticketPrice': '500',
     },
     {
-      'discount': '5% off on 3+ services',
+      'discount': 'OD Not provided',
       'eventName': 'AI Conclave',
       'clubName': 'AI Club',
       'venue': 'MPH',
@@ -66,79 +67,85 @@ class EventForYouCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 240,
-      
-      decoration: BoxDecoration(
-        color: TColors.lightDarkBackground,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Top Section with Background Image
-          Container(
-            margin: const EdgeInsets.only(top : 10),
-            width: double.infinity,
-            height: 150, // Set the desired height for the background image
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-              
-            ),
-            child: Image.asset(
-              data['backgroundImage'],
-              
-            ),
-          ),
-
-          // Bottom Section with Event Details
-          Container(
-            padding: const EdgeInsets.all(10.0),
-            decoration: BoxDecoration(
-              color: TColors.lightDarkBackground,
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(12),
-                bottomRight: Radius.circular(12),
+    final dark = THelperFunctions.isDarkMode(context);
+    return GestureDetector(
+      onTap: () {
+        Get.to(() => const EventDetailScreen());
+      },
+      child: Container(
+        width: 240,
+        
+        decoration: BoxDecoration(
+          color: dark ? TColors.lightDarkBackground : TColors.light,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Top Section with Background Image
+            Container(
+              margin: const EdgeInsets.only(top : 10),
+              width: double.infinity,
+              height: 150, // Set the desired height for the background image
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                
               ),
-              border: Border.all(
-                color: TColors.lightDarkBackground,
+              child: Image.asset(
+                data['backgroundImage'],
+                
               ),
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Text(
-                      data['eventName'],
-                      style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: Colors.white),
-                    ),
-                    Spacer(),
-                    Text(
-                            "₹ " + data['ticketPrice'],
-                            style: Theme.of(context).textTheme.titleLarge?.copyWith(color: TColors.primary),
-                          ),
-                  ],
+    
+            // Bottom Section with Event Details
+            Container(
+              padding: const EdgeInsets.all(10.0),
+              decoration: BoxDecoration(
+                color: dark ? TColors.lightDarkBackground : TColors.light,
+                borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.circular(12),
+                  bottomRight: Radius.circular(12),
                 ),
-                const SizedBox(height: 7),
-                Text(
-                  data['clubName'],
-                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.grey, fontStyle: FontStyle.italic),
+                border: Border.all(
+                  color: dark ? TColors.lightDarkBackground : TColors.light,
                 ),
-                const SizedBox(height: 10),
-                Text(
-                      data['datetime'],
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.white),
-                    ),
-                    const SizedBox(height: 5),
-                Text(
-                      data['venue'],
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.white),
-                    ),
-              ],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        data['eventName'],
+                        style: Theme.of(context).textTheme.headlineSmall,
+                      ),
+                      const Spacer(),
+                      Text(
+                              "₹ " + data['ticketPrice'],
+                              style: Theme.of(context).textTheme.titleLarge?.copyWith(color: TColors.primary),
+                            ),
+                    ],
+                  ),
+                  const SizedBox(height: 7),
+                  Text(
+                    data['clubName'],
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith( fontStyle: FontStyle.italic),
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                        data['datetime'],
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                      const SizedBox(height: 5),
+                  Text(
+                        data['venue'],
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
