@@ -10,6 +10,7 @@ import 'package:t_store/features/shop/screens/home/widgets/circular_widget.dart'
 import 'package:t_store/utils/constants/colors.dart';
 import 'package:t_store/utils/constants/sizes.dart';
 import 'package:t_store/utils/constants/text_strings.dart';
+import 'package:t_store/utils/helpers/helper_functions.dart';
 
 class RegisterScreen extends StatelessWidget {
   RegisterScreen({super.key});
@@ -19,12 +20,12 @@ class RegisterScreen extends StatelessWidget {
   final defaultPinTheme = PinTheme(
     width: 56,
     height: 56,
-    textStyle: TextStyle(
+    textStyle: const TextStyle(
         fontSize: 20,
         color: Color.fromRGBO(30, 60, 87, 1),
         fontWeight: FontWeight.w600),
     decoration: BoxDecoration(
-      border: Border.all(color: Color.fromRGBO(234, 239, 243, 1)),
+      border: Border.all(color: const Color.fromRGBO(234, 239, 243, 1)),
       borderRadius: BorderRadius.circular(20),
     ),
   );
@@ -41,6 +42,7 @@ class RegisterScreen extends StatelessWidget {
   // );
   @override
   Widget build(BuildContext context) {
+    final dark = THelperFunctions.isDarkMode(context);
     return Scaffold(
       backgroundColor: TColors.primary,
       floatingActionButton: Visibility(
@@ -66,8 +68,8 @@ class RegisterScreen extends StatelessWidget {
                       minimumSize: const Size.square(54),
                       maximumSize: const Size.square(54),
                     ),
-                    child: Center(
-                      child: const Icon(
+                    child: const Center(
+                      child: Icon(
                         Iconsax.arrow_left_2,
                         color: TColors.white,
                       ),
@@ -110,9 +112,9 @@ class RegisterScreen extends StatelessWidget {
                 () => Container(
                   height: TSizes.displayHeight(context) * 0.89,
                   padding: const EdgeInsets.all(20),
-                  decoration: const BoxDecoration(
-                    color: TColors.white,
-                    borderRadius: BorderRadius.only(
+                  decoration:  BoxDecoration(
+                    color: dark ? TColors.darkBackground : TColors.light,
+                    borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(20),
                       topRight: Radius.circular(20),
                     ),
@@ -120,23 +122,17 @@ class RegisterScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        "Student Details",
-                        style: TextStyle(
-                          color: TColors.dark,
-                          fontSize: 24,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      const Text(
-                        TTexts.toGetStarted,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: TColors.dark,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
+                       Text(
+                        "👨🏻‍🎓 Student Details",
+                        style: Theme.of(context).textTheme.headlineMedium,
+                      ),const SizedBox(
+          height: TSizes.spaceBtwItems,
+        ),
+         Text(
+          TTexts.toGetStarted,
+          
+          style: Theme.of(context).textTheme.headlineSmall,
+        ),
                       const SizedBox(
                         height: TSizes.spaceBtwSections,
                       ),
@@ -336,7 +332,7 @@ class RegisterScreen extends StatelessWidget {
                                                 fontWeightDelta: 1),
                                       ),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: TSizes.spaceBtwInputFields,
                                     ),
                                     Text(
@@ -347,7 +343,7 @@ class RegisterScreen extends StatelessWidget {
                                           .bodySmall!
                                           .apply(fontSizeFactor: 0.9),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: TSizes.spaceBtwSections,
                                     ),
                                     Center(
@@ -359,9 +355,9 @@ class RegisterScreen extends StatelessWidget {
                                           decoration: defaultPinTheme.decoration
                                               ?.copyWith(
                                             color: controller.isVerified.value
-                                                ? Color.fromRGBO(
+                                                ? const Color.fromRGBO(
                                                     206, 255, 210, 1)
-                                                : Color.fromRGBO(
+                                                : const Color.fromRGBO(
                                                     234, 239, 243, 1),
                                           ),
                                         ),
@@ -378,6 +374,8 @@ class RegisterScreen extends StatelessWidget {
                                           }
                                         },
                                         validator: (s) {
+                                          return null;
+                                        
                                           // if (s == "2222") {
                                           //   controller.isVerified.value = true;
                                           // } else {
@@ -391,7 +389,7 @@ class RegisterScreen extends StatelessWidget {
                                         onCompleted: (pin) => print(pin),
                                       ),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: TSizes.spaceBtwInputFields,
                                     ),
                                     Center(
@@ -400,7 +398,7 @@ class RegisterScreen extends StatelessWidget {
                                       style:
                                           Theme.of(context).textTheme.bodySmall,
                                     )),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: TSizes.spaceBtwInputFields,
                                     ),
                                     Center(

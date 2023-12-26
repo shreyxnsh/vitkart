@@ -143,6 +143,10 @@ class TImages {
   static const String productImage76 = "assets/images/products/slipper-product-3.png";
   static const String productImage77= "assets/images/products/slipper-product.png";
 
+  //events
+static const String earlyBirdTicket = "assets/icons/events/earlybird.png";
+static const String normalTicket = "assets/icons/events/normal.png";
+static const String lastMomentTicket = "assets/icons/events/lastmoment.png";
 
 
 

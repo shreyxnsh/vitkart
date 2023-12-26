@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:t_store/features/authentication/screens/register/register.dart';
-import 'package:t_store/features/shop/screens/home/home.dart';
 import 'package:t_store/navigation_menu.dart';
 
 class LoginController extends GetxController {

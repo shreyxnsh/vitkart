@@ -27,7 +27,7 @@ class HomeScreen extends StatelessWidget {
               child: Column(
                 children: [
                   /// App Bar
-                  const SizedBox(
+                  SizedBox(
                     height: 16,
                   ),
                   ThemeHomeAppBar(),

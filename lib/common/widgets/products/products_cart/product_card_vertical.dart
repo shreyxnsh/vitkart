@@ -29,7 +29,7 @@ class TProductCardVertical extends StatelessWidget {
           // boxShadow: [
           //   TShadowsStyle.verticalProductShadow,
           // ],
-          color: dark ? TColors.lightDarkBackground : TColors.white,
+          color: dark ? TColors.lightDarkBackground : TColors.light,
         ),
         child: Column(
           children: [

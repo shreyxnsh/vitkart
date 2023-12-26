@@ -4,6 +4,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:t_store/common/widgets/appbar/appbar.dart';
 import 'package:t_store/common/widgets/list_tiles/settings_menu.dart';
 import 'package:t_store/common/widgets/text/section_heading.dart';
+import 'package:t_store/features/events/screens/myTickets.dart';
 import 'package:t_store/features/personalization/screens/address/address.dart';
 import 'package:t_store/features/personalization/screens/profile/profile.dart';
 import 'package:t_store/features/shop/screens/orders/orders.dart';
@@ -47,12 +48,12 @@ class SettingScreen extends StatelessWidget {
             Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: TSizes.defaultSpace , left: TSizes.defaultSpace),
+                  const Padding(
+                    padding: EdgeInsets.only(right: TSizes.defaultSpace , left: TSizes.defaultSpace),
                     child: Column(
                       children: [
-                        const TSectionHeading(title: "Account Settings"),
-                        const SizedBox(
+                        TSectionHeading(title: "Account Settings"),
+                        SizedBox(
                       height: TSizes.spaceBtwItems,
                     ),
                       ],
@@ -61,6 +62,22 @@ class SettingScreen extends StatelessWidget {
                   
                   Column(
                     children: [
+                      TSettingsMenuTile(
+                    icon: Iconsax.bag_tick,
+                    title: "My Orders",
+                    subtitle: "In-progress and completed orders",
+                    onTap: () {
+                      Get.to(() => const OrderScreen());
+                    },
+                  ),
+                      TSettingsMenuTile(
+                    icon: Iconsax.ticket,
+                    title: "My Tickets",
+                    subtitle: "Get All your event tickets here!",
+                    onTap: () {
+                      Get.to(() => const MyTicketScreen());
+                    },
+                  ),
                       TSettingsMenuTile(
                         icon: Iconsax.safe_home,
                         title: "My Addresses",
@@ -75,14 +92,7 @@ class SettingScreen extends StatelessWidget {
                     subtitle: "Add, remove products and move to checkout",
                     onTap: () {},
                   ),
-                  TSettingsMenuTile(
-                    icon: Iconsax.bag_tick,
-                    title: "My Orders",
-                    subtitle: "In-progress and completed orders",
-                    onTap: () {
-                      Get.to(() => const OrderScreen());
-                    },
-                  ),
+                  
                   TSettingsMenuTile(
                     icon: Iconsax.bank,
                     title: "Bank Account",
@@ -117,12 +127,12 @@ class SettingScreen extends StatelessWidget {
                   const SizedBox(
                     height: TSizes.spaceBtwSections,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: TSizes.defaultSpace , left: TSizes.defaultSpace),
+                  const Padding(
+                    padding: EdgeInsets.only(right: TSizes.defaultSpace , left: TSizes.defaultSpace),
                     child: Column(
                       children: [
-                        const TSectionHeading(title: "App Settings"),
-                        const SizedBox(
+                        TSectionHeading(title: "App Settings"),
+                        SizedBox(
                       height: TSizes.spaceBtwItems,
                     ),
                       ],
