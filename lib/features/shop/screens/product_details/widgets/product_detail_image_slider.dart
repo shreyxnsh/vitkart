@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:t_store/common/widgets/appbar/appbar.dart';
-import 'package:t_store/common/widgets/icons/t_circular_icon.dart';
-import 'package:t_store/common/widgets/images/t_rounded_image.dart';
-import 'package:t_store/features/shop/screens/product_details/widgets/rating_share_button.dart';
-import 'package:t_store/utils/constants/colors.dart';
-import 'package:t_store/utils/constants/image_strings.dart';
-import 'package:t_store/utils/constants/sizes.dart';
-import 'package:t_store/utils/helpers/helper_functions.dart';
+import 'package:vitkart/common/widgets/appbar/appbar.dart';
+import 'package:vitkart/common/widgets/icons/t_circular_icon.dart';
+import 'package:vitkart/common/widgets/images/t_rounded_image.dart';
+import 'package:vitkart/features/shop/screens/product_details/widgets/rating_share_button.dart';
+import 'package:vitkart/utils/constants/colors.dart';
+import 'package:vitkart/utils/constants/image_strings.dart';
+import 'package:vitkart/utils/constants/sizes.dart';
+import 'package:vitkart/utils/helpers/helper_functions.dart';
 
 class TProductImageSlider extends StatelessWidget {
   const TProductImageSlider({

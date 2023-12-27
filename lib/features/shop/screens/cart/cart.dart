@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:t_store/common/widgets/appbar/appbar.dart';
-import 'package:t_store/common/widgets/products/cart/add_remove_button.dart';
-import 'package:t_store/common/widgets/products/cart/cart_item.dart';
-import 'package:t_store/common/widgets/text/product_price_text.dart';
-import 'package:t_store/utils/constants/sizes.dart';
-import 'package:t_store/utils/helpers/helper_functions.dart';
+import 'package:vitkart/common/widgets/appbar/appbar.dart';
+import 'package:vitkart/common/widgets/products/cart/add_remove_button.dart';
+import 'package:vitkart/common/widgets/products/cart/cart_item.dart';
+import 'package:vitkart/common/widgets/text/product_price_text.dart';
+import 'package:vitkart/utils/constants/sizes.dart';
+import 'package:vitkart/utils/helpers/helper_functions.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});

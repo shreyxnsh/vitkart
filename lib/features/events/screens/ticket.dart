@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:t_store/common/widgets/appbar/appbar.dart';
-import 'package:t_store/features/events/screens/widgets/ticketDetails.dart';
-import 'package:t_store/features/events/screens/widgets/ticketScanQR.dart';
-import 'package:t_store/utils/constants/colors.dart';
-import 'package:t_store/utils/constants/sizes.dart';
-import 'package:t_store/utils/constants/text_strings.dart';
-import 'package:t_store/utils/helpers/helper_functions.dart';
+import 'package:vitkart/common/widgets/appbar/appbar.dart';
+import 'package:vitkart/features/events/screens/widgets/ticketDetails.dart';
+import 'package:vitkart/features/events/screens/widgets/ticketScanQR.dart';
+import 'package:vitkart/utils/constants/colors.dart';
+import 'package:vitkart/utils/constants/sizes.dart';
+import 'package:vitkart/utils/constants/text_strings.dart';
+import 'package:vitkart/utils/helpers/helper_functions.dart';
 
 class TicketScreen extends StatelessWidget {
   const TicketScreen({super.key});

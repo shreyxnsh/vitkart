@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:t_store/common/widgets/image_text_widget/vertical_text_image.dart';
-import 'package:t_store/features/shop/screens/categories/books_screen.dart';
-import 'package:t_store/features/shop/screens/categories/bucket_screen.dart';
-import 'package:t_store/features/shop/screens/categories/cycle_screen.dart';
-import 'package:t_store/features/shop/screens/categories/mattress_screen.dart';
-import 'package:t_store/features/shop/screens/categories/other_screen.dart';
-import 'package:t_store/features/shop/screens/categories/tech_screen.dart';
-import 'package:t_store/utils/constants/colors.dart';
-import 'package:t_store/utils/constants/image_strings.dart';
-import 'package:t_store/utils/helpers/helper_functions.dart';
+import 'package:vitkart/common/widgets/image_text_widget/vertical_text_image.dart';
+import 'package:vitkart/features/shop/screens/categories/books_screen.dart';
+import 'package:vitkart/features/shop/screens/categories/bucket_screen.dart';
+import 'package:vitkart/features/shop/screens/categories/cycle_screen.dart';
+import 'package:vitkart/features/shop/screens/categories/mattress_screen.dart';
+import 'package:vitkart/features/shop/screens/categories/other_screen.dart';
+import 'package:vitkart/features/shop/screens/categories/tech_screen.dart';
+import 'package:vitkart/utils/constants/colors.dart';
+import 'package:vitkart/utils/constants/image_strings.dart';
+import 'package:vitkart/utils/helpers/helper_functions.dart';
 
 class THomeCategories extends StatelessWidget {
   const THomeCategories({

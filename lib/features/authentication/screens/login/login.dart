@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:t_store/features/authentication/screens/login/widget/loginPageForm.dart';
-import 'package:t_store/utils/constants/colors.dart';
-import 'package:t_store/utils/constants/sizes.dart';
+import 'package:vitkart/features/authentication/screens/login/widget/loginPageForm.dart';
+import 'package:vitkart/utils/constants/colors.dart';
+import 'package:vitkart/utils/constants/sizes.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -26,7 +26,7 @@ class LoginScreen extends StatelessWidget {
               const SizedBox(
                 height: 60,
               ),
-              const LoginPageForm(),
+               LoginPageForm(),
             ],
           ),
         ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:t_store/utils/constants/colors.dart';
-import 'package:t_store/utils/helpers/helper_functions.dart';
+import 'package:vitkart/utils/constants/colors.dart';
+import 'package:vitkart/utils/helpers/helper_functions.dart';
 
 class TEventCategoryCard extends StatelessWidget {
    const TEventCategoryCard({
@@ -31,13 +31,14 @@ class TEventCategoryCard extends StatelessWidget {
           children: [
             Image.asset(
               image,
-              width: 40,
-              height: 40,
+              width: 35,
+              height: 35,
+              color: dark ?TColors.primary : TColors.white,
             ),
             const SizedBox(height: 8),
             Text(
               title,
-              style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Colors.white),
+              style: Theme.of(context).textTheme.titleMedium!.copyWith(color: Colors.white),
               overflow: TextOverflow.ellipsis, // Display ellipsis for overflow
               maxLines: 1, 
               textAlign: TextAlign.center,

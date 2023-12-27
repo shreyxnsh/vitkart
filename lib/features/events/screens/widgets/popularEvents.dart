@@ -1,10 +1,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:t_store/features/events/screens/eventDetails.dart';
-import 'package:t_store/features/events/screens/widgets/discount.dart';
-import 'package:t_store/utils/constants/colors.dart';
-import 'package:t_store/utils/helpers/helper_functions.dart';
+import 'package:vitkart/features/events/screens/eventDetails.dart';
+import 'package:vitkart/features/events/screens/widgets/discount.dart';
+import 'package:vitkart/utils/constants/colors.dart';
+import 'package:vitkart/utils/helpers/helper_functions.dart';
 
 class PopularEventList extends StatelessWidget {
   final List<Map<String, dynamic>> groomingData = [

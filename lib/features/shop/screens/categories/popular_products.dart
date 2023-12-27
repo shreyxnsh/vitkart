@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:t_store/common/widgets/appbar/appbar.dart';
-import 'package:t_store/common/widgets/layout/grid_layout.dart';
-import 'package:t_store/common/widgets/products/products_cart/product_card_vertical.dart';
-import 'package:t_store/utils/constants/sizes.dart';
-import 'package:t_store/utils/constants/text_strings.dart';
+import 'package:vitkart/common/widgets/appbar/appbar.dart';
+import 'package:vitkart/common/widgets/layout/grid_layout.dart';
+import 'package:vitkart/common/widgets/products/products_cart/product_card_vertical.dart';
+import 'package:vitkart/utils/constants/sizes.dart';
+import 'package:vitkart/utils/constants/text_strings.dart';
 
 class PopularProductScreen extends StatelessWidget {
   const PopularProductScreen({super.key});

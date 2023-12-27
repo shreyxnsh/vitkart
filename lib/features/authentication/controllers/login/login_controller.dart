@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:t_store/features/authentication/screens/register/register.dart';
-import 'package:t_store/navigation_menu.dart';
+import 'package:vitkart/features/authentication/screens/register/register.dart';
+import 'package:vitkart/navigation_menu.dart';
 
 class LoginController extends GetxController {
   final emailController = TextEditingController();
@@ -14,6 +14,8 @@ class LoginController extends GetxController {
     emailController.dispose();
     passwordController.dispose();
   }
+
+  
 
   void login() {
     emailController.clear();

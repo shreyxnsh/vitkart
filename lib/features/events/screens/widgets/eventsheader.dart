@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:t_store/common/widgets/custom_shapes/containers/search_container.dart';
+import 'package:vitkart/common/widgets/custom_shapes/containers/search_container.dart';
 
 class TEventsHeader extends StatelessWidget {
   const TEventsHeader({super.key});

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:t_store/features/authentication/screens/kyc/widgets/kyc_form.dart';
-import 'package:t_store/utils/constants/sizes.dart';
-import 'package:t_store/utils/constants/text_strings.dart';
-import 'package:t_store/common/widgets/appbar/appbar.dart';
+import 'package:vitkart/features/authentication/screens/kyc/widgets/kyc_form.dart';
+import 'package:vitkart/utils/constants/sizes.dart';
+import 'package:vitkart/utils/constants/text_strings.dart';
+import 'package:vitkart/common/widgets/appbar/appbar.dart';
 
 import '../../../../utils/helpers/helper_functions.dart';
 

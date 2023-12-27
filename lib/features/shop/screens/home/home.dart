@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:t_store/common/widgets/custom_shapes/containers/search_container.dart';
-import 'package:t_store/common/widgets/layout/grid_layout.dart';
-import 'package:t_store/common/widgets/products/products_cart/product_card_vertical.dart';
-import 'package:t_store/common/widgets/text/section_heading.dart';
-import 'package:t_store/features/shop/screens/categories/popular_products.dart';
-import 'package:t_store/features/shop/screens/home/widgets/home_appbar.dart';
-import 'package:t_store/features/shop/screens/home/widgets/home_categories.dart';
-import 'package:t_store/features/shop/screens/home/widgets/promo_slider.dart';
-import 'package:t_store/utils/constants/image_strings.dart';
-import 'package:t_store/utils/constants/sizes.dart';
+import 'package:vitkart/common/widgets/custom_shapes/containers/search_container.dart';
+import 'package:vitkart/common/widgets/layout/grid_layout.dart';
+import 'package:vitkart/common/widgets/products/products_cart/product_card_vertical.dart';
+import 'package:vitkart/common/widgets/text/section_heading.dart';
+import 'package:vitkart/features/shop/screens/categories/popular_products.dart';
+import 'package:vitkart/features/shop/screens/home/widgets/home_appbar.dart';
+import 'package:vitkart/features/shop/screens/home/widgets/home_categories.dart';
+import 'package:vitkart/features/shop/screens/home/widgets/promo_slider.dart';
+import 'package:vitkart/utils/constants/image_strings.dart';
+import 'package:vitkart/utils/constants/sizes.dart';
 import '../../../../common/widgets/custom_shapes/containers/primary_header_container.dart';
 
 class HomeScreen extends StatelessWidget {

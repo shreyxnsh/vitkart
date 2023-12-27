@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:t_store/features/authentication/screens/login/login.dart';
-import 'package:t_store/features/events/screens/widgets/eventCatCard.dart';
-import 'package:t_store/utils/constants/image_strings.dart';
+import 'package:vitkart/features/authentication/screens/login/login.dart';
+import 'package:vitkart/features/events/screens/widgets/eventCatCard.dart';
+import 'package:vitkart/utils/constants/image_strings.dart';
 
 class TEventCategoryGrid extends StatelessWidget {
   const TEventCategoryGrid({super.key});

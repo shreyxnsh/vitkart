@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:t_store/common/widgets/appbar/appbar.dart';
-import 'package:t_store/common/widgets/text/section_heading.dart';
-import 'package:t_store/features/events/screens/eventDetails.dart';
-import 'package:t_store/features/events/screens/widgets/eventTicketVertical.dart';
-import 'package:t_store/utils/constants/colors.dart';
-import 'package:t_store/utils/constants/sizes.dart';
+import 'package:vitkart/common/widgets/appbar/appbar.dart';
+import 'package:vitkart/common/widgets/text/section_heading.dart';
+import 'package:vitkart/features/events/screens/eventDetails.dart';
+import 'package:vitkart/features/events/screens/widgets/eventTicketVertical.dart';
+import 'package:vitkart/utils/constants/colors.dart';
+import 'package:vitkart/utils/constants/sizes.dart';
 
 class MyTicketScreen extends StatelessWidget {
   const MyTicketScreen({super.key});
