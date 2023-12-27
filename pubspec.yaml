@@ -1,4 +1,4 @@
-name: t_store
+name: vitkart
 description: A new Flutter project.
 publish_to: 'none'
 version: 1.0.0+1
@@ -6,21 +6,21 @@ version: 1.0.0+1
 environment:
   sdk: '>=3.0.5 <4.0.0'
 
-
-
 #--------------- PACKAGES ------------------#
 dependencies:
   flutter:
     sdk: flutter
 
   # Utility Packages
-  http: ^1.1.0
+  http:
+  shared_preferences: 
+  jwt_decoder:
   intl: ^0.18.1
   logger: ^2.0.1
   url_launcher: ^6.1.12
   flutter_native_splash: ^2.3.1
   smooth_page_indicator: ^1.1.0
-
+  
   # Icons
   iconsax: ^0.0.8
   cupertino_icons: ^1.0.2
@@ -38,14 +38,12 @@ dependencies:
   iconify: ^0.0.1
   iconify_flutter: ^0.0.5
 
-
-
   #--------------- ./ PACKAGES END ------------------#
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
+  flutter_launcher_icons: ^0.13.1
   flutter_lints: ^2.0.0
 
 
