@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:t_store/common/widgets/custom_shapes/containers/t_rounded_containers.dart';
-import 'package:t_store/common/widgets/icons/t_circular_icon.dart';
-import 'package:t_store/common/widgets/images/t_rounded_image.dart';
-import 'package:t_store/common/widgets/text/product_price_text.dart';
-import 'package:t_store/common/widgets/text/product_title_text.dart';
-import 'package:t_store/features/shop/screens/product_details/product_detail.dart';
-import 'package:t_store/features/shop/screens/product_details/widgets/product_meta_data.dart';
-import 'package:t_store/utils/constants/colors.dart';
-import 'package:t_store/utils/constants/image_strings.dart';
-import 'package:t_store/utils/constants/sizes.dart';
-import 'package:t_store/utils/helpers/helper_functions.dart';
+import 'package:vitkart/common/widgets/custom_shapes/containers/t_rounded_containers.dart';
+import 'package:vitkart/common/widgets/icons/t_circular_icon.dart';
+import 'package:vitkart/common/widgets/images/t_rounded_image.dart';
+import 'package:vitkart/common/widgets/text/product_price_text.dart';
+import 'package:vitkart/common/widgets/text/product_title_text.dart';
+import 'package:vitkart/features/shop/screens/product_details/product_detail.dart';
+import 'package:vitkart/features/shop/screens/product_details/widgets/product_meta_data.dart';
+import 'package:vitkart/utils/constants/colors.dart';
+import 'package:vitkart/utils/constants/image_strings.dart';
+import 'package:vitkart/utils/constants/sizes.dart';
+import 'package:vitkart/utils/helpers/helper_functions.dart';
 
 class TProductCardVertical extends StatelessWidget {
   const TProductCardVertical({super.key});

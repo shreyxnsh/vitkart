@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:t_store/common/widgets/chips/choice_chips.dart';
-import 'package:t_store/common/widgets/custom_shapes/containers/t_rounded_containers.dart';
-import 'package:t_store/common/widgets/text/product_price_text.dart';
-import 'package:t_store/common/widgets/text/product_title_text.dart';
-import 'package:t_store/common/widgets/text/section_heading.dart';
-import 'package:t_store/utils/constants/colors.dart';
-import 'package:t_store/utils/constants/sizes.dart';
-import 'package:t_store/utils/helpers/helper_functions.dart';
+import 'package:vitkart/common/widgets/chips/choice_chips.dart';
+import 'package:vitkart/common/widgets/custom_shapes/containers/t_rounded_containers.dart';
+import 'package:vitkart/common/widgets/text/product_price_text.dart';
+import 'package:vitkart/common/widgets/text/product_title_text.dart';
+import 'package:vitkart/common/widgets/text/section_heading.dart';
+import 'package:vitkart/utils/constants/colors.dart';
+import 'package:vitkart/utils/constants/sizes.dart';
+import 'package:vitkart/utils/helpers/helper_functions.dart';
 
 class TProductAttributes extends StatelessWidget {
   const TProductAttributes({super.key});

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:t_store/common/widgets/text/section_heading.dart';
-import 'package:t_store/features/events/screens/previewOrder.dart';
-import 'package:t_store/features/events/screens/widgets/eventDetailHeader.dart';
-import 'package:t_store/features/events/screens/widgets/eventDetailsHeaderText.dart';
-import 'package:t_store/features/events/screens/widgets/eventPriceCard.dart';
-import 'package:t_store/utils/constants/colors.dart';
-import 'package:t_store/utils/constants/image_strings.dart';
-import 'package:t_store/utils/constants/sizes.dart';
-import 'package:t_store/utils/constants/text_strings.dart';
+import 'package:vitkart/common/widgets/text/section_heading.dart';
+import 'package:vitkart/features/events/screens/previewOrder.dart';
+import 'package:vitkart/features/events/screens/widgets/eventDetailHeader.dart';
+import 'package:vitkart/features/events/screens/widgets/eventDetailsHeaderText.dart';
+import 'package:vitkart/features/events/screens/widgets/eventPriceCard.dart';
+import 'package:vitkart/utils/constants/colors.dart';
+import 'package:vitkart/utils/constants/image_strings.dart';
+import 'package:vitkart/utils/constants/sizes.dart';
+import 'package:vitkart/utils/constants/text_strings.dart';
 
 class EventDetailScreen extends StatelessWidget {
   const EventDetailScreen({super.key});

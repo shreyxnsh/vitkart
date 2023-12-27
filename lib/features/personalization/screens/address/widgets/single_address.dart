@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:t_store/common/widgets/custom_shapes/containers/t_rounded_containers.dart';
-import 'package:t_store/utils/constants/colors.dart';
-import 'package:t_store/utils/constants/sizes.dart';
-import 'package:t_store/utils/helpers/helper_functions.dart';
+import 'package:vitkart/common/widgets/custom_shapes/containers/t_rounded_containers.dart';
+import 'package:vitkart/utils/constants/colors.dart';
+import 'package:vitkart/utils/constants/sizes.dart';
+import 'package:vitkart/utils/helpers/helper_functions.dart';
 
 class TSingleAddress extends StatelessWidget {
   const TSingleAddress({super.key, required this.selectedAddress});

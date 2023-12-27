@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:t_store/features/events/screens/ticket.dart';
-import 'package:t_store/utils/constants/sizes.dart';
+import 'package:vitkart/features/events/screens/ticket.dart';
+import 'package:vitkart/utils/constants/sizes.dart';
 
 class EventTicketVertical extends StatelessWidget {
   const EventTicketVertical({super.key});

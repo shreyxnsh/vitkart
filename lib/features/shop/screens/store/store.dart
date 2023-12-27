@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:t_store/common/widgets/appbar/appbar.dart';
-import 'package:t_store/common/widgets/appbar/tabbar.dart';
-import 'package:t_store/common/widgets/custom_shapes/containers/search_container.dart';
-import 'package:t_store/common/widgets/layout/grid_layout.dart';
-import 'package:t_store/common/widgets/products/products_cart/cart_menu_item.dart';
-import 'package:t_store/common/widgets/products/t_brand_card.dart';
-import 'package:t_store/common/widgets/text/section_heading.dart';
-import 'package:t_store/features/shop/screens/store/widgets/category_tab.dart';
-import 'package:t_store/utils/constants/colors.dart';
+import 'package:vitkart/common/widgets/appbar/appbar.dart';
+import 'package:vitkart/common/widgets/appbar/tabbar.dart';
+import 'package:vitkart/common/widgets/custom_shapes/containers/search_container.dart';
+import 'package:vitkart/common/widgets/layout/grid_layout.dart';
+import 'package:vitkart/common/widgets/products/products_cart/cart_menu_item.dart';
+import 'package:vitkart/common/widgets/products/t_brand_card.dart';
+import 'package:vitkart/common/widgets/text/section_heading.dart';
+import 'package:vitkart/features/shop/screens/store/widgets/category_tab.dart';
+import 'package:vitkart/utils/constants/colors.dart';
 
-import 'package:t_store/utils/constants/sizes.dart';
-import 'package:t_store/utils/helpers/helper_functions.dart';
+import 'package:vitkart/utils/constants/sizes.dart';
+import 'package:vitkart/utils/helpers/helper_functions.dart';
 
 class StoreScreen extends StatelessWidget {
   const StoreScreen({super.key});

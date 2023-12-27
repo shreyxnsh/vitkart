@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:readmore/readmore.dart';
-import 'package:t_store/common/widgets/text/section_heading.dart';
-import 'package:t_store/features/shop/screens/product_details/widgets/bottom_add_to_cart.dart';
-import 'package:t_store/features/shop/screens/product_details/widgets/product_attributes.dart';
-import 'package:t_store/features/shop/screens/product_details/widgets/product_detail_image_slider.dart';
-import 'package:t_store/features/shop/screens/product_details/widgets/product_meta_data.dart';
-import 'package:t_store/features/shop/screens/product_details/widgets/rating_share_button.dart';
-import 'package:t_store/utils/constants/sizes.dart';
+import 'package:vitkart/common/widgets/text/section_heading.dart';
+import 'package:vitkart/features/shop/screens/product_details/widgets/bottom_add_to_cart.dart';
+import 'package:vitkart/features/shop/screens/product_details/widgets/product_attributes.dart';
+import 'package:vitkart/features/shop/screens/product_details/widgets/product_detail_image_slider.dart';
+import 'package:vitkart/features/shop/screens/product_details/widgets/product_meta_data.dart';
+import 'package:vitkart/features/shop/screens/product_details/widgets/rating_share_button.dart';
+import 'package:vitkart/utils/constants/sizes.dart';
 
 class ProductDetailScreen extends StatelessWidget {
   const ProductDetailScreen({super.key});

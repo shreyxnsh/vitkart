@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:t_store/features/shop/screens/home/widgets/circular_widget.dart';
-import 'package:t_store/utils/constants/colors.dart';
-import 'package:t_store/utils/helpers/helper_functions.dart';
+import 'package:vitkart/features/shop/screens/home/widgets/circular_widget.dart';
+import 'package:vitkart/utils/constants/colors.dart';
+import 'package:vitkart/utils/helpers/helper_functions.dart';
 
 class TChoiceChips extends StatelessWidget {
   const TChoiceChips({

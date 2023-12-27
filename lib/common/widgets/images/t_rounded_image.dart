@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:t_store/utils/constants/colors.dart';
-import 'package:t_store/utils/constants/sizes.dart';
+import 'package:vitkart/utils/constants/colors.dart';
+import 'package:vitkart/utils/constants/sizes.dart';
 
 class TRoundedImage extends StatelessWidget {
   const TRoundedImage({

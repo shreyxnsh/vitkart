@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:t_store/common/widgets/text/t_brand_title.dart';
-import 'package:t_store/utils/constants/colors.dart';
-import 'package:t_store/utils/constants/enums.dart';
-import 'package:t_store/utils/constants/sizes.dart';
+import 'package:vitkart/common/widgets/text/t_brand_title.dart';
+import 'package:vitkart/utils/constants/colors.dart';
+import 'package:vitkart/utils/constants/enums.dart';
+import 'package:vitkart/utils/constants/sizes.dart';
 
 class TBrandTitleWithVerifiedIcon extends StatelessWidget {
   const TBrandTitleWithVerifiedIcon({

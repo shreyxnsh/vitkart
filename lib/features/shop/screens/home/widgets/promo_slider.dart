@@ -1,11 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:t_store/common/widgets/images/t_rounded_image.dart';
-import 'package:t_store/features/shop/controllers/home_controller.dart';
-import 'package:t_store/features/shop/screens/home/widgets/circular_widget.dart';
-import 'package:t_store/utils/constants/colors.dart';
-import 'package:t_store/utils/constants/sizes.dart';
+import 'package:vitkart/common/widgets/images/t_rounded_image.dart';
+import 'package:vitkart/features/shop/controllers/home_controller.dart';
+import 'package:vitkart/features/shop/screens/home/widgets/circular_widget.dart';
+import 'package:vitkart/utils/constants/colors.dart';
+import 'package:vitkart/utils/constants/sizes.dart';
 
 class TPromoSlider extends StatelessWidget {
   const TPromoSlider({
