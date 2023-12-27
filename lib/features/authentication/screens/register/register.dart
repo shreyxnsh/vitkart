@@ -4,13 +4,13 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
 import 'package:pinput/pinput.dart';
-import 'package:t_store/features/authentication/controllers/register/register_controller.dart';
-import 'package:t_store/features/authentication/screens/login/widget/loginTextField.dart';
-import 'package:t_store/features/shop/screens/home/widgets/circular_widget.dart';
-import 'package:t_store/utils/constants/colors.dart';
-import 'package:t_store/utils/constants/sizes.dart';
-import 'package:t_store/utils/constants/text_strings.dart';
-import 'package:t_store/utils/helpers/helper_functions.dart';
+import 'package:vitkart/features/authentication/controllers/register/register_controller.dart';
+import 'package:vitkart/features/authentication/screens/login/widget/loginTextField.dart';
+import 'package:vitkart/features/shop/screens/home/widgets/circular_widget.dart';
+import 'package:vitkart/utils/constants/colors.dart';
+import 'package:vitkart/utils/constants/sizes.dart';
+import 'package:vitkart/utils/constants/text_strings.dart';
+import 'package:vitkart/utils/helpers/helper_functions.dart';
 
 class RegisterScreen extends StatelessWidget {
   RegisterScreen({super.key});
