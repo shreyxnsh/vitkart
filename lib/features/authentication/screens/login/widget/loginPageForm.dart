@@ -2,7 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vitkart/features/authentication/controllers/login/login_controller.dart';
 import 'package:vitkart/features/authentication/screens/login/widget/DontHaveAccountButtonText.dart';
 import 'package:vitkart/features/authentication/screens/login/widget/LoginPageSignInButton.dart';
@@ -18,7 +20,7 @@ import 'package:vitkart/utils/config/config.dart';
 import 'package:vitkart/utils/helpers/helper_functions.dart';
 
 class LoginPageForm extends StatefulWidget {
-   LoginPageForm({
+  LoginPageForm({
     super.key,
   });
 
@@ -27,50 +29,62 @@ class LoginPageForm extends StatefulWidget {
 }
 
 class _LoginPageFormState extends State<LoginPageForm> {
-  
-
-    final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
 
   final TextEditingController _passwordController = TextEditingController();
 
+
   LoginController get controller => Get.put(LoginController());
 
-  void loginUser() async{
-    // check if user has added data
-    if(_emailController.text.isNotEmpty && _passwordController.text.isNotEmpty){
+  final userData = GetStorage();
 
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  void loginUser() async {
+    // check if user has added data
+    if (_emailController.text.isNotEmpty &&
+        _passwordController.text.isNotEmpty) {
       // creating an object of registration body
       var regBody = {
         //json format
-        "userEmail":_emailController.text,
-        "userPassword":_passwordController.text
+        "userEmail": _emailController.text,
+        "userPassword": _passwordController.text
       };
 
       print(regBody);
 
       // http [post] request sent to api
       var response = await http.post(Uri.parse(loginUrl),
-      headers: {"Content-type":"application/json"},
-      body: jsonEncode(regBody)
-      );
+          headers: {"Content-type": "application/json"},
+          body: jsonEncode(regBody));
 
       //getting the response by the server
       var jsonResponse = jsonDecode(response.body);
       print(jsonResponse);
 
-      if(jsonResponse['status']){
-        
-        var myToken = jsonResponse['token'];
- 
-        
+      if (jsonResponse['status']) {
+        var userGender = jsonResponse['authenticatedUser']['userGender'];
+        var myToken = jsonResponse['authenticatedUser']['token'];
+
+        print("User Gender: $userGender");
+        print("User Token: $myToken");
+
+
+
+        userData.write('token', myToken);
+
         // passing token data to dashboard screen
-        Get.to(()=> (NavigationMenu()));
-
-      }else{
+        Get.to(() => (NavigationMenu(token: myToken,)));
+      } else {
         print("Something went wrong");
-      };
+      }
+      ;
     }
-
   }
 
   @override
