@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:vitkart/common/widgets/custom_shapes/containers/search_container.dart';
 import 'package:vitkart/common/widgets/layout/grid_layout.dart';
 import 'package:vitkart/common/widgets/products/products_cart/product_card_vertical.dart';
@@ -13,9 +15,42 @@ import 'package:vitkart/utils/constants/image_strings.dart';
 import 'package:vitkart/utils/constants/sizes.dart';
 import '../../../../common/widgets/custom_shapes/containers/primary_header_container.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+
+  late String userId;
+  late String userName;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    final userToken = GetStorage().read('token');
+
+    if (userToken != null) {
+    Map<String, dynamic> jwtDecodedToken = JwtDecoder.decode(userToken);
+
+    // getting the user id of the user from db by variable _id from tokenData
+
+    userId = jwtDecodedToken['userID'];
+    userName = jwtDecodedToken['userName'];
+    // userId = jwtDecodedToken['_id'];
+    print("User token in HomeScreen is : ${userToken}");
+    print("User ID in HomeScreen is : $userId");
+    print("User Name in HomeScreen is : $userName");
+  } else {
+    // Handle the case where the token is null
+    print("Token is null");
+  }
+  }
+
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
