@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vitkart/common/widgets/appbar/appbar.dart';
 import 'package:vitkart/common/widgets/text/section_heading.dart';
-import 'package:vitkart/features/events/screens/eventDetails.dart';
 import 'package:vitkart/features/events/screens/widgets/eventTicketVertical.dart';
 import 'package:vitkart/utils/constants/colors.dart';
 import 'package:vitkart/utils/constants/sizes.dart';
@@ -18,37 +17,37 @@ class MyTicketScreen extends StatelessWidget {
           style: Theme.of(context).textTheme.headlineSmall,
         ),
       ),
-      body: SingleChildScrollView(
+      body: const SingleChildScrollView(
         child: Padding(
-            padding: const EdgeInsets.all(TSizes.defaultSpace),
+            padding: EdgeInsets.all(TSizes.defaultSpace),
             child: Column(
               children: [
-                const TSectionHeading(
+                TSectionHeading(
                   title: "Upcoming",
                   textColor: TColors.primary,
                   showActionButton: false,
                 ),
-                const SizedBox(
+                SizedBox(
                   height: TSizes.spaceBtwItems,
                 ),
                 EventTicketVertical(),
-                const SizedBox(
+                SizedBox(
                   height: TSizes.spaceBtwItems,
                 ),
                 EventTicketVertical(),
-                const SizedBox(
+                SizedBox(
                   height: TSizes.spaceBtwSections,
                 ),
-                const TSectionHeading(
+                TSectionHeading(
                   title: "Earlier",
                  
                   showActionButton: false,
                 ),
-                const SizedBox(
+                SizedBox(
                   height: TSizes.spaceBtwItems,
                 ),
                 EventTicketVertical(),
-                const SizedBox(
+                SizedBox(
                   height: TSizes.spaceBtwItems,
                 ),
                 EventTicketVertical(),

@@ -15,8 +15,6 @@ class LoginController extends GetxController {
     passwordController.dispose();
   }
 
-  
-
   void login() {
     emailController.clear();
     passwordController.clear();

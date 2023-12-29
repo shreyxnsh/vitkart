@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:vitkart/common/widgets/appbar/appbar.dart';
 import 'package:vitkart/features/events/screens/widgets/ticketDetails.dart';
 import 'package:vitkart/features/events/screens/widgets/ticketScanQR.dart';
 import 'package:vitkart/utils/constants/colors.dart';
 import 'package:vitkart/utils/constants/sizes.dart';
-import 'package:vitkart/utils/constants/text_strings.dart';
 import 'package:vitkart/utils/helpers/helper_functions.dart';
 
 class TicketScreen extends StatelessWidget {
@@ -52,7 +50,7 @@ class TicketScreen extends StatelessWidget {
                       ),
                     ),
 
-                    TicketDetailsContainer(),
+                    const TicketDetailsContainer(),
                     
                     SizedBox(
                       child: Image.asset(
@@ -60,7 +58,7 @@ class TicketScreen extends StatelessWidget {
                         fit: BoxFit.fitWidth,
                       ),
                     ),
-                    TicketScanQRContainer(),
+                    const TicketScanQRContainer(),
                     const SizedBox(
                       height: TSizes.spaceBtwSections,
                     ),

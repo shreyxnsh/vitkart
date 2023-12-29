@@ -41,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
     userId = jwtDecodedToken['userID'];
     userName = jwtDecodedToken['userName'];
     // userId = jwtDecodedToken['_id'];
-    print("User token in HomeScreen is : ${userToken}");
+    print("User token in HomeScreen is : $userToken");
     print("User ID in HomeScreen is : $userId");
     print("User Name in HomeScreen is : $userName");
   } else {

@@ -1,11 +1,14 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:vitkart/features/authentication/screens/login/login.dart';
+import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import 'package:vitkart/utils/config/config.dart';
+import 'package:vitkart/utils/constants/colors.dart';
+import 'package:vitkart/utils/constants/sizes.dart';
 
 class RegisterController extends GetxController {
   // page one
@@ -16,9 +19,13 @@ class RegisterController extends GetxController {
   TextEditingController cpasswordController = TextEditingController();
   //page two
   TextEditingController phoneController = TextEditingController();
-  TextEditingController joiningYearController = TextEditingController();
+  late List<int> joiningYearList;
+
+  RxInt joiningYear = 0.obs;
+  Rx<String> gender = "unKnown".obs;
   TextEditingController knowFromController = TextEditingController();
-  Rx<DateTime> dob = DateTime.now().obs;
+  Rx<String> Dob = "".obs;
+
   // Page three
   TextEditingController otpController = TextEditingController();
   RxBool isVerified = false.obs;
@@ -39,7 +46,6 @@ class RegisterController extends GetxController {
     passwordController.dispose();
     cpasswordController.dispose();
     phoneController.dispose();
-    joiningYearController.dispose();
     knowFromController.dispose();
     pageController.dispose();
   }
@@ -48,54 +54,54 @@ class RegisterController extends GetxController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
+    getJoiningYearList();
     // currentPageIndex.value = 0;
   }
 
-    void registerUser() async{
-    // check if user has added data
-    if(emailController.text.isNotEmpty && passwordController.text.isNotEmpty){
+  getJoiningYearList() {
+    joiningYearList = [];
+    for (int i = DateTime.now().year - 4; i <= DateTime.now().year; i++) {
+      joiningYearList.add(i);
+    }
+  }
 
+  void registerUser() async {
+    // check if user has added data
+    if (emailController.text.isNotEmpty && passwordController.text.isNotEmpty) {
       // creating an object of registration body
       var regBody = {
         //json format
-        "userEmail":emailController.text,
-        "userPassword":passwordController.text,
-        "userRegID":registerationNoController.text,
-        "userName":nameController.text,
+        "userEmail": emailController.text,
+        "userPassword": passwordController.text,
+        "userRegID": registerationNoController.text,
+        "userName": nameController.text,
       };
 
       print(regBody);
 
       // http [post] request sent to api
       var response = await http.post(Uri.parse(registrationUrl),
-      headers: {"Content-type":"application/json"},
-      body: jsonEncode(regBody)
-      );
+          headers: {"Content-type": "application/json"},
+          body: jsonEncode(regBody));
 
       //getting the response by the server
       var jsonResponse = jsonDecode(response.body);
       print(jsonResponse);
 
-      if(jsonResponse['status']){
-        
+      if (jsonResponse['status']) {
         var myToken = jsonResponse['token'];
- 
-        
+
         // passing token data to dashboard screen
-       
-
-      }else{
+      } else {
         print("Something went wrong");
-      };
+      }
     }
-
   }
 
-
-
-  void register() {
+  void register(BuildContext context) {
     if (currentPageIndex.value == 2) {
-      Get.to(const LoginScreen());
+      Navigator.pop(context);
+      currentPageIndex.value == 0;
       return;
     }
     pageController.animateToPage(
@@ -103,8 +109,6 @@ class RegisterController extends GetxController {
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeIn,
     );
-
-    
 
     // Log every text editing controller in formate like - Feild Name - controller value
 
@@ -123,9 +127,9 @@ class RegisterController extends GetxController {
       log("Password - ${passwordController.text}");
       log("CPassword - ${cpasswordController.text}");
       log("Phone - ${phoneController.text}");
-      log("Joining Year - ${joiningYearController.text}");
+      log("Joining Year - ${joiningYear.value}");
       log("Know From - ${knowFromController.text}");
-      log("Dob - ${dob.toString()}");
+      log("Dob - ${Dob.value.toString()}");
 
       registerUser();
     }
@@ -156,19 +160,44 @@ class RegisterController extends GetxController {
     currentPageIndex.value = index;
   }
 
-  void dobPicker(BuildContext context) {
-    showDatePicker(
+  void dobPicker(BuildContext context, Color bgColor) async {
+    showModalBottomSheet(
+      isScrollControlled: true,
+      backgroundColor: bgColor,
       context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(1900),
-      lastDate: DateTime.now(),
-    ).then((value) {
-      if (value == null) {
-        return;
-      }
-      dob.value = value;
-      log(value.toString());
-      log(dob.value.toString());
-    });
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) {
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Text(
+              "Select Your Date of Birth 📅",
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(
+              height: TSizes.spaceBtwItems,
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).copyWith().size.height / 3,
+              child: CupertinoDatePicker(
+                mode: CupertinoDatePickerMode.date,
+                initialDateTime: Dob.value == ""
+                    ? DateTime(2000, 1, 1)
+                    : DateFormat(DateFormat.YEAR_MONTH_DAY).parse(Dob.value),
+                onDateTimeChanged: (DateTime dateTime) {
+                  Dob.value =
+                      DateFormat(DateFormat.YEAR_MONTH_DAY).format(dateTime);
+                },
+              ),
+            ),
+          ],
+        );
+      },
+    );
   }
 }

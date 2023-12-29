@@ -30,7 +30,7 @@ class PreviewEventOrderScreen extends StatelessWidget {
             child: ElevatedButton(
               onPressed: () {
                 // Handle booking action
-                Get.to(() => TicketScreen());
+                Get.to(() => const TicketScreen());
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: TColors.primary,
