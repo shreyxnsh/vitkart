@@ -45,83 +45,86 @@ class _LoginPageFormState extends State<LoginPageForm> {
     super.initState();
   }
 
-    void loginUser() async {
-  // check if user has added data
-  if (_emailController.text.isEmpty) {
-    // Show CherryToast for empty email field
-    CherryToast.error(
-      title: Text(""),
-      displayTitle: false,
-      description: Text("User Email field empty", style: TextStyle(color: Colors.black)),
-      animationType: AnimationType.fromRight,
-      animationDuration: Duration(milliseconds: 1000),
-      autoDismiss: true,
-    ).show(context);
-    return;
+  void loginUser() async {
+    // check if user has added data
+    if (_emailController.text.isEmpty) {
+      // Show CherryToast for empty email field
+      CherryToast.error(
+        title: Text(""),
+        displayTitle: false,
+        description: Text("User Email field empty",
+            style: TextStyle(color: Colors.black)),
+        animationType: AnimationType.fromRight,
+        animationDuration: Duration(milliseconds: 1000),
+        autoDismiss: true,
+      ).show(context);
+      return;
+    }
+
+    if (_passwordController.text.isEmpty) {
+      // Show CherryToast for empty password field
+      CherryToast.error(
+        title: Text(""),
+        displayTitle: false,
+        description:
+            Text("Password field empty", style: TextStyle(color: Colors.black)),
+        animationType: AnimationType.fromRight,
+        animationDuration: Duration(milliseconds: 1000),
+        autoDismiss: true,
+      ).show(context);
+      return;
+    }
+
+    setState(() {
+      isLoading = true;
+    });
+
+    // creating an object of registration body
+    var regBody = {
+      //json format
+      "userEmail": _emailController.text,
+      "userPassword": _passwordController.text
+    };
+
+    print(regBody);
+
+    // http [post] request sent to api
+    var response = await http.post(Uri.parse(loginUrl),
+        headers: {"Content-type": "application/json"},
+        body: jsonEncode(regBody));
+
+    //getting the response by the server
+    var jsonResponse = jsonDecode(response.body);
+    print(jsonResponse);
+
+    if (jsonResponse['status']) {
+      var userGender = jsonResponse['authenticatedUser']['userGender'];
+      var myToken = jsonResponse['authenticatedUser']['token'];
+
+      print("User Gender: $userGender");
+      print("User Token: $myToken");
+
+      userData.write('token', myToken);
+
+      // passing token data to dashboard screen
+      Get.to(() => NavigationMenu(token: myToken));
+    } else {
+      // Show CherryToast for other errors
+      CherryToast.error(
+        title: Text(""),
+        displayTitle: false,
+        description: Text("Invalid account information",
+            style: TextStyle(color: Colors.black)),
+        animationType: AnimationType.fromRight,
+        animationDuration: Duration(milliseconds: 1000),
+        autoDismiss: true,
+      ).show(context);
+    }
+
+    setState(() {
+      isLoading = false;
+    });
   }
-
-  if (_passwordController.text.isEmpty) {
-    // Show CherryToast for empty password field
-    CherryToast.error(
-      title: Text(""),
-      displayTitle: false,
-      description: Text("Password field empty", style: TextStyle(color: Colors.black)),
-      animationType: AnimationType.fromRight,
-      animationDuration: Duration(milliseconds: 1000),
-      autoDismiss: true,
-    ).show(context);
-    return;
-  }
-
-  setState(() {
-    isLoading = true;
-  });
-
-  // creating an object of registration body
-  var regBody = {
-    //json format
-    "userEmail": _emailController.text,
-    "userPassword": _passwordController.text
-  };
-
-  print(regBody);
-
-  // http [post] request sent to api
-  var response = await http.post(Uri.parse(loginUrl),
-      headers: {"Content-type": "application/json"},
-      body: jsonEncode(regBody));
-
-  //getting the response by the server
-  var jsonResponse = jsonDecode(response.body);
-  print(jsonResponse);
-
-  if (jsonResponse['status']) {
-    var userGender = jsonResponse['authenticatedUser']['userGender'];
-    var myToken = jsonResponse['authenticatedUser']['token'];
-
-    print("User Gender: $userGender");
-    print("User Token: $myToken");
-
-    userData.write('token', myToken);
-
-    // passing token data to dashboard screen
-    Get.to(() => NavigationMenu(token: myToken));
-  } else {
-    // Show CherryToast for other errors
-    CherryToast.error(
-      title: Text(""),
-      displayTitle: false,
-      description: Text("Invalid account information", style: TextStyle(color: Colors.black)),
-      animationType: AnimationType.fromRight,
-      animationDuration: Duration(milliseconds: 1000),
-      autoDismiss: true,
-    ).show(context);
-  }
-
-  setState(() {
-    isLoading = false;
-  });
-}
 
   @override
   Widget build(BuildContext context) {
@@ -147,10 +150,13 @@ class _LoginPageFormState extends State<LoginPageForm> {
               labelText: TTexts.email,
               prefixIcon: Iconsax.user,
               keyboardType: TextInputType.emailAddress,
-              textInputAction: TextInputAction.next,
+              // textInputAction: TextInputAction.next,
               onEditingComplete: () {},
               onTap: () {},
               obscureText: false,
+              onFieldSubmitted: (value) {
+                FocusScope.of(context).nextFocus();
+              },
             ),
             const SizedBox(
               height: TSizes.spaceBtwInputFields,
@@ -164,6 +170,9 @@ class _LoginPageFormState extends State<LoginPageForm> {
               onEditingComplete: () {},
               onTap: () {},
               obscureText: !controller.isObscure.value,
+              onFieldSubmitted: (value) {
+                FocusScope.of(context).unfocus();
+              },
               suffixIcon: GestureDetector(
                 onTap: () {
                   controller.isObscure.value = !controller.isObscure.value;

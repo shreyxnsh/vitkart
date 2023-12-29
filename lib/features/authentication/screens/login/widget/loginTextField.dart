@@ -14,6 +14,7 @@ class LoginScreenTextFeild extends StatelessWidget {
   final VoidCallback? onEditingComplete;
   final bool? enabled;
   final TextInputAction? textInputAction;
+  final ValueChanged<String>? onFieldSubmitted;
 
   const LoginScreenTextFeild({
     this.height,
@@ -28,6 +29,7 @@ class LoginScreenTextFeild extends StatelessWidget {
     this.onTap,
     this.textInputAction,
     this.onEditingComplete,
+    this.onFieldSubmitted,
   });
 
   @override
@@ -35,7 +37,7 @@ class LoginScreenTextFeild extends StatelessWidget {
     final dark = THelperFunctions.isDarkMode(context);
     return SizedBox(
       height: height ?? MediaQuery.of(context).size.height * 0.07,
-      child: TextField(
+      child: TextFormField(
         enabled: enabled,
         controller: controller,
         decoration: InputDecoration(
@@ -43,7 +45,7 @@ class LoginScreenTextFeild extends StatelessWidget {
           prefixIconColor: dark ? TColors.light : TColors.primary,
           prefixIcon: Icon(prefixIcon),
           suffixIcon: suffixIcon,
-          border: OutlineInputBorder(
+          border: const OutlineInputBorder(
             borderSide: BorderSide(color: TColors.white), // Set border color
           ),
           filled: true,
@@ -54,6 +56,7 @@ class LoginScreenTextFeild extends StatelessWidget {
         onTap: onTap,
         textInputAction: textInputAction,
         onEditingComplete: onEditingComplete,
+        onFieldSubmitted: onFieldSubmitted,
       ),
     );
   }
