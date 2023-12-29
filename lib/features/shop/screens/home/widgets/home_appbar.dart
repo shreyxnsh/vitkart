@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart'; // Import GetStorage
-import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:vitkart/common/widgets/appbar/appbar.dart';
 import 'package:vitkart/utils/API/userDataService.dart';
 import 'package:vitkart/utils/constants/colors.dart';

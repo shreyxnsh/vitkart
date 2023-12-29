@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:vitkart/features/personalization/screens/profile/profile.dart';
 import 'package:vitkart/utils/API/userDataService.dart';
 

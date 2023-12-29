@@ -20,6 +20,8 @@ dependencies:
   url_launcher: ^6.1.12
   flutter_native_splash: ^2.3.1
   smooth_page_indicator: ^1.1.0
+  loading_animation_widget: ^1.2.0+4
+  cherry_toast: ^1.6.4
   
   # Icons
   iconsax: ^0.0.8
@@ -37,6 +39,8 @@ dependencies:
   pinput: ^3.0.1
   iconify: ^0.0.1
   iconify_flutter: ^0.0.5
+  cupertino_date_textbox: ^1.0.3
+  drop_down_list: ^0.0.6
 
   #--------------- ./ PACKAGES END ------------------#
 

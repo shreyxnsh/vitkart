@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vitkart/features/events/screens/ticket.dart';
-import 'package:vitkart/utils/constants/sizes.dart';
 
 class EventTicketVertical extends StatelessWidget {
   const EventTicketVertical({super.key});
@@ -10,7 +9,7 @@ class EventTicketVertical extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.to(() => TicketScreen());
+        Get.to(() => const TicketScreen());
       },
       child: Container(
         width: double.infinity,
@@ -120,7 +119,7 @@ class DottedLinePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final Paint paint = Paint()
-      ..color = Color(0xFF121933)
+      ..color = const Color(0xFF121933)
       ..strokeWidth = 1
       ..strokeCap = StrokeCap.round;
 

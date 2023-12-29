@@ -28,7 +28,7 @@ class TicketScanQRContainer extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
 
-                                  Container(
+                                  SizedBox(
                                     width: TSizes.displayHeight(context) * 0.2,
                                     child: Row(
                                       children: [
@@ -43,7 +43,7 @@ class TicketScanQRContainer extends StatelessWidget {
                                   const SizedBox(
                                     height: TSizes.spaceBtwItems,
                                   ),
-                                  Container(
+                                  SizedBox(
                                     width: TSizes.displayHeight(context) * 0.2,
                                     child: Row(
                                       
@@ -52,7 +52,7 @@ class TicketScanQRContainer extends StatelessWidget {
                                       "Ticket ID",
                                       style: Theme.of(context).textTheme.bodySmall,
                                     ),
-                                    Spacer(),
+                                    const Spacer(),
                                     Text(
                                       "32212",
                                       style: Theme.of(context).textTheme.bodyMedium,
