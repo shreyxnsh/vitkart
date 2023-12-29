@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
-
-import 'package:dropdown_model_list/dropdown_model_list.dart';
+import 'package:drop_down_list/drop_down_list.dart';
+import 'package:drop_down_list/model/selected_list_item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -19,9 +19,8 @@ class RegisterController extends GetxController {
   TextEditingController cpasswordController = TextEditingController();
   //page two
   TextEditingController phoneController = TextEditingController();
-  late DropListModel joiningYearList;
-
-  RxInt joiningYear = 0.obs;
+  late List<SelectedListItem> joiningYearList;
+  Rx<String> joiningYear = "".obs;
   Rx<String> gender = "unKnown".obs;
   TextEditingController knowFromController = TextEditingController();
   Rx<String> Dob = "".obs;
@@ -59,14 +58,37 @@ class RegisterController extends GetxController {
   }
 
   getJoiningYearList() {
-    List<OptionItem> lst = [];
-    for (int i = DateTime.now().year - 4; i <= DateTime.now().year; i++) {
-      lst.add(OptionItem(
-        title: i.toString(),
-        id: i.toString(),
-      ));
+    joiningYearList = [];
+
+    for (var i = DateTime.now().year - 4; i <= DateTime.now().year; i++) {
+      joiningYearList.add(
+        SelectedListItem(
+          name: "$i",
+          value: "$i",
+          isSelected: false,
+        ),
+      );
     }
-    joiningYearList = DropListModel(lst);
+  }
+
+  selectBatch(BuildContext context) {
+    DropDownState(
+      DropDown(
+        bottomSheetTitle: const Text(
+          "Select Your Batch  👇",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 20.0,
+          ),
+        ),
+        data: joiningYearList,
+        enableMultipleSelection: false,
+        selectedItems: (selectedItems) {
+          joiningYear.value = selectedItems.first.name;
+        },
+        searchWidget: null,
+      ),
+    ).showModal(context);
   }
 
   void registerUser() async {
@@ -165,7 +187,7 @@ class RegisterController extends GetxController {
     currentPageIndex.value = index;
   }
 
-  void dobPicker(BuildContext context, Color bgColor) async {
+  void dobPicker(BuildContext context, Color bgColor, String format) async {
     showModalBottomSheet(
       isScrollControlled: true,
       backgroundColor: bgColor,
@@ -193,10 +215,9 @@ class RegisterController extends GetxController {
                 mode: CupertinoDatePickerMode.date,
                 initialDateTime: Dob.value == ""
                     ? DateTime(2000, 1, 1)
-                    : DateFormat(DateFormat.YEAR_MONTH_DAY).parse(Dob.value),
+                    : DateFormat(format).parse(Dob.value),
                 onDateTimeChanged: (DateTime dateTime) {
-                  Dob.value =
-                      DateFormat(DateFormat.YEAR_MONTH_DAY).format(dateTime);
+                  Dob.value = DateFormat(format).format(dateTime);
                 },
               ),
             ),
