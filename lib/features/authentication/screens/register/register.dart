@@ -1,6 +1,7 @@
 import 'dart:developer';
 
-import 'package:animated_custom_dropdown/custom_dropdown.dart';
+import 'package:dropdown_model_list/drop_down/select_drop_list.dart';
+import 'package:dropdown_model_list/dropdown_model_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -170,6 +171,7 @@ class RegisterScreen extends StatelessWidget {
                                   labelText: TTexts.name,
                                   prefixIcon: Iconsax.user,
                                   keyboardType: TextInputType.name,
+                                  textInputAction: TextInputAction.next,
                                 ),
                                 const SizedBox(
                                   height: TSizes.spaceBtwInputFields,
@@ -180,6 +182,7 @@ class RegisterScreen extends StatelessWidget {
                                   labelText: TTexts.regNo,
                                   prefixIcon: Iconsax.personalcard,
                                   keyboardType: TextInputType.name,
+                                  textInputAction: TextInputAction.next,
                                 ),
                                 const SizedBox(
                                   height: TSizes.spaceBtwInputFields,
@@ -189,6 +192,7 @@ class RegisterScreen extends StatelessWidget {
                                   labelText: TTexts.email,
                                   prefixIcon: Icons.email_outlined,
                                   keyboardType: TextInputType.emailAddress,
+                                  textInputAction: TextInputAction.next,
                                 ),
                                 const SizedBox(
                                   height: TSizes.spaceBtwInputFields,
@@ -199,6 +203,7 @@ class RegisterScreen extends StatelessWidget {
                                   prefixIcon: Iconsax.key,
                                   keyboardType: TextInputType.visiblePassword,
                                   obscureText: !controller.isPassObscure.value,
+                                  textInputAction: TextInputAction.next,
                                   suffixIcon: GestureDetector(
                                     onTap: () {
                                       controller.isPassObscure.value =
@@ -220,6 +225,7 @@ class RegisterScreen extends StatelessWidget {
                                   prefixIcon: Iconsax.key,
                                   keyboardType: TextInputType.visiblePassword,
                                   obscureText: !controller.isCPassObscure.value,
+                                  textInputAction: TextInputAction.done,
                                   suffixIcon: GestureDetector(
                                     onTap: () {
                                       controller.isCPassObscure.value =
@@ -247,6 +253,7 @@ class RegisterScreen extends StatelessWidget {
                                   labelText: TTexts.phone,
                                   prefixIcon: Iconsax.mobile,
                                   keyboardType: TextInputType.number,
+                                  textInputAction: TextInputAction.done,
                                 ),
                                 const SizedBox(
                                   height: TSizes.spaceBtwInputFields,
@@ -264,7 +271,10 @@ class RegisterScreen extends StatelessWidget {
                                           log("male : ${controller.gender.value}");
                                         },
                                         child: Container(
-                                          height: 58,
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.07,
                                           decoration: BoxDecoration(
                                             color: controller.gender.value ==
                                                     "Male"
@@ -318,7 +328,10 @@ class RegisterScreen extends StatelessWidget {
                                           log("male : ${controller.gender.value}");
                                         },
                                         child: Container(
-                                          height: 58,
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.07,
                                           decoration: BoxDecoration(
                                             color: controller.gender.value ==
                                                     "Female"
@@ -363,127 +376,22 @@ class RegisterScreen extends StatelessWidget {
                                 const SizedBox(
                                   height: TSizes.spaceBtwInputFields,
                                 ),
-
-                                // Year of joining
-                                CustomDropdown<int>(
-                                  hintText: 'Year of joining',
-                                  headerBuilder: (context, hint) => const Text(
-                                    TTexts.yearOfJoining,
-                                  ),
-                                  items: controller.joiningYearList,
-                                  initialItem: controller.joiningYearList.first,
-                                  closedSuffixIcon: Icon(
-                                    Icons.keyboard_arrow_down_rounded,
-                                    color: dark
-                                        ? TColors.light
-                                        : TColors.lightDarkBackground,
-                                  ),
-                                  expandedSuffixIcon: Icon(
-                                    Icons.keyboard_arrow_up_rounded,
-                                    color: dark
-                                        ? TColors.light
-                                        : TColors.lightDarkBackground,
-                                  ),
-                                  expandedFillColor: dark
-                                      ? TColors.lightDarkBackground
-                                      : TColors.light,
-                                  expandedBorder: Border.all(
-                                    color: dark
-                                        ? TColors.lightDarkBackground
-                                        : TColors.light,
-                                  ),
-                                  closedFillColor: dark
-                                      ? TColors.lightDarkBackground
-                                      : TColors.light,
-                                  closedBorder: Border.all(
-                                    color: dark
-                                        ? TColors.lightDarkBackground
-                                        : TColors.light,
-                                  ),
-                                  hintBuilder: (context, hint) => Text(
-                                    hint.toString(),
-                                  ),
-                                  onChanged: (value) {
-                                    controller.joiningYear.value = value;
+                                SelectDropList(
+                                  itemSelected: controller
+                                      .joiningYearList.listOptionItems.first,
+                                  dropListModel: controller.joiningYearList,
+                                  showIcon: true, // Show Icon in DropDown Title
+                                  showArrowIcon:
+                                      true, // Show Arrow Icon in DropDown
+                                  showBorder: true,
+                                  paddingTop: 0,
+                                  icon: const Icon(Icons.person,
+                                      color: Colors.black),
+                                  onOptionSelected: (optionItem) {
+                                    // optionItemSelected = optionItem;
+                                    // setState(() {});
                                   },
                                 ),
-                                // Row(
-                                //   mainAxisAlignment: MainAxisAlignment.start,
-                                //   children: [
-                                //     Expanded(
-                                //       child: ElevatedButton(
-                                //         onPressed: () {
-                                //           controller.dobPicker(
-                                //             context,
-                                //             dark
-                                //                 ? TColors.darkBackground
-                                //                 : TColors.light,
-                                //           );
-                                //         },
-                                //         style: ButtonStyle(
-                                //           backgroundColor:
-                                //               MaterialStateProperty.all(
-                                //             TColors.lightDarkBackground,
-                                //           ),
-                                //           shape: MaterialStateProperty.all(
-                                //             RoundedRectangleBorder(
-                                //               side: BorderSide(
-                                //                 color: dark
-                                //                     ? TColors.light
-                                //                     : TColors.grey,
-                                //               ),
-                                //               borderRadius:
-                                //                   BorderRadius.circular(12),
-                                //             ),
-                                //           ),
-                                //           elevation:
-                                //               MaterialStateProperty.all(0),
-                                //           padding: MaterialStateProperty.all(
-                                //             const EdgeInsets.symmetric(
-                                //                 horizontal: 10, vertical: 10),
-                                //           ),
-                                //           maximumSize:
-                                //               MaterialStateProperty.all(
-                                //             Size(200, 58),
-                                //           ),
-                                //           minimumSize:
-                                //               MaterialStateProperty.all(
-                                //             Size(200, 58),
-                                //           ),
-                                //         ),
-                                //         child: Row(
-                                //           mainAxisAlignment:
-                                //               MainAxisAlignment.start,
-                                //           mainAxisSize: MainAxisSize.max,
-                                //           children: [
-                                //             Icon(
-                                //               Iconsax.building,
-                                //               color: dark
-                                //                   ? TColors.light
-                                //                   : TColors.darkBackground,
-                                //             ),
-                                //             const SizedBox(
-                                //               width: 8,
-                                //             ),
-                                //             Text(
-                                //               controller.Dob.value == ""
-                                //                   ? TTexts.yearOfJoining
-                                //                   : controller.Dob.value,
-                                //               style: TextStyle(
-                                //                 color: dark
-                                //                     ? TColors.light
-                                //                     : TColors.darkBackground,
-                                //                 fontWeight: FontWeight.w500,
-                                //                 fontSize: 16,
-                                //               ),
-                                //             )
-                                //           ],
-                                //         ),
-                                //       ),
-                                //     ),
-                                //   ],
-                                // ),
-
                                 const SizedBox(
                                   height: TSizes.spaceBtwInputFields,
                                 ),
@@ -493,6 +401,7 @@ class RegisterScreen extends StatelessWidget {
                                       "Where did you get to know about VITKART?",
                                   prefixIcon: Iconsax.building_3,
                                   keyboardType: TextInputType.number,
+                                  textInputAction: TextInputAction.done,
                                 ),
                                 const SizedBox(
                                   height: TSizes.spaceBtwInputFields,

@@ -31,11 +31,9 @@ class _LoginPageFormState extends State<LoginPageForm> {
 
   final TextEditingController _passwordController = TextEditingController();
 
-
   LoginController get controller => Get.put(LoginController());
 
   final userData = GetStorage();
-
 
   @override
   void initState() {
@@ -72,12 +70,12 @@ class _LoginPageFormState extends State<LoginPageForm> {
         print("User Gender: $userGender");
         print("User Token: $myToken");
 
-
-
         userData.write('token', myToken);
 
         // passing token data to dashboard screen
-        Get.to(() => (NavigationMenu(token: myToken,)));
+        Get.to(() => (NavigationMenu(
+              token: myToken,
+            )));
       } else {
         print("Something went wrong");
       }
@@ -108,6 +106,7 @@ class _LoginPageFormState extends State<LoginPageForm> {
               labelText: TTexts.email,
               prefixIcon: Iconsax.user,
               keyboardType: TextInputType.emailAddress,
+              textInputAction: TextInputAction.next,
               onEditingComplete: () {},
               onTap: () {},
               obscureText: false,
@@ -120,6 +119,7 @@ class _LoginPageFormState extends State<LoginPageForm> {
               labelText: TTexts.password,
               prefixIcon: Iconsax.key,
               keyboardType: TextInputType.visiblePassword,
+              textInputAction: TextInputAction.next,
               onEditingComplete: () {},
               onTap: () {},
               obscureText: !controller.isObscure.value,

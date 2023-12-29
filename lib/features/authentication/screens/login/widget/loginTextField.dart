@@ -3,6 +3,7 @@ import 'package:vitkart/utils/constants/colors.dart';
 import 'package:vitkart/utils/helpers/helper_functions.dart';
 
 class LoginScreenTextFeild extends StatelessWidget {
+  final double? height;
   final TextEditingController? controller;
   final String labelText;
   final IconData? prefixIcon;
@@ -12,7 +13,9 @@ class LoginScreenTextFeild extends StatelessWidget {
   final VoidCallback? onTap;
   final VoidCallback? onEditingComplete;
   final bool? enabled;
+  final TextInputAction? textInputAction;
   const LoginScreenTextFeild({
+    this.height,
     this.enabled,
     this.controller,
     super.key,
@@ -22,28 +25,33 @@ class LoginScreenTextFeild extends StatelessWidget {
     this.obscureText = false,
     this.keyboardType,
     this.onTap,
+    this.textInputAction,
     this.onEditingComplete,
   });
 
   @override
   Widget build(BuildContext context) {
     final dark = THelperFunctions.isDarkMode(context);
-    return TextField(
-      enabled: enabled,
-      controller: controller,
-      decoration: InputDecoration(
-        labelText: labelText,
-        prefixIconColor: dark ? TColors.light : TColors.primary,
-        prefixIcon: Icon(prefixIcon),
-        suffixIcon: suffixIcon,
-        border: const OutlineInputBorder(),
-        filled: true,
-        fillColor: dark ? TColors.lightDarkBackground : TColors.light,
+    return SizedBox(
+      height: height ?? MediaQuery.of(context).size.height * 0.07,
+      child: TextField(
+        enabled: enabled,
+        controller: controller,
+        decoration: InputDecoration(
+          labelText: labelText,
+          prefixIconColor: dark ? TColors.light : TColors.primary,
+          prefixIcon: Icon(prefixIcon),
+          suffixIcon: suffixIcon,
+          border: const OutlineInputBorder(),
+          filled: true,
+          fillColor: dark ? TColors.lightDarkBackground : TColors.light,
+        ),
+        obscureText: obscureText,
+        keyboardType: keyboardType,
+        onTap: onTap,
+        textInputAction: textInputAction,
+        onEditingComplete: onEditingComplete,
       ),
-      obscureText: obscureText,
-      keyboardType: keyboardType,
-      onTap: onTap,
-      onEditingComplete: onEditingComplete,
     );
   }
 }

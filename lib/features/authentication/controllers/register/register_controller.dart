@@ -1,13 +1,13 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:dropdown_model_list/dropdown_model_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import 'package:vitkart/utils/config/config.dart';
-import 'package:vitkart/utils/constants/colors.dart';
 import 'package:vitkart/utils/constants/sizes.dart';
 
 class RegisterController extends GetxController {
@@ -19,7 +19,7 @@ class RegisterController extends GetxController {
   TextEditingController cpasswordController = TextEditingController();
   //page two
   TextEditingController phoneController = TextEditingController();
-  late List<int> joiningYearList;
+  late DropListModel joiningYearList;
 
   RxInt joiningYear = 0.obs;
   Rx<String> gender = "unKnown".obs;
@@ -59,10 +59,14 @@ class RegisterController extends GetxController {
   }
 
   getJoiningYearList() {
-    joiningYearList = [];
+    List<OptionItem> lst = [];
     for (int i = DateTime.now().year - 4; i <= DateTime.now().year; i++) {
-      joiningYearList.add(i);
+      lst.add(OptionItem(
+        title: i.toString(),
+        id: i.toString(),
+      ));
     }
+    joiningYearList = DropListModel(lst);
   }
 
   void registerUser() async {
