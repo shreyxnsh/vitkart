@@ -4,10 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vitkart/features/authentication/controllers/login/login_controller.dart';
 import 'package:vitkart/features/authentication/screens/login/widget/DontHaveAccountButtonText.dart';
-import 'package:vitkart/features/authentication/screens/login/widget/LoginPageSignInButton.dart';
 import 'package:vitkart/features/authentication/screens/login/widget/forgotPaswordButtonText.dart';
 import 'package:vitkart/features/authentication/screens/login/widget/loginFormHeadings.dart';
 import 'package:vitkart/features/authentication/screens/login/widget/loginTextField.dart';
@@ -20,7 +18,7 @@ import 'package:vitkart/utils/config/config.dart';
 import 'package:vitkart/utils/helpers/helper_functions.dart';
 
 class LoginPageForm extends StatefulWidget {
-  LoginPageForm({
+  const LoginPageForm({
     super.key,
   });
 
@@ -83,7 +81,6 @@ class _LoginPageFormState extends State<LoginPageForm> {
       } else {
         print("Something went wrong");
       }
-      ;
     }
   }
 

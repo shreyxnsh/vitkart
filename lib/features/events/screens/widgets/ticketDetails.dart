@@ -46,7 +46,7 @@ class TicketDetailsContainer extends StatelessWidget {
                                 "Name",
                                 style: Theme.of(context).textTheme.bodySmall,
                               ),
-                              Spacer(),
+                              const Spacer(),
                               Text(
                                 "Reg No.",
                                 style: Theme.of(context).textTheme.bodySmall,
@@ -60,7 +60,7 @@ class TicketDetailsContainer extends StatelessWidget {
                                 "Shreyansh Jain",
                                 style: Theme.of(context).textTheme.bodyLarge,
                               ),
-                              Spacer(),
+                              const Spacer(),
                               Text(
                                 "21BSA10012",
                                 style: Theme.of(context).textTheme.bodyLarge,
@@ -76,7 +76,7 @@ class TicketDetailsContainer extends StatelessWidget {
                                 "Time",
                                 style: Theme.of(context).textTheme.bodySmall,
                               ),
-                              Spacer(),
+                              const Spacer(),
                               Text(
                                 "Date",
                                 style: Theme.of(context).textTheme.bodySmall,
@@ -90,7 +90,7 @@ class TicketDetailsContainer extends StatelessWidget {
                                 "01:00PM - 06:30PM",
                                 style: Theme.of(context).textTheme.bodyLarge,
                               ),
-                              Spacer(),
+                              const Spacer(),
                               Text(
                                 "07 Jan 2024",
                                 style: Theme.of(context).textTheme.bodyLarge,
@@ -106,7 +106,7 @@ class TicketDetailsContainer extends StatelessWidget {
                                 "Location",
                                 style: Theme.of(context).textTheme.bodySmall,
                               ),
-                              Spacer(),
+                              const Spacer(),
                               Text(
                                 "OD",
                                 style: Theme.of(context).textTheme.bodySmall,
@@ -120,7 +120,7 @@ class TicketDetailsContainer extends StatelessWidget {
                                 "Auditorium, VIT Bhopal",
                                 style: Theme.of(context).textTheme.bodyLarge,
                               ),
-                              Spacer(),
+                              const Spacer(),
                               Text(
                                 "Yes",
                                 style: Theme.of(context).textTheme.bodyLarge,
