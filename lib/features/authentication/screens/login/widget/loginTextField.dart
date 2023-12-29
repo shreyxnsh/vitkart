@@ -14,6 +14,7 @@ class LoginScreenTextFeild extends StatelessWidget {
   final VoidCallback? onEditingComplete;
   final bool? enabled;
   final TextInputAction? textInputAction;
+
   const LoginScreenTextFeild({
     this.height,
     this.enabled,
@@ -42,7 +43,9 @@ class LoginScreenTextFeild extends StatelessWidget {
           prefixIconColor: dark ? TColors.light : TColors.primary,
           prefixIcon: Icon(prefixIcon),
           suffixIcon: suffixIcon,
-          border: const OutlineInputBorder(),
+          border: OutlineInputBorder(
+            borderSide: BorderSide(color: TColors.white), // Set border color
+          ),
           filled: true,
           fillColor: dark ? TColors.lightDarkBackground : TColors.light,
         ),

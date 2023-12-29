@@ -1,9 +1,12 @@
 import 'dart:convert';
 
+import 'package:cherry_toast/cherry_toast.dart';
+import 'package:cherry_toast/resources/arrays.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:vitkart/features/authentication/controllers/login/login_controller.dart';
 import 'package:vitkart/features/authentication/screens/login/widget/DontHaveAccountButtonText.dart';
 import 'package:vitkart/features/authentication/screens/login/widget/forgotPaswordButtonText.dart';
@@ -34,6 +37,7 @@ class _LoginPageFormState extends State<LoginPageForm> {
   LoginController get controller => Get.put(LoginController());
 
   final userData = GetStorage();
+  bool isLoading = false;
 
   @override
   void initState() {
@@ -41,46 +45,83 @@ class _LoginPageFormState extends State<LoginPageForm> {
     super.initState();
   }
 
-  void loginUser() async {
-    // check if user has added data
-    if (_emailController.text.isNotEmpty &&
-        _passwordController.text.isNotEmpty) {
-      // creating an object of registration body
-      var regBody = {
-        //json format
-        "userEmail": _emailController.text,
-        "userPassword": _passwordController.text
-      };
-
-      print(regBody);
-
-      // http [post] request sent to api
-      var response = await http.post(Uri.parse(loginUrl),
-          headers: {"Content-type": "application/json"},
-          body: jsonEncode(regBody));
-
-      //getting the response by the server
-      var jsonResponse = jsonDecode(response.body);
-      print(jsonResponse);
-
-      if (jsonResponse['status']) {
-        var userGender = jsonResponse['authenticatedUser']['userGender'];
-        var myToken = jsonResponse['authenticatedUser']['token'];
-
-        print("User Gender: $userGender");
-        print("User Token: $myToken");
-
-        userData.write('token', myToken);
-
-        // passing token data to dashboard screen
-        Get.to(() => (NavigationMenu(
-              token: myToken,
-            )));
-      } else {
-        print("Something went wrong");
-      }
-    }
+    void loginUser() async {
+  // check if user has added data
+  if (_emailController.text.isEmpty) {
+    // Show CherryToast for empty email field
+    CherryToast.error(
+      title: Text(""),
+      displayTitle: false,
+      description: Text("User Email field empty", style: TextStyle(color: Colors.black)),
+      animationType: AnimationType.fromRight,
+      animationDuration: Duration(milliseconds: 1000),
+      autoDismiss: true,
+    ).show(context);
+    return;
   }
+
+  if (_passwordController.text.isEmpty) {
+    // Show CherryToast for empty password field
+    CherryToast.error(
+      title: Text(""),
+      displayTitle: false,
+      description: Text("Password field empty", style: TextStyle(color: Colors.black)),
+      animationType: AnimationType.fromRight,
+      animationDuration: Duration(milliseconds: 1000),
+      autoDismiss: true,
+    ).show(context);
+    return;
+  }
+
+  setState(() {
+    isLoading = true;
+  });
+
+  // creating an object of registration body
+  var regBody = {
+    //json format
+    "userEmail": _emailController.text,
+    "userPassword": _passwordController.text
+  };
+
+  print(regBody);
+
+  // http [post] request sent to api
+  var response = await http.post(Uri.parse(loginUrl),
+      headers: {"Content-type": "application/json"},
+      body: jsonEncode(regBody));
+
+  //getting the response by the server
+  var jsonResponse = jsonDecode(response.body);
+  print(jsonResponse);
+
+  if (jsonResponse['status']) {
+    var userGender = jsonResponse['authenticatedUser']['userGender'];
+    var myToken = jsonResponse['authenticatedUser']['token'];
+
+    print("User Gender: $userGender");
+    print("User Token: $myToken");
+
+    userData.write('token', myToken);
+
+    // passing token data to dashboard screen
+    Get.to(() => NavigationMenu(token: myToken));
+  } else {
+    // Show CherryToast for other errors
+    CherryToast.error(
+      title: Text(""),
+      displayTitle: false,
+      description: Text("Invalid account information", style: TextStyle(color: Colors.black)),
+      animationType: AnimationType.fromRight,
+      animationDuration: Duration(milliseconds: 1000),
+      autoDismiss: true,
+    ).show(context);
+  }
+
+  setState(() {
+    isLoading = false;
+  });
+}
 
   @override
   Widget build(BuildContext context) {
@@ -119,7 +160,7 @@ class _LoginPageFormState extends State<LoginPageForm> {
               labelText: TTexts.password,
               prefixIcon: Iconsax.key,
               keyboardType: TextInputType.visiblePassword,
-              textInputAction: TextInputAction.next,
+              textInputAction: TextInputAction.done,
               onEditingComplete: () {},
               onTap: () {},
               obscureText: !controller.isObscure.value,
@@ -155,12 +196,29 @@ class _LoginPageFormState extends State<LoginPageForm> {
                 onPressed: () async {
                   loginUser();
                 },
-                child: const Text(
-                  TTexts.signIn,
-                  style: TextStyle(
-                    color: TColors.white,
-                    fontSize: 16,
-                  ),
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    // Show loading animation if isLoading is true
+                    Visibility(
+                      visible: isLoading,
+                      child: LoadingAnimationWidget.staggeredDotsWave(
+                        color: Colors.white,
+                        size: 30,
+                      ),
+                    ),
+                    // Show button text when not loading
+                    Visibility(
+                      visible: !isLoading,
+                      child: const Text(
+                        TTexts.signIn,
+                        style: TextStyle(
+                          color: TColors.white,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
