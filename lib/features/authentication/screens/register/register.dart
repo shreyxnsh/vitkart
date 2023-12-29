@@ -121,38 +121,40 @@ class RegisterScreen extends StatelessWidget {
                     // heading
                     Text(
                       "👨🏻‍🎓 Student Details",
-                      style: Theme.of(context).textTheme.headlineMedium,
+                      style: Theme.of(context).textTheme.headlineSmall,
                     ),
                     const SizedBox(
                       height: TSizes.spaceBtwItems,
                     ),
                     Text(
                       TTexts.toGetStarted,
-                      style: Theme.of(context).textTheme.headlineSmall,
+                      style: Theme.of(context).textTheme.titleLarge,
                     ),
                     const SizedBox(
                       height: TSizes.spaceBtwSections,
                     ),
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        for (int i = 0; i < 3; i++)
-                          TCirclularContainer(
+                    Center(
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const SizedBox(
                             width: 20,
-                            height: 4,
-                            margen: const EdgeInsets.only(right: 10),
-                            backgroundColor:
-                                controller.currentPageIndex.value == i
-                                    ? TColors.primary
-                                    : TColors.grey,
                           ),
-                      ],
+                          for (int i = 0; i < 3; i++)
+                            TCirclularContainer(
+                              width: 20,
+                              height: 4,
+                              margen: const EdgeInsets.only(right: 10),
+                              backgroundColor:
+                                  controller.currentPageIndex.value == i
+                                      ? TColors.primary
+                                      : TColors.grey,
+                            ),
+                        ],
+                      ),
                     ),
                     const SizedBox(
-                      height: TSizes.spaceBtwSections,
+                      height: TSizes.spaceBtwItems,
                     ),
                     Expanded(
                       child: PageView(
@@ -220,6 +222,7 @@ class RegisterScreen extends StatelessWidget {
                                   height: TSizes.spaceBtwInputFields,
                                 ),
                                 LoginScreenTextFeild(
+                                  
                                   controller: controller.cpasswordController,
                                   labelText: TTexts.cpassword,
                                   prefixIcon: Iconsax.key,
@@ -261,147 +264,125 @@ class RegisterScreen extends StatelessWidget {
                                 Row(
                                   children: [
                                     Expanded(
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          if (controller.gender.value ==
-                                              "Male") {
-                                            return;
-                                          }
-                                          controller.gender.value = "Male";
-                                          log("male : ${controller.gender.value}");
-                                        },
-                                        child: Container(
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.07,
-                                          decoration: BoxDecoration(
-                                            color: controller.gender.value ==
-                                                    "Male"
-                                                ? TColors.primary
-                                                : dark
-                                                    ? TColors
-                                                        .lightDarkBackground
-                                                    : TColors.light,
-                                            border: Border.all(
-                                              color: controller.gender.value ==
-                                                      "Male"
-                                                  ? TColors.primary
-                                                  : dark
-                                                      ? TColors.light
-                                                      : TColors.grey,
-                                            ),
-                                            borderRadius: BorderRadius.circular(
-                                              8,
-                                            ),
-                                          ),
-                                          child: Center(
-                                            child: Text(
-                                              "Male",
-                                              style: TextStyle(
-                                                color:
-                                                    controller.gender.value !=
-                                                                "Male" &&
-                                                            !dark
-                                                        ? TColors
-                                                            .lightDarkBackground
-                                                        : TColors.light,
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 16,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
+  child: GestureDetector(
+    onTap: () {
+      if (controller.gender.value == "Male") {
+        return;
+      }
+      controller.gender.value = "Male";
+      log("male : ${controller.gender.value}");
+    },
+    child: Container(
+      height: MediaQuery.of(context).size.height * 0.07,
+      decoration: BoxDecoration(
+        color: controller.gender.value == "Male"
+            ? TColors.primary
+            : dark
+                ? TColors.lightDarkBackground
+                : TColors.light,
+        border: Border.all(
+          color: controller.gender.value == "Male"
+              ? TColors.primary
+              : dark
+                  ? TColors.light
+                  : TColors.grey,
+        ),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Center(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              "assets/icons/categories/male.png",
+              width: 35,
+              height: 35,
+              color: controller.gender.value == "Male"
+                  ? TColors.white  // Set white color when selected
+                  : TColors.primary,  // Set primary color when not selected
+            ),
+            const SizedBox(
+              width: 5,
+            ),
+            Text(
+              "Male",
+              style: TextStyle(
+                color: controller.gender.value != "Male" && !dark
+                    ? TColors.lightDarkBackground
+                    : TColors.light,
+                fontWeight: FontWeight.w500,
+                fontSize: 16,
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+  ),
+),
+
                                     const SizedBox(
                                       width: TSizes.spaceBtwInputFields,
                                     ),
                                     Expanded(
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          if (controller.gender.value ==
-                                              "Female") {
-                                            return;
-                                          }
-                                          controller.gender.value = "Female";
-                                          log("male : ${controller.gender.value}");
-                                        },
-                                        child: Container(
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.07,
-                                          decoration: BoxDecoration(
-                                            color: controller.gender.value ==
-                                                    "Female"
-                                                ? TColors.primary
-                                                : dark
-                                                    ? TColors
-                                                        .lightDarkBackground
-                                                    : TColors.light,
-                                            border: Border.all(
-                                              color: controller.gender.value ==
-                                                      "Female"
-                                                  ? TColors.primary
-                                                  : dark
-                                                      ? TColors.light
-                                                      : TColors.grey,
-                                            ),
-                                            borderRadius: BorderRadius.circular(
-                                              8,
-                                            ),
-                                          ),
-                                          child: Center(
-                                            child: Text(
-                                              "Female ",
-                                              style: TextStyle(
-                                                color:
-                                                    controller.gender.value !=
-                                                                "Female" &&
-                                                            !dark
-                                                        ? TColors
-                                                            .lightDarkBackground
-                                                        : TColors.light,
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 16,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
+  child: GestureDetector(
+    onTap: () {
+      if (controller.gender.value == "Female") {
+        return;
+      }
+      controller.gender.value = "Female";
+      log("female : ${controller.gender.value}");
+    },
+    child: Container(
+      height: MediaQuery.of(context).size.height * 0.07,
+      decoration: BoxDecoration(
+        color: controller.gender.value == "Female"
+            ? TColors.primary
+            : dark
+                ? TColors.lightDarkBackground
+                : TColors.light,
+        border: Border.all(
+          color: controller.gender.value == "Female"
+              ? TColors.primary
+              : dark
+                  ? TColors.light
+                  : TColors.grey,
+        ),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Center(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              "assets/icons/categories/female.png",
+              width: 35,
+              height: 35,
+              color: controller.gender.value == "Female"
+                  ? TColors.white  // Set white color when selected
+                  : TColors.primary,  // Set primary color when not selected
+            ),
+            const SizedBox(
+              width: 5,
+            ),
+            Text(
+              "Female",
+              style: TextStyle(
+                color: controller.gender.value != "Female" && !dark
+                    ? TColors.lightDarkBackground
+                    : TColors.light,
+                fontWeight: FontWeight.w500,
+                fontSize: 16,
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+  ),
+),
+
                                   ],
-                                ),
-                                const SizedBox(
-                                  height: TSizes.spaceBtwInputFields,
-                                ),
-                                SelectDropList(
-                                  itemSelected: controller
-                                      .joiningYearList.listOptionItems.first,
-                                  dropListModel: controller.joiningYearList,
-                                  showIcon: true, // Show Icon in DropDown Title
-                                  showArrowIcon:
-                                      true, // Show Arrow Icon in DropDown
-                                  showBorder: true,
-                                  paddingTop: 0,
-                                  icon: const Icon(Icons.person,
-                                      color: Colors.black),
-                                  onOptionSelected: (optionItem) {
-                                    // optionItemSelected = optionItem;
-                                    // setState(() {});
-                                  },
-                                ),
-                                const SizedBox(
-                                  height: TSizes.spaceBtwInputFields,
-                                ),
-                                LoginScreenTextFeild(
-                                  controller: controller.knowFromController,
-                                  labelText:
-                                      "Where did you get to know about VITKART?",
-                                  prefixIcon: Iconsax.building_3,
-                                  keyboardType: TextInputType.number,
-                                  textInputAction: TextInputAction.done,
                                 ),
                                 const SizedBox(
                                   height: TSizes.spaceBtwInputFields,
@@ -410,7 +391,8 @@ class RegisterScreen extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     Expanded(
-                                      child: ElevatedButton(
+                                      child: OutlinedButton(
+                                        
                                         onPressed: () {
                                           controller.dobPicker(
                                             context,
@@ -434,9 +416,9 @@ class RegisterScreen extends StatelessWidget {
                                           shape: MaterialStateProperty.all(
                                             RoundedRectangleBorder(
                                               side: BorderSide(
-                                                width: 2,
+                                                width: 0,
                                                 color: dark
-                                                    ? TColors.light
+                                                    ? TColors.grey
                                                     : TColors.grey,
                                               ),
                                               borderRadius:
@@ -490,6 +472,28 @@ class RegisterScreen extends StatelessWidget {
                                     ),
                                   ],
                                 ),
+                                const SizedBox(
+                                  height: TSizes.spaceBtwInputFields,
+                                ),
+                                SelectDropList(
+                                  itemSelected: controller
+                                      .joiningYearList.listOptionItems.first,
+                                  dropListModel: controller.joiningYearList,
+                                  showIcon: true, // Show Icon in DropDown Title
+                                  showArrowIcon:
+                                      true, // Show Arrow Icon in DropDown
+                                  showBorder: true,
+                                  paddingTop: 0,
+                                  icon: const Icon(Icons.person,
+                                      color: Colors.black),
+                                  onOptionSelected: (optionItem) {
+                                    // optionItemSelected = optionItem;
+                                    // setState(() {});
+                                  },
+                                ),
+                                
+                                
+                                
                               ],
                             ),
                           ),

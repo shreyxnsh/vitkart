@@ -131,6 +131,7 @@ class RegisterController extends GetxController {
       log("Password - ${passwordController.text}");
       log("CPassword - ${cpasswordController.text}");
       log("Phone - ${phoneController.text}");
+      log("Gender - ${gender}");
       log("Joining Year - ${joiningYear.value}");
       log("Know From - ${knowFromController.text}");
       log("Dob - ${Dob.value.toString()}");
