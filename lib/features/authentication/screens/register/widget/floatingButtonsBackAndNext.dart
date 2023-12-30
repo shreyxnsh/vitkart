@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:vitkart/features/authentication/controllers/register/register_controller.dart';
 import 'package:vitkart/utils/constants/colors.dart';
 
@@ -53,7 +54,13 @@ class FloatingBackNextButton extends StatelessWidget {
               ),
               Expanded(
                 child: ElevatedButton(
-                  onPressed: onNext,
+                  onPressed: () {
+                    // Check if the loading animation is already running
+                    if (!controller.isLoading.value) {
+                      // Call the onNext function only if not loading
+                      onNext?.call();
+                    }
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: TColors.primary,
                     shape: RoundedRectangleBorder(
@@ -63,9 +70,28 @@ class FloatingBackNextButton extends StatelessWidget {
                     maximumSize: const Size.fromHeight(54),
                   ),
                   child: Obx(
-                    () => Text(controller.currentPageIndex.value == 2
-                        ? endTextLabel ?? "Done"
-                        : "Next"),
+                    () => Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        // Show loading animation if isLoading is true
+                        Visibility(
+                          visible: controller.isLoading.value,
+                          child: LoadingAnimationWidget.staggeredDotsWave(
+                            color: Colors.white,
+                            size: 30,
+                          ),
+                        ),
+                        // Show button text when not loading
+                        Visibility(
+                          visible: !controller.isLoading.value,
+                          child: Text(
+                            currentPageIndex == 2
+                                ? endTextLabel ?? "Done"
+                                : "Next",
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -76,3 +102,4 @@ class FloatingBackNextButton extends StatelessWidget {
     );
   }
 }
+

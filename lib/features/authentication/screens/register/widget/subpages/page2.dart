@@ -47,7 +47,7 @@ class Page2 extends StatelessWidget {
             () => TextFieldLikeButton(
               controller: controller,
               dark: dark,
-              labelText: controller.Dob.value,
+              labelText: controller.dob.value,
               onTap: () => controller.dobPicker(
                 context,
                 dark ? TColors.darkBackground : TColors.light,
