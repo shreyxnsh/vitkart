@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:vitkart/common/widgets/custom_shapes/containers/t_rounded_containers.dart';
 import 'package:vitkart/common/widgets/icons/t_circular_icon.dart';
@@ -22,7 +23,7 @@ class TProductCardVertical extends StatelessWidget {
     return GestureDetector(
       onTap: () => Get.to(() => const ProductDetailScreen()),
       child: Container(
-        width: 180,
+        width: 140,
         padding: const EdgeInsets.all(0),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(TSizes.productImageRadius),
@@ -32,36 +33,44 @@ class TProductCardVertical extends StatelessWidget {
           color: dark ? TColors.lightDarkBackground : TColors.light,
         ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             /// Thumbnail
             Padding(
               padding: const EdgeInsets.all(TSizes.xs),
               child: TRoundedContainer(
-                height: TSizes.productItemHeight,
+                height: TSizes.productItemHeight ,
                 margin: const EdgeInsets.only(top: 4),
                 padding: const EdgeInsets.all(TSizes.xs),
                 backgroundColor: dark ? TColors.lightDarkBackground : TColors.light,
                 child: Stack(
                   children: [
-                    const TRoundedImage(
-                      applyImageRadius: true,
-                      imageUrl: TImages.productImage1,
+                    Center(
+                      child:  TRoundedImage(
+                        applyImageRadius: true,
+                        width: 200,
+                        height: 350,
+                        imageUrl: TImages.productImage1,
+                      ),
                     ),
 
                     /// sale tag
-                    Positioned(
-                      top: 12,
-                      child: TRoundedContainer(
-                        radius: TSizes.sm,
-                        backgroundColor: TColors.secondary.withOpacity(0.8),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: TSizes.sm, vertical: TSizes.xs),
-                        child: Text(
-                          '25%',
-                          style: Theme.of(context)
-                              .textTheme
-                              .labelLarge!
-                              .apply(color: TColors.black),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Positioned(
+                        top: 12,
+                        child: TRoundedContainer(
+                          radius: TSizes.sm,
+                          backgroundColor: TColors.secondary.withOpacity(0.8),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: TSizes.sm, vertical: TSizes.xs),
+                          child: Text(
+                            '25%',
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelLarge!
+                                .apply(color: TColors.black),
+                          ),
                         ),
                       ),
                     ),
@@ -84,24 +93,25 @@ class TProductCardVertical extends StatelessWidget {
             ),
 
             ///  Details
-            const Padding(
-              padding: EdgeInsets.only(left: TSizes.sm),
+            Padding(
+              padding: const EdgeInsets.only(left: 8),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  TProductTitleText(
-                    title: "Green Nike Air Shoes",
-                    smallSize: true,
-                  ),
-                  SizedBox(
-                    height: TSizes.spaceBtwItems / 2,
-                  ),
-                  TBrandTitleWithVerifiedIcon(
-                    title: 'Nike',
-                  ),
-                ],
-              ),
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TProductTitleText(
+                      title: "Green Nike Air Shoes",
+                      smallSize: true,
+                    ),
+                    SizedBox(
+                      height: TSizes.spaceBtwItems / 2,
+                    ),
+                    TBrandTitleWithVerifiedIcon(
+                      title: 'Shreyansh Jain',
+                    ),
+                  ],
+                ),
             ),
+            
             const Spacer(),
             Padding(
               padding: const EdgeInsets.only(left: TSizes.sm),

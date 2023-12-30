@@ -34,8 +34,9 @@ class PopularProductScreen extends StatelessWidget {
         .map((option) => DropdownMenuItem(value: option, child: Text(option))).toList(),
         ),
         const SizedBox(
-                height: TSizes.spaceBtwSections,
-              ),
+          height: TSizes.spaceBtwItems,
+        ),
+        
               TGridLayout(
                     itemCount: 8,
                     itemBuilder: (_, index) => const TProductCardVertical(),

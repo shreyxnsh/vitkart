@@ -21,37 +21,50 @@ class TProductMetaData extends StatelessWidget {
         Row(
           children: [
             /// Sale tag
-            TRoundedContainer(
-              radius: TSizes.sm,
-              backgroundColor: TColors.secondary.withOpacity(0.8),
-              padding: const EdgeInsets.symmetric(
-                  horizontal: TSizes.sm, vertical: TSizes.xs),
-              child: Text(
-                "25%",
-                style: Theme.of(context)
-                    .textTheme
-                    .labelLarge!
-                    .apply(color: TColors.black),
-              ),
-            ),
-            const SizedBox(
-              width: TSizes.spaceBtwItems,
-            ),
-
-            // Price
-            Text(
-              "\$250",
-              style: Theme.of(context).textTheme.titleSmall!.apply(
-                    decoration: TextDecoration.lineThrough,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TRoundedContainer(
+                  radius: TSizes.sm,
+                  backgroundColor: TColors.secondary.withOpacity(0.8),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: TSizes.sm, vertical: TSizes.xs),
+                  child: Text(
+                    "25%",
+                    style: Theme.of(context)
+                        .textTheme
+                        .labelLarge!
+                        .apply(color: TColors.black),
                   ),
+                ),
+                const SizedBox(
+                  width: TSizes.spaceBtwItems,
+                ),
+
+                // Price
+                Text(
+                  "\$250",
+                  style: Theme.of(context).textTheme.titleSmall!.apply(
+                        decoration: TextDecoration.lineThrough,
+                      ),
+                ),
+                const SizedBox(
+                  width: TSizes.spaceBtwItems,
+                ),
+                const TProductPriceText(
+                  price: "175",
+                  isLarge: true,
+                ),
+              ],
             ),
-            const SizedBox(
-              width: TSizes.spaceBtwItems,
-            ),
-            const TProductPriceText(
-              price: "175",
-              isLarge: true,
-            ),
+            Spacer(),
+            IconButton(
+          onPressed: () {},
+          icon: const Icon(
+            Icons.share,
+            size: TSizes.iconMd,
+          ),
+        ),
           ],
         ),
         const SizedBox(
@@ -59,7 +72,7 @@ class TProductMetaData extends StatelessWidget {
         ),
 
         /// Titile
-        const TProductTitleText(title: "Green Nike Shoes Shirt"),
+        const TProductTitleText(title: "Green Nike Shoes Shirt" , smallSize: false,),
         const SizedBox(
           height: TSizes.spaceBtwItems / 1.5,
         ),
