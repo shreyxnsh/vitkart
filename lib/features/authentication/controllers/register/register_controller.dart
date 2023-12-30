@@ -94,7 +94,7 @@ class RegisterController extends GetxController {
     countdown.value = 60 * otpResendCount.value;
   }
 
-  void registerUser() async {
+  Future<void> registerUser() async {
     isLoading.value = true; // Start loading animation
 
     try {
@@ -121,9 +121,12 @@ class RegisterController extends GetxController {
         var jsonResponse = jsonDecode(response.body);
         print(jsonResponse);
 
+        print(jsonResponse['status']);
+
+
         if (jsonResponse['status']) {
           var myToken = jsonResponse['token'];
-          isLoading.value = false;
+          
           // Navigate to the next screen or perform any other actions on success
         } else {
           print("Something went wrong");
@@ -138,7 +141,7 @@ class RegisterController extends GetxController {
     }
   }
 
-    void OTPVerification() async {
+    Future<void> OTPVerification() async {
     isLoading.value = true; // Start loading animation
 
     try {
@@ -159,16 +162,18 @@ class RegisterController extends GetxController {
         var jsonResponse = jsonDecode(response.body);
         print(jsonResponse);
 
-        if (jsonResponse['status'] == "Invalid OTP") {
+        if (jsonResponse['isVerified'] == "true") {
+
+          Get.to((() => NavigationMenu(token: jsonResponse['token'])));
           // Show error toast for invalid OTP
+          
+        } else  {
+          // OTP is valid and user is verified
           showErrorToast(
             Get.context!,
             "Invalid OTP entered",
             animationCurve: Curves.fastLinearToSlowEaseIn,
-          );
-        } else if (jsonResponse['isVerified'] == "true") {
-          // OTP is valid and user is verified
-          Get.off(() => NavigationMenu()); // Navigate to NavigationMenu
+          ); // Navigate to NavigationMenu
         }
       }
     } catch (e) {
@@ -179,12 +184,8 @@ class RegisterController extends GetxController {
     }
   }
 
-  Future<void> register(BuildContext context) async {
-    if (currentPageIndex.value == 2) {
-      Navigator.pop(context);
-      currentPageIndex.value == 0;
-      return;
-    }
+  Future<void> registerPages(BuildContext context) async {
+    
 
     if (0 == currentPageIndex.value) {
       if (nameController.text.isEmpty) {
@@ -325,7 +326,7 @@ class RegisterController extends GetxController {
       log("Know From - ${knowFromController.text}");
       log("Dob - ${dob.value.toString()}");
 
-      registerUser();
+      await registerUser();
 
       otpResendCount.value++;
       countdown.value = 30 * otpResendCount.value;
@@ -344,7 +345,7 @@ class RegisterController extends GetxController {
       log("Otp - ${otpController.text}");
       log("Email  - ${emailController.text}");
       // Call OTPVerification function
-    OTPVerification();
+    await OTPVerification();
 
       log("Can Resend - ${canResend.value}");
       log("Page Index - ${currentPageIndex.value}");
@@ -356,6 +357,8 @@ class RegisterController extends GetxController {
       curve: Curves.easeIn,
     );
     currentPageIndex.value = currentPageIndex.value + 1;
+
+
   }
 
   void back(BuildContext context) {
