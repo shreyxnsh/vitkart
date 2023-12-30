@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:pinput/pinput.dart';
+import 'package:timer_count_down/timer_controller.dart';
+import 'package:timer_count_down/timer_count_down.dart';
 import 'package:vitkart/features/authentication/controllers/register/register_controller.dart';
 import 'package:vitkart/utils/constants/colors.dart';
 import 'package:vitkart/utils/constants/sizes.dart';
@@ -14,6 +17,10 @@ class Page3 extends StatelessWidget {
 
   final RegisterController controller;
   final PinTheme defaultPinTheme;
+
+  String countdownFormat(double time) {
+    return "${(time / 60).toString().split(".").first}:${(time % 60) < 10 ? "0${(time % 60).toString().split(".").first}" : (time % 60).toString().split(".").first}";
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,13 +42,16 @@ class Page3 extends StatelessWidget {
           const SizedBox(
             height: TSizes.spaceBtwInputFields,
           ),
-          Text(
-            "We just sent a 4-digit code to your phone number. Enter the code below.",
-            textAlign: TextAlign.center,
-            style: Theme.of(context)
-                .textTheme
-                .bodySmall!
-                .apply(fontSizeFactor: 0.9),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 18.0),
+            child: Text(
+              "We just sent a 4-digit code to ${controller.emailController.text} . Enter the code below.",
+              textAlign: TextAlign.center,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodySmall!
+                  .apply(fontSizeFactor: 0.9),
+            ),
           ),
           const SizedBox(
             height: TSizes.spaceBtwSections,
@@ -85,26 +95,50 @@ class Page3 extends StatelessWidget {
           const SizedBox(
             height: TSizes.spaceBtwInputFields,
           ),
-          Center(
-              child: Text(
-            "Didn't receive code?",
-            style: Theme.of(context).textTheme.bodySmall,
-          )),
-          const SizedBox(
-            height: TSizes.spaceBtwInputFields,
-          ),
-          Center(
-            child: TextButton(
-              onPressed: () {},
-              child: Text(
-                "Resend",
-                style: Theme.of(context).textTheme.bodySmall!.apply(
-                    color: controller.canResend.value
-                        ? TColors.primary
-                        : TColors.grey,
-                    fontSizeFactor: 0.9),
-              ),
-            ),
+          Obx(
+            () => controller.countdown.value == 0
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Didn't receive code?",
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          controller.resendOTP();
+                        },
+                        child: Text(
+                          "Resend",
+                          style: Theme.of(context).textTheme.bodySmall!.apply(
+                              color: controller.canResend.value
+                                  ? TColors.primary
+                                  : TColors.grey,
+                              fontSizeFactor: 0.9),
+                        ),
+                      ),
+                    ],
+                  )
+                : Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 16.0),
+                    child: Countdown(
+                      seconds: controller.countdown.value,
+                      build: (BuildContext context, double time) => Text(
+                        "You can resend in ${countdownFormat(time)}",
+                        style: Theme.of(context).textTheme.bodySmall!.apply(
+                              color: TColors.darkGrey,
+                              fontSizeFactor: 0.9,
+                            ),
+                      ),
+                      interval: const Duration(seconds: 1),
+                      controller: CountdownController(
+                        autoStart: true,
+                      ),
+                      onFinished: () {
+                        controller.countdown.value = 0;
+                      },
+                    ),
+                  ),
           ),
         ],
       ),

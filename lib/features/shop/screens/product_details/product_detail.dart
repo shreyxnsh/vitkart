@@ -32,7 +32,7 @@ class ProductDetailScreen extends StatelessWidget {
               child: Column(
                 children: [
                   // Rating and Share Button
-                  const TRatingAndShare(),
+    
 
                   /// - Price,Title ,Stock & Brand
                   const TProductMetaData(),
@@ -43,14 +43,7 @@ class ProductDetailScreen extends StatelessWidget {
                     height: TSizes.spaceBtwSections,
                   ),
 
-                  /// -- Checkout Button
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      child: const Text('Checkout'),
-                    ),
-                  ),
+                
 
                   /// - Descriptioon
                   const TSectionHeading(title: "Discription"),
@@ -72,22 +65,7 @@ class ProductDetailScreen extends StatelessWidget {
                   const SizedBox(
                     height: TSizes.spaceBtwItems,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const TSectionHeading(
-                        title: "Review(199)",
-                        showActionButton: false,
-                      ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Iconsax.arrow_right_3,
-                          size: 18,
-                        ),
-                      ),
-                    ],
-                  ),
+                  
                   const SizedBox(height: TSizes.spaceBtwSections),
                 ],
               ),

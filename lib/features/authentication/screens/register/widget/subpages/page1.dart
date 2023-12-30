@@ -32,7 +32,7 @@ class Page1 extends StatelessWidget {
             height: TSizes.spaceBtwInputFields,
           ),
           LoginScreenTextFeild(
-            controller: controller.registerationNoController,
+            controller: controller.registrationNoController,
             labelText: TTexts.regNo,
             prefixIcon: Iconsax.personalcard,
             keyboardType: TextInputType.name,

@@ -42,7 +42,7 @@ class RegisterScreen extends StatelessWidget {
         currentPageIndex: controller.currentPageIndex.value,
         endTextLabel: "Register",
         onNext: () {
-          controller.register(context);
+          controller.registerPages(context);
         },
         onBack: () {
           controller.back(context);
