@@ -42,6 +42,7 @@ dependencies:
   cupertino_date_textbox: ^1.0.3
   drop_down_list: ^0.0.6
   timer_count_down: ^2.2.2
+  fade_shimmer: ^2.2.0
 
   #--------------- ./ PACKAGES END ------------------#
 
