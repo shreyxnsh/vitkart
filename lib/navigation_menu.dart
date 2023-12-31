@@ -6,12 +6,12 @@ import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:vitkart/features/events/screens/event.dart';
 import 'package:vitkart/features/personalization/screens/settings/settings.dart';
 import 'package:vitkart/features/shop/screens/home/home.dart';
+import 'package:vitkart/features/shop/screens/store/sell.dart';
 import 'package:vitkart/features/shop/screens/store/store.dart';
 import 'package:vitkart/utils/constants/colors.dart';
 import 'package:vitkart/utils/helpers/helper_functions.dart';
 
 class NavigationMenu extends StatefulWidget {
-
   final token;
   const NavigationMenu({super.key, this.token});
 
@@ -20,38 +20,36 @@ class NavigationMenu extends StatefulWidget {
 }
 
 class _NavigationMenuState extends State<NavigationMenu> {
-  
   late String userId;
   late String userName;
-  
+
   @override
-  void initState() { 
+  void initState() {
     super.initState();
 
     final userToken = GetStorage().read('token');
 
     if (widget.token != null) {
-    Map<String, dynamic> jwtDecodedToken = JwtDecoder.decode(userToken);
+      Map<String, dynamic> jwtDecodedToken = JwtDecoder.decode(userToken);
 
-    // getting the user id of the user from db by variable _id from tokenData
+      // getting the user id of the user from db by variable _id from tokenData
 
-    userId = jwtDecodedToken['userID'];
-    userName = jwtDecodedToken['userName'];
-    // userId = jwtDecodedToken['_id'];
-    print("User token in NavigationMenu is : ${widget.token}");
-    print("User ID in NavigationMenu is : $userId");
-    print("User Name in NavigationMenu is : $userName");
-  } else {
-    // Handle the case where the token is null
-    print("Token is null");
+      userId = jwtDecodedToken['userID'];
+      userName = jwtDecodedToken['userName'];
+      // userId = jwtDecodedToken['_id'];
+      print("User token in NavigationMenu is : ${widget.token}");
+      print("User ID in NavigationMenu is : $userId");
+      print("User Name in NavigationMenu is : $userName");
+    } else {
+      // Handle the case where the token is null
+      print("Token is null");
+    }
   }
-  }
+
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(NavigationController());
     final darkMode = THelperFunctions.isDarkMode(context);
-
-  
 
     return Scaffold(
       bottomNavigationBar: Obx(
@@ -122,7 +120,7 @@ class NavigationController extends GetxController {
   final screens = [
     const HomeScreen(),
     const StoreScreen(),
-    Container(color: Colors.red),
+    const SellScreen(),
     const EventScreen(),
     const SettingScreen(),
   ];

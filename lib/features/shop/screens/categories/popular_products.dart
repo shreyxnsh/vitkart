@@ -37,10 +37,10 @@ class PopularProductScreen extends StatelessWidget {
           height: TSizes.spaceBtwItems,
         ),
         
-              TGridLayout(
-                    itemCount: 8,
-                    itemBuilder: (_, index) => const TProductCardVertical(),
-                  )
+              // TGridLayout(
+              //       itemCount: 8,
+              //       itemBuilder: (_, index) =>  TProductCardVertical(),
+              //     )
             ],
           ),
         ),

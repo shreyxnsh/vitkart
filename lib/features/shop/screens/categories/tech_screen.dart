@@ -1,20 +1,56 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
+import 'package:http/http.dart' as http;
 import 'package:vitkart/common/widgets/appbar/appbar.dart';
 import 'package:vitkart/common/widgets/layout/grid_layout.dart';
 import 'package:vitkart/common/widgets/products/products_cart/product_card_vertical.dart';
+import 'package:vitkart/utils/config/config.dart';
 import 'package:vitkart/utils/constants/sizes.dart';
-import 'package:vitkart/utils/constants/text_strings.dart';
 
-class TechScreen extends StatelessWidget {
-  const TechScreen({super.key});
+class TechScreen extends StatefulWidget {
+  const TechScreen({Key? key}) : super(key: key);
+
+  @override
+  _TechScreenState createState() => _TechScreenState();
+}
+
+class _TechScreenState extends State<TechScreen> {
+  List<ProductData> products = [];
+
+  @override
+  void initState() {
+    super.initState();
+    fetchTechProducts();
+  }
+
+  Future<void> fetchTechProducts() async {
+    final response = await http.get(Uri.parse(techProductsUrl));
+    print(response);
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> data = jsonDecode(response.body);
+      if (data['status']) {
+        final List<dynamic> productsData = data['products'];
+        final List<ProductData> fetchedProducts = productsData
+            .map((product) => ProductData.fromJson(product))
+            .toList();
+
+        setState(() {
+          products = fetchedProducts;
+        });
+      }
+    } else {
+      // Handle error
+      print('Failed to load products');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TAppBar(
-        title:
-            Text('Technology Products', style: Theme.of(context).textTheme.headlineSmall),
+        title: Text('Technology Products',
+            style: Theme.of(context).textTheme.headlineSmall),
         showBackArrow: true,
       ),
       body: SingleChildScrollView(
@@ -23,23 +59,14 @@ class TechScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              
-              DropdownButtonFormField(
-          
-          decoration: const InputDecoration(prefixIcon: Icon(Iconsax.sort), labelText: TTexts.filter), 
-          onChanged: (value){
+              // ... Other UI elements
 
-        },
-        items: ['Lower Price', 'Higher Price', 'Sale', 'Newest', 'Most Popular']
-        .map((option) => DropdownMenuItem(value: option, child: Text(option))).toList(),
-        ),
-        const SizedBox(
-          height: TSizes.spaceBtwItems,
-        ),
               TGridLayout(
-                    itemCount: 8,
-                    itemBuilder: (_, index) => const TProductCardVertical(),
-                  )
+                itemCount: products.length,
+                itemBuilder: (_, index) => TProductCardVertical(
+                  product: products[index],
+                ),
+              )
             ],
           ),
         ),
@@ -47,4 +74,3 @@ class TechScreen extends StatelessWidget {
     );
   }
 }
-

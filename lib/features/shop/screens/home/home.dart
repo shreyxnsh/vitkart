@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -11,7 +13,9 @@ import 'package:vitkart/features/shop/screens/categories/popular_products.dart';
 import 'package:vitkart/features/shop/screens/home/widgets/home_appbar.dart';
 import 'package:vitkart/features/shop/screens/home/widgets/home_categories.dart';
 import 'package:vitkart/features/shop/screens/home/widgets/promo_slider.dart';
+import 'package:vitkart/utils/config/config.dart';
 import 'package:vitkart/utils/constants/image_strings.dart';
+import 'package:http/http.dart' as http;
 import 'package:vitkart/utils/constants/sizes.dart';
 import '../../../../common/widgets/custom_shapes/containers/primary_header_container.dart';
 
@@ -24,13 +28,20 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
 
-  late String userId;
+    List<ProductData> products = [];
+      late String userId;
   late String userName;
+
+  
+
+
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    fetchAllProducts();
+    
     final userToken = GetStorage().read('token');
 
     if (userToken != null) {
@@ -49,6 +60,34 @@ class _HomeScreenState extends State<HomeScreen> {
     print("Token is null");
   }
   }
+
+
+Future<void> fetchAllProducts() async {
+  final response = await http.get(Uri.parse(getAllProductUrl));
+  print(response);
+
+  if (response.statusCode == 200) {
+    final Map<String, dynamic> data = jsonDecode(response.body);
+    if (data['status']) {
+      final List<dynamic>? productsData = data['products'];
+      if (productsData != null) {
+        final List<ProductData> fetchedProducts = productsData
+            .map((product) => ProductData.fromJson(product))
+            .toList();
+
+        setState(() {
+          products = fetchedProducts;
+        });
+      } else {
+        // Handle the case where 'products' is null
+        print('Products field is null');
+      }
+    }
+  } else {
+    // Handle error
+    print('Failed to load products');
+  }
+}
 
   
   @override
@@ -122,9 +161,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         
                   TGridLayout(
-                    itemCount: 4,
-                    itemBuilder: (_, index) => const TProductCardVertical(),
-                  )
+                itemCount: products.length,
+                itemBuilder: (_, index) => TProductCardVertical(
+                  product: products[index],
+                ),
+              )
                 ],
               ),
             )
