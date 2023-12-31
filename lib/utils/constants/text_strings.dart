@@ -36,8 +36,7 @@ class TTexts {
   static const String joiningYear = "Year of Joining VIT Bhopal";
   static const String hostel = "Hostel";
   static const String toContinue = "Please enter your credentials";
-  static const String toGetStarted =
-      "Enter your details to get started";
+  static const String toGetStarted = "Enter your details to get started";
   static const String block = "Block";
   static const String source = "Source";
   static const String rememberMe = "Remember Me";
@@ -80,17 +79,27 @@ class TTexts {
   static const String kycSubTitle =
       "Enter your details correctly for a smoother on-boarding.";
 
-
-
   //events
-static const String scanqr = "Scan this QR code or \nshow this ticket \nat the venue.";
+  static const String scanqr =
+      "Scan this QR code or \nshow this ticket \nat the venue.";
 
   // -- Product
-  
+
   static const String popularProducts = "Popular Products";
-  static const String eventDescription = "You are responsible for operations, service, or customer support and face challenges trying to communicate complex procedures to a global market effectively. ";
+  static const String eventDescription =
+      "You are responsible for operations, service, or customer support and face challenges trying to communicate complex procedures to a global market effectively. ";
 
   // -- Home
   static const String homeAppbarTitle = "Welcome back 👋";
   static const String homeAppbarSubTitle = "Shreyansh";
+
+  // -- Create Product Page 1
+
+  static const String createProductTitle = "Create Product";
+  static const String createProductSubTitle =
+      "Fill in the form below to add a new product to the platform.";
+  static const String productName = "Product Name";
+  static const String productDescription = "Product Description";
+  static const String productPrice = "Product Price";
+  static const String productQuantity = "Product Quantity";
 }

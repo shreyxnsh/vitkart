@@ -43,6 +43,7 @@ dependencies:
   drop_down_list: ^0.0.6
   timer_count_down: ^2.2.2
   fade_shimmer: ^2.2.0
+  animated_segmented_tab_control: ^1.2.0
 
   #--------------- ./ PACKAGES END ------------------#
 
