@@ -1,6 +1,14 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart' as path;
+import 'package:permission_handler/permission_handler.dart';
+import 'package:vitkart/utils/constants/colors.dart';
 
 class THelperFunctions {
   static Color? getColor(String value) {
@@ -63,6 +71,77 @@ class THelperFunctions {
     );
   }
 
+  static Future<File?> startImageCrop(
+      XFile imageFile, BuildContext context) async {
+    File imageTemporary = File(imageFile.path);
+    final Directory extdir = await getApplicationDocumentsDirectory();
+    String duplicateFilePath = extdir.path;
+    final fileName = path.basename(imageTemporary.path);
+    final saveto = '$duplicateFilePath/$fileName';
+    final File newImage = await imageTemporary.copy(saveto);
+
+    CroppedFile? croppedFile = await ImageCropper().cropImage(
+      sourcePath: newImage.path,
+      aspectRatioPresets: [
+        CropAspectRatioPreset.square,
+        CropAspectRatioPreset.ratio3x2,
+        CropAspectRatioPreset.original,
+        CropAspectRatioPreset.ratio4x3,
+        CropAspectRatioPreset.ratio16x9
+      ],
+      uiSettings: [
+        AndroidUiSettings(
+          toolbarTitle: 'Crop Your Image',
+          toolbarColor: TColors.darkBackground,
+          cropGridColor: TColors.darkBackground,
+          statusBarColor: TColors.lightDarkBackground,
+          cropFrameColor: TColors.primary,
+          showCropGrid: false,
+          toolbarWidgetColor: TColors.light,
+          backgroundColor: TColors.darkBackground,
+          dimmedLayerColor: TColors.darkBackground,
+          initAspectRatio: CropAspectRatioPreset.square,
+          lockAspectRatio: false,
+        ),
+        IOSUiSettings(
+          title: 'Cropper',
+        ),
+        // ignore: use_build_context_synchronously
+        WebUiSettings(
+          context: context,
+        ),
+      ],
+    );
+    return File(croppedFile!.path);
+  }
+
+  static Future<XFile?> pickImage({bool fromCamera = false}) async {
+    final ImagePicker picker = ImagePicker();
+    if (fromCamera) {
+      // get camera permission if not granted
+      PermissionStatus status = await Permission.camera.request();
+      if (!status.isGranted) {
+        Get.snackbar("Error", "Please grant camera permission");
+        return null;
+      }
+
+      final XFile? image = await picker.pickImage(source: ImageSource.camera);
+      if (image == null) return null;
+      return image;
+    } else {
+      // get storage permission if not granted
+      PermissionStatus status = await Permission.storage.request();
+      if (!status.isGranted) {
+        Get.snackbar("Error", "Please grant storage permission");
+        return null;
+      }
+
+      final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+      if (image == null) return null;
+      return image;
+    }
+  }
+
   static void navigateToScreen(BuildContext context, Widget screen) {
     Navigator.push(
       context,
@@ -94,7 +173,8 @@ class THelperFunctions {
     return MediaQuery.of(Get.context!).size.width;
   }
 
-  static String getFormattedDate(DateTime date, {String format = 'dd MMM yyyy'}) {
+  static String getFormattedDate(DateTime date,
+      {String format = 'dd MMM yyyy'}) {
     return DateFormat(format).format(date);
   }
 
@@ -105,7 +185,8 @@ class THelperFunctions {
   static List<Widget> wrapWidgets(List<Widget> widgets, int rowSize) {
     final wrappedList = <Widget>[];
     for (var i = 0; i < widgets.length; i += rowSize) {
-      final rowChildren = widgets.sublist(i, i + rowSize > widgets.length ? widgets.length : i + rowSize);
+      final rowChildren = widgets.sublist(
+          i, i + rowSize > widgets.length ? widgets.length : i + rowSize);
       wrappedList.add(Row(children: rowChildren));
     }
     return wrappedList;

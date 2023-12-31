@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:vitkart/features/authentication/controllers/register/register_controller.dart';
 import 'package:vitkart/utils/constants/colors.dart';
 
 class FloatingBackNextButton extends StatelessWidget {
@@ -13,13 +12,15 @@ class FloatingBackNextButton extends StatelessWidget {
     required this.currentPageIndex,
     this.onNext,
     this.onBack,
+    this.length,
   });
 
-  final RegisterController controller;
+  final controller;
   final String? endTextLabel;
   final int currentPageIndex;
   final void Function()? onNext;
   final void Function()? onBack;
+  final int? length;
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +86,8 @@ class FloatingBackNextButton extends StatelessWidget {
                         Visibility(
                           visible: !controller.isLoading.value,
                           child: Text(
-                            currentPageIndex == 2
+                            currentPageIndex ==
+                                    (length == null ? 2 : (length! - 1))
                                 ? endTextLabel ?? "Done"
                                 : "Next",
                           ),
@@ -102,4 +104,3 @@ class FloatingBackNextButton extends StatelessWidget {
     );
   }
 }
-

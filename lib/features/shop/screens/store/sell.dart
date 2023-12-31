@@ -27,7 +27,7 @@ class SellScreen extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    Get.to(() => const CreateProductScreen());
+                    Get.to(() => CreateProductScreen());
                   },
                   child: const Text('Sell Now'),
                 ),

@@ -44,6 +44,11 @@ dependencies:
   timer_count_down: ^2.2.2
   fade_shimmer: ^2.2.0
   animated_segmented_tab_control: ^1.2.0
+  dotted_border: ^2.1.0
+  path_provider: ^2.1.1
+  image_picker: ^1.0.5
+  image_cropper: ^5.0.1
+  permission_handler: ^11.0.1
 
   #--------------- ./ PACKAGES END ------------------#
 
