@@ -190,58 +190,176 @@ class CreateProductScreen extends StatelessWidget {
                             onTap: () async {
                               controller.image1.value =
                                   await controller.imagePicker(context);
+                              if (controller.image1.value != null) {
+                                controller.updateDataList(4, true);
+                                return;
+                              }
+                              controller.updateDataList(4, false);
                             },
                             borderRadius:
                                 BorderRadius.circular(TSizes.cardRadiusLg),
                             splashFactory: NoSplash.splashFactory,
                             splashColor: TColors.primary,
-                            child: DottedBorder(
-                              borderType: BorderType.RRect,
-                              radius:
-                                  const Radius.circular(TSizes.cardRadiusLg),
-                              padding: const EdgeInsets.all(4),
-                              color: TColors.primary,
-                              child: AnimatedContainer(
-                                width: TSizes.displayWidth(context) * 0.8,
-                                height: TSizes.displayHeight(context) * 0.2,
-                                decoration: BoxDecoration(
-                                  color: TColors.lightDarkBackground,
+                            child: controller.image1.value == null
+                                ? DottedBorder(
+                                    borderType: BorderType.RRect,
+                                    radius: const Radius.circular(
+                                        TSizes.cardRadiusLg),
+                                    padding: const EdgeInsets.all(4),
+                                    color: TColors.primary,
+                                    child: imagePickerAnimatedBox(
+                                      context: context,
+                                      animatioDuration: animatioDuration,
+                                      file: controller.image1,
+                                      width: TSizes.displayWidth(context) * 0.8,
+                                    ),
+                                  )
+                                : imagePickerAnimatedBox(
+                                    context: context,
+                                    animatioDuration: animatioDuration,
+                                    file: controller.image1,
+                                    width: TSizes.displayWidth(context) * 0.8,
+                                  ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: TSizes.spaceBtwSections,
+                        ),
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Obx(
+                            () => Row(
+                              children: [
+                                const SizedBox(
+                                  width: TSizes.spaceBtwItems,
+                                ),
+                                InkWell(
+                                  onTap: () async {
+                                    controller.image2.value =
+                                        await controller.imagePicker(context);
+                                    if (controller.image2.value != null) {
+                                      controller.updateDataList(5, true);
+                                      return;
+                                    }
+                                    controller.updateDataList(5, false);
+                                  },
                                   borderRadius: BorderRadius.circular(
                                       TSizes.cardRadiusLg),
+                                  splashFactory: NoSplash.splashFactory,
+                                  splashColor: TColors.primary,
+                                  child: controller.image2.value == null
+                                      ? DottedBorder(
+                                          borderType: BorderType.RRect,
+                                          radius: const Radius.circular(
+                                              TSizes.cardRadiusLg),
+                                          padding: const EdgeInsets.all(4),
+                                          color: TColors.primary,
+                                          child: imagePickerAnimatedBox(
+                                            isSquare: true,
+                                            context: context,
+                                            animatioDuration: animatioDuration,
+                                            file: controller.image2,
+                                            width:
+                                                TSizes.displayWidth(context) *
+                                                    0.6,
+                                          ),
+                                        )
+                                      : imagePickerAnimatedBox(
+                                          context: context,
+                                          isSquare: true,
+                                          animatioDuration: animatioDuration,
+                                          file: controller.image2,
+                                          width: TSizes.displayWidth(context) *
+                                              0.6,
+                                        ),
                                 ),
-                                duration: animatioDuration,
-                                child: controller.image1.value != null
-                                    ? Image.file(
-                                        controller.image1.value!,
-                                      )
-                                    : Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          const Text(
-                                              "Upload Main Image of the product"),
-                                          const SizedBox(
-                                            height: TSizes.spaceBtwItems,
+                                const SizedBox(
+                                  width: TSizes.spaceBtwItems,
+                                ),
+                                InkWell(
+                                  onTap: () async {
+                                    controller.image3.value =
+                                        await controller.imagePicker(context);
+                                    if (controller.image3.value != null) {
+                                      controller.updateDataList(6, true);
+                                      return;
+                                    }
+                                    controller.updateDataList(6, false);
+                                  },
+                                  borderRadius: BorderRadius.circular(
+                                      TSizes.cardRadiusLg),
+                                  splashFactory: NoSplash.splashFactory,
+                                  splashColor: TColors.primary,
+                                  child: controller.image3.value == null
+                                      ? DottedBorder(
+                                          borderType: BorderType.RRect,
+                                          radius: const Radius.circular(
+                                              TSizes.cardRadiusLg),
+                                          padding: const EdgeInsets.all(4),
+                                          color: TColors.primary,
+                                          child: imagePickerAnimatedBox(
+                                            isSquare: true,
+                                            context: context,
+                                            animatioDuration: animatioDuration,
+                                            file: controller.image3,
+                                            width:
+                                                TSizes.displayWidth(context) *
+                                                    0.6,
                                           ),
-                                          Container(
-                                            padding: const EdgeInsets.all(2.0),
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                3,
-                                              ),
-                                              border: Border.all(
-                                                color: TColors.primary,
-                                              ),
-                                            ),
-                                            child: const Icon(
-                                              Iconsax.image,
-                                              color: TColors.primary,
-                                            ),
+                                        )
+                                      : imagePickerAnimatedBox(
+                                          isSquare: true,
+                                          context: context,
+                                          animatioDuration: animatioDuration,
+                                          file: controller.image3,
+                                          width: TSizes.displayWidth(context) *
+                                              0.6,
+                                        ),
+                                ),
+                                const SizedBox(
+                                  width: TSizes.spaceBtwItems,
+                                ),
+                                InkWell(
+                                  onTap: () async {
+                                    controller.image4.value =
+                                        await controller.imagePicker(context);
+                                    if (controller.image4.value != null) {
+                                      controller.updateDataList(7, true);
+                                      return;
+                                    }
+                                    controller.updateDataList(7, false);
+                                  },
+                                  borderRadius: BorderRadius.circular(
+                                      TSizes.cardRadiusLg),
+                                  splashFactory: NoSplash.splashFactory,
+                                  splashColor: TColors.primary,
+                                  child: controller.image4.value == null
+                                      ? DottedBorder(
+                                          borderType: BorderType.RRect,
+                                          radius: const Radius.circular(
+                                              TSizes.cardRadiusLg),
+                                          padding: const EdgeInsets.all(4),
+                                          color: TColors.primary,
+                                          child: imagePickerAnimatedBox(
+                                            isSquare: true,
+                                            context: context,
+                                            animatioDuration: animatioDuration,
+                                            file: controller.image4,
+                                            width:
+                                                TSizes.displayWidth(context) *
+                                                    0.6,
                                           ),
-                                        ],
-                                      ),
-                              ),
+                                        )
+                                      : imagePickerAnimatedBox(
+                                          isSquare: true,
+                                          context: context,
+                                          animatioDuration: animatioDuration,
+                                          file: controller.image4,
+                                          width: TSizes.displayWidth(context) *
+                                              0.6,
+                                        ),
+                                ),
+                              ],
                             ),
                           ),
                         ),
@@ -259,6 +377,65 @@ class CreateProductScreen extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  AnimatedContainer imagePickerAnimatedBox({
+    required BuildContext context,
+    required Duration animatioDuration,
+    required Rx<File?> file,
+    required double width,
+    bool isSquare = false,
+  }) {
+    return AnimatedContainer(
+      padding: const EdgeInsets.all(
+        TSizes.defaultSpace - 4,
+      ),
+      width: width,
+      height: isSquare
+          ? width
+          : file.value != null
+              ? TSizes.displayWidth(context) * 0.8
+              : TSizes.displayHeight(context) * 0.2,
+      decoration: BoxDecoration(
+        color: TColors.lightDarkBackground,
+        borderRadius: BorderRadius.circular(TSizes.cardRadiusLg),
+        border: Border.all(
+            color: file.value != null ? TColors.primary : TColors.light),
+      ),
+      duration: animatioDuration,
+      child: file.value != null
+          ? ClipRRect(
+              borderRadius: BorderRadius.circular(TSizes.cardRadiusLg),
+              child: Image.file(
+                fit: BoxFit.cover,
+                file.value!,
+              ),
+            )
+          : Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text("Upload Main Image of the product"),
+                const SizedBox(
+                  height: TSizes.spaceBtwItems,
+                ),
+                Container(
+                  padding: const EdgeInsets.all(2.0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(
+                      3,
+                    ),
+                    border: Border.all(
+                      color: TColors.primary,
+                    ),
+                  ),
+                  child: const Icon(
+                    Iconsax.image,
+                    color: TColors.primary,
+                  ),
+                ),
+              ],
+            ),
     );
   }
 }
