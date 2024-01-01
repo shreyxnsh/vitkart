@@ -24,7 +24,7 @@ class TProductImageSlider extends StatelessWidget {
           children: [
             // Main Large Image
             const SizedBox(
-              height: 400,
+              height: 420,
               child: Padding(
                 padding: EdgeInsets.all(TSizes.productImageRadius),
                 child: Center(
@@ -40,25 +40,32 @@ class TProductImageSlider extends StatelessWidget {
               right: 0,
               bottom: 30,
               left: TSizes.defaultSpace,
-              child: SizedBox(
-                height: 80,
-                child: ListView.separated(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  physics: const AlwaysScrollableScrollPhysics(),
-                  itemCount: 6,
-                  separatorBuilder: (_, __) =>
-                      const SizedBox(width: TSizes.spaceBtwItems),
-                  itemBuilder: (_, index) => TRoundedImage(
-                    width: 80,
-                    backgroundColor: dark ? TColors.dark : TColors.white,
-                    border: Border.all(
-                      color: TColors.primary,
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 80,
+                    child: ListView.separated(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      itemCount: 6,
+                      separatorBuilder: (_, __) =>
+                          const SizedBox(width: TSizes.spaceBtwItems),
+                      itemBuilder: (_, index) => TRoundedImage(
+                        width: 80,
+                        backgroundColor: dark ? TColors.dark : TColors.white,
+                        border: Border.all(
+                          color: TColors.primary,
+                        ),
+                        padding: const EdgeInsets.all(TSizes.sm),
+                        imageUrl: TImages.productImage6,
+                      ),
                     ),
-                    padding: const EdgeInsets.all(TSizes.sm),
-                    imageUrl: TImages.productImage6,
                   ),
-                ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                ],
               ),
             ),
 

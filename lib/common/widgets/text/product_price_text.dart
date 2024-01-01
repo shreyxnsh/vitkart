@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vitkart/utils/constants/colors.dart';
 
 class TProductPriceText extends StatelessWidget {
   const TProductPriceText({
@@ -23,8 +24,10 @@ class TProductPriceText extends StatelessWidget {
       overflow: TextOverflow.ellipsis,
       style: isLarge
           ? Theme.of(context).textTheme.headlineMedium!.apply(
+              color: TColors.primary,
               decoration: lineThrough ? TextDecoration.lineThrough : null)
           : Theme.of(context).textTheme.titleLarge!.apply(
+            color: TColors.primary,
               decoration: lineThrough ? TextDecoration.lineThrough : null),
     );
   }

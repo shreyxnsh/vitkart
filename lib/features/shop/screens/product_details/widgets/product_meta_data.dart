@@ -8,117 +8,101 @@ import 'package:vitkart/utils/constants/colors.dart';
 import 'package:vitkart/utils/constants/enums.dart';
 import 'package:vitkart/utils/constants/image_strings.dart';
 import 'package:vitkart/utils/constants/sizes.dart';
+import 'package:vitkart/utils/helpers/helper_functions.dart';
 
 class TProductMetaData extends StatelessWidget {
   const TProductMetaData({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        /// Price & Sale Price
-        Row(
-          children: [
-            /// Sale tag
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                TRoundedContainer(
-                  radius: TSizes.sm,
-                  backgroundColor: TColors.secondary.withOpacity(0.8),
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: TSizes.sm, vertical: TSizes.xs),
-                  child: Text(
-                    "25%",
-                    style: Theme.of(context)
-                        .textTheme
-                        .labelLarge!
-                        .apply(color: TColors.black),
+    final dark = THelperFunctions.isDarkMode(context);
+    return TRoundedContainer(
+      padding: const EdgeInsets.all(TSizes.md),
+          backgroundColor: dark ? TColors.lightDarkBackground : TColors.light,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          /// Price & Sale Price
+          Row(
+            children: [
+              /// Sale tag
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  TRoundedContainer(
+                    radius: TSizes.sm,
+                    backgroundColor: TColors.secondary.withOpacity(0.8),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: TSizes.sm, vertical: TSizes.xs),
+                    child: Text(
+                      "25%",
+                      style: Theme.of(context)
+                          .textTheme
+                          .labelLarge!
+                          .apply(color: TColors.black),
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  width: TSizes.spaceBtwItems,
-                ),
-
-                // Price
-                Text(
-                  "\$250",
-                  style: Theme.of(context).textTheme.titleSmall!.apply(
-                        decoration: TextDecoration.lineThrough,
-                      ),
-                ),
-                const SizedBox(
-                  width: TSizes.spaceBtwItems,
-                ),
-                const TProductPriceText(
-                  price: "175",
-                  isLarge: true,
-                ),
-              ],
-            ),
-            Spacer(),
-            IconButton(
-          onPressed: () {},
-          icon: const Icon(
-            Icons.share,
-            size: TSizes.iconMd,
-          ),
-        ),
-          ],
-        ),
-        const SizedBox(
-          height: TSizes.spaceBtwItems / 1.5,
-        ),
-
-        /// Titile
-        const TProductTitleText(title: "Green Nike Shoes Shirt" , smallSize: false,),
-        const SizedBox(
-          height: TSizes.spaceBtwItems / 1.5,
-        ),
-
-        /// Stock Status
-        Row(
-          children: [
-            const TProductTitleText(title: "Status"),
-            const SizedBox(
-              width: TSizes.spaceBtwItems,
-            ),
-            Text(
-              "In Stock",
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-          ],
-        ),
-        const SizedBox(
-          height: TSizes.spaceBtwItems / 1.5,
-        ),
-
-        /// Brand
-        const Row(
-          children: [
-            TCirclularContainer(
-              width: 24,
-              height: 24,
-              child: Image(
-                image: AssetImage(
-                  TImages.nikeLogo,
-                ),
+                  const SizedBox(
+                    width: TSizes.spaceBtwItems,
+                  ),
+    
+                  // Price
+                  Text(
+                    "\$250",
+                    style: Theme.of(context).textTheme.titleSmall!.apply(
+                          decoration: TextDecoration.lineThrough,
+                        ),
+                  ),
+                  const SizedBox(
+                    width: TSizes.spaceBtwItems,
+                  ),
+                  const TProductPriceText(
+                    price: "175",
+                    
+                    isLarge: true,
+                  ),
+                ],
               ),
+              Spacer(),
+              IconButton(
+            onPressed: () {},
+            icon: const Icon(
+              Icons.share,
+              size: TSizes.iconMd,
             ),
-            SizedBox(
-              width: TSizes.xs,
-            ),
-            TBrandTitleWithVerifiedIcon(
-              title: "Nike",
-              brandTextSize: TextSizes.medium,
-            ),
-          ],
-        ),
-        const SizedBox(
-          height: TSizes.spaceBtwItems / 1.5,
-        ),
-      ],
+          ),
+            ],
+          ),
+          const SizedBox(
+            height: TSizes.spaceBtwItems / 1.5,
+          ),
+    
+          /// Titile
+          const TProductTitleText(title: "Green Nike Shoes Shirt" , smallSize: false,),
+          const SizedBox(
+            height: TSizes.spaceBtwItems / 1.5,
+          ),
+    
+          /// Stock Status
+          Row(
+            children: [
+              const TProductTitleText(title: "Quantity :" , smallSize : true),
+              const SizedBox(
+                width: TSizes.spaceBtwItems,
+              ),
+              Text(
+                "2",
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: TSizes.spaceBtwItems / 1.5,
+          ),
+    
+          
+        ],
+      ),
     );
   }
 }

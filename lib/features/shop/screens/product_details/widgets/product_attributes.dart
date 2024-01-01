@@ -18,7 +18,7 @@ class TProductAttributes extends StatelessWidget {
       children: [
         TRoundedContainer(
           padding: const EdgeInsets.all(TSizes.md),
-          backgroundColor: dark ? TColors.darkerGrey : TColors.grey,
+          backgroundColor: dark ? TColors.lightDarkBackground : TColors.light,
           child: Column(
             children: [
               Row(
@@ -98,64 +98,7 @@ class TProductAttributes extends StatelessWidget {
           height: TSizes.spaceBtwItems,
         ),
         // -- Attributes
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const TSectionHeading(title: "Colors"),
-            const SizedBox(
-              height: TSizes.spaceBtwItems / 2,
-            ),
-            Wrap(
-              spacing: 8,
-              children: [
-                TChoiceChips(
-                  text: "Green",
-                  selected: true,
-                  onSelected: (p0) {},
-                ),
-                TChoiceChips(
-                  text: "Blue",
-                  selected: false,
-                  onSelected: (p0) {},
-                ),
-                TChoiceChips(
-                  text: "Yellow",
-                  selected: false,
-                  onSelected: (p0) {},
-                ),
-              ],
-            ),
-          ],
-        ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const TSectionHeading(title: "Sizes"),
-            const SizedBox(
-              height: TSizes.spaceBtwItems / 2,
-            ),
-            Wrap(
-              spacing: 8,
-              children: [
-                TChoiceChips(
-                  text: "EU 34",
-                  selected: true,
-                  onSelected: (p0) {},
-                ),
-                TChoiceChips(
-                  text: "EU 36",
-                  selected: false,
-                  onSelected: (p0) {},
-                ),
-                TChoiceChips(
-                  text: "Eu 38",
-                  selected: false,
-                  onSelected: (p0) {},
-                ),
-              ],
-            ),
-          ],
-        ),
+        
       ],
     );
   }
