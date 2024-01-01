@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:vitkart/common/widgets/appbar/appbar.dart';
 import 'package:vitkart/common/widgets/text/section_heading.dart';
 import 'package:vitkart/features/personalization/screens/profile/widgets/profile_menu.dart';
+import 'package:vitkart/utils/API/userDataService.dart';
 import 'package:vitkart/utils/constants/sizes.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -45,7 +46,7 @@ class ProfileScreen extends StatelessWidget {
 
               TProfileMenu(
                 title: 'Name',
-                value: 'Shreyansh Jain',
+                value: UserDataService.getUserName(),
                 onPressed: () {},
               ),
               TProfileMenu(
@@ -55,7 +56,7 @@ class ProfileScreen extends StatelessWidget {
               ),
               TProfileMenu(
                 title: 'Date of Birth',
-                value: '22 November 2002',
+                value: UserDataService.getUserBirthDate(),
                 onPressed: () {},
               ),
 
@@ -69,17 +70,17 @@ class ProfileScreen extends StatelessWidget {
 
               TProfileMenu(
                 title: 'Registration Number',
-                value: '21BSA10012',
+                value: UserDataService.getUserRegID(),
                 onPressed: () {},
               ),
               TProfileMenu(
                 title: 'Email',
-                value: 'shreyansh.jain2021@vitbhopal.ac.in',
+                value: UserDataService.getUserEmail(),
                 onPressed: () {},
               ),
               TProfileMenu(
                 title: 'Year of Joining',
-                value: '2021',
+                value: UserDataService.getUserBatch().toString(),
                 onPressed: () {},
               ),
             ],
