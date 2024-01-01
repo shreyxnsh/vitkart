@@ -48,6 +48,7 @@ dependencies:
   path_provider: ^2.1.1
   image_picker: ^1.0.5
   image_cropper: ^5.0.1
+  flutter_launcher_icons: 
   permission_handler: ^11.0.1
 
   #--------------- ./ PACKAGES END ------------------#
@@ -55,8 +56,17 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_launcher_icons: ^0.13.1
+ 
   flutter_lints: ^2.0.0
+
+
+flutter_icons:
+  ios: true
+  android: true
+  image_path_ios: "assets/icons/vitkart/vitkart_logogreen.png"
+  image_path_android: "assets/icons/vitkart/vitkart_logogreen.png"
+  image_path: "assets/icons/vitkart/vitkart_logogreen.png"
+  remove_alpha_ios: true
 
 
 flutter:
