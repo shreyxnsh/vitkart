@@ -39,10 +39,10 @@ class TProductCardVertical extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(TSizes.xs),
               child: TRoundedContainer(
-                
-                height: TSizes.productItemHeight,
+                height: TSizes.productItemHeight + 10,
                 margin: const EdgeInsets.only(top: 4),
                 padding: const EdgeInsets.all(TSizes.xs),
+                clipBehavior: Clip.antiAlias,
                 backgroundColor:
                     dark ? TColors.lightDarkBackground : TColors.light,
                 child: Stack(
@@ -52,7 +52,7 @@ class TProductCardVertical extends StatelessWidget {
                         product.productImage,
                         width: 200,
                         height: 350,
-                        fit: BoxFit.cover,
+                        fit: BoxFit.fitHeight,
                         loadingBuilder: (BuildContext context, Widget child,
                             ImageChunkEvent? loadingProgress) {
                           if (loadingProgress == null) {

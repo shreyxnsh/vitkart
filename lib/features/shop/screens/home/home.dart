@@ -27,78 +27,71 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
-    List<ProductData> products = [];
-      late String userId;
+  List<ProductData> products = [];
+  late String userId;
   late String userName;
-
-  
-
-
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     fetchAllProducts();
-    
+
     final userToken = GetStorage().read('token');
 
     if (userToken != null) {
-    Map<String, dynamic> jwtDecodedToken = JwtDecoder.decode(userToken);
+      Map<String, dynamic> jwtDecodedToken = JwtDecoder.decode(userToken);
 
-    // getting the user id of the user from db by variable _id from tokenData
+      // getting the user id of the user from db by variable _id from tokenData
 
-    userId = jwtDecodedToken['userID'];
-    userName = jwtDecodedToken['userName'];
-    // userId = jwtDecodedToken['_id'];
-    print("User token in HomeScreen is : $userToken");
-    print("User ID in HomeScreen is : $userId");
-    print("User Name in HomeScreen is : $userName");
-  } else {
-    // Handle the case where the token is null
-    print("Token is null");
-  }
-  }
-
-
-Future<void> fetchAllProducts() async {
-  final response = await http.get(Uri.parse(getAllProductUrl));
-  print(response);
-
-  if (response.statusCode == 200) {
-    final Map<String, dynamic> data = jsonDecode(response.body);
-    if (data['status']) {
-      final List<dynamic>? productsData = data['products'];
-      if (productsData != null) {
-        final List<ProductData> fetchedProducts = productsData
-            .map((product) => ProductData.fromJson(product))
-            .toList();
-
-        setState(() {
-          products = fetchedProducts;
-        });
-      } else {
-        // Handle the case where 'products' is null
-        print('Products field is null');
-      }
+      userId = jwtDecodedToken['userID'];
+      userName = jwtDecodedToken['userName'];
+      // userId = jwtDecodedToken['_id'];
+      print("User token in HomeScreen is : $userToken");
+      print("User ID in HomeScreen is : $userId");
+      print("User Name in HomeScreen is : $userName");
+    } else {
+      // Handle the case where the token is null
+      print("Token is null");
     }
-  } else {
-    // Handle error
-    print('Failed to load products');
   }
-}
 
-  
+  Future<void> fetchAllProducts() async {
+    final response = await http.get(Uri.parse(getAllProductUrl));
+    print(response);
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> data = jsonDecode(response.body);
+      if (data['status']) {
+        final List<dynamic>? productsData = data['products'];
+        if (productsData != null) {
+          final List<ProductData> fetchedProducts = productsData
+              .map((product) => ProductData.fromJson(product))
+              .toList();
+
+          setState(() {
+            products = fetchedProducts;
+          });
+        } else {
+          // Handle the case where 'products' is null
+          print('Products field is null');
+        }
+      }
+    } else {
+      // Handle error
+      print('Failed to load products');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const TPrimaryHeaderContainer(
-              height: 370,
-              child: Column(
+            TPrimaryHeaderContainer(
+              height: TSizes.displayHeight(context) * 0.42,
+              child: const Column(
                 children: [
                   /// App Bar
                   SizedBox(
@@ -149,23 +142,21 @@ Future<void> fetchAllProducts() async {
                     TImages.promoBanner3,
                   ]),
                   const SizedBox(
-                          height: TSizes.spaceBtwItems,
-                        ),
+                    height: TSizes.spaceBtwItems,
+                  ),
                   TSectionHeading(
-                          title: "Popular Products",
-                          showActionButton: true,
-                         
-                          onPressed: (){
-                            Get.to(const PopularProductScreen());
-                          },
-                        ),
-                        
+                    title: "Popular Products",
+                    showActionButton: true,
+                    onPressed: () {
+                      Get.to(const PopularProductScreen());
+                    },
+                  ),
                   TGridLayout(
-                itemCount: products.length,
-                itemBuilder: (_, index) => TProductCardVertical(
-                  product: products[index],
-                ),
-              )
+                    itemCount: products.length,
+                    itemBuilder: (_, index) => TProductCardVertical(
+                      product: products[index],
+                    ),
+                  )
                 ],
               ),
             )
