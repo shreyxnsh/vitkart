@@ -39,6 +39,7 @@ class CreateProductController extends GetxController
   TextEditingController productQuantityController = TextEditingController();
 
   // Page 2 - Images
+  List<Rx<File?>> imageList = <Rx<File?>>[Rx(null)].obs;
   Rx<File?> image1 = Rx(null);
   Rx<File?> image2 = Rx(null);
   Rx<File?> image3 = Rx(null);
@@ -55,6 +56,21 @@ class CreateProductController extends GetxController
     focusNode.removeListener(() {
       isExpanded.value = false;
     });
+    tabController.addListener(() {
+      if (tabController.index < selectedTab.value) {
+        selectedTab.value = tabController.index;
+      }
+      if (selectedTab.value == 0) {
+        page1Check(Get.context!)
+            ? selectedTab.value = tabController.index
+            : tabController.animateTo(0);
+      }
+      if (selectedTab.value == 1) {
+        page2Check(Get.context!)
+            ? selectedTab.value = tabController.index
+            : tabController.animateTo(1);
+      }
+    });
   }
 
   @override
@@ -69,11 +85,14 @@ class CreateProductController extends GetxController
     productQuantityController.dispose();
   }
 
-  goNext() {
+  goNext(BuildContext context) {
     if (selectedTab.value == 2) {
       Get.back();
       return;
     }
+    if (selectedTab.value == 0 && !page1Check(context)) return;
+
+    if (selectedTab.value == 1 && !page2Check(context)) return;
     selectedTab.value++;
     tabController.animateTo(
       selectedTab.value,
@@ -81,11 +100,52 @@ class CreateProductController extends GetxController
     );
   }
 
-  goPrevious() {
+  bool page1Check(BuildContext context) {
+    if (productNameController.text.isEmpty) {
+      showErrorToast(context, "Please enter product name");
+      return false;
+    }
+    if (productDescriptionController.text.isEmpty) {
+      showErrorToast(context, "Please enter product description");
+      return false;
+    }
+    if (productPriceController.text.isEmpty) {
+      showErrorToast(context, "Please enter product price");
+      return false;
+    }
+    if (productQuantityController.text.isEmpty) {
+      showErrorToast(context, "Please enter product quantity");
+      return false;
+    }
+    return true;
+  }
+
+  bool page2Check(BuildContext context) {
+    if (image1.value == null) {
+      showErrorToast(context, "Please select an image");
+      return false;
+    }
+    if (image2.value == null) {
+      showErrorToast(context, "Please select an image");
+      return false;
+    }
+    if (image3.value == null) {
+      showErrorToast(context, "Please select an image");
+      return false;
+    }
+    if (image4.value == null) {
+      showErrorToast(context, "Please select an image");
+      return false;
+    }
+    return true;
+  }
+
+  goPrevious(BuildContext context) {
     if (selectedTab.value == 0) {
       Get.back();
       return;
     }
+
     selectedTab.value--;
     tabController.animateTo(
       selectedTab.value,
@@ -105,6 +165,11 @@ class CreateProductController extends GetxController
   }
 
   updateDataList(int index, bool data) {
+    if (index == dataList.length) {
+      dataList.add(data);
+      progressCheck();
+      return;
+    }
     dataList[index] = data;
     progressCheck();
   }

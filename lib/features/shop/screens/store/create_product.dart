@@ -34,8 +34,8 @@ class CreateProductScreen extends StatelessWidget {
           currentPageIndex: controller.selectedTab.value,
           endTextLabel: "Done",
           length: 3,
-          onBack: controller.goPrevious,
-          onNext: controller.goNext,
+          onBack: () => controller.goPrevious(context),
+          onNext: () => controller.goNext(context),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -188,9 +188,9 @@ class CreateProductScreen extends StatelessWidget {
                         Obx(
                           () => InkWell(
                             onTap: () async {
-                              controller.image1.value =
+                              controller.imageList[0].value =
                                   await controller.imagePicker(context);
-                              if (controller.image1.value != null) {
+                              if (controller.imageList[0].value != null) {
                                 controller.updateDataList(4, true);
                                 return;
                               }
@@ -200,7 +200,7 @@ class CreateProductScreen extends StatelessWidget {
                                 BorderRadius.circular(TSizes.cardRadiusLg),
                             splashFactory: NoSplash.splashFactory,
                             splashColor: TColors.primary,
-                            child: controller.image1.value == null
+                            child: controller.imageList[0].value == null
                                 ? DottedBorder(
                                     borderType: BorderType.RRect,
                                     radius: const Radius.circular(
