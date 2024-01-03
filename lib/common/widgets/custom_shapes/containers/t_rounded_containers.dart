@@ -11,6 +11,7 @@ class TRoundedContainer extends StatelessWidget {
     this.padding,
     this.margin,
     this.child,
+    this.clipBehavior,
     this.backgroundColor = TColors.white,
     this.borderColor = TColors.borderPrimary,
     this.showBorder = false,
@@ -25,6 +26,7 @@ class TRoundedContainer extends StatelessWidget {
   final Color backgroundColor;
   final Color borderColor;
   final bool showBorder;
+  final Clip? clipBehavior;
 
   @override
   Widget build(BuildContext context) {
@@ -33,12 +35,16 @@ class TRoundedContainer extends StatelessWidget {
       height: height,
       padding: padding,
       margin: margin,
+      clipBehavior: clipBehavior ?? Clip.none,
       decoration: BoxDecoration(
         color: backgroundColor,
         borderRadius: BorderRadius.circular(radius),
         border: showBorder ? Border.all(color: borderColor) : null,
       ),
-      child: child,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(radius),
+        child: child,
+      ),
     );
   }
 }

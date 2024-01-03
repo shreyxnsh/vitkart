@@ -4,13 +4,19 @@ import 'dart:io';
 import 'package:animated_segmented_tab_control/animated_segmented_tab_control.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:vitkart/common/widgets/appbar/appbar.dart';
+import 'package:vitkart/common/widgets/images/t_circular.image.dart';
+import 'package:vitkart/common/widgets/images/t_rounded_image.dart';
+import 'package:vitkart/common/widgets/products/t_brand_card.dart';
+import 'package:vitkart/common/widgets/text/product_title_text.dart';
 import 'package:vitkart/features/authentication/screens/login/widget/loginTextField.dart';
-import 'package:vitkart/features/authentication/screens/register/widget/cherryToast.dart';
 import 'package:vitkart/features/authentication/screens/register/widget/floatingButtonsBackAndNext.dart';
+import 'package:vitkart/features/shop/screens/home/widgets/circular_widget.dart';
 import 'package:vitkart/features/shop/screens/store/controller/create_product_controller.dart';
 import 'package:vitkart/utils/constants/colors.dart';
 import 'package:vitkart/utils/constants/image_strings.dart';
@@ -26,6 +32,7 @@ class CreateProductScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const animatioDuration = Duration(milliseconds: 400);
+    final dark = THelperFunctions.isDarkMode(context);
 
     return Scaffold(
       floatingActionButton: Obx(
@@ -34,8 +41,8 @@ class CreateProductScreen extends StatelessWidget {
           currentPageIndex: controller.selectedTab.value,
           endTextLabel: "Done",
           length: 3,
-          onBack: controller.goPrevious,
-          onNext: controller.goNext,
+          onBack: () => controller.goPrevious(context),
+          onNext: () => controller.goNext(context),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -44,7 +51,7 @@ class CreateProductScreen extends StatelessWidget {
           'Create Product',
           style: Theme.of(context).textTheme.headlineMedium,
         ),
-        showBackArrow: false,
+        showBackArrow: true,
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: TSizes.defaultSpace),
@@ -63,8 +70,15 @@ class CreateProductScreen extends StatelessWidget {
                       Container(
                         width: double.infinity,
                         height: 64,
-                        decoration: const BoxDecoration(
-                          color: TColors.lightDarkBackground,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: TColors.primary,
+                          ),
+                          borderRadius:
+                              BorderRadius.circular(TSizes.cardRadiusLg),
+                          color: dark
+                              ? TColors.lightDarkBackground
+                              : TColors.light,
                         ),
                       ),
                       Obx(
@@ -83,20 +97,35 @@ class CreateProductScreen extends StatelessWidget {
                         backgroundColor: Colors.transparent,
                         selectedTabTextColor: Colors.transparent,
                         controller: controller.tabController,
-                        tabs: const [
+                        tabs: [
                           SegmentTab(
                             label: "Product Details",
-                            selectedTextColor: Colors.white,
+                            textColor: dark
+                                ? Colors.white
+                                : TColors.lightDarkBackground,
+                            selectedTextColor: dark
+                                ? Colors.white
+                                : TColors.lightDarkBackground,
                             color: Colors.transparent,
                           ),
                           SegmentTab(
                             label: "Images",
-                            selectedTextColor: Colors.white,
+                            textColor: dark
+                                ? Colors.white
+                                : TColors.lightDarkBackground,
+                            selectedTextColor: dark
+                                ? Colors.white
+                                : TColors.lightDarkBackground,
                             color: Colors.transparent,
                           ),
                           SegmentTab(
                             label: "Preview",
-                            selectedTextColor: Colors.white,
+                            textColor: dark
+                                ? Colors.white
+                                : TColors.lightDarkBackground,
+                            selectedTextColor: dark
+                                ? Colors.white
+                                : TColors.lightDarkBackground,
                             color: Colors.transparent,
                           ),
                         ],
@@ -118,38 +147,71 @@ class CreateProductScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const SizedBox(
-                              height: TSizes.spaceBtwSections,
-                            ),
-                            LoginScreenTextFeild(
-                              controller: controller.productNameController,
-                              labelText: TTexts.productName,
-                              prefixIcon: Iconsax.shop,
-                              textInputAction: TextInputAction.next,
-                              onChanged: (val) =>
-                                  controller.updateDataList(0, !val.isEmpty),
-                            ),
-                            const SizedBox(
                               height: TSizes.spaceBtwItems,
                             ),
-                            LoginScreenTextFeild(
-                              controller: controller.productPriceController,
-                              labelText: TTexts.productPrice,
-                              prefixIcon: Icons.money_rounded,
-                              keyboardType: TextInputType.number,
-                              textInputAction: TextInputAction.next,
-                              onChanged: (val) =>
-                                  controller.updateDataList(1, !val.isEmpty),
+                            Text(
+                              TTexts.productName,
+                              style: Theme.of(context).textTheme.bodySmall,
                             ),
                             const SizedBox(
-                              height: TSizes.spaceBtwItems,
+                              height: TSizes.spaceBtwInputFields,
                             ),
                             LoginScreenTextFeild(
-                              controller: controller.productQuantityController,
-                              labelText: TTexts.productQuantity,
                               prefixIcon: Iconsax.box,
+                              keyboardType: TextInputType.name,
+                              hintText: TTexts.productName,
+                              controller: controller.productNameController,
+                              // isBigTextField: ,
+                              onChanged: (val) =>
+                                  controller.updateDataList(0, val.isNotEmpty),
+                            ),
+                            const SizedBox(
+                              height: TSizes.spaceBtwItems,
+                            ),
+                            Text(
+                              TTexts.productPrice,
+                              style: Theme.of(context).textTheme.bodySmall,
+                            ),
+                            const SizedBox(
+                              height: TSizes.spaceBtwInputFields,
+                            ),
+                            LoginScreenTextFeild(
+                              hintText: TTexts.productPrice,
+                              controller: controller.productPriceController,
+                              inputFormatters: [
+                                // Filter to only allow price formate with decimal : "1234.56"
+                                // FilteringTextInputFormatter.digitsOnly,
+                                FilteringTextInputFormatter.allow(
+                                    RegExp(r'^[0-9]+\.?[0-9]{0,10}$')),
+                              ],
+
+                              // isBigTextField: true,
+                              keyboardType: TextInputType.number,
+                              prefixIcon: Icons.currency_rupee_rounded,
+                              onChanged: (val) =>
+                                  controller.updateDataList(1, val.isNotEmpty),
+                            ),
+                            const SizedBox(
+                              height: TSizes.spaceBtwItems,
+                            ),
+                            Text(
+                              TTexts.productQuantity,
+                              style: Theme.of(context).textTheme.bodySmall,
+                            ),
+                            const SizedBox(
+                              height: TSizes.spaceBtwInputFields,
+                            ),
+                            LoginScreenTextFeild(
+                              hintText: TTexts.productQuantity,
+                              inputFormatters: [
+                                FilteringTextInputFormatter.digitsOnly,
+                              ],
+                              controller: controller.productQuantityController,
+                              // isBigTextField: true,
+                              prefixIcon: Iconsax.computing,
                               keyboardType: TextInputType.number,
                               onChanged: (val) =>
-                                  controller.updateDataList(2, !val.isEmpty),
+                                  controller.updateDataList(2, val.isNotEmpty),
                             ),
                             const SizedBox(
                               height: TSizes.spaceBtwItems,
@@ -165,6 +227,7 @@ class CreateProductScreen extends StatelessWidget {
                               height: 150,
                               child: LoginScreenTextFeild(
                                 counterText: "",
+                                hintText: TTexts.productDescription,
                                 controller:
                                     controller.productDescriptionController,
                                 expands: false,
@@ -172,91 +235,417 @@ class CreateProductScreen extends StatelessWidget {
                                 maxLines: 10,
                                 maxLength: 1800,
                                 isBigTextField: true,
-                                onChanged: (val) =>
-                                    controller.updateDataList(3, !val.isEmpty),
+                                onChanged: (val) => controller.updateDataList(
+                                    3, val.isNotEmpty),
                               ),
                             ),
                           ],
                         ),
                       ),
                     ),
-                    Column(
-                      children: [
-                        const SizedBox(
-                          height: TSizes.spaceBtwSections,
-                        ),
-                        Obx(
-                          () => InkWell(
-                            onTap: () async {
-                              controller.image1.value =
-                                  await controller.imagePicker(context);
-                            },
-                            borderRadius:
-                                BorderRadius.circular(TSizes.cardRadiusLg),
-                            splashFactory: NoSplash.splashFactory,
-                            splashColor: TColors.primary,
-                            child: DottedBorder(
-                              borderType: BorderType.RRect,
-                              radius:
-                                  const Radius.circular(TSizes.cardRadiusLg),
-                              padding: const EdgeInsets.all(4),
-                              color: TColors.primary,
-                              child: AnimatedContainer(
-                                width: TSizes.displayWidth(context) * 0.8,
-                                height: TSizes.displayHeight(context) * 0.2,
-                                decoration: BoxDecoration(
-                                  color: TColors.lightDarkBackground,
-                                  borderRadius: BorderRadius.circular(
-                                      TSizes.cardRadiusLg),
+                    SingleChildScrollView(
+                      child: Obx(
+                        () => Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(
+                              height: TSizes.spaceBtwSections,
+                            ),
+                            Text(
+                              "Product Cover Image ",
+                              style: Theme.of(context).textTheme.bodySmall,
+                            ),
+                            const SizedBox(
+                              height: TSizes.spaceBtwInputFields,
+                            ),
+
+                            /// product image
+                            CreateProductImagePickerWidget(
+                              file: controller.coverImage.value,
+                              onStart: () async {
+                                controller.coverImage.value =
+                                    await THelperFunctions.pickImageWithCrop(
+                                        context);
+                                controller.updateDataList(4, true);
+                              },
+                              onRemove: () {
+                                controller.updateDataList(4, false);
+                                controller.coverImage.value = null;
+                              },
+                            ),
+
+                            const SizedBox(
+                              height: TSizes.spaceBtwSections,
+                            ),
+                            Text(
+                              "Additional Images ",
+                              style: Theme.of(context).textTheme.bodySmall,
+                            ),
+                            const SizedBox(
+                              height: TSizes.spaceBtwInputFields,
+                            ),
+                            GridView.builder(
+                                shrinkWrap: true,
+                                physics: controller.progress.value > 0
+                                    ? const NeverScrollableScrollPhysics()
+                                    : const BouncingScrollPhysics(),
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  crossAxisSpacing: TSizes.spaceBtwItems,
+                                  mainAxisSpacing: TSizes.spaceBtwItems,
+                                  childAspectRatio: 1,
                                 ),
-                                duration: animatioDuration,
-                                child: controller.image1.value != null
-                                    ? Image.file(
-                                        controller.image1.value!,
-                                      )
-                                    : Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          const Text(
-                                              "Upload Main Image of the product"),
-                                          const SizedBox(
-                                            height: TSizes.spaceBtwItems,
-                                          ),
-                                          Container(
-                                            padding: const EdgeInsets.all(2.0),
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                3,
-                                              ),
-                                              border: Border.all(
-                                                color: TColors.primary,
-                                              ),
-                                            ),
-                                            child: const Icon(
-                                              Iconsax.image,
-                                              color: TColors.primary,
-                                            ),
-                                          ),
-                                        ],
+                                itemCount:
+                                    controller.additionalImages.length + 1,
+                                itemBuilder: (context, index) {
+                                  if (index == 4) {
+                                    return const SizedBox.shrink();
+                                  }
+                                  if (index ==
+                                      controller.additionalImages.length) {
+                                    File? file;
+                                    return EmptyImagePicker(
+                                      onTap: () async {
+                                        file = await THelperFunctions
+                                            .pickImageWithCrop(context);
+                                        if (file != null) {
+                                          controller.additionalImages
+                                              .add(Rx(file));
+                                          controller.updateDataList(
+                                            4 +
+                                                controller
+                                                    .additionalImages.length,
+                                            controller.additionalImages[index]
+                                                    .value !=
+                                                null,
+                                          );
+                                        }
+                                      },
+                                    );
+                                  }
+                                  return CreateProductImagePickerWidget(
+                                    file: controller
+                                        .additionalImages[index].value,
+                                    onStart: () async => controller
+                                            .additionalImages[index].value =
+                                        await THelperFunctions
+                                            .pickImageWithCrop(context),
+                                    onRemove: () {
+                                      controller.additionalImages
+                                          .removeAt(index);
+                                      controller.updateDataList(
+                                          4 +
+                                              controller
+                                                  .additionalImages.length,
+                                          false);
+                                    },
+                                  );
+                                }),
+                          ],
+                        ),
+                      ),
+                    ),
+                    SingleChildScrollView(
+                      child: Obx(
+                        () => Column(
+                          children: [
+                            const SizedBox(
+                              height: TSizes.spaceBtwSections,
+                            ),
+                            controller.coverImage.value == null
+                                ? const SizedBox.shrink()
+                                : TRoundedImage(
+                                    border: Border.all(color: TColors.light),
+                                    imageUrl: controller.coverImage.value!.path,
+                                    width: TSizes.displayWidth(context) * 0.72,
+                                    height: TSizes.displayWidth(context) * 0.63,
+                                    isFileImage: true,
+                                    backgroundColor:
+                                        TColors.lightDarkBackground,
+                                    fit: BoxFit.cover,
+                                  ),
+                            Visibility(
+                              visible: false,
+                              child: SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Row(
+                                  children: List.generate(
+                                    controller.additionalImages.length,
+                                    (index) => Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 12.0, right: 12),
+                                      child: TRoundedImage(
+                                        border:
+                                            Border.all(color: TColors.light),
+                                        imageUrl: controller
+                                            .additionalImages[index]
+                                            .value!
+                                            .path,
+                                        width:
+                                            TSizes.displayWidth(context) * 0.27,
+                                        height:
+                                            TSizes.displayWidth(context) * 0.27,
+                                        isFileImage: true,
+                                        backgroundColor:
+                                            TColors.lightDarkBackground,
+                                        fit: BoxFit.cover,
                                       ),
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
+                            const SizedBox(
+                              height: TSizes.spaceBtwSections,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  padding:
+                                      const EdgeInsets.all(TSizes.defaultSpace),
+                                  width: TSizes.displayWidth(context),
+                                  // height: TSizes.displayHeight(context) * 0.3,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: TColors.grey,
+                                    ),
+                                    color: dark
+                                        ? TColors.lightDarkBackground
+                                        : TColors.light,
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      PreviewDetailsTabWidget(
+                                        leftHeading: TTexts.productName,
+                                        leftSubHeading: controller
+                                            .productNameController.text,
+                                      ),
+                                      const SizedBox(
+                                        height: TSizes.spaceBtwInputFields,
+                                      ),
+                                      PreviewDetailsTabWidget(
+                                        leftHeading: TTexts.productQuantity,
+                                        leftSubHeading: controller
+                                            .productQuantityController.text,
+                                        rightHeading: TTexts.productPrice,
+                                        rightSubHeading:
+                                            "₹ ${controller.productPriceController.text}",
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: TSizes.spaceBtwInputFields,
+                                ),
+                                Container(
+                                  padding:
+                                      const EdgeInsets.all(TSizes.defaultSpace),
+                                  width: TSizes.displayWidth(context),
+                                  // height: TSizes.displayHeight(context) * 0.3,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: TColors.grey,
+                                    ),
+                                    color: dark
+                                        ? TColors.lightDarkBackground
+                                        : TColors.light,
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        TTexts.productDescription,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyLarge,
+                                      ),
+                                      const SizedBox(
+                                        height: TSizes.sm,
+                                      ),
+                                      Text(
+                                        controller
+                                            .productDescriptionController.text,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall,
+                                        textAlign: TextAlign.justify,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: TSizes.spaceBtwSections * 3.6,
+                            )
+                          ],
                         ),
-                      ],
-                    ),
-                    const Column(
-                      children: [
-                        Text("Page 3"),
-                      ],
+                      ),
                     ),
                   ],
                 ),
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class PreviewDetailsTabWidget extends StatelessWidget {
+  const PreviewDetailsTabWidget({
+    super.key,
+    this.leftHeading,
+    this.leftSubHeading,
+    this.rightHeading,
+    this.rightSubHeading,
+  });
+
+  final String? leftHeading;
+  final String? leftSubHeading;
+  final String? rightHeading;
+  final String? rightSubHeading;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            TProductTitleText(
+              title: leftHeading ?? "",
+              smallSize: true,
+            ),
+            const SizedBox(
+              height: TSizes.xs,
+            ),
+            TProductTitleText(
+              title: leftSubHeading ?? "",
+              smallSize: false,
+            ),
+          ],
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            TProductTitleText(
+              title: rightHeading ?? "",
+              smallSize: true,
+            ),
+            const SizedBox(
+              height: TSizes.xs,
+            ),
+            TProductTitleText(
+              title: rightSubHeading ?? "",
+              smallSize: false,
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+class CreateProductImagePickerWidget extends StatelessWidget {
+  CreateProductImagePickerWidget({
+    super.key,
+    this.file,
+    this.onStart,
+    this.onRemove,
+  });
+
+  File? file;
+  final VoidCallback? onStart;
+  final VoidCallback? onRemove;
+
+  @override
+  Widget build(BuildContext context) {
+    final dark = THelperFunctions.isDarkMode(context);
+    return SizedBox(
+      child: file != null
+          ? Stack(
+              children: [
+                TRoundedImage(
+                  fit: BoxFit.cover,
+                  backgroundColor: TColors.lightDarkBackground,
+                  isFileImage: true,
+                  onPressed: onStart,
+                  imageUrl: file!.path,
+                  width: TSizes.displayWidth(context),
+                  height: TSizes.displayHeight(context) * 0.36,
+                ),
+                Positioned(
+                  right: 0,
+                  child: IconButton(
+                    onPressed: onRemove,
+                    icon: Icon(
+                      Iconsax.close_circle5,
+                      shadows: const [
+                        Shadow(
+                          color: TColors.white,
+                          blurRadius: 20,
+                          offset: Offset(0, 0),
+                        ),
+                      ],
+                      color: TColors.error,
+                      size: TSizes.displayWidth(context) * (45 / 420),
+                    ),
+                  ),
+                ),
+              ],
+            )
+          : EmptyImagePicker(
+              onTap: onStart,
+            ),
+    );
+  }
+}
+
+class EmptyImagePicker extends StatelessWidget {
+  const EmptyImagePicker({
+    super.key,
+    required this.onTap,
+  });
+
+  final VoidCallback? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final dark = THelperFunctions.isDarkMode(context);
+    return DottedBorder(
+      borderType: BorderType.RRect,
+      radius: const Radius.circular(8),
+      color: dark ? TColors.light : TColors.primary,
+      strokeWidth: 2,
+      dashPattern: const [16, 8],
+      child: TCirclularContainer(
+        onTap: onTap,
+        width: TSizes.displayWidth(context),
+        height: TSizes.displayHeight(context) * 0.36,
+        radius: 8,
+        backgroundColor:
+            dark ? TColors.lightDarkBackground : TColors.grey.withOpacity(0.6),
+        child: const Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Iconsax.image,
+            ),
+            SizedBox(
+              height: TSizes.spaceBtwItems,
+            ),
+            Text(
+              "Upload Cover Image",
+            ),
+          ],
         ),
       ),
     );

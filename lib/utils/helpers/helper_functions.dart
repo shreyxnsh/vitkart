@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as path;
 import 'package:permission_handler/permission_handler.dart';
+import 'package:vitkart/features/authentication/screens/register/widget/cherryToast.dart';
 import 'package:vitkart/utils/constants/colors.dart';
 
 class THelperFunctions {
@@ -140,6 +141,17 @@ class THelperFunctions {
       if (image == null) return null;
       return image;
     }
+  }
+
+  static Future<File?> pickImageWithCrop(BuildContext context) async {
+    XFile? image = await THelperFunctions.pickImage(fromCamera: false);
+    if (image == null) {
+      showErrorToast(context, "Please select an image");
+      return null;
+    }
+    File? croppedImage = await THelperFunctions.startImageCrop(image, context);
+    if (croppedImage == null) return File(image.path);
+    return croppedImage;
   }
 
   static void navigateToScreen(BuildContext context, Widget screen) {

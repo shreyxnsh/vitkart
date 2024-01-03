@@ -13,16 +13,12 @@ class TicketDetailsContainer extends StatelessWidget {
                       padding: const EdgeInsets.only(left: 10, right: 10),
                       decoration: BoxDecoration(
                         color:
-                            dark ? TColors.lightDarkBackground : TColors.light,
+                            dark ? TColors.lightDarkBackground : TColors.primary,
                         borderRadius: const BorderRadius.only(
                           bottomLeft: Radius.circular(12),
                           bottomRight: Radius.circular(12),
                         ),
-                        border: Border.all(
-                          color: dark
-                              ? TColors.lightDarkBackground
-                              : TColors.light,
-                        ),
+                        
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,

@@ -29,6 +29,7 @@ class CreateProductController extends GetxController
     false,
     false,
     false,
+    false,
   ];
   RxDouble progress = 0.0.obs;
 
@@ -39,10 +40,9 @@ class CreateProductController extends GetxController
   TextEditingController productQuantityController = TextEditingController();
 
   // Page 2 - Images
-  Rx<File?> image1 = Rx(null);
-  Rx<File?> image2 = Rx(null);
-  Rx<File?> image3 = Rx(null);
-  Rx<File?> image4 = Rx(null);
+  List<Rx<File?>> additionalImages = [];
+
+  Rx<File?> coverImage = Rx(null);
 
   // Page 3 - Preview
 
@@ -52,28 +52,43 @@ class CreateProductController extends GetxController
     super.onInit();
     tabController = TabController(length: 3, vsync: this);
 
-    focusNode.removeListener(() {
-      isExpanded.value = false;
+    tabController.addListener(() {
+      if (tabController.index < selectedTab.value) {
+        selectedTab.value = tabController.index;
+      }
+      if (selectedTab.value == 0) {
+        page1Check(Get.context!)
+            ? selectedTab.value = tabController.index
+            : tabController.animateTo(0);
+      }
+      if (selectedTab.value == 1) {
+        page2Check(Get.context!)
+            ? selectedTab.value = tabController.index
+            : tabController.animateTo(1);
+      }
     });
   }
 
-  @override
-  void onClose() {
-    // TODO: implement onClose
-    super.onClose();
-    tabController.dispose();
+  // @override
+  // void onClose() {
+  //   // TODO: implement onClose
+  //   super.onClose();
+  //   tabController.dispose();
 
-    productNameController.dispose();
-    productDescriptionController.dispose();
-    productPriceController.dispose();
-    productQuantityController.dispose();
-  }
+  //   productNameController.dispose();
+  //   productDescriptionController.dispose();
+  //   productPriceController.dispose();
+  //   productQuantityController.dispose();
+  // }
 
-  goNext() {
+  goNext(BuildContext context) {
     if (selectedTab.value == 2) {
       Get.back();
       return;
     }
+    if (selectedTab.value == 0 && !page1Check(context)) return;
+
+    if (selectedTab.value == 1 && !page2Check(context)) return;
     selectedTab.value++;
     tabController.animateTo(
       selectedTab.value,
@@ -81,11 +96,45 @@ class CreateProductController extends GetxController
     );
   }
 
-  goPrevious() {
+  bool page1Check(BuildContext context) {
+    if (productNameController.text.isEmpty) {
+      showErrorToast(context, "Please enter product name");
+      return false;
+    }
+    if (productDescriptionController.text.isEmpty) {
+      showErrorToast(context, "Please enter product description");
+      return false;
+    }
+    if (productPriceController.text.isEmpty) {
+      showErrorToast(context, "Please enter product price");
+      return false;
+    }
+    if (productQuantityController.text.isEmpty) {
+      showErrorToast(context, "Please enter product quantity");
+      return false;
+    }
+    return true;
+  }
+
+  bool page2Check(BuildContext context) {
+    if (coverImage.value == null) {
+      showErrorToast(context, "Please select cover image");
+      return false;
+    }
+    // if (additionalImages.isEmpty) {
+    //   showErrorToast(context, "Please select additional images");
+    //   return false;
+    // }
+
+    return true;
+  }
+
+  goPrevious(BuildContext context) {
     if (selectedTab.value == 0) {
       Get.back();
       return;
     }
+
     selectedTab.value--;
     tabController.animateTo(
       selectedTab.value,
@@ -105,18 +154,12 @@ class CreateProductController extends GetxController
   }
 
   updateDataList(int index, bool data) {
+    if (index == dataList.length) {
+      dataList.add(data);
+      progressCheck();
+      return;
+    }
     dataList[index] = data;
     progressCheck();
-  }
-
-  Future<File?> imagePicker(BuildContext context) async {
-    XFile? image = await THelperFunctions.pickImage(fromCamera: false);
-    if (image == null) {
-      showErrorToast(context, "Please select an image");
-      return null;
-    }
-    File? croppedImage = await THelperFunctions.startImageCrop(image, context);
-    if (croppedImage == null) return File(image.path);
-    return croppedImage;
   }
 }

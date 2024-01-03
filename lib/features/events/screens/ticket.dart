@@ -27,7 +27,7 @@ class TicketScreen extends StatelessWidget {
               Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: dark ? TColors.lightDarkBackground : TColors.light,
+                  color: dark ? TColors.lightDarkBackground : TColors.primary,
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Column(
@@ -53,10 +53,19 @@ class TicketScreen extends StatelessWidget {
                     const TicketDetailsContainer(),
                     
                     SizedBox(
-                      child: Image.asset(
+                      child: 
+                      dark ?
+                      Image.asset(
                         "assets/icons/events/horizontaldotted.png",
                         fit: BoxFit.fitWidth,
-                      ),
+                      )
+
+                      : 
+                      Image.asset(
+                        "assets/icons/events/horizontalwhitedot.png",
+                        fit: BoxFit.fitWidth,
+                      )
+
                     ),
                     const TicketScanQRContainer(),
                     const SizedBox(

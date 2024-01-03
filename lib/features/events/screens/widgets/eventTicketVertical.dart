@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vitkart/features/events/screens/ticket.dart';
+import 'package:vitkart/utils/constants/colors.dart';
+import 'package:vitkart/utils/helpers/helper_functions.dart';
 
 class EventTicketVertical extends StatelessWidget {
   const EventTicketVertical({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final dark = THelperFunctions.isDarkMode(context);
     return GestureDetector(
       onTap: () {
         Get.to(() => const TicketScreen());
@@ -16,7 +19,7 @@ class EventTicketVertical extends StatelessWidget {
         height: 115,
         clipBehavior: Clip.antiAlias,
         decoration: ShapeDecoration(
-          color: const Color(0xFF172F52),
+          color: dark ? TColors.lightDarkBackground : TColors.primary,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(9),
           ),
@@ -83,8 +86,7 @@ class EventTicketVertical extends StatelessWidget {
                           SizedBox(
                               child: Image.asset(
                                 "assets/icons/events/verticaldotted.png",
-                                
-                             
+                                color: dark ? TColors.darkBackground : TColors.light,
                                 height: 115,
                                 fit: BoxFit.fitHeight,
                               ),
