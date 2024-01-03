@@ -330,15 +330,17 @@ class CreateProductScreen extends StatelessWidget {
                           const SizedBox(
                             height: TSizes.spaceBtwSections,
                           ),
-                          TRoundedImage(
-                            border: Border.all(color: TColors.light),
-                            imageUrl: controller.coverImage.value!.path,
-                            width: TSizes.displayWidth(context) * 0.8,
-                            height: TSizes.displayWidth(context) * 0.7,
-                            isFileImage: true,
-                            backgroundColor: TColors.lightDarkBackground,
-                            fit: BoxFit.cover,
-                          ),
+                          controller.coverImage.value == null
+                              ? const SizedBox.shrink()
+                              : TRoundedImage(
+                                  border: Border.all(color: TColors.light),
+                                  imageUrl: controller.coverImage.value!.path,
+                                  width: TSizes.displayWidth(context) * 0.8,
+                                  height: TSizes.displayWidth(context) * 0.7,
+                                  isFileImage: true,
+                                  backgroundColor: TColors.lightDarkBackground,
+                                  fit: BoxFit.cover,
+                                ),
                           SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
                             child: Row(
