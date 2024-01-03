@@ -325,106 +325,114 @@ class CreateProductScreen extends StatelessWidget {
                       ),
                     ),
                     SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          const SizedBox(
-                            height: TSizes.spaceBtwSections,
-                          ),
-                          controller.coverImage.value == null
-                              ? const SizedBox.shrink()
-                              : TRoundedImage(
-                                  border: Border.all(color: TColors.light),
-                                  imageUrl: controller.coverImage.value!.path,
-                                  width: TSizes.displayWidth(context) * 0.8,
-                                  height: TSizes.displayWidth(context) * 0.7,
-                                  isFileImage: true,
-                                  backgroundColor: TColors.lightDarkBackground,
-                                  fit: BoxFit.cover,
-                                ),
-                          SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Row(
-                              children: List.generate(
-                                controller.additionalImages.length,
-                                (index) => Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 12.0, right: 12),
-                                  child: TRoundedImage(
+                      child: Obx(
+                        () => Column(
+                          children: [
+                            const SizedBox(
+                              height: TSizes.spaceBtwSections,
+                            ),
+                            controller.coverImage.value == null
+                                ? const SizedBox.shrink()
+                                : TRoundedImage(
                                     border: Border.all(color: TColors.light),
-                                    imageUrl: controller
-                                        .additionalImages[index].value!.path,
-                                    width: TSizes.displayWidth(context) * 0.27,
-                                    height: TSizes.displayWidth(context) * 0.27,
+                                    imageUrl: controller.coverImage.value!.path,
+                                    width: TSizes.displayWidth(context),
+                                    height: TSizes.displayWidth(context) * 0.72,
                                     isFileImage: true,
                                     backgroundColor:
                                         TColors.lightDarkBackground,
                                     fit: BoxFit.cover,
                                   ),
+                            SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                children: List.generate(
+                                  controller.additionalImages.length,
+                                  (index) => Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 12.0, right: 12),
+                                    child: TRoundedImage(
+                                      border: Border.all(color: TColors.light),
+                                      imageUrl: controller
+                                          .additionalImages[index].value!.path,
+                                      width:
+                                          TSizes.displayWidth(context) * 0.27,
+                                      height:
+                                          TSizes.displayWidth(context) * 0.27,
+                                      isFileImage: true,
+                                      backgroundColor:
+                                          TColors.lightDarkBackground,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                          const SizedBox(
-                            height: TSizes.spaceBtwSections,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              PreviewDetailsTabWidget(
-                                leftHeading: TTexts.productName,
-                                leftSubHeading:
-                                    controller.productNameController.text,
-                                rightHeading: TTexts.productPrice,
-                                rightSubHeading:
-                                    "₹ ${controller.productPriceController.text}",
-                              ),
-                              const SizedBox(
-                                height: TSizes.spaceBtwInputFields,
-                              ),
-                              PreviewDetailsTabWidget(
-                                leftHeading: TTexts.productQuantity,
-                                leftSubHeading:
-                                    controller.productQuantityController.text,
-                              ),
-                              const SizedBox(
-                                height: TSizes.spaceBtwInputFields,
-                              ),
-                              Container(
-                                padding:
-                                    const EdgeInsets.all(TSizes.defaultSpace),
-                                width: TSizes.displayWidth(context),
-                                // height: TSizes.displayHeight(context) * 0.3,
-                                decoration: BoxDecoration(
-                                  color: TColors.lightDarkBackground,
-                                  borderRadius: BorderRadius.circular(8),
+                            const SizedBox(
+                              height: TSizes.spaceBtwSections,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                PreviewDetailsTabWidget(
+                                  leftHeading: TTexts.productName,
+                                  leftSubHeading:
+                                      controller.productNameController.text,
+                                  rightHeading: TTexts.productPrice,
+                                  rightSubHeading:
+                                      "₹ ${controller.productPriceController.text}",
                                 ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      TTexts.productDescription,
-                                      style:
-                                          Theme.of(context).textTheme.bodyLarge,
-                                    ),
-                                    const SizedBox(
-                                      height: TSizes.sm,
-                                    ),
-                                    Text(
-                                      controller
-                                          .productDescriptionController.text,
-                                      style:
-                                          Theme.of(context).textTheme.bodySmall,
-                                      textAlign: TextAlign.justify,
-                                    ),
-                                  ],
+                                const SizedBox(
+                                  height: TSizes.spaceBtwInputFields,
                                 ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: TSizes.spaceBtwSections * 3.6,
-                          )
-                        ],
+                                PreviewDetailsTabWidget(
+                                  leftHeading: TTexts.productQuantity,
+                                  leftSubHeading:
+                                      controller.productQuantityController.text,
+                                ),
+                                const SizedBox(
+                                  height: TSizes.spaceBtwInputFields,
+                                ),
+                                Container(
+                                  padding:
+                                      const EdgeInsets.all(TSizes.defaultSpace),
+                                  width: TSizes.displayWidth(context),
+                                  // height: TSizes.displayHeight(context) * 0.3,
+                                  decoration: BoxDecoration(
+                                    color: TColors.lightDarkBackground,
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        TTexts.productDescription,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyLarge,
+                                      ),
+                                      const SizedBox(
+                                        height: TSizes.sm,
+                                      ),
+                                      Text(
+                                        controller
+                                            .productDescriptionController.text,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall,
+                                        textAlign: TextAlign.justify,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: TSizes.spaceBtwSections * 3.6,
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ],
