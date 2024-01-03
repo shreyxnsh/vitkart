@@ -90,7 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           children: [
             TPrimaryHeaderContainer(
-              height: TSizes.displayHeight(context) > 800
+              height: TSizes.displayHeight(context) < 820
                   ? TSizes.displayHeight(context) * 0.42
                   : TSizes.displayHeight(context) * 0.47,
               child: const Column(
