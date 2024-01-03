@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:vitkart/utils/constants/colors.dart';
 import 'package:vitkart/utils/helpers/helper_functions.dart';
 
 class LoginScreenTextFeild extends StatelessWidget {
   final double? height;
   final TextEditingController? controller;
-  final String labelText;
+  final String? labelText;
   final IconData? prefixIcon;
   final Widget? suffixIcon;
   final bool obscureText;
@@ -24,12 +25,16 @@ class LoginScreenTextFeild extends StatelessWidget {
   final int? maxLength;
   final bool? expands;
   final String? counterText;
+  final String? hintText;
+  final List<TextInputFormatter>? inputFormatters;
 
   const LoginScreenTextFeild({
     this.height,
     this.enabled,
     this.maxLines,
     this.onChanged,
+    this.hintText,
+    this.inputFormatters,
     this.isBigTextField,
     this.expands,
     this.minLines,
@@ -38,7 +43,7 @@ class LoginScreenTextFeild extends StatelessWidget {
     this.focusNode,
     this.maxLength,
     super.key,
-    this.labelText = "",
+    this.labelText,
     this.prefixIcon,
     this.suffixIcon,
     this.obscureText = false,
@@ -61,25 +66,17 @@ class LoginScreenTextFeild extends StatelessWidget {
         controller: controller,
         maxLines: maxLines ?? 1,
         minLines: minLines,
+        inputFormatters: inputFormatters,
         expands: expands ?? false,
         maxLength: maxLength,
         onChanged: onChanged,
         focusNode: focusNode,
         decoration: InputDecoration(
           counterText: counterText,
+          hintText: hintText,
           labelText: labelText,
           prefixIconColor: dark ? TColors.light : TColors.primary,
-          prefixIcon: isBigTextField == true
-              ? Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 24.0),
-                      child: Icon(prefixIcon),
-                    ),
-                  ],
-                )
-              : Icon(prefixIcon),
+          prefixIcon: isBigTextField == true ? null : Icon(prefixIcon),
           contentPadding: contentPadding,
           suffixIcon: suffixIcon,
           border: const OutlineInputBorder(

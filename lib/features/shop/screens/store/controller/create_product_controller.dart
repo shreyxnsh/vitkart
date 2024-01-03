@@ -29,6 +29,7 @@ class CreateProductController extends GetxController
     false,
     false,
     false,
+    false,
   ];
   RxDouble progress = 0.0.obs;
 
@@ -39,11 +40,9 @@ class CreateProductController extends GetxController
   TextEditingController productQuantityController = TextEditingController();
 
   // Page 2 - Images
-  List<Rx<File?>> imageList = <Rx<File?>>[Rx(null)].obs;
-  Rx<File?> image1 = Rx(null);
-  Rx<File?> image2 = Rx(null);
-  Rx<File?> image3 = Rx(null);
-  Rx<File?> image4 = Rx(null);
+  List<Rx<File?>> additionalImages = [];
+
+  Rx<File?> coverImage = Rx(null);
 
   // Page 3 - Preview
 
@@ -53,9 +52,6 @@ class CreateProductController extends GetxController
     super.onInit();
     tabController = TabController(length: 3, vsync: this);
 
-    focusNode.removeListener(() {
-      isExpanded.value = false;
-    });
     tabController.addListener(() {
       if (tabController.index < selectedTab.value) {
         selectedTab.value = tabController.index;
@@ -73,17 +69,17 @@ class CreateProductController extends GetxController
     });
   }
 
-  @override
-  void onClose() {
-    // TODO: implement onClose
-    super.onClose();
-    tabController.dispose();
+  // @override
+  // void onClose() {
+  //   // TODO: implement onClose
+  //   super.onClose();
+  //   tabController.dispose();
 
-    productNameController.dispose();
-    productDescriptionController.dispose();
-    productPriceController.dispose();
-    productQuantityController.dispose();
-  }
+  //   productNameController.dispose();
+  //   productDescriptionController.dispose();
+  //   productPriceController.dispose();
+  //   productQuantityController.dispose();
+  // }
 
   goNext(BuildContext context) {
     if (selectedTab.value == 2) {
@@ -121,22 +117,6 @@ class CreateProductController extends GetxController
   }
 
   bool page2Check(BuildContext context) {
-    if (image1.value == null) {
-      showErrorToast(context, "Please select an image");
-      return false;
-    }
-    if (image2.value == null) {
-      showErrorToast(context, "Please select an image");
-      return false;
-    }
-    if (image3.value == null) {
-      showErrorToast(context, "Please select an image");
-      return false;
-    }
-    if (image4.value == null) {
-      showErrorToast(context, "Please select an image");
-      return false;
-    }
     return true;
   }
 
@@ -172,16 +152,5 @@ class CreateProductController extends GetxController
     }
     dataList[index] = data;
     progressCheck();
-  }
-
-  Future<File?> imagePicker(BuildContext context) async {
-    XFile? image = await THelperFunctions.pickImage(fromCamera: false);
-    if (image == null) {
-      showErrorToast(context, "Please select an image");
-      return null;
-    }
-    File? croppedImage = await THelperFunctions.startImageCrop(image, context);
-    if (croppedImage == null) return File(image.path);
-    return croppedImage;
   }
 }
