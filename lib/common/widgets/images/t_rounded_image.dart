@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:vitkart/utils/constants/colors.dart';
 import 'package:vitkart/utils/constants/sizes.dart';
@@ -8,6 +10,7 @@ class TRoundedImage extends StatelessWidget {
     this.width,
     this.height,
     required this.imageUrl,
+    this.isFileImage,
     this.applyImageRadius = true,
     this.border,
     this.backgroundColor = TColors.light,
@@ -28,6 +31,7 @@ class TRoundedImage extends StatelessWidget {
   final bool isNetworkImage;
   final VoidCallback? onPressed;
   final double borderRadius;
+  final bool? isFileImage;
 
   @override
   Widget build(BuildContext context) {
@@ -47,9 +51,11 @@ class TRoundedImage extends StatelessWidget {
               ? BorderRadius.circular(borderRadius)
               : BorderRadius.zero,
           child: Image(
-            image: isNetworkImage
-                ? NetworkImage(imageUrl)
-                : AssetImage(imageUrl) as ImageProvider,
+            image: isFileImage == true
+                ? FileImage(File(imageUrl))
+                : isNetworkImage
+                    ? NetworkImage(imageUrl)
+                    : AssetImage(imageUrl) as ImageProvider,
             fit: fit,
           ),
         ),
