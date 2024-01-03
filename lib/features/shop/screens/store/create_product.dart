@@ -51,7 +51,7 @@ class CreateProductScreen extends StatelessWidget {
           'Create Product',
           style: Theme.of(context).textTheme.headlineMedium,
         ),
-        showBackArrow: false,
+        showBackArrow: true,
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: TSizes.defaultSpace),
@@ -70,8 +70,15 @@ class CreateProductScreen extends StatelessWidget {
                       Container(
                         width: double.infinity,
                         height: 64,
-                        decoration: const BoxDecoration(
-                          color: TColors.lightDarkBackground,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: TColors.primary,
+                          ),
+                          borderRadius:
+                              BorderRadius.circular(TSizes.cardRadiusLg),
+                          color: dark
+                              ? TColors.lightDarkBackground
+                              : TColors.light,
                         ),
                       ),
                       Obx(
@@ -90,20 +97,35 @@ class CreateProductScreen extends StatelessWidget {
                         backgroundColor: Colors.transparent,
                         selectedTabTextColor: Colors.transparent,
                         controller: controller.tabController,
-                        tabs: const [
+                        tabs: [
                           SegmentTab(
                             label: "Product Details",
-                            selectedTextColor: Colors.white,
+                            textColor: dark
+                                ? Colors.white
+                                : TColors.lightDarkBackground,
+                            selectedTextColor: dark
+                                ? Colors.white
+                                : TColors.lightDarkBackground,
                             color: Colors.transparent,
                           ),
                           SegmentTab(
                             label: "Images",
-                            selectedTextColor: Colors.white,
+                            textColor: dark
+                                ? Colors.white
+                                : TColors.lightDarkBackground,
+                            selectedTextColor: dark
+                                ? Colors.white
+                                : TColors.lightDarkBackground,
                             color: Colors.transparent,
                           ),
                           SegmentTab(
                             label: "Preview",
-                            selectedTextColor: Colors.white,
+                            textColor: dark
+                                ? Colors.white
+                                : TColors.lightDarkBackground,
+                            selectedTextColor: dark
+                                ? Colors.white
+                                : TColors.lightDarkBackground,
                             color: Colors.transparent,
                           ),
                         ],
@@ -336,33 +358,39 @@ class CreateProductScreen extends StatelessWidget {
                                 : TRoundedImage(
                                     border: Border.all(color: TColors.light),
                                     imageUrl: controller.coverImage.value!.path,
-                                    width: TSizes.displayWidth(context),
-                                    height: TSizes.displayWidth(context) * 0.72,
+                                    width: TSizes.displayWidth(context) * 0.72,
+                                    height: TSizes.displayWidth(context) * 0.63,
                                     isFileImage: true,
                                     backgroundColor:
                                         TColors.lightDarkBackground,
                                     fit: BoxFit.cover,
                                   ),
-                            SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: Row(
-                                children: List.generate(
-                                  controller.additionalImages.length,
-                                  (index) => Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 12.0, right: 12),
-                                    child: TRoundedImage(
-                                      border: Border.all(color: TColors.light),
-                                      imageUrl: controller
-                                          .additionalImages[index].value!.path,
-                                      width:
-                                          TSizes.displayWidth(context) * 0.27,
-                                      height:
-                                          TSizes.displayWidth(context) * 0.27,
-                                      isFileImage: true,
-                                      backgroundColor:
-                                          TColors.lightDarkBackground,
-                                      fit: BoxFit.cover,
+                            Visibility(
+                              visible: false,
+                              child: SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Row(
+                                  children: List.generate(
+                                    controller.additionalImages.length,
+                                    (index) => Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 12.0, right: 12),
+                                      child: TRoundedImage(
+                                        border:
+                                            Border.all(color: TColors.light),
+                                        imageUrl: controller
+                                            .additionalImages[index]
+                                            .value!
+                                            .path,
+                                        width:
+                                            TSizes.displayWidth(context) * 0.27,
+                                        height:
+                                            TSizes.displayWidth(context) * 0.27,
+                                        isFileImage: true,
+                                        backgroundColor:
+                                            TColors.lightDarkBackground,
+                                        fit: BoxFit.cover,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -374,21 +402,40 @@ class CreateProductScreen extends StatelessWidget {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                PreviewDetailsTabWidget(
-                                  leftHeading: TTexts.productName,
-                                  leftSubHeading:
-                                      controller.productNameController.text,
-                                  rightHeading: TTexts.productPrice,
-                                  rightSubHeading:
-                                      "₹ ${controller.productPriceController.text}",
-                                ),
-                                const SizedBox(
-                                  height: TSizes.spaceBtwInputFields,
-                                ),
-                                PreviewDetailsTabWidget(
-                                  leftHeading: TTexts.productQuantity,
-                                  leftSubHeading:
-                                      controller.productQuantityController.text,
+                                Container(
+                                  padding:
+                                      const EdgeInsets.all(TSizes.defaultSpace),
+                                  width: TSizes.displayWidth(context),
+                                  // height: TSizes.displayHeight(context) * 0.3,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: TColors.grey,
+                                    ),
+                                    color: dark
+                                        ? TColors.lightDarkBackground
+                                        : TColors.light,
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      PreviewDetailsTabWidget(
+                                        leftHeading: TTexts.productName,
+                                        leftSubHeading: controller
+                                            .productNameController.text,
+                                      ),
+                                      const SizedBox(
+                                        height: TSizes.spaceBtwInputFields,
+                                      ),
+                                      PreviewDetailsTabWidget(
+                                        leftHeading: TTexts.productQuantity,
+                                        leftSubHeading: controller
+                                            .productQuantityController.text,
+                                        rightHeading: TTexts.productPrice,
+                                        rightSubHeading:
+                                            "₹ ${controller.productPriceController.text}",
+                                      ),
+                                    ],
+                                  ),
                                 ),
                                 const SizedBox(
                                   height: TSizes.spaceBtwInputFields,
@@ -399,7 +446,12 @@ class CreateProductScreen extends StatelessWidget {
                                   width: TSizes.displayWidth(context),
                                   // height: TSizes.displayHeight(context) * 0.3,
                                   decoration: BoxDecoration(
-                                    color: TColors.lightDarkBackground,
+                                    border: Border.all(
+                                      color: TColors.grey,
+                                    ),
+                                    color: dark
+                                        ? TColors.lightDarkBackground
+                                        : TColors.light,
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   child: Column(
@@ -470,11 +522,14 @@ class PreviewDetailsTabWidget extends StatelessWidget {
           children: [
             TProductTitleText(
               title: leftHeading ?? "",
-              smallSize: false,
+              smallSize: true,
+            ),
+            const SizedBox(
+              height: TSizes.xs,
             ),
             TProductTitleText(
               title: leftSubHeading ?? "",
-              smallSize: true,
+              smallSize: false,
             ),
           ],
         ),
@@ -483,11 +538,14 @@ class PreviewDetailsTabWidget extends StatelessWidget {
           children: [
             TProductTitleText(
               title: rightHeading ?? "",
-              smallSize: false,
+              smallSize: true,
+            ),
+            const SizedBox(
+              height: TSizes.xs,
             ),
             TProductTitleText(
               title: rightSubHeading ?? "",
-              smallSize: true,
+              smallSize: false,
             ),
           ],
         ),
@@ -565,7 +623,7 @@ class EmptyImagePicker extends StatelessWidget {
     return DottedBorder(
       borderType: BorderType.RRect,
       radius: const Radius.circular(8),
-      color: TColors.light,
+      color: dark ? TColors.light : TColors.primary,
       strokeWidth: 2,
       dashPattern: const [16, 8],
       child: TCirclularContainer(
@@ -573,7 +631,8 @@ class EmptyImagePicker extends StatelessWidget {
         width: TSizes.displayWidth(context),
         height: TSizes.displayHeight(context) * 0.36,
         radius: 8,
-        backgroundColor: dark ? TColors.lightDarkBackground : TColors.light,
+        backgroundColor:
+            dark ? TColors.lightDarkBackground : TColors.grey.withOpacity(0.6),
         child: const Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

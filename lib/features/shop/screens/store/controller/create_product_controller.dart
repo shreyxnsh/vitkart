@@ -117,6 +117,15 @@ class CreateProductController extends GetxController
   }
 
   bool page2Check(BuildContext context) {
+    if (coverImage.value == null) {
+      showErrorToast(context, "Please select cover image");
+      return false;
+    }
+    // if (additionalImages.isEmpty) {
+    //   showErrorToast(context, "Please select additional images");
+    //   return false;
+    // }
+
     return true;
   }
 
