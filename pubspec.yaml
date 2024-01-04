@@ -81,6 +81,7 @@ flutter:
     - assets/images/banners/
     - assets/images/reviews/
     - assets/images/products/
+    - assets/images/products/biscuit.png
     - assets/icons/categories/
     - assets/icons/events/
     - assets/images/animations/

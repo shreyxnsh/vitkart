@@ -41,7 +41,7 @@ class ProfileScreen extends StatelessWidget {
               ),
               const Divider(),
               const SizedBox(height: TSizes.spaceBtwItems),
-              const TSectionHeading(title: 'Personal Information'),
+              const TSectionHeading(title: 'Personal Information' , showActionButton: false,),
               const SizedBox(height: TSizes.spaceBtwItems),
 
               TProfileMenu(
@@ -65,7 +65,7 @@ class ProfileScreen extends StatelessWidget {
               ),
               const Divider(),
               const SizedBox(height: TSizes.spaceBtwItems),
-              const TSectionHeading(title: 'College Information'),
+              const TSectionHeading(title: 'College Information' , showActionButton: false,),
               const SizedBox(height: TSizes.spaceBtwItems),
 
               TProfileMenu(
