@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
 import 'package:vitkart/features/authentication/controllers/register/register_controller.dart';
-import 'package:vitkart/features/authentication/screens/register/register.dart';
 import 'package:vitkart/features/authentication/screens/register/widget/registerHeading.dart';
 import 'package:vitkart/features/authentication/screens/register/widget/subpages/page1.dart';
 import 'package:vitkart/features/authentication/screens/register/widget/subpages/page2.dart';

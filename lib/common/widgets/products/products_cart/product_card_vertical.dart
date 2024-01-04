@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:vitkart/common/widgets/custom_shapes/containers/t_rounded_containers.dart';
-import 'package:vitkart/common/widgets/icons/t_circular_icon.dart';
-import 'package:vitkart/common/widgets/images/t_rounded_image.dart';
 import 'package:vitkart/common/widgets/text/product_price_text.dart';
 import 'package:vitkart/common/widgets/text/product_title_text.dart';
 import 'package:vitkart/common/widgets/text/t_brand_title_with_verifiedicon.dart';
 import 'package:vitkart/features/shop/screens/product_details/product_detail.dart';
 import 'package:vitkart/utils/constants/colors.dart';
-import 'package:vitkart/utils/constants/image_strings.dart';
 import 'package:vitkart/utils/constants/sizes.dart';
 import 'package:vitkart/utils/helpers/helper_functions.dart';
 
@@ -59,13 +55,13 @@ class TProductCardVertical extends StatelessWidget {
                             return child;
                           } else {
                             // You can return a placeholder or a loading indicator here
-                            return CircularProgressIndicator();
+                            return const CircularProgressIndicator();
                           }
                         },
                         errorBuilder: (BuildContext context, Object error,
                             StackTrace? stackTrace) {
                           // You can return an error placeholder or handle errors here
-                          return Icon(
+                          return const Icon(
                               Icons.error); // Example: Show an error icon
                         },
                       ),
@@ -87,7 +83,7 @@ class TProductCardVertical extends StatelessWidget {
                     title: product.productName,
                     smallSize: true,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: TSizes.spaceBtwItems / 2,
                   ),
                   TBrandTitleWithVerifiedIcon(

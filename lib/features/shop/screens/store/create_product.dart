@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:animated_segmented_tab_control/animated_segmented_tab_control.dart';
@@ -6,34 +5,58 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:vitkart/common/widgets/appbar/appbar.dart';
-import 'package:vitkart/common/widgets/images/t_circular.image.dart';
 import 'package:vitkart/common/widgets/images/t_rounded_image.dart';
-import 'package:vitkart/common/widgets/products/t_brand_card.dart';
 import 'package:vitkart/common/widgets/text/product_title_text.dart';
 import 'package:vitkart/features/authentication/screens/login/widget/loginTextField.dart';
 import 'package:vitkart/features/authentication/screens/register/widget/floatingButtonsBackAndNext.dart';
 import 'package:vitkart/features/shop/screens/home/widgets/circular_widget.dart';
 import 'package:vitkart/features/shop/screens/store/controller/create_product_controller.dart';
 import 'package:vitkart/utils/constants/colors.dart';
-import 'package:vitkart/utils/constants/image_strings.dart';
 import 'package:vitkart/utils/constants/sizes.dart';
 import 'package:vitkart/utils/constants/text_strings.dart';
 import 'package:vitkart/utils/helpers/helper_functions.dart';
 
 class CreateProductScreen extends StatelessWidget {
-  CreateProductScreen({super.key});
+  const CreateProductScreen({super.key});
 
   CreateProductController get controller => Get.put(CreateProductController());
+
+  Future<void> userChoice({
+    required BuildContext context,
+    required VoidCallback? isCamera,
+    required VoidCallback? isGallery,
+  }) async {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) => Container(
+        height: 150,
+        color: TColors.darkBackground,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              leading: const Icon(Icons.camera),
+              title: const Text('Camera'),
+              onTap: isCamera,
+            ),
+            ListTile(
+              leading: const Icon(Icons.photo),
+              title: const Text('Gallery'),
+              onTap: isGallery,
+            ),
+          ],
+        ),
+      ),
+    );
+    return;
+  }
 
   @override
   Widget build(BuildContext context) {
     const animatioDuration = Duration(milliseconds: 400);
     final dark = THelperFunctions.isDarkMode(context);
-
     return Scaffold(
       floatingActionButton: Obx(
         () => FloatingBackNextButton(
@@ -263,9 +286,22 @@ class CreateProductScreen extends StatelessWidget {
                             CreateProductImagePickerWidget(
                               file: controller.coverImage.value,
                               onStart: () async {
-                                controller.coverImage.value =
-                                    await THelperFunctions.pickImageWithCrop(
-                                        context);
+                                userChoice(
+                                  context: context,
+                                  isCamera: () async {
+                                    controller.coverImage.value =
+                                        await THelperFunctions
+                                            .pickImageWithCrop(context, true);
+                                    Navigator.pop(context);
+                                  },
+                                  isGallery: () async {
+                                    controller.coverImage.value =
+                                        await THelperFunctions
+                                            .pickImageWithCrop(context, false);
+                                    Navigator.pop(context);
+                                  },
+                                );
+
                                 controller.updateDataList(4, true);
                               },
                               onRemove: () {
@@ -307,30 +343,86 @@ class CreateProductScreen extends StatelessWidget {
                                     File? file;
                                     return EmptyImagePicker(
                                       onTap: () async {
-                                        file = await THelperFunctions
-                                            .pickImageWithCrop(context);
-                                        if (file != null) {
-                                          controller.additionalImages
-                                              .add(Rx(file));
-                                          controller.updateDataList(
-                                            4 +
+                                        userChoice(
+                                          context: context,
+                                          isCamera: () async {
+                                            file = await THelperFunctions
+                                                .pickImageWithCrop(
+                                                    context, true);
+                                            if (file != null) {
+                                              controller.additionalImages
+                                                  .add(Rx(file));
+                                              controller.updateDataList(
+                                                4 +
+                                                    controller.additionalImages
+                                                        .length,
                                                 controller
-                                                    .additionalImages.length,
-                                            controller.additionalImages[index]
-                                                    .value !=
-                                                null,
-                                          );
-                                        }
+                                                        .additionalImages[index]
+                                                        .value !=
+                                                    null,
+                                              );
+                                            }
+                                            Navigator.pop(context);
+                                          },
+                                          isGallery: () async {
+                                            file = await THelperFunctions
+                                                .pickImageWithCrop(
+                                                    context, false);
+                                            if (file != null) {
+                                              controller.additionalImages
+                                                  .add(Rx(file));
+                                              controller.updateDataList(
+                                                4 +
+                                                    controller.additionalImages
+                                                        .length,
+                                                controller
+                                                        .additionalImages[index]
+                                                        .value !=
+                                                    null,
+                                              );
+                                            }
+                                            Navigator.pop(context);
+                                          },
+                                        );
                                       },
                                     );
                                   }
                                   return CreateProductImagePickerWidget(
                                     file: controller
                                         .additionalImages[index].value,
-                                    onStart: () async => controller
-                                            .additionalImages[index].value =
-                                        await THelperFunctions
-                                            .pickImageWithCrop(context),
+                                    onStart: () async {
+                                      userChoice(
+                                        context: context,
+                                        isCamera: () async {
+                                          controller.additionalImages[index] =
+                                              Rx(await THelperFunctions
+                                                  .pickImageWithCrop(
+                                                      context, true));
+                                          controller.updateDataList(
+                                              4 +
+                                                  controller
+                                                      .additionalImages.length,
+                                              controller.additionalImages[index]
+                                                      .value !=
+                                                  null);
+                                          Navigator.pop(context);
+                                        },
+                                        isGallery: () async {
+                                          controller.additionalImages[index] =
+                                              Rx(await THelperFunctions
+                                                  .pickImageWithCrop(
+                                                      context, false));
+                                          controller.updateDataList(
+                                              4 +
+                                                  controller
+                                                      .additionalImages.length,
+                                              controller.additionalImages[index]
+                                                      .value !=
+                                                  null);
+                                          Navigator.pop(context);
+                                        },
+                                      );
+                                    },
                                     onRemove: () {
                                       controller.additionalImages
                                           .removeAt(index);
