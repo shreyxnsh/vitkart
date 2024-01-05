@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:vitkart/common/widgets/curved_edges/curved_edges.dart';
 import 'package:vitkart/utils/constants/sizes.dart';
 

@@ -1,17 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:pinput/pinput.dart';
 import 'package:vitkart/features/authentication/controllers/register/register_controller.dart';
-import 'package:vitkart/features/authentication/screens/login/widget/loginTextField.dart';
 import 'package:vitkart/features/authentication/screens/register/widget/floatingButtonsBackAndNext.dart';
-import 'package:vitkart/features/authentication/screens/register/widget/genderButtons.dart';
 import 'package:vitkart/features/authentication/screens/register/widget/registerForm.dart';
-import 'package:vitkart/features/authentication/screens/register/widget/textFeildLikeButton.dart';
 import 'package:vitkart/utils/constants/colors.dart';
 import 'package:vitkart/utils/constants/sizes.dart';
-import 'package:vitkart/utils/constants/text_strings.dart';
 import 'package:vitkart/utils/helpers/helper_functions.dart';
 
 class RegisterScreen extends StatelessWidget {

@@ -3,9 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:vitkart/features/authentication/screens/register/widget/cherryToast.dart';
-import 'package:vitkart/utils/helpers/helper_functions.dart';
 
 class CreateProductController extends GetxController
     with GetSingleTickerProviderStateMixin {

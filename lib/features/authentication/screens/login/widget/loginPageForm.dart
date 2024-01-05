@@ -50,12 +50,12 @@ class _LoginPageFormState extends State<LoginPageForm> {
     if (_emailController.text.isEmpty) {
       // Show CherryToast for empty email field
       CherryToast.error(
-        title: Text(""),
+        title: const Text(""),
         displayTitle: false,
-        description: Text("User Email field empty",
+        description: const Text("User Email field empty",
             style: TextStyle(color: Colors.black)),
         animationType: AnimationType.fromRight,
-        animationDuration: Duration(milliseconds: 1000),
+        animationDuration: const Duration(milliseconds: 1000),
         autoDismiss: true,
       ).show(context);
       return;
@@ -64,12 +64,12 @@ class _LoginPageFormState extends State<LoginPageForm> {
     if (_passwordController.text.isEmpty) {
       // Show CherryToast for empty password field
       CherryToast.error(
-        title: Text(""),
+        title: const Text(""),
         displayTitle: false,
         description:
-            Text("Password field empty", style: TextStyle(color: Colors.black)),
+            const Text("Password field empty", style: TextStyle(color: Colors.black)),
         animationType: AnimationType.fromRight,
-        animationDuration: Duration(milliseconds: 1000),
+        animationDuration: const Duration(milliseconds: 1000),
         autoDismiss: true,
       ).show(context);
       return;
@@ -111,12 +111,12 @@ class _LoginPageFormState extends State<LoginPageForm> {
     } else {
       // Show CherryToast for other errors
       CherryToast.error(
-        title: Text(""),
+        title: const Text(""),
         displayTitle: false,
-        description: Text("Invalid account information",
+        description: const Text("Invalid account information",
             style: TextStyle(color: Colors.black)),
         animationType: AnimationType.fromRight,
-        animationDuration: Duration(milliseconds: 1000),
+        animationDuration: const Duration(milliseconds: 1000),
         autoDismiss: true,
       ).show(context);
     }

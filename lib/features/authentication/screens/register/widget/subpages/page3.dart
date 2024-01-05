@@ -25,7 +25,7 @@ class Page3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 8.0),
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
