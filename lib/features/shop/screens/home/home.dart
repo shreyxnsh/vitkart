@@ -91,8 +91,8 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             TPrimaryHeaderContainer(
               height: TSizes.displayHeight(context) < 820
-                  ? TSizes.displayHeight(context) * 0.42
-                  : TSizes.displayHeight(context) * 0.47,
+                  ? TSizes.displayHeight(context) * 0.48
+                  : TSizes.displayHeight(context) * 0.48,
               child: const Column(
                 children: [
                   /// App Bar

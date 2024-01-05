@@ -58,10 +58,13 @@ class StoreScreen extends StatelessWidget {
               showBackArrow: false,
               actions: [
                 TCartCounterIcon(
-                  onPressed: () {},
+                  onPressed: () {
+
+                  },
                   iconColor: dark ? TColors.white : TColors.black,
                 )
-              ]),
+              ]
+              ),
           body: NestedScrollView(
               headerSliverBuilder: (_, innerBoxIsScrolled) {
                 return [
