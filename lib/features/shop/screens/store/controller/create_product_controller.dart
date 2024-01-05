@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:vitkart/common/widgets/products/products_cart/success_screen.dart';
 import 'package:vitkart/features/authentication/screens/register/widget/cherryToast.dart';
 import 'package:vitkart/utils/API/api_functions.dart';
 import 'package:vitkart/utils/API/userDataService.dart';
@@ -211,7 +212,8 @@ class CreateProductController extends GetxController
       );
       isLoading.value = false;
       if (response['isSuccess']) {
-        Get.back();
+        // Get.back();
+        Get.offAll(() => const SuccessScreen());
         return;
       } else {
         showErrorToast(context, response['message']);
