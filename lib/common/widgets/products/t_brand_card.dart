@@ -30,8 +30,9 @@ class TBrandCard extends StatelessWidget {
               child: TCircularImage(
                 dark: dark,
                 isNetworkImage: false,
+                
                 backgroundColor: Colors.transparent,
-                overlayColor: dark ? TColors.white : TColors.black,
+                overlayColor: dark ? TColors.primary : TColors.primary,
                 image: '${snacksData['icon']}',
               ),
             ),

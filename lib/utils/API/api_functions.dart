@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:vitkart/utils/config/config.dart';
 
 class APIFunctions {
+  
   static Future<Map<String, dynamic>> createProduct({
     required Map<String, String> data,
     required List<String> filePaths,

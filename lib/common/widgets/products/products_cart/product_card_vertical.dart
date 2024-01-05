@@ -69,8 +69,10 @@ class _TProductCardVerticalState extends State<TProductCardVertical> {
                                     Widget child,
                                     ImageChunkEvent? loadingProgress) {
                                   if (loadingProgress == null) {
-                                    setState(() {
-                                      shimmerIt = false;
+                                    Future.delayed(Duration.zero, () {
+                                      setState(() {
+                                        shimmerIt = false;
+                                      });
                                     });
                                     return child;
                                   } else {
