@@ -40,6 +40,9 @@ class SellScreen extends StatelessWidget {
                   child: const Text('Sell Now'),
                 ),
               ),
+              const SizedBox(
+                height: TSizes.spaceBtwItems,
+              ),
               TSectionHeading(
                 title: 'Your Products',
                 showActionButton: true,
@@ -98,7 +101,12 @@ class SellProductCard extends StatelessWidget {
     final dark = THelperFunctions.isDarkMode(context);
     return TCirclularContainer(
       margen: const EdgeInsets.only(bottom: TSizes.spaceBtwItems),
-      padding: const EdgeInsets.all(TSizes.sm),
+      padding: const EdgeInsets.fromLTRB(
+        TSizes.defaultSpace,
+        TSizes.sm,
+        TSizes.sm,
+        TSizes.sm,
+      ),
       width: TSizes.displayWidth(context),
       height: 180,
       radius: 12,
@@ -107,8 +115,8 @@ class SellProductCard extends StatelessWidget {
         children: [
           TRoundedImage(
             imageUrl: image,
-            width: 171,
-            height: 171,
+            width: 153,
+            height: 153,
           ),
           const SizedBox(
             width: TSizes.spaceBtwItems,
