@@ -4,6 +4,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vitkart/features/authentication/screens/register/widget/cherryToast.dart';
+import 'package:vitkart/utils/API/api_functions.dart';
+import 'package:vitkart/utils/API/userDataService.dart';
 import 'package:vitkart/utils/constants/colors.dart';
 import 'package:vitkart/utils/constants/sizes.dart';
 
@@ -171,9 +173,50 @@ class CreateProductController extends GetxController
 
   getCategoriesList() {}
 
-  goNext(BuildContext context) {
+  goNext(BuildContext context) async {
     if (selectedTab.value == 2) {
-      Get.back();
+      // Creating category string saperated by comma
+      String category = "";
+      for (String str in selectedCategories) {
+        if (category == "") {
+          category = str;
+          continue;
+        }
+        category = "$category,$str";
+      }
+      log(category);
+
+      // Create product images
+      List<String> filePaths = [coverImage.value!.path];
+      for (Rx<File?> file in additionalImages) {
+        if (file.value != null) {
+          filePaths.add(file.value!.path);
+        }
+      }
+
+      // is loading
+      isLoading.value = true;
+
+      // Create product on server and return response
+      Map<String, dynamic> response = await APIFunctions.createProduct(
+        data: {
+          'productName': productNameController.text,
+          'productDesc': productDescriptionController.text,
+          'productPrice': productPriceController.text,
+          'productStock': productQuantityController.text,
+          'productCategory': category,
+          'sellerName': UserDataService.getUserName(),
+        },
+        filePaths: filePaths,
+      );
+      isLoading.value = false;
+      if (response['isSuccess']) {
+        Get.back();
+        return;
+      } else {
+        showErrorToast(context, response['message']);
+      }
+
       return;
     }
     if (selectedTab.value == 0 && !page1Check(context)) return;

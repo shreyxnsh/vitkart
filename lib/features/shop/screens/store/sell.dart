@@ -115,8 +115,8 @@ class SellProductCard extends StatelessWidget {
         children: [
           TRoundedImage(
             imageUrl: image,
-            width: 153,
-            height: 153,
+            width: TSizes.displayWidth(context) * (153 / 420),
+            height: TSizes.displayWidth(context) * (153 / 420),
           ),
           const SizedBox(
             width: TSizes.spaceBtwItems,
@@ -176,8 +176,8 @@ class SellProductCard extends StatelessWidget {
                     Expanded(
                       child: TCirclularContainer(
                         onTap: () => onView,
-                        width: 40,
-                        height: 40,
+                        width: TSizes.displayWidth(context) * (40 / 420),
+                        height: TSizes.displayWidth(context) * (40 / 420),
                         radius: 8,
                         backgroundColor: TColors.primary,
                         child: Center(
@@ -195,8 +195,8 @@ class SellProductCard extends StatelessWidget {
                     Expanded(
                       child: TCirclularContainer(
                         onTap: () => onEdit,
-                        width: 40,
-                        height: 40,
+                        width: TSizes.displayWidth(context) * (40 / 420),
+                        height: TSizes.displayWidth(context) * (40 / 420),
                         radius: 8,
                         backgroundColor: TColors.primary,
                         child: Center(

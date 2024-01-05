@@ -160,7 +160,7 @@ class ProductData {
       id: json['_id'],
       productName: json['productName'],
       productDesc: json['productDesc'],
-      productImage: json['productImage'],
+      productImage: json['productImages'][0],
       productCategory: List<String>.from(json['productCategory']),
       productPrice: json['productPrice'].toDouble(),
       productStock: json['productStock'],

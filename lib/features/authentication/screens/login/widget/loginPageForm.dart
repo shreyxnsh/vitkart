@@ -12,6 +12,7 @@ import 'package:vitkart/features/authentication/screens/login/widget/DontHaveAcc
 import 'package:vitkart/features/authentication/screens/login/widget/forgotPaswordButtonText.dart';
 import 'package:vitkart/features/authentication/screens/login/widget/loginFormHeadings.dart';
 import 'package:vitkart/features/authentication/screens/login/widget/loginTextField.dart';
+import 'package:vitkart/features/authentication/screens/register/widget/cherryToast.dart';
 import 'package:vitkart/navigation_menu.dart';
 import 'package:vitkart/utils/constants/colors.dart';
 import 'package:vitkart/utils/constants/sizes.dart';
@@ -45,33 +46,49 @@ class _LoginPageFormState extends State<LoginPageForm> {
     super.initState();
   }
 
+  // Future<Map<String, dynamic>> loginUserAPI() async {
+  //   var headers = {'Content-Type': 'application/json'};
+  //   var request = http.Request(
+  //       'POST',
+  //       Uri.parse(
+  //           'https://172f-2405-201-682b-707a-b365-6158-77dd-e5df.ngrok-free.app/api/v1/user/signIn'));
+  //   request.body = json.encode({
+  //     "userEmail": "aviral.yadav2021@vitbhopal.ac.in",
+  //     "userPassword": "admin123"
+  //   });
+  //   request.headers.addAll(headers);
+
+  //   http.StreamedResponse response = await request.send();
+
+  //   if (response.statusCode == 200) {
+  //     var data = jsonDecode(await response.stream.bytesToString());
+  //     data["isSuccess"] = true;
+  //     return data;
+  //   } else {
+  //     print(response.reasonPhrase);
+  //   }
+  // }
+
   void loginUser() async {
     // check if user has added data
     if (_emailController.text.isEmpty) {
       // Show CherryToast for empty email field
-      CherryToast.error(
-        title: const Text(""),
-        displayTitle: false,
-        description: const Text("User Email field empty",
-            style: TextStyle(color: Colors.black)),
-        animationType: AnimationType.fromRight,
-        animationDuration: const Duration(milliseconds: 1000),
-        autoDismiss: true,
-      ).show(context);
+      // CherryToast.error(
+      //   title: const Text(""),
+      //   displayTitle: false,
+      //   description: const Text("User Email field empty",
+      //       style: TextStyle(color: Colors.black)),
+      //   animationType: AnimationType.fromRight,
+      //   animationDuration: const Duration(milliseconds: 1000),
+      //   autoDismiss: true,
+      // ).show(context);
+      showErrorToast(context, "User Email field empty");
       return;
     }
 
     if (_passwordController.text.isEmpty) {
       // Show CherryToast for empty password field
-      CherryToast.error(
-        title: const Text(""),
-        displayTitle: false,
-        description:
-            const Text("Password field empty", style: TextStyle(color: Colors.black)),
-        animationType: AnimationType.fromRight,
-        animationDuration: const Duration(milliseconds: 1000),
-        autoDismiss: true,
-      ).show(context);
+      showErrorToast(context, "Password field empty");
       return;
     }
 
