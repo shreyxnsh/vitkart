@@ -54,7 +54,7 @@ class EventTicketVertical extends StatelessWidget {
                                 height: 5,
                               ),
                               Text(
-                                "Garba Event",
+                                "New Year 2024",
                                 style: Theme.of(context).textTheme.bodyLarge,
                               ),
                               const SizedBox(
@@ -63,7 +63,7 @@ class EventTicketVertical extends StatelessWidget {
                               Row(
                                 children: [
                                   Text(
-                                    "07 Jan 2024",
+                                    " 01 Jan 2024",
                                     style: Theme.of(context).textTheme.labelLarge,
                                   ),
                                 ],

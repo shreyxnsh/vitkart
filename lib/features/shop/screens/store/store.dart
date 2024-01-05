@@ -13,8 +13,37 @@ import 'package:vitkart/utils/constants/colors.dart';
 import 'package:vitkart/utils/constants/sizes.dart';
 import 'package:vitkart/utils/helpers/helper_functions.dart';
 
+final List<Map<String, dynamic>> snackList = [
+    {
+      'name': "Chips",
+      'quantity': 12,
+      'icon': 'assets/images/products/chips.png',
+      
+    },
+    {
+      'name': "Biscuits",
+      'quantity': 52,
+      'icon': 'assets/images/products/biscuit.png',
+    },
+    {
+      'name': "Soft Drinks",
+      'quantity': 89,
+      'icon': 'assets/images/products/softdrink.png',
+    },
+    {
+      'name': "Namkeen",
+      'quantity': 12,
+      'icon': 'assets/images/products/namkeen.png',
+    },
+
+    // Add more product data as needed
+  ];
+
 class StoreScreen extends StatelessWidget {
+  
   const StoreScreen({super.key});
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -29,17 +58,21 @@ class StoreScreen extends StatelessWidget {
               showBackArrow: false,
               actions: [
                 TCartCounterIcon(
-                  onPressed: () {},
+                  onPressed: () {
+
+                  },
                   iconColor: dark ? TColors.white : TColors.black,
                 )
-              ]),
+              ]
+              ),
           body: NestedScrollView(
               headerSliverBuilder: (_, innerBoxIsScrolled) {
                 return [
                   SliverAppBar(
                     pinned: true,
                     floating: true,
-                    backgroundColor: dark ? TColors.darkBackground : TColors.white,
+                    backgroundColor:
+                        dark ? TColors.darkBackground : TColors.white,
                     expandedHeight: 410,
                     automaticallyImplyLeading: false,
 
@@ -50,7 +83,7 @@ class StoreScreen extends StatelessWidget {
                         physics: const NeverScrollableScrollPhysics(),
                         children: [
                           /// search bar
-                          
+
                           const TSearchContainer(
                             text: 'Search in Store',
                             showBorder: true,
@@ -63,7 +96,7 @@ class StoreScreen extends StatelessWidget {
 
                           /// featured
                           const TSectionHeading(
-                            title: 'Featured Brands',
+                            title: 'Snacks',
                             showActionButton: true,
                           ),
                           const SizedBox(
@@ -71,11 +104,20 @@ class StoreScreen extends StatelessWidget {
                           ),
 
                           TGridLayout(
-                              itemCount: 4,
+                              // itemCount: 4,
+
+                              // itemBuilder: (_, index) {
+                              //   return TBrandCard(
+                              //     dark: dark
+                              //     name: ,
+                              //     );
+                              // })
                               mainAxisExtend: 80,
-                              itemBuilder: (_, index) {
-                                return TBrandCard(dark: dark);
-                              })
+                              itemCount: snackList.length,
+                              itemBuilder: (_, index) => TBrandCard(
+                                    dark: dark,
+                                    snacksData: snackList[index],
+                                  )),
                         ],
                       ),
                     ),

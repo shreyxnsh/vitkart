@@ -11,7 +11,7 @@ class TEventDetailsHeaderText extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Garba Event",
+                      "New Year 2024",
                       style: Theme.of(context).textTheme.headlineMedium,
                     ),
                     const SizedBox(
@@ -27,13 +27,13 @@ class TEventDetailsHeaderText extends StatelessWidget {
                               width: 5,
                             ),
                             Text(
-                              "07 Jan 2024",
+                              " 01 Jan 2024",
                               style: Theme.of(context).textTheme.titleSmall,
                             ),
                           ],
                         ),
                         const SizedBox(
-                          width: 15,
+                          width: 8,
                         ),
                         Row(
                           children: [
@@ -43,7 +43,7 @@ class TEventDetailsHeaderText extends StatelessWidget {
                               width: 5,
                             ),
                             Text(
-                              "01:00 PM - 06:30 PM",
+                              "06:30 PM - 00:00 AM",
                               style: Theme.of(context).textTheme.titleSmall,
                             ),
                           ],

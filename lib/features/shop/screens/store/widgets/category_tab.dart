@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:vitkart/common/widgets/layout/grid_layout.dart';
-import 'package:vitkart/common/widgets/products/products_cart/product_card_vertical.dart';
 import 'package:vitkart/common/widgets/text/section_heading.dart';
 import 'package:vitkart/utils/constants/sizes.dart';
 
@@ -12,22 +10,22 @@ class TCategoryTab extends StatelessWidget {
     return ListView(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      children: [
+      children: const [
         Padding(
-          padding: const EdgeInsets.all(TSizes.defaultSpace),
+          padding: EdgeInsets.all(TSizes.defaultSpace),
           child: Column(
             children: [
-              const TSectionHeading(
+              TSectionHeading(
                 title: 'You might like',
                 showActionButton: true,
               ),
-              const SizedBox(
+              SizedBox(
                 height: TSizes.spaceBtwItems,
               ),
               // TGridLayout(
               //     itemCount: 4,
               //     itemBuilder: (_, index) => const TProductCardVertical()),
-              const SizedBox(
+              SizedBox(
                 height: TSizes.spaceBtwItems,
               ),
             ],

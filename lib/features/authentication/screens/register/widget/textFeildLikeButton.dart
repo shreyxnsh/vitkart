@@ -48,10 +48,10 @@ class TextFieldLikeButton extends StatelessWidget {
                 const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               ),
               maximumSize: MaterialStateProperty.all(
-                Size(200, 58),
+                const Size(200, 58),
               ),
               minimumSize: MaterialStateProperty.all(
-                Size(200, 58),
+                const Size(200, 58),
               ),
             ),
             child: Row(

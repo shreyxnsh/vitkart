@@ -8,12 +8,12 @@ class TCircularImage extends StatelessWidget {
     required this.dark,
     this.fit = BoxFit.cover,
     required this.image,
-     this.isNetworkImage = false,
+    this.isNetworkImage = false,
     this.backgroundColor,
     this.overlayColor,
-     this.width = 56,
-     this.height = 56,
-     this.padding = TSizes.sm,
+    this.width = 56,
+    this.height = 56,
+    this.padding = TSizes.sm,
   });
 
   final bool dark;
@@ -36,7 +36,9 @@ class TCircularImage extends StatelessWidget {
         borderRadius: BorderRadius.circular(100),
       ),
       child: Image(
-        image: isNetworkImage ? NetworkImage(image) : AssetImage(image) as ImageProvider,
+        image: isNetworkImage
+            ? NetworkImage(image)
+            : AssetImage(image) as ImageProvider,
         color: overlayColor,
       ),
     );

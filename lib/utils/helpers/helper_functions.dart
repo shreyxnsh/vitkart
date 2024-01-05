@@ -143,8 +143,9 @@ class THelperFunctions {
     }
   }
 
-  static Future<File?> pickImageWithCrop(BuildContext context) async {
-    XFile? image = await THelperFunctions.pickImage(fromCamera: false);
+  static Future<File?> pickImageWithCrop(
+      BuildContext context, bool isCamera) async {
+    XFile? image = await THelperFunctions.pickImage(fromCamera: isCamera);
     if (image == null) {
       showErrorToast(context, "Please select an image");
       return null;

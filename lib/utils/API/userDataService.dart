@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:get_storage/get_storage.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';

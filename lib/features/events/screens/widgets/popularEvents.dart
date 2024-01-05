@@ -10,11 +10,11 @@ class PopularEventList extends StatelessWidget {
   final List<Map<String, dynamic>> groomingData = [
     {
       'discount': 'OD Provided',
-      'eventName': 'Garba Event',
-      'clubName': 'Gujrati Club',
+      'eventName': 'New Year 2024',
+      'clubName': 'VIT Bhopal',
       'venue': 'Auditorium',
      
-      'datetime': '07 Jan 2024 - 10:00 AM',
+      'datetime': ' 01 Jan 2024 - 10:00 AM',
       'backgroundImage': 'assets/images/content/popular1.png',
       'ticketPrice': '500',
     },
@@ -30,11 +30,11 @@ class PopularEventList extends StatelessWidget {
     },
     {
       'discount': 'OD Not Provided',
-      'eventName': 'Garba Event',
-      'clubName': 'Gujrati Club',
+      'eventName': 'New Year 2024',
+      'clubName': 'VIT Bhopal',
       'venue': 'Auditorium',
      
-      'datetime': '07 Jan 2024 - 10:00 AM',
+      'datetime': ' 01 Jan 2024 - 10:00 AM',
       'backgroundImage': 'assets/images/content/popular1.png',
       'ticketPrice': '500',
     },

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -64,6 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
       final Map<String, dynamic> data = jsonDecode(response.body);
       if (data['status']) {
         final List<dynamic>? productsData = data['products'];
+        log(productsData.toString());
         if (productsData != null) {
           final List<ProductData> fetchedProducts = productsData
               .map((product) => ProductData.fromJson(product))
@@ -91,8 +93,8 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             TPrimaryHeaderContainer(
               height: TSizes.displayHeight(context) < 820
-                  ? TSizes.displayHeight(context) * 0.42
-                  : TSizes.displayHeight(context) * 0.47,
+                  ? TSizes.displayHeight(context) * 0.48
+                  : TSizes.displayHeight(context) * 0.48,
               child: const Column(
                 children: [
                   /// App Bar
