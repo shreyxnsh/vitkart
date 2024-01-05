@@ -29,7 +29,7 @@ class TicketDetailsContainer extends StatelessWidget {
                           Row(
                             children: [
                               Text(
-                                "Garba Event",
+                                "New Year 2024",
                                 style:
                                     Theme.of(context).textTheme.headlineSmall,
                               ),
@@ -88,7 +88,7 @@ class TicketDetailsContainer extends StatelessWidget {
                               ),
                               const Spacer(),
                               Text(
-                                "07 Jan 2024",
+                                " 01 Jan 2024",
                                 style: Theme.of(context).textTheme.bodyLarge,
                               ),
                             ],
