@@ -3,10 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:vitkart/common/widgets/custom_shapes/containers/t_rounded_containers.dart';
-import 'package:vitkart/common/widgets/text/section_heading.dart';
 import 'package:vitkart/features/authentication/screens/register/widget/cherryToast.dart';
-import 'package:vitkart/features/shop/screens/home/widgets/circular_widget.dart';
 import 'package:vitkart/utils/constants/colors.dart';
 import 'package:vitkart/utils/constants/sizes.dart';
 
