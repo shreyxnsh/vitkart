@@ -10,7 +10,8 @@ import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import 'package:vitkart/features/authentication/screens/register/widget/cherryToast.dart';
 import 'package:vitkart/navigation_menu.dart';
-import 'package:vitkart/utils/config/config.dart';
+import 'package:vitkart/utils/API/api_routes.dart';
+
 import 'package:vitkart/utils/constants/sizes.dart';
 
 class RegisterController extends GetxController {

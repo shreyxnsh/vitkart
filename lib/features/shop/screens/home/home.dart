@@ -14,7 +14,8 @@ import 'package:vitkart/features/shop/screens/categories/popular_products.dart';
 import 'package:vitkart/features/shop/screens/home/widgets/home_appbar.dart';
 import 'package:vitkart/features/shop/screens/home/widgets/home_categories.dart';
 import 'package:vitkart/features/shop/screens/home/widgets/promo_slider.dart';
-import 'package:vitkart/utils/config/config.dart';
+import 'package:vitkart/utils/API/api_routes.dart';
+
 import 'package:vitkart/utils/constants/image_strings.dart';
 import 'package:http/http.dart' as http;
 import 'package:vitkart/utils/constants/sizes.dart';
