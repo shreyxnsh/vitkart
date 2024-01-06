@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
+import 'package:vitkart/features/shop/screens/store/create_product.dart';
+import 'package:vitkart/features/shop/screens/store/sell.dart';
 import 'package:vitkart/navigation_menu.dart';
 import 'package:vitkart/utils/constants/colors.dart';
 import 'package:vitkart/utils/constants/sizes.dart';
@@ -54,7 +56,9 @@ class _SuccessScreenState extends State<SuccessScreen> {
             children: [
               Expanded(
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.to(() => CreateProductScreen());
+                  },
                   child: const Center(child: Text('Add More')),
                 ),
               ),
@@ -63,7 +67,9 @@ class _SuccessScreenState extends State<SuccessScreen> {
               ),
               Expanded(
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.to(() => NavigationMenu());
+                  },
                   child: const Center(child: Text('View Product')),
                 ),
               ),

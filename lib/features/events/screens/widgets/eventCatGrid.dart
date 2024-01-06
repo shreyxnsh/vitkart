@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vitkart/features/authentication/screens/login/login.dart';
+import 'package:vitkart/features/events/screens/categoryScreens/codingScreen.dart';
+import 'package:vitkart/features/events/screens/categoryScreens/culturalScreen.dart';
+import 'package:vitkart/features/events/screens/categoryScreens/danceScreen.dart';
+import 'package:vitkart/features/events/screens/categoryScreens/dramaScreen.dart';
+import 'package:vitkart/features/events/screens/categoryScreens/guestSpeakerScreen.dart';
+import 'package:vitkart/features/events/screens/categoryScreens/musicScreen.dart';
 import 'package:vitkart/features/events/screens/widgets/eventCatCard.dart';
 import 'package:vitkart/utils/constants/image_strings.dart';
 
@@ -20,42 +26,42 @@ class TEventCategoryGrid extends StatelessWidget {
           image: TImages.codingIcon,
           title: "Coding",
           onPressed: () {
-            Get.to(const LoginScreen());
+            Get.to(const CodingScreen());
           },
         ),
         TEventCategoryCard(
           image: TImages.culturalIcon,
           title: "Cultural",
           onPressed: () {
-            Get.to(const LoginScreen());
+            Get.to(const CulturalScreen());
           },
         ),
         TEventCategoryCard(
           image: TImages.guestIcon,
           title: "Guest Speaker",
           onPressed: () {
-            Get.to(const LoginScreen());
+            Get.to(const GuestSpeakerScreen());
           },
         ),
         TEventCategoryCard(
           image: TImages.danceIcon,
           title: "Dance",
           onPressed: () {
-            Get.to(const LoginScreen());
+            Get.to(const DanceScreen());
           },
         ),
         TEventCategoryCard(
           image: TImages.musicIcon,
           title: "Music",
           onPressed: () {
-            Get.to(const LoginScreen());
+            Get.to(const MusicScreen());
           },
         ),
         TEventCategoryCard(
           image: TImages.dramaIcon,
           title: "Drama",
           onPressed: () {
-            Get.to(const LoginScreen());
+            Get.to(const DramaScreen());
           },
         ),
       ],
