@@ -5,7 +5,7 @@ import 'package:vitkart/common/widgets/appbar/appbar.dart';
 import 'package:vitkart/common/widgets/layout/grid_layout.dart';
 import 'package:vitkart/common/widgets/products/products_cart/product_card_vertical.dart';
 import 'package:http/http.dart' as http;
-import 'package:vitkart/utils/config/config.dart';
+import 'package:vitkart/utils/API/api_routes.dart';
 import 'package:vitkart/utils/constants/sizes.dart';
 
 class CycleScreen extends StatefulWidget {

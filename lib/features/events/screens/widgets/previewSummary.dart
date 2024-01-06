@@ -77,17 +77,7 @@ class PreviewOrderSummaryCard extends StatelessWidget {
                   const SizedBox(
                     height: TSizes.spaceBtwItems / 2,
                   ),
-                  Row(children: [
-                    Text(
-                      "Fees",
-                      style: Theme.of(context).textTheme.titleSmall,
-                    ),
-                    const Spacer(),
-                    Text(
-                      "₹ 10",
-                      style: Theme.of(context).textTheme.titleMedium,
-                    )
-                  ]),
+                 
                   const SizedBox(
                     height: TSizes.spaceBtwItems / 2,
                   ),

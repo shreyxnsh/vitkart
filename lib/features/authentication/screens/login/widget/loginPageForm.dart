@@ -14,11 +14,12 @@ import 'package:vitkart/features/authentication/screens/login/widget/loginFormHe
 import 'package:vitkart/features/authentication/screens/login/widget/loginTextField.dart';
 import 'package:vitkart/features/authentication/screens/register/widget/cherryToast.dart';
 import 'package:vitkart/navigation_menu.dart';
+import 'package:vitkart/utils/API/api_routes.dart';
 import 'package:vitkart/utils/constants/colors.dart';
 import 'package:vitkart/utils/constants/sizes.dart';
 import 'package:vitkart/utils/constants/text_strings.dart';
 import 'package:http/http.dart' as http;
-import 'package:vitkart/utils/config/config.dart';
+
 import 'package:vitkart/utils/helpers/helper_functions.dart';
 
 class LoginPageForm extends StatefulWidget {

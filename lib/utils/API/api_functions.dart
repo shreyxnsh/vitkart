@@ -3,7 +3,9 @@ import 'dart:developer';
 
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
-import 'package:vitkart/utils/config/config.dart';
+import 'package:vitkart/utils/API/api_routes.dart';
+
+
 
 class APIFunctions {
   
