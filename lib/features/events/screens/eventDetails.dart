@@ -131,7 +131,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                   ],
                 ),
                 const SizedBox(
-                  height: TSizes.spaceBtwSections,
+                  height: TSizes.spaceBtwItems,
                 ),
                 Column(
                   children: [
@@ -148,6 +148,9 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                           // total time in hours
                           "Total Event Time : ${(timeLine.last["endTime"].difference(timeLine.first["startTime"]).inMinutes / 60).toStringAsFixed(2)} Hours",
                           style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                        const SizedBox(
+                          height: TSizes.spaceBtwItems,
                         ),
                         Row(mainAxisSize: MainAxisSize.min, children: [
                           ...timeLine.map((event) {
@@ -170,7 +173,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                 width: (TSizes.displayWidth(context) /
                                         timeLine.length) -
                                     TSizes.spaceBtwSections,
-                                height: 4,
+                                height: 10,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(12),
                                   color: selectedTimeLine ==
