@@ -55,7 +55,7 @@ class _PreviewEventOrderScreenState extends State<PreviewEventOrderScreen> {
   void makePayment() async {
     var options = {
       'key': 'rzp_test_BQfWCSPjfpPmye',
-      'amount': 20000, //rs 200
+      'amount': 50000, //rs 200
       'name': 'VITKART Events',
       'description': 'test payment',
       'prefill': {
@@ -125,7 +125,7 @@ class _PreviewEventOrderScreenState extends State<PreviewEventOrderScreen> {
                 SizedBox(
                   height: TSizes.spaceBtwItems,
                 ),
-                PreviewPaymentCard(),
+                // PreviewPaymentCard(),
                 SizedBox(
                   height: TSizes.spaceBtwSections,
                 ),

@@ -38,7 +38,7 @@ class TEventPriceCard extends StatelessWidget {
           ),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(12.0),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -49,7 +49,7 @@ class TEventPriceCard extends StatelessWidget {
                 height: 50,
               ),
               const SizedBox(
-                width: 12,
+                width: 8,
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
