@@ -268,7 +268,7 @@ class _TProductCardVerticalState extends State<TProductCardVertical> {
                       ],
                     ),
                   ),
-                  const Spacer(),
+                  // const Spacer(),
                   Padding(
                     padding: const EdgeInsets.only(left: TSizes.sm),
                     child: Row(

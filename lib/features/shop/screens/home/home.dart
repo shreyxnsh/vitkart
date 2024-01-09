@@ -113,7 +113,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     icon: Iconsax.search_normal,
                   ),
                   SizedBox(
-                    height: TSizes.spaceBtwSections,
+                    height: TSizes.spaceBtwSections / 1.5,
                   ),
                   // category
                   Padding(
