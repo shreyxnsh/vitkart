@@ -9,6 +9,7 @@ import 'package:vitkart/features/shop/screens/categories/other_screen.dart';
 import 'package:vitkart/features/shop/screens/categories/tech_screen.dart';
 import 'package:vitkart/utils/constants/colors.dart';
 import 'package:vitkart/utils/constants/image_strings.dart';
+import 'package:vitkart/utils/constants/sizes.dart';
 import 'package:vitkart/utils/helpers/helper_functions.dart';
 
 class THomeCategories extends StatelessWidget {
@@ -20,7 +21,7 @@ class THomeCategories extends StatelessWidget {
   Widget build(BuildContext context) {
     final dark = THelperFunctions.isDarkMode(context);
     return SizedBox(
-      height: 80,
+      height: TSizes.displayHeight(context) * 0.12,
       child: ListView.builder(
         itemCount: categories.length,
         shrinkWrap: true,

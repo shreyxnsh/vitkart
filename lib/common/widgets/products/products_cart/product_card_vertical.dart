@@ -193,7 +193,7 @@ class _TProductCardVerticalState extends State<TProductCardVertical> {
                             child: Image.network(
                               widget.product.productImage,
                               width: 200,
-                              height: 350,
+                              height: 300,
                               fit: BoxFit.fitHeight,
                               // loadingBuilder: (BuildContext context,
                               //     Widget child,
