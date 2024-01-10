@@ -6,6 +6,7 @@ import 'package:vitkart/features/events/screens/widgets/eventsheader.dart';
 import 'package:vitkart/features/events/screens/widgets/popularEvents.dart';
 
 import 'package:vitkart/utils/constants/sizes.dart';
+import 'package:vitkart/utils/constants/staticData.dart';
 
 class EventScreen extends StatelessWidget {
   const EventScreen({Key? key}) : super(key: key);
@@ -27,19 +28,23 @@ class EventScreen extends StatelessWidget {
                 children: [
                   const TSectionHeading(title: "Category"),
                   const SizedBox(
-                    height: TSizes.spaceBtwItems/2,
+                    height: TSizes.spaceBtwItems / 2,
                   ),
                   const TEventCategoryGrid(),
                   const SizedBox(
                     height: TSizes.spaceBtwItems,
                   ),
                   const TSectionHeading(title: "Popular Events"),
-                  PopularEventList(),
+                  PopularEventList(
+                      data:
+                          SampleDataForUI.horizontalScrollCardsEventsCategory),
                   const SizedBox(
                     height: TSizes.spaceBtwItems,
                   ),
                   const TSectionHeading(title: "Events for you"),
-                  EventsForYouList(),
+                  PopularEventList(
+                      data:
+                          SampleDataForUI.horizontalScrollCardsEventsCategory),
                   const SizedBox(
                     height: TSizes.spaceBtwItems,
                   )

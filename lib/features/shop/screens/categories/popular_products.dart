@@ -11,8 +11,8 @@ class PopularProductScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TAppBar(
-        title:
-            Text('Popular Products', style: Theme.of(context).textTheme.headlineSmall),
+        title: Text('Popular Products',
+            style: Theme.of(context).textTheme.headlineSmall),
         showBackArrow: true,
       ),
       body: SingleChildScrollView(
@@ -21,20 +21,25 @@ class PopularProductScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              
               DropdownButtonFormField(
-          
-          decoration: const InputDecoration(prefixIcon: Icon(Iconsax.sort), labelText: TTexts.filter), 
-          onChanged: (value){
+                decoration: const InputDecoration(
+                    prefixIcon: Icon(Iconsax.sort), labelText: TTexts.filter),
+                onChanged: (value) {},
+                items: [
+                  'Lower Price',
+                  'Higher Price',
+                  'Sale',
+                  'Newest',
+                  'Most Popular'
+                ]
+                    .map((option) =>
+                        DropdownMenuItem(value: option, child: Text(option)))
+                    .toList(),
+              ),
+              const SizedBox(
+                height: TSizes.spaceBtwItems,
+              ),
 
-        },
-        items: ['Lower Price', 'Higher Price', 'Sale', 'Newest', 'Most Popular']
-        .map((option) => DropdownMenuItem(value: option, child: Text(option))).toList(),
-        ),
-        const SizedBox(
-          height: TSizes.spaceBtwItems,
-        ),
-        
               // TGridLayout(
               //       itemCount: 8,
               //       itemBuilder: (_, index) =>  TProductCardVertical(),
@@ -46,4 +51,3 @@ class PopularProductScreen extends StatelessWidget {
     );
   }
 }
-

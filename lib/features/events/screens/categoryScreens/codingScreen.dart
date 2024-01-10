@@ -11,7 +11,7 @@ import 'package:vitkart/utils/API/api_routes.dart';
 import 'package:vitkart/utils/constants/sizes.dart';
 
 class EventCategoryScreen extends StatefulWidget {
-  EventCategoryScreen(
+  const EventCategoryScreen(
       {Key? key, required this.data, required this.categoryName})
       : super(key: key);
 

@@ -11,10 +11,11 @@ class TPromoSlider extends StatelessWidget {
   const TPromoSlider({
     super.key,
     required this.banners,
+    required this.onTapRoutes,
   });
 
   final List<String> banners;
-
+  final List<Widget> onTapRoutes;
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(HomeController());
@@ -23,13 +24,20 @@ class TPromoSlider extends StatelessWidget {
         CarouselSlider(
           options: CarouselOptions(
             viewportFraction: 1,
+            autoPlayCurve: Curves.fastEaseInToSlowEaseOut,
+            autoPlayAnimationDuration: const Duration(milliseconds: 800),
+            autoPlayInterval: const Duration(seconds: 5),
+            pauseAutoPlayOnManualNavigate: true,
+            autoPlay: true,
             onPageChanged: (index, _) => controller.carousalCurrentIndex(index),
           ),
-          items: banners
-              .map(
-                (url) => TRoundedImage(imageUrl: url),
-              )
-              .toList(),
+          items: List.generate(
+            onTapRoutes.length,
+            (index) => TRoundedImage(
+              imageUrl: banners[index],
+              onPressed: () => Get.to(onTapRoutes[index]),
+            ),
+          ),
         ),
         const SizedBox(
           height: TSizes.spaceBtwItems,
