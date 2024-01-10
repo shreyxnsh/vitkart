@@ -181,7 +181,7 @@ class _TProductCardVerticalState extends State<TProductCardVertical> {
                   Padding(
                     padding: const EdgeInsets.all(TSizes.xs),
                     child: TRoundedContainer(
-                      height: TSizes.productItemHeight + 10,
+                      height: TSizes.productItemHeight ,
                       margin: const EdgeInsets.only(top: 4),
                       padding: const EdgeInsets.all(TSizes.xs),
                       clipBehavior: Clip.antiAlias,
