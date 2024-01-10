@@ -41,7 +41,7 @@ class EventTicketVertical extends StatelessWidget {
                     children: [
                       // Left Content
                       Padding(
-                        padding: const EdgeInsets.all(12),
+                        padding: const EdgeInsets.all(8),
                         child: Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -54,7 +54,7 @@ class EventTicketVertical extends StatelessWidget {
                                 height: 5,
                               ),
                               Text(
-                                "New Year 2024",
+                                "Advitya Pro Show 2024",
                                 style: Theme.of(context).textTheme.bodyLarge,
                               ),
                               const SizedBox(
@@ -63,13 +63,13 @@ class EventTicketVertical extends StatelessWidget {
                               Row(
                                 children: [
                                   Text(
-                                    " 01 Jan 2024",
+                                    "22 Feb 2024",
                                     style: Theme.of(context).textTheme.labelLarge,
                                   ),
                                 ],
                               ),
                               Text(
-                                "Auditorium",
+                                "Football Ground",
                                 style: Theme.of(context).textTheme.labelLarge,
                               ),
                             ],
@@ -93,7 +93,7 @@ class EventTicketVertical extends StatelessWidget {
                           ),
                          
                           Padding(
-                            padding: const EdgeInsets.all(12),
+                            padding: const EdgeInsets.only(top: 10 , bottom: 10, right: 10),
                             child: Center(
                               child: SizedBox(
                                 child: Image.asset(

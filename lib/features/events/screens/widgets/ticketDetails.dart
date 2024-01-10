@@ -29,7 +29,7 @@ class TicketDetailsContainer extends StatelessWidget {
                           Row(
                             children: [
                               Text(
-                                "New Year 2024",
+                                "Advitya Pro Show 2024",
                                 style:
                                     Theme.of(context).textTheme.headlineSmall,
                               ),
@@ -83,12 +83,12 @@ class TicketDetailsContainer extends StatelessWidget {
                           Row(
                             children: [
                               Text(
-                                "01:00PM - 06:30PM",
+                                "6:30PM - 00:00AM",
                                 style: Theme.of(context).textTheme.bodyLarge,
                               ),
                               const Spacer(),
                               Text(
-                                " 01 Jan 2024",
+                                " 22 Feb 2024",
                                 style: Theme.of(context).textTheme.bodyLarge,
                               ),
                             ],
@@ -113,7 +113,7 @@ class TicketDetailsContainer extends StatelessWidget {
                           Row(
                             children: [
                               Text(
-                                "Auditorium, VIT Bhopal",
+                                "Football Ground, VIT Bhopal",
                                 style: Theme.of(context).textTheme.bodyLarge,
                               ),
                               const Spacer(),
