@@ -132,6 +132,7 @@ class _EventDetailScreenState extends State<EventDetailScreen>
           SingleChildScrollView(
               controller: _scrollController,
               child: Column(
+                
                 children: [
                   TEventHeaderContainer(
                       child: Padding(
@@ -156,31 +157,13 @@ class _EventDetailScreenState extends State<EventDetailScreen>
                   )),
                   Padding(
                     padding: const EdgeInsets.only(
-                        left: TSizes.defaultSpace, right: TSizes.defaultSpace),
+                        left: TSizes.defaultSpace / 2, right: TSizes.defaultSpace / 2 ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const TEventDetailsHeaderText(),
-                        const SizedBox(
-                          height: TSizes.spaceBtwSections,
-                        ),
-                        Column(
-                          children: [
-                            const TSectionHeading(
-                              title: "Description",
-                              showActionButton: false,
-                            ),
-                            const SizedBox(
-                              height: TSizes.spaceBtwItems,
-                            ),
-                            Text(
-                              TTexts.eventDescription,
-                              style: Theme.of(context).textTheme.bodyLarge,
-                              maxLines: 4,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ],
-                        ),
+                        
+                        
                         const SizedBox(
                           height: TSizes.spaceBtwItems,
                         ),
@@ -230,17 +213,19 @@ class _EventDetailScreenState extends State<EventDetailScreen>
                                           selectedTimeLine = 0;
                                           log("X Y : ${getXYfromKey(keys[0])}");
                                         },
-                                        child: OutlinedDotIndicator(
-                                          key: keys[0],
-                                          borderWidth: 2,
-                                          size: 28,
-                                          child: Icon(
-                                            Iconsax.tick_circle,
-                                            size: 18,
-                                          ),
-                                          color: TColors.primary,
-                                          backgroundColor: TColors.primary,
-                                        ),
+                                        child: 
+                                            OutlinedDotIndicator(
+                                              key: keys[0],
+                                              borderWidth: 2,
+                                              size: 28,
+                                              child: Icon(
+                                                Iconsax.tick_circle,
+                                                size: 18,
+                                              ),
+                                              color: TColors.primary,
+                                              backgroundColor: TColors.primary,
+                                            ),
+                                
                                       ),
                                       SizedBox(
                                         width: timelineSpace,
@@ -334,80 +319,24 @@ class _EventDetailScreenState extends State<EventDetailScreen>
                         const SizedBox(
                           height: TSizes.spaceBtwItems,
                         ),
-                        const TSectionHeading(
-                          title: "Tickets",
-                          showActionButton: false,
+                        Column(
+                          children: [
+                            const TSectionHeading(
+                              title: "Description",
+                              showActionButton: false,
+                            ),
+                            const SizedBox(
+                              height: TSizes.spaceBtwItems,
+                            ),
+                            Text(
+                              TTexts.eventDescription,
+                              style: Theme.of(context).textTheme.bodyLarge,
+                              maxLines: 4,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
                         ),
-                        const SizedBox(
-                          height: TSizes.spaceBtwItems,
-                        ),
-                        TEventPriceCard(
-                          isScelected: selectedTicket != null
-                              ? selectedTicket == 0
-                              : false,
-                          image: TImages.earlyBirdTicket,
-                          type: "Early Bird",
-                          desc: "Only for 100 Tickets",
-                          price: "₹ 100",
-                          onTap: () {
-                            // Handle the selection/deselection logic here
-
-                            setState(() {
-                              if (selectedTicket == 0) {
-                                selectedTicket = null;
-
-                                return;
-                              }
-                              selectedTicket = 0;
-                            });
-                          },
-                        ),
-                        const SizedBox(
-                          height: TSizes.xs,
-                        ),
-                        TEventPriceCard(
-                          isScelected: selectedTicket != null
-                              ? selectedTicket == 1
-                              : false,
-                          image: TImages.normalTicket,
-                          type: "Normal",
-                          desc: "Only for next 200 Tickets",
-                          price: "₹ 200",
-                          onTap: () {
-                            // Handle the selection/deselection logic here
-                            setState(() {
-                              if (selectedTicket == 1) {
-                                selectedTicket = null;
-
-                                return;
-                              }
-                              selectedTicket = 1;
-                            });
-                          },
-                        ),
-                        const SizedBox(
-                          height: TSizes.xs,
-                        ),
-                        TEventPriceCard(
-                          isScelected: selectedTicket != null
-                              ? selectedTicket == 2
-                              : false,
-                          image: TImages.lastMomentTicket,
-                          type: "Last Moment",
-                          desc: "On-Spot Registrations",
-                          price: "₹ 300",
-                          onTap: () {
-                            // Handle the selection/deselection logic here
-                            setState(() {
-                              if (selectedTicket == 2) {
-                                selectedTicket = null;
-
-                                return;
-                              }
-                              selectedTicket = 2;
-                            });
-                          },
-                        ),
+                        
                         const SizedBox(
                           height: TSizes.spaceBtwItems,
                         ),

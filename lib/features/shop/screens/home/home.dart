@@ -141,15 +141,15 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                     banners: const [
                       TImages.promoBanner1,
-                      TImages.promoBanner2,
-                      TImages.promoBanner3,
+                      TImages.promoBanner1,
+                      TImages.promoBanner1,
                     ],
                   ),
                   const SizedBox(
                     height: TSizes.spaceBtwItems,
                   ),
                   TSectionHeading(
-                    title: "Advitya Events",
+                    title: "Advitya 2024 ",
                     showActionButton: true,
                     onPressed: () {
                       Get.to(const PopularProductScreen());
