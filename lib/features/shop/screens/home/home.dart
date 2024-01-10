@@ -10,6 +10,9 @@ import 'package:vitkart/common/widgets/custom_shapes/containers/search_container
 import 'package:vitkart/common/widgets/layout/grid_layout.dart';
 import 'package:vitkart/common/widgets/products/products_cart/product_card_vertical.dart';
 import 'package:vitkart/common/widgets/text/section_heading.dart';
+import 'package:vitkart/features/events/screens/categoryScreens/codingScreen.dart';
+import 'package:vitkart/features/events/screens/eventDetails.dart';
+import 'package:vitkart/features/events/screens/widgets/popularEvents.dart';
 import 'package:vitkart/features/shop/screens/categories/popular_products.dart';
 import 'package:vitkart/features/shop/screens/home/widgets/home_appbar.dart';
 import 'package:vitkart/features/shop/screens/home/widgets/home_categories.dart';
@@ -19,6 +22,7 @@ import 'package:vitkart/utils/API/api_routes.dart';
 import 'package:vitkart/utils/constants/image_strings.dart';
 import 'package:http/http.dart' as http;
 import 'package:vitkart/utils/constants/sizes.dart';
+import 'package:vitkart/utils/constants/staticData.dart';
 import '../../../../common/widgets/custom_shapes/containers/primary_header_container.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -92,11 +96,9 @@ class _HomeScreenState extends State<HomeScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            TPrimaryHeaderContainer(
-              height: TSizes.displayHeight(context) < 820
-                  ? TSizes.displayHeight(context) * 0.48
-                  : TSizes.displayHeight(context) * 0.48,
-              child: const Column(
+            const TPrimaryHeaderContainer(
+              // height: TSizes.displayHeight(context) * 0.3,
+              child: Column(
                 children: [
                   /// App Bar
                   SizedBox(
@@ -104,34 +106,18 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   ThemeHomeAppBar(),
                   SizedBox(
-                    height: TSizes.spaceBtwItems,
+                    height: TSizes.spaceBtwInputFields,
                   ),
 
-                  /// Search Bar
+                  // Search Bar
                   TSearchContainer(
-                    text: "Search in Store",
+                    text: "Search Event",
                     icon: Iconsax.search_normal,
                   ),
                   SizedBox(
-                    height: TSizes.spaceBtwSections,
+                    height: TSizes.spaceBtwSections + 24,
                   ),
                   // category
-                  Padding(
-                    padding: EdgeInsets.only(left: TSizes.defaultSpace),
-                    child: Column(
-                      children: [
-                        TSectionHeading(
-                          title: "Popular Categories",
-                          showActionButton: false,
-                          textColor: Colors.white,
-                        ),
-                        SizedBox(
-                          height: TSizes.spaceBtwItems,
-                        ),
-                        THomeCategories(),
-                      ],
-                    ),
-                  ),
                 ],
               ),
             ),
@@ -141,27 +127,57 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               child: Column(
                 children: [
-                  const TPromoSlider(banners: [
-                    TImages.promoBanner1,
-                    TImages.promoBanner2,
-                    TImages.promoBanner3,
-                  ]),
+                  TPromoSlider(
+                    onTapRoutes: [
+                      EventCategoryScreen(
+                          data: SampleDataForUI.eventCategoryData,
+                          categoryName: "Advitya 2024"),
+                      EventCategoryScreen(
+                          data: SampleDataForUI.eventCategoryData,
+                          categoryName: "Advitya 2024"),
+                      EventCategoryScreen(
+                          data: SampleDataForUI.eventCategoryData,
+                          categoryName: "Advitya 2024"),
+                    ],
+                    banners: const [
+                      TImages.promoBanner1,
+                      TImages.promoBanner1,
+                      TImages.promoBanner1,
+                    ],
+                  ),
                   const SizedBox(
                     height: TSizes.spaceBtwItems,
                   ),
                   TSectionHeading(
-                    title: "Popular Products",
+                    title: "Advitya 2024 ",
                     showActionButton: true,
                     onPressed: () {
                       Get.to(const PopularProductScreen());
                     },
                   ),
-                  TGridLayout(
-                    itemCount: products.length,
-                    itemBuilder: (_, index) => TProductCardVertical(
-                      product: products[index],
-                    ),
-                  )
+                  PopularEventList(
+                      data:
+                          SampleDataForUI.horizontalScrollCardsEventsCategory),
+                  TSectionHeading(
+                    title: "Upcoming Events",
+                    showActionButton: true,
+                    onPressed: () {
+                      Get.to(const PopularProductScreen());
+                    },
+                  ),
+                  PopularEventList(
+                      data:
+                          SampleDataForUI.horizontalScrollCardsEventsCategory),
+                  TSectionHeading(
+                    title: "Popular Events",
+                    showActionButton: true,
+                    onPressed: () {
+                      Get.to(const PopularProductScreen());
+                    },
+                  ),
+                  PopularEventList(
+                      data:
+                          SampleDataForUI.horizontalScrollCardsEventsCategory),
                 ],
               ),
             )

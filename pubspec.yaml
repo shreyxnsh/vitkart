@@ -55,6 +55,7 @@ dependencies:
   pull_down_button: ^0.9.3
   lottie: ^2.7.0
   shimmer: ^3.0.0
+  timelines: ^0.1.0
 
   #--------------- ./ PACKAGES END ------------------#
 
