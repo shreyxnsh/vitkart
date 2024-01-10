@@ -51,12 +51,12 @@ class PreviewOrderSummaryCard extends StatelessWidget {
                   ),
                   Row(children: [
                     Text(
-                      "Early Bird",
+                      "Ticket Price",
                       style: Theme.of(context).textTheme.titleSmall,
                     ),
                     const Spacer(),
                     Text(
-                      "₹ 100",
+                      "₹ 300",
                       style: Theme.of(context).textTheme.titleMedium,
                     )
                   ]),
@@ -65,12 +65,12 @@ class PreviewOrderSummaryCard extends StatelessWidget {
                   ),
                   Row(children: [
                     Text(
-                      "Tax",
+                      "GST (18%)",
                       style: Theme.of(context).textTheme.titleSmall,
                     ),
                     const Spacer(),
                     Text(
-                      "₹ 11.61",
+                      "₹ 54",
                       style: Theme.of(context).textTheme.titleMedium,
                     )
                   ]),
@@ -96,7 +96,7 @@ class PreviewOrderSummaryCard extends StatelessWidget {
                     ),
                     const Spacer(),
                     Text(
-                      "₹ 121.61",
+                      "₹ 354.00",
                       style: Theme.of(context).textTheme.titleMedium,
                     )
                   ]),

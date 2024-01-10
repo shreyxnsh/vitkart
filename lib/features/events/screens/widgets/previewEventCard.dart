@@ -56,17 +56,10 @@ class PreviewEventCard extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        "New Year 2024",
+                        "Advitya Pro Show 2024",
                         style: Theme.of(context).textTheme.headlineSmall,
                       ),
-                      const Spacer(),
-                      Text(
-                        "Early Bird",
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleMedium!
-                            .copyWith(fontStyle: FontStyle.italic),
-                      )
+                      
                     ],
                   ),
                   const SizedBox(height: 7),
@@ -88,7 +81,7 @@ class PreviewEventCard extends StatelessWidget {
                             width: 3,
                           ),
                           Text(
-                            " 01 Jan 2024",
+                            " 22 Feb 2024",
                             style: Theme.of(context).textTheme.titleSmall,
                           ),
                         ],
