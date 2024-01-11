@@ -1,13 +1,13 @@
 flutter_native_splash:
   color: "#FFFFFF"
   color_dark: "#121933"
-  image: assets/logos/t-store-splash-logo-black.png
+  image: assets/icons/vitkart/vitkart_logogreen.png
   image_dark: assets/icons/vitkart/vitkart_logogreen.png
 
   android_12:
     color: "#FFFFFF"
     color_dark: "#121933"
-    image: assets/logos/t-store-splash-logo-black.png
+    image: assets/icons/vitkart/vitkart_logogreen.png
     image_dark: assets/icons/vitkart/vitkart_logogreen.png
 
 
