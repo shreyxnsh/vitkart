@@ -10,5 +10,5 @@ const cycleProductsUrl = '$url/product/getproduct?category=cycle';
 const mattressProductsUrl = '$url/product/getproduct?category=mattress';
 const getAllProductUrl = '$url/product/getproduct';
 const getUserProducts = '$url/product/getproduct?seller=';
-
+const getEventsUrl = '$url/event/getEvents';
 const createProductUrl = "$url/product/createProduct?token=";

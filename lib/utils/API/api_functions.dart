@@ -69,6 +69,37 @@ class APIFunctions {
     }
   }
 
+  static Future<Map<String, dynamic>> getEvents(
+      {String? id, String? category}) async {
+    String url = getEventsUrl +
+        ((id != null || category != null) ? "?" : "") +
+        (id == null ? "" : "id=$id") +
+        (id == null
+            ? ""
+            : category == null
+                ? ""
+                : "&") +
+        (category == null ? "" : "category=$category");
+    log("code : $url");
+    var request = http.Request('GET', Uri.parse(url));
+
+    http.StreamedResponse response = await request.send();
+    log("code : ${response.statusCode}");
+    if (response.statusCode == 200) {
+      Map<String, dynamic> jsonResponse =
+          jsonDecode(await response.stream.bytesToString()); // Convert to JSON
+      jsonResponse['isSuccess'] = true;
+      log(jsonResponse.toString());
+      return jsonResponse;
+    } else {
+      Map<String, dynamic> jsonResponse =
+          jsonDecode(await response.stream.bytesToString()); // Convert to JSON
+      jsonResponse['isSuccess'] = false;
+      log(jsonResponse.toString());
+      return jsonResponse;
+    }
+  }
+
   static Future<Map<String, dynamic>> otpVerify(
       {required String email, required String otp}) async {
     var headers = {'Content-Type': 'application/json'};

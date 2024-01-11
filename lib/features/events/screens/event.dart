@@ -3,7 +3,7 @@ import 'package:vitkart/common/widgets/text/section_heading.dart';
 import 'package:vitkart/features/events/screens/widgets/eventCatGrid.dart';
 import 'package:vitkart/features/events/screens/widgets/eventsForYou.dart';
 import 'package:vitkart/features/events/screens/widgets/eventsheader.dart';
-import 'package:vitkart/features/events/screens/widgets/popularEvents.dart';
+import 'package:vitkart/features/events/screens/widgets/tEventCategoryCard.dart';
 
 import 'package:vitkart/utils/constants/sizes.dart';
 import 'package:vitkart/utils/constants/staticData.dart';

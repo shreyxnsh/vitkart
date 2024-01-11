@@ -10,13 +10,14 @@ import 'package:vitkart/common/widgets/custom_shapes/containers/search_container
 import 'package:vitkart/common/widgets/layout/grid_layout.dart';
 import 'package:vitkart/common/widgets/products/products_cart/product_card_vertical.dart';
 import 'package:vitkart/common/widgets/text/section_heading.dart';
-import 'package:vitkart/features/events/screens/categoryScreens/codingScreen.dart';
+import 'package:vitkart/features/events/screens/categoryScreens/eventCategoryScreen.dart';
 import 'package:vitkart/features/events/screens/eventDetails.dart';
-import 'package:vitkart/features/events/screens/widgets/popularEvents.dart';
+import 'package:vitkart/features/events/screens/widgets/tEventCategoryCard.dart';
 import 'package:vitkart/features/shop/screens/categories/popular_products.dart';
 import 'package:vitkart/features/shop/screens/home/widgets/home_appbar.dart';
 import 'package:vitkart/features/shop/screens/home/widgets/home_categories.dart';
 import 'package:vitkart/features/shop/screens/home/widgets/promo_slider.dart';
+import 'package:vitkart/utils/API/api_functions.dart';
 import 'package:vitkart/utils/API/api_routes.dart';
 
 import 'package:vitkart/utils/constants/image_strings.dart';
@@ -70,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
       final Map<String, dynamic> data = jsonDecode(response.body);
       if (data['status']) {
         final List<dynamic>? productsData = data['products'];
-        log(productsData.toString());
+        // log(productsData.toString());
         if (productsData != null) {
           final List<ProductData> fetchedProducts = productsData
               .map((product) => ProductData.fromJson(product))
@@ -130,14 +131,17 @@ class _HomeScreenState extends State<HomeScreen> {
                   TPromoSlider(
                     onTapRoutes: [
                       EventCategoryScreen(
-                          data: SampleDataForUI.eventCategoryData,
-                          categoryName: "Advitya 2024"),
+                        data: SampleDataForUI.eventCategoryData,
+                        categoryName: "Advitya 2024",
+                      ),
                       EventCategoryScreen(
-                          data: SampleDataForUI.eventCategoryData,
-                          categoryName: "Advitya 2024"),
+                        data: SampleDataForUI.eventCategoryData,
+                        categoryName: "Advitya 2024",
+                      ),
                       EventCategoryScreen(
-                          data: SampleDataForUI.eventCategoryData,
-                          categoryName: "Advitya 2024"),
+                        data: SampleDataForUI.eventCategoryData,
+                        categoryName: "Advitya 2024",
+                      ),
                     ],
                     banners: const [
                       TImages.promoBanner1,

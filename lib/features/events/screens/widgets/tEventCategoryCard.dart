@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:vitkart/features/events/screens/eventDetails.dart';
 import 'package:vitkart/features/events/screens/widgets/discount.dart';
 import 'package:vitkart/utils/constants/colors.dart';
@@ -23,7 +26,7 @@ class PopularEventList extends StatelessWidget {
         itemBuilder: (context, index) {
           return Padding(
             padding: const EdgeInsets.all(6.0),
-            child: PopularEventCard(data: data[index]),
+            child: TEventCategoryCard(data: data[index]),
           );
         },
       ),
@@ -31,23 +34,28 @@ class PopularEventList extends StatelessWidget {
   }
 }
 
-class PopularEventCard extends StatelessWidget {
+class TEventCategoryCard extends StatelessWidget {
   final Map<String, dynamic> data;
 
-  const PopularEventCard({super.key, required this.data});
+  const TEventCategoryCard({super.key, required this.data});
 
   @override
   Widget build(BuildContext context) {
+    log("data :${data.toString()}");
     return GestureDetector(
       onTap: () {
-        Get.to(() => const EventDetailScreen());
+        Get.to(
+          () => EventDetailScreen(
+            data: data,
+          ),
+        );
       },
       child: Container(
         width: 280,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
           image: DecorationImage(
-            image: AssetImage(data['backgroundImage']),
+            image: NetworkImage(data['eventImages'][1]),
             fit: BoxFit.cover,
           ),
         ),
@@ -59,7 +67,7 @@ class PopularEventCard extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: DiscountContainer(discount: data['discount']),
+                  child: DiscountContainer(discount: data['discount'] ?? ""),
                 ),
                 const Spacer(),
               ],
@@ -73,10 +81,12 @@ class PopularEventCard extends StatelessWidget {
                 child: ClipRect(
                   child: EventDetailsContainer(
                     eventName: data['eventName'],
-                    venue: data['venue'],
-                    clubName: data['clubName'],
-                    datetime: data['datetime'],
-                    ticketPrice: data['ticketPrice'],
+                    venue: data['eventVenue'],
+                    clubName: data['eventOrg'],
+                    datetime:
+                        // ignore: prefer_interpolation_to_compose_strings
+                        "${DateFormat("dd MMM yyyy").format(DateTime.parse(data['eventDate']))} ${data['eventTime']}",
+                    ticketPrice: data['ticketPrice'] ?? "100",
                   ),
                 ),
               ),
@@ -123,7 +133,7 @@ class EventDetailsContainer extends StatelessWidget {
             children: [
               Text(
                 eventName,
-                style: Theme.of(context).textTheme.titleMedium,
+                style: Theme.of(context).textTheme.headlineSmall,
               ),
               const Spacer(),
               Row(
@@ -140,7 +150,7 @@ class EventDetailsContainer extends StatelessWidget {
                     "₹ $ticketPrice",
                     style: Theme.of(context)
                         .textTheme
-                        .titleSmall
+                        .headlineMedium
                         ?.copyWith(color: TColors.primary),
                   ),
                 ],
@@ -148,17 +158,17 @@ class EventDetailsContainer extends StatelessWidget {
             ],
           ),
           const SizedBox(
-            height: 2,
+            height: 0,
           ),
           Text(
             clubName,
             style: Theme.of(context)
                 .textTheme
-                .labelLarge
+                .bodyMedium
                 ?.copyWith(fontStyle: FontStyle.italic),
           ),
           const SizedBox(
-            height: 2,
+            height: 8,
           ),
           Row(
             children: [
@@ -171,14 +181,18 @@ class EventDetailsContainer extends StatelessWidget {
 
               Text(
                 datetime,
-                style: Theme.of(context).textTheme.labelLarge,
+                style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                      color: TColors.white,
+                    ),
               ),
               const SizedBox(
-                width: 4,
+                width: 8,
               ),
               Text(
                 venue,
-                style: Theme.of(context).textTheme.labelLarge,
+                style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                      color: TColors.white,
+                    ),
               ),
             ],
           ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:intl/intl.dart';
 import 'package:vitkart/common/widgets/custom_shapes/containers/t_rounded_containers.dart';
 import 'package:vitkart/common/widgets/text/product_price_text.dart';
 import 'package:vitkart/common/widgets/text/product_title_text.dart';
@@ -8,7 +9,22 @@ import 'package:vitkart/utils/constants/sizes.dart';
 import 'package:vitkart/utils/helpers/helper_functions.dart';
 
 class TEventDetailsHeaderText extends StatelessWidget {
-  const TEventDetailsHeaderText({super.key});
+  const TEventDetailsHeaderText({
+    super.key,
+    required this.ename,
+    required this.edate,
+    required this.etime,
+    required this.evenue,
+    required this.eprice,
+    required this.eticketsLeft,
+  });
+
+  final String ename;
+  final String edate;
+  final String etime;
+  final String evenue;
+  final String eprice;
+  final int eticketsLeft;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +33,7 @@ class TEventDetailsHeaderText extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Advitya Pro Show 2024",
+          ename,
           style: Theme.of(context).textTheme.headlineMedium,
         ),
         const SizedBox(
@@ -32,7 +48,7 @@ class TEventDetailsHeaderText extends StatelessWidget {
                   width: 5,
                 ),
                 Text(
-                  " 22 Feb 2024",
+                  DateFormat('dd MMM yyyy').format(DateTime.parse(edate)),
                   style: Theme.of(context).textTheme.titleSmall,
                 ),
               ],
@@ -47,7 +63,7 @@ class TEventDetailsHeaderText extends StatelessWidget {
                   width: 5,
                 ),
                 Text(
-                  "06:30 PM - 00:00 AM",
+                  "${etime} - _______",
                   style: Theme.of(context).textTheme.titleSmall,
                 ),
               ],
@@ -64,7 +80,7 @@ class TEventDetailsHeaderText extends StatelessWidget {
               width: 5,
             ),
             Text(
-              "Football Ground, VIT Bhopal",
+              evenue,
               style: Theme.of(context).textTheme.titleLarge,
             ),
           ],
@@ -91,8 +107,8 @@ class TEventDetailsHeaderText extends StatelessWidget {
                         "Ticket Price : ",
                         style: Theme.of(context).textTheme.titleSmall!.apply(),
                       ),
-                      const TProductPriceText(
-                        price: "300",
+                      TProductPriceText(
+                        price: eprice,
                         isLarge: true,
                       ),
                     ],
@@ -102,15 +118,19 @@ class TEventDetailsHeaderText extends StatelessWidget {
                   ),
                   TRoundedContainer(
                     radius: TSizes.sm,
-                    backgroundColor: TColors.secondary.withOpacity(0.8),
+                    backgroundColor: eticketsLeft == 0
+                        ? Colors.red.shade400
+                        : TColors.secondary.withOpacity(0.8),
                     padding: const EdgeInsets.symmetric(
                         horizontal: TSizes.sm, vertical: TSizes.xs),
                     child: Text(
-                      "Only 56 Tickets remaining",
-                      style: Theme.of(context)
-                          .textTheme
-                          .labelLarge!
-                          .apply(color: TColors.black),
+                      eticketsLeft == 0
+                          ? "Sold Out"
+                          : "Only ${eticketsLeft} Tickets remaining",
+                      style: Theme.of(context).textTheme.labelLarge!.apply(
+                          color: eticketsLeft == 0
+                              ? TColors.white
+                              : TColors.black),
                     ),
                   ),
                   // const SizedBox(
