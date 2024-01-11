@@ -5,10 +5,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:vitkart/utils/API/api_routes.dart';
 
-
-
 class APIFunctions {
-  
   static Future<Map<String, dynamic>> createProduct({
     required Map<String, String> data,
     required List<String> filePaths,
@@ -42,6 +39,54 @@ class APIFunctions {
     } else {
       Map<String, dynamic> jsonResponse =
           jsonDecode(await response.stream.bytesToString());
+      jsonResponse['isSuccess'] = false;
+      log(jsonResponse.toString());
+      return jsonResponse;
+    }
+  }
+
+  static Future<Map<String, dynamic>> createUser(
+      {required Map<String, String> data}) async {
+    var headers = {'Content-Type': 'application/json'};
+    var request = http.Request('POST', Uri.parse(registrationUrl));
+    request.body = json.encode(data);
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      Map<String, dynamic> jsonResponse =
+          jsonDecode(await response.stream.bytesToString()); // Convert to JSON
+      jsonResponse['isSuccess'] = true;
+      log(jsonResponse.toString());
+      return jsonResponse;
+    } else {
+      Map<String, dynamic> jsonResponse =
+          jsonDecode(await response.stream.bytesToString()); // Convert to JSON
+      jsonResponse['isSuccess'] = false;
+      log(jsonResponse.toString());
+      return jsonResponse;
+    }
+  }
+
+  static Future<Map<String, dynamic>> otpVerify(
+      {required String email, required String otp}) async {
+    var headers = {'Content-Type': 'application/json'};
+    var request = http.Request('POST', Uri.parse(otpVerificationUrl));
+    request.body = json.encode({"userEmail": email, "otp": otp});
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      Map<String, dynamic> jsonResponse =
+          jsonDecode(await response.stream.bytesToString()); // Convert to JSON
+      jsonResponse['isSuccess'] = true;
+      log(jsonResponse.toString());
+      return jsonResponse;
+    } else {
+      Map<String, dynamic> jsonResponse =
+          jsonDecode(await response.stream.bytesToString()); // Convert to JSON
       jsonResponse['isSuccess'] = false;
       log(jsonResponse.toString());
       return jsonResponse;
