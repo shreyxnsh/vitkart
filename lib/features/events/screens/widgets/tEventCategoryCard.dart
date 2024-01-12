@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:vitkart/features/events/screens/eventDetails.dart';
 import 'package:vitkart/features/events/screens/widgets/discount.dart';
 import 'package:vitkart/utils/constants/colors.dart';
+import 'package:vitkart/utils/constants/sizes.dart';
 import 'package:vitkart/utils/helpers/helper_functions.dart';
 
 class PopularEventList extends StatelessWidget {
@@ -14,7 +15,7 @@ class PopularEventList extends StatelessWidget {
     required this.data,
   });
 
-  final List<Map<String, dynamic>> data;
+  final List data;
 
   @override
   Widget build(BuildContext context) {
@@ -131,9 +132,15 @@ class EventDetailsContainer extends StatelessWidget {
         children: [
           Row(
             children: [
-              Text(
-                eventName,
-                style: Theme.of(context).textTheme.headlineSmall,
+              SizedBox(
+                width: TSizes.displayWidth(context) * 0.4,
+                child: Text(
+                  eventName,
+                  maxLines: 1,
+                  style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                ),
               ),
               const Spacer(),
               Row(
