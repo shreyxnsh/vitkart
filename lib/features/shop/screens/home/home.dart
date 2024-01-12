@@ -6,23 +6,27 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:vitkart/common/widgets/custom_shapes/containers/search_container.dart';
 import 'package:vitkart/common/widgets/layout/grid_layout.dart';
 import 'package:vitkart/common/widgets/products/products_cart/product_card_vertical.dart';
 import 'package:vitkart/common/widgets/text/section_heading.dart';
-import 'package:vitkart/features/events/screens/categoryScreens/codingScreen.dart';
+import 'package:vitkart/features/events/screens/categoryScreens/eventCategoryScreen.dart';
 import 'package:vitkart/features/events/screens/eventDetails.dart';
-import 'package:vitkart/features/events/screens/widgets/popularEvents.dart';
+import 'package:vitkart/features/events/screens/widgets/tEventCategoryCard.dart';
 import 'package:vitkart/features/shop/screens/categories/popular_products.dart';
 import 'package:vitkart/features/shop/screens/home/widgets/home_appbar.dart';
 import 'package:vitkart/features/shop/screens/home/widgets/home_categories.dart';
 import 'package:vitkart/features/shop/screens/home/widgets/promo_slider.dart';
+import 'package:vitkart/utils/API/api_functions.dart';
 import 'package:vitkart/utils/API/api_routes.dart';
+import 'package:vitkart/utils/constants/colors.dart';
 
 import 'package:vitkart/utils/constants/image_strings.dart';
 import 'package:http/http.dart' as http;
 import 'package:vitkart/utils/constants/sizes.dart';
 import 'package:vitkart/utils/constants/staticData.dart';
+import 'package:vitkart/utils/helpers/helper_functions.dart';
 import '../../../../common/widgets/custom_shapes/containers/primary_header_container.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -70,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
       final Map<String, dynamic> data = jsonDecode(response.body);
       if (data['status']) {
         final List<dynamic>? productsData = data['products'];
-        log(productsData.toString());
+        // log(productsData.toString());
         if (productsData != null) {
           final List<ProductData> fetchedProducts = productsData
               .map((product) => ProductData.fromJson(product))
@@ -130,14 +134,17 @@ class _HomeScreenState extends State<HomeScreen> {
                   TPromoSlider(
                     onTapRoutes: [
                       EventCategoryScreen(
-                          data: SampleDataForUI.eventCategoryData,
-                          categoryName: "Advitya 2024"),
+                        data: SampleDataForUI.eventCategoryData,
+                        categoryName: "Advitya 2024",
+                      ),
                       EventCategoryScreen(
-                          data: SampleDataForUI.eventCategoryData,
-                          categoryName: "Advitya 2024"),
+                        data: SampleDataForUI.eventCategoryData,
+                        categoryName: "Advitya 2024",
+                      ),
                       EventCategoryScreen(
-                          data: SampleDataForUI.eventCategoryData,
-                          categoryName: "Advitya 2024"),
+                        data: SampleDataForUI.eventCategoryData,
+                        categoryName: "Advitya 2024",
+                      ),
                     ],
                     banners: const [
                       TImages.promoBanner1,
@@ -155,9 +162,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Get.to(const PopularProductScreen());
                     },
                   ),
-                  PopularEventList(
-                      data:
-                          SampleDataForUI.horizontalScrollCardsEventsCategory),
+                  EventsHorizontalListFromAPI(category: 'advitya'),
                   TSectionHeading(
                     title: "Upcoming Events",
                     showActionButton: true,
@@ -165,9 +170,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Get.to(const PopularProductScreen());
                     },
                   ),
-                  PopularEventList(
-                      data:
-                          SampleDataForUI.horizontalScrollCardsEventsCategory),
+                  EventsHorizontalListFromAPI(),
                   TSectionHeading(
                     title: "Popular Events",
                     showActionButton: true,
@@ -175,15 +178,55 @@ class _HomeScreenState extends State<HomeScreen> {
                       Get.to(const PopularProductScreen());
                     },
                   ),
-                  PopularEventList(
-                      data:
-                          SampleDataForUI.horizontalScrollCardsEventsCategory),
+                  EventsHorizontalListFromAPI(),
                 ],
               ),
             )
           ],
         ),
       ),
+    );
+  }
+}
+
+class EventsHorizontalListFromAPI extends StatelessWidget {
+  EventsHorizontalListFromAPI({
+    super.key,
+    this.category,
+  });
+
+  String? category;
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: FutureBuilderFunctions.fetchAdvityaEvents(category),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: TSizes.defaultSpace,
+            ),
+            child: Shimmer.fromColors(
+              baseColor: TColors.lightDarkBackground.withOpacity(0.4),
+              highlightColor: TColors.grey.withOpacity(0.18),
+              child: Container(
+                width: double.infinity,
+                height: 200,
+                decoration: BoxDecoration(
+                  color: TColors.lightDarkBackground,
+                  borderRadius: BorderRadius.circular(
+                    TSizes.cardRadiusLg,
+                  ),
+                ),
+              ),
+            ),
+          );
+        }
+        return PopularEventList(
+          data: snapshot.requireData['events'],
+        );
+      },
     );
   }
 }

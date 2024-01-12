@@ -5,12 +5,15 @@ import '../../../../utils/constants/colors.dart';
 
 class TEventHeaderContainer extends StatelessWidget {
   const TEventHeaderContainer({
+    this.image,
     super.key,
-    required this.child, this.height,
+    required this.child,
+    this.height,
   });
 
   final Widget child;
   final double? height;
+  final String? image;
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +24,12 @@ class TEventHeaderContainer extends StatelessWidget {
         padding: const EdgeInsets.all(0),
         child: Stack(
           children: [
-            Image.asset(
-              "assets/images/content/popular1.png",
-              fit: BoxFit.fitWidth,
+            Image.network(
+              image ??
+                  "https://cdn.vectorstock.com/i/preview-1x/82/99/no-image-available-like-missing-picture-vector-43938299.jpg",
+              fit: BoxFit.fill,
+              width: double.infinity,
+              height: height,
             ),
             child,
           ],

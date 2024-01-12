@@ -1,10 +1,14 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
 import 'package:timelines/timelines.dart';
+import 'package:vitkart/common/widgets/custom_shapes/containers/t_rounded_containers.dart';
+import 'package:vitkart/common/widgets/images/t_circular.image.dart';
+import 'package:vitkart/common/widgets/text/product_price_text.dart';
 import 'package:vitkart/common/widgets/text/section_heading.dart';
 import 'package:vitkart/features/events/screens/previewOrder.dart';
 import 'package:vitkart/features/events/screens/widgets/eventDetailHeader.dart';
@@ -14,9 +18,15 @@ import 'package:vitkart/utils/constants/colors.dart';
 import 'package:vitkart/utils/constants/image_strings.dart';
 import 'package:vitkart/utils/constants/sizes.dart';
 import 'package:vitkart/utils/constants/text_strings.dart';
+import 'package:vitkart/utils/helpers/helper_functions.dart';
 
 class EventDetailScreen extends StatefulWidget {
-  const EventDetailScreen({super.key});
+  EventDetailScreen({
+    super.key,
+    required this.data,
+  });
+
+  Map<String, dynamic> data;
 
   @override
   State<EventDetailScreen> createState() => _EventDetailScreenState();
@@ -93,6 +103,8 @@ class _EventDetailScreenState extends State<EventDetailScreen>
 
   @override
   Widget build(BuildContext context) {
+    log("ishere : ${widget.data}");
+    final dark = THelperFunctions.isDarkMode(context);
     final double timelineSpace = TSizes.displayWidth(context) / 5.24;
     return Scaffold(
       extendBody: true, // Set extendBody to true
@@ -132,38 +144,46 @@ class _EventDetailScreenState extends State<EventDetailScreen>
           SingleChildScrollView(
               controller: _scrollController,
               child: Column(
-                
                 children: [
                   TEventHeaderContainer(
+                      height: TSizes.displayHeight(context) * 0.36,
+                      image: widget.data['eventImages'][1],
                       child: Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const SizedBox(
-                            height: 30,
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              Get.back();
-                            },
-                            child: Image.asset(
-                              "assets/images/content/back.png",
-                              width: 40,
-                              height: 40,
-                            ),
-                          ),
-                        ]),
-                  )),
+                        padding: const EdgeInsets.all(20.0),
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const SizedBox(
+                                height: 30,
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  Get.back();
+                                },
+                                child: Image.asset(
+                                  "assets/images/content/back.png",
+                                  width: 40,
+                                  height: 40,
+                                ),
+                              ),
+                            ]),
+                      )),
                   Padding(
-                    padding: const EdgeInsets.only(
-                        left: TSizes.defaultSpace / 2, right: TSizes.defaultSpace / 2 ),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: TSizes.defaultSpace,
+                      vertical: 4,
+                    ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const TEventDetailsHeaderText(),
-                        
-                        
+                        TEventDetailsHeaderText(
+                          ename: widget.data['eventName'],
+                          edate: widget.data['eventDate'],
+                          etime: widget.data['eventTime'],
+                          evenue: widget.data['eventVenue'],
+                          eprice: widget.data['ticketPrice'] ?? "0",
+                          eticketsLeft: widget.data['ticketsLeft'] ?? 0,
+                        ),
                         const SizedBox(
                           height: TSizes.spaceBtwItems,
                         ),
@@ -213,19 +233,17 @@ class _EventDetailScreenState extends State<EventDetailScreen>
                                           selectedTimeLine = 0;
                                           log("X Y : ${getXYfromKey(keys[0])}");
                                         },
-                                        child: 
-                                            OutlinedDotIndicator(
-                                              key: keys[0],
-                                              borderWidth: 2,
-                                              size: 28,
-                                              child: Icon(
-                                                Iconsax.tick_circle,
-                                                size: 18,
-                                              ),
-                                              color: TColors.primary,
-                                              backgroundColor: TColors.primary,
-                                            ),
-                                
+                                        child: OutlinedDotIndicator(
+                                          key: keys[0],
+                                          borderWidth: 2,
+                                          size: 28,
+                                          child: Icon(
+                                            Iconsax.tick_circle,
+                                            size: 18,
+                                          ),
+                                          color: TColors.primary,
+                                          backgroundColor: TColors.primary,
+                                        ),
                                       ),
                                       SizedBox(
                                         width: timelineSpace,
@@ -320,6 +338,7 @@ class _EventDetailScreenState extends State<EventDetailScreen>
                           height: TSizes.spaceBtwItems,
                         ),
                         Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const TSectionHeading(
                               title: "Description",
@@ -329,14 +348,100 @@ class _EventDetailScreenState extends State<EventDetailScreen>
                               height: TSizes.spaceBtwItems,
                             ),
                             Text(
-                              TTexts.eventDescription,
-                              style: Theme.of(context).textTheme.bodyLarge,
+                              widget.data['eventDesc'],
+                              style: Theme.of(context).textTheme.titleSmall,
                               maxLines: 4,
                               overflow: TextOverflow.ellipsis,
                             ),
                           ],
                         ),
-                        
+                        const SizedBox(
+                          height: TSizes.spaceBtwItems,
+                        ),
+                        const TSectionHeading(
+                          title: "Club Details",
+                          showActionButton: false,
+                        ),
+                        const SizedBox(
+                          height: TSizes.spaceBtwItems,
+                        ),
+                        TRoundedContainer(
+                          height: TSizes.displayHeight(context) * 0.16,
+                          padding: const EdgeInsets.all(TSizes.md),
+                          width: double.infinity,
+                          backgroundColor: dark
+                              ? TColors.lightDarkBackground
+                              : TColors.light,
+                          child: Row(
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(100),
+                                child: Image.network(
+                                  widget.data['eventImages'][0],
+                                  fit: BoxFit.fill,
+                                  width: TSizes.displayWidth(context) * 0.27,
+                                ),
+                              ),
+                              const SizedBox(
+                                width: TSizes.md,
+                              ),
+                              Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    widget.data['eventOrg'],
+                                    maxLines: 1,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleLarge!
+                                        .copyWith(
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                  ),
+                                  const SizedBox(
+                                    height: 12,
+                                  ),
+                                  Text(
+                                    widget.data['clubPerson'],
+                                    maxLines: 1,
+                                    softWrap: false,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyLarge!
+                                        .copyWith(
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                  ),
+                                  Text(
+                                    widget.data['clubEmail'] != null &&
+                                            widget.data['clubEmail'].length > 27
+                                        ? '${widget.data['clubEmail']!.substring(0, 27)}...'
+                                        : widget.data['clubEmail'] ?? '',
+                                    // maxLines: 2,
+                                    //  softWrap: false,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyLarge!
+                                        .copyWith(
+                                          overflow: TextOverflow.fade,
+                                        ),
+                                  ),
+                                  Text(
+                                    widget.data['clubPhone'],
+                                    maxLines: 1,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyLarge!
+                                        .copyWith(
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                  )
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
                         const SizedBox(
                           height: TSizes.spaceBtwItems,
                         ),

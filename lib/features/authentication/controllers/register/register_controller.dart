@@ -8,8 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
+import 'package:vitkart/features/authentication/screens/login/login.dart';
 import 'package:vitkart/features/authentication/screens/register/widget/cherryToast.dart';
 import 'package:vitkart/navigation_menu.dart';
+import 'package:vitkart/utils/API/api_functions.dart';
 import 'package:vitkart/utils/API/api_routes.dart';
 
 import 'package:vitkart/utils/constants/sizes.dart';
@@ -99,8 +101,9 @@ class RegisterController extends GetxController {
     isLoading.value = true; // Start loading animation
 
     try {
-      if (emailController.text.isNotEmpty && passwordController.text.isNotEmpty) {
-        var regBody = {
+      if (emailController.text.isNotEmpty &&
+          passwordController.text.isNotEmpty) {
+        Map<String, String> regBody = {
           "userEmail": emailController.text,
           "userPassword": passwordController.text,
           "userRegID": registrationNoController.text,
@@ -108,31 +111,25 @@ class RegisterController extends GetxController {
           "userGender": gender.value,
           "userBatch": joiningYear.value,
           "userBirthDate": dob.value,
-          "userContact": phoneController.text,
+          "userContactNum": phoneController.text,
         };
 
         print(regBody);
-
-        var response = await http.post(
-          Uri.parse(registrationUrl),
-          headers: {"Content-type": "application/json"},
-          body: jsonEncode(regBody),
-        );
-
-        var jsonResponse = jsonDecode(response.body);
-        print(jsonResponse);
-
-        print(jsonResponse['status']);
-
-
-        if (jsonResponse['status']) {
-          var myToken = jsonResponse['token'];
-          
-          // Navigate to the next screen or perform any other actions on success
-        } else {
-          print("Something went wrong");
-          Get.snackbar("Error", "Registration failed");
+        Map<String, dynamic> reponse =
+            await APIFunctions.createUser(data: regBody);
+        if (reponse['status'] == true) {
+          showErrorToast(
+            Get.context!,
+            reponse['message'],
+            animationCurve: Curves.fastLinearToSlowEaseIn,
+          );
+          return;
         }
+        showErrorToast(
+          Get.context!,
+          reponse['errors'] ?? "Something went wrong",
+          animationCurve: Curves.fastLinearToSlowEaseIn,
+        );
       }
     } catch (e) {
       print("Exception: $e");
@@ -142,52 +139,55 @@ class RegisterController extends GetxController {
     }
   }
 
-    Future<void> OTPVerification() async {
+  Future<bool> OTPVerification(BuildContext context) async {
     isLoading.value = true; // Start loading animation
 
     try {
       if (emailController.text.isNotEmpty && otpController.text.isNotEmpty) {
-        var otpVerificationBody = {
-          "userEmail": emailController.text,
-          "otp": otpController.text,
-        };
-
-        print(otpVerificationBody);
-
-        var response = await http.post(
-          Uri.parse(otpVerificationUrl),
-          headers: {"Content-type": "application/json"},
-          body: jsonEncode(otpVerificationBody),
+        Map<String, dynamic> jsonResponse = await APIFunctions.otpVerify(
+          email: emailController.text.trim(),
+          otp: otpController.text.trim(),
         );
-
-        var jsonResponse = jsonDecode(response.body);
-        print(jsonResponse);
-
-        if (jsonResponse['isVerified'] == "true") {
-
-          Get.to((() => NavigationMenu(token: jsonResponse['token'])));
-          // Show error toast for invalid OTP
-          
-        } else  {
+        log(jsonResponse.toString());
+        if (jsonResponse['status'] == false) {
           // OTP is valid and user is verified
+          log("${jsonResponse['message']}");
           showErrorToast(
-            Get.context!,
-            "Invalid OTP entered",
+            context,
+            jsonResponse['message'],
             animationCurve: Curves.fastLinearToSlowEaseIn,
           ); // Navigate to NavigationMenu
+          isLoading.value = false;
+          return false;
+        }
+
+        if (jsonResponse['isVerified']) {
+          log("${jsonResponse['message']}");
+          showSuccessToast(
+            context,
+            "Verification Successful, Kindly login",
+            animationCurve: Curves.fastLinearToSlowEaseIn,
+          ); // Nav
+          Get.to((() => const LoginScreen()));
+          isLoading.value = false;
+          return true;
+
+          // Show error toast for invalid OTP
         }
       }
     } catch (e) {
       print("Exception: $e");
       Get.snackbar("Error", "An unexpected error occurred");
+      return false;
     } finally {
-      isLoading.value = false; // Stop loading animation
+      isLoading.value = false;
+
+      // Stop loading animation
     }
+    return false;
   }
 
   Future<void> registerPages(BuildContext context) async {
-    
-
     if (0 == currentPageIndex.value) {
       if (nameController.text.isEmpty) {
         showErrorToast(
@@ -346,10 +346,12 @@ class RegisterController extends GetxController {
       log("Otp - ${otpController.text}");
       log("Email  - ${emailController.text}");
       // Call OTPVerification function
-    await OTPVerification();
+      bool val = await OTPVerification(context);
 
       log("Can Resend - ${canResend.value}");
       log("Page Index - ${currentPageIndex.value}");
+
+      return;
     }
 
     pageController.animateToPage(
@@ -358,8 +360,6 @@ class RegisterController extends GetxController {
       curve: Curves.easeIn,
     );
     currentPageIndex.value = currentPageIndex.value + 1;
-
-
   }
 
   void back(BuildContext context) {

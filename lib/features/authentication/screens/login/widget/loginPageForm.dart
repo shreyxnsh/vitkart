@@ -115,7 +115,7 @@ class _LoginPageFormState extends State<LoginPageForm> {
     var jsonResponse = jsonDecode(response.body);
     print(jsonResponse);
 
-    if (jsonResponse['success']) {
+    if (jsonResponse['status']) {
       var userGender = jsonResponse['authenticatedUser']['userGender'];
       var myToken = jsonResponse['authenticatedUser']['token'];
 

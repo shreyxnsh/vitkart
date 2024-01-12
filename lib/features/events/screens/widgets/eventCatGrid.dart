@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vitkart/features/authentication/screens/login/login.dart';
-import 'package:vitkart/features/events/screens/categoryScreens/codingScreen.dart';
+import 'package:vitkart/features/events/screens/categoryScreens/eventCategoryScreen.dart';
 import 'package:vitkart/features/events/screens/categoryScreens/culturalScreen.dart';
 import 'package:vitkart/features/events/screens/categoryScreens/danceScreen.dart';
 import 'package:vitkart/features/events/screens/categoryScreens/dramaScreen.dart';

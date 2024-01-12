@@ -9,6 +9,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as path;
 import 'package:permission_handler/permission_handler.dart';
 import 'package:vitkart/features/authentication/screens/register/widget/cherryToast.dart';
+import 'package:vitkart/utils/API/api_functions.dart';
 import 'package:vitkart/utils/constants/colors.dart';
 
 class THelperFunctions {
@@ -203,5 +204,17 @@ class THelperFunctions {
       wrappedList.add(Row(children: rowChildren));
     }
     return wrappedList;
+  }
+}
+
+class FutureBuilderFunctions {
+  static Future<Map<String, dynamic>> fetchAdvityaEvents(
+      String? category) async {
+    Map<String, dynamic> result =
+        await APIFunctions.getEvents(category: category);
+    if (result['isSuccess']) {
+      return result;
+    }
+    return {};
   }
 }

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vitkart/features/events/screens/eventDetails.dart';
@@ -12,7 +11,6 @@ class EventsForYouList extends StatelessWidget {
       'eventName': 'New Year 2024',
       'clubName': 'VIT Bhopal',
       'venue': 'Auditorium',
-     
       'datetime': ' 01 Jan 2024 - 10:00 AM',
       'backgroundImage': 'assets/images/content/event1.png',
       'ticketPrice': '500',
@@ -22,7 +20,6 @@ class EventsForYouList extends StatelessWidget {
       'eventName': 'AI Conclave',
       'clubName': 'AI Club',
       'venue': 'MPH',
-      
       'datetime': '09 Jan 2024 - 11:00 AM',
       'backgroundImage': 'assets/images/content/event2.png',
       'ticketPrice': '200',
@@ -32,7 +29,6 @@ class EventsForYouList extends StatelessWidget {
       'eventName': 'New Year 2024',
       'clubName': 'VIT Bhopal',
       'venue': 'Auditorium',
-     
       'datetime': ' 01 Jan 2024 - 10:00 AM',
       'backgroundImage': 'assets/images/content/event1.png',
       'ticketPrice': '500',
@@ -40,7 +36,7 @@ class EventsForYouList extends StatelessWidget {
     // Add more grooming data as needed
   ];
 
-   EventsForYouList({super.key});
+  EventsForYouList({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -70,11 +66,10 @@ class EventForYouCard extends StatelessWidget {
     final dark = THelperFunctions.isDarkMode(context);
     return GestureDetector(
       onTap: () {
-        Get.to(() => const EventDetailScreen());
+        // Get.to(() => const EventDetailScreen());
       },
       child: Container(
         width: 240,
-        
         decoration: BoxDecoration(
           color: dark ? TColors.lightDarkBackground : TColors.light,
           borderRadius: BorderRadius.circular(12),
@@ -84,19 +79,17 @@ class EventForYouCard extends StatelessWidget {
           children: [
             // Top Section with Background Image
             Container(
-              margin: const EdgeInsets.only(top : 10),
+              margin: const EdgeInsets.only(top: 10),
               width: double.infinity,
               height: 150, // Set the desired height for the background image
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
-                
               ),
               child: Image.asset(
                 data['backgroundImage'],
-                
               ),
             ),
-    
+
             // Bottom Section with Event Details
             Container(
               padding: const EdgeInsets.all(10.0),
@@ -121,26 +114,32 @@ class EventForYouCard extends StatelessWidget {
                       ),
                       const Spacer(),
                       Text(
-                              "₹ " + data['ticketPrice'],
-                              style: Theme.of(context).textTheme.titleLarge?.copyWith(color: TColors.primary),
-                            ),
+                        "₹ " + data['ticketPrice'],
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleLarge
+                            ?.copyWith(color: TColors.primary),
+                      ),
                     ],
                   ),
                   const SizedBox(height: 7),
                   Text(
                     data['clubName'],
-                    style: Theme.of(context).textTheme.bodyLarge?.copyWith( fontStyle: FontStyle.italic),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyLarge
+                        ?.copyWith(fontStyle: FontStyle.italic),
                   ),
                   const SizedBox(height: 10),
                   Text(
-                        data['datetime'],
-                        style: Theme.of(context).textTheme.bodySmall,
-                      ),
-                      const SizedBox(height: 5),
+                    data['datetime'],
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                  const SizedBox(height: 5),
                   Text(
-                        data['venue'],
-                        style: Theme.of(context).textTheme.bodySmall,
-                      ),
+                    data['venue'],
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
                 ],
               ),
             ),
