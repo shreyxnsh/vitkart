@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:vitkart/features/authentication/screens/login/widget/loginPageForm.dart';
 import 'package:vitkart/utils/constants/colors.dart';
 import 'package:vitkart/utils/constants/sizes.dart';
+import 'package:lottie/lottie.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -23,6 +24,12 @@ class LoginScreen extends StatelessWidget {
                 width: TSizes.displayWidth(context) * (170 / 420),
                 height: TSizes.displayHeight(context) * (170 / 840),
               ),
+
+              // Lottie.asset(
+              //   "assets/lottie/login_screen_hi.json",
+              //   width: TSizes.displayWidth(context) * (170 / 420),
+              //   height: TSizes.displayHeight(context) * (170 / 840),
+              // ),
               SizedBox(
                 height: TSizes.displayHeight(context) * (72 / 840),
               ),
