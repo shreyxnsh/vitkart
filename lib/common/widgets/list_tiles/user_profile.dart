@@ -9,10 +9,10 @@ import '../../../utils/constants/colors.dart';
 class TUserProfileTile extends StatelessWidget {
   const TUserProfileTile({
     super.key,
-    required this.onPressed,
+
   });
 
-  final VoidCallback onPressed;
+
 
 
 
@@ -44,15 +44,7 @@ class TUserProfileTile extends StatelessWidget {
               color: TColors.white,
             ),
       ),
-      trailing: IconButton(
-        onPressed: () {
-          Get.to(() => const ProfileScreen());
-        },
-        icon: const Icon(
-          Iconsax.edit,
-          color: TColors.white,
-        ),
-      ),
+      
     );
   }
 }

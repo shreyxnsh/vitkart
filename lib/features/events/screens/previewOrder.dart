@@ -1,5 +1,9 @@
+import 'dart:developer';
+
+import 'package:action_slider/action_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:vitkart/common/widgets/appbar/appbar.dart';
 import 'package:vitkart/features/authentication/screens/register/widget/cherryToast.dart';
@@ -11,8 +15,11 @@ import 'package:vitkart/utils/constants/colors.dart';
 import 'package:vitkart/utils/constants/sizes.dart';
 
 class PreviewEventOrderScreen extends StatefulWidget {
-  const PreviewEventOrderScreen({super.key});
+  const PreviewEventOrderScreen(
+      {super.key, required this.orderIdData, required this.evenDdata});
 
+  final Map<String, dynamic> orderIdData;
+  final Map<String, dynamic> evenDdata;
   @override
   State<PreviewEventOrderScreen> createState() =>
       _PreviewEventOrderScreenState();
@@ -24,11 +31,11 @@ class _PreviewEventOrderScreenState extends State<PreviewEventOrderScreen> {
   void _handlePaymentSuccess(PaymentSuccessResponse response) {
     // Do something when payment succeeds
     showSuccessToast(context, "Success : ${response.paymentId}");
-
-      Future.delayed(Duration(seconds: 2), () {
-    // Navigate to TicketScreen using Get.to
-    Get.to(() => TicketScreen());
-  });
+    log("responsee : ${response.signature} : ${response.paymentId} : ${response.orderId}");
+    Future.delayed(Duration(seconds: 2), () {
+      // Navigate to TicketScreen using Get.to
+      Get.to(() => TicketScreen());
+    });
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {
@@ -45,6 +52,9 @@ class _PreviewEventOrderScreenState extends State<PreviewEventOrderScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
+    log("initState : ${widget.orderIdData} : ${widget.evenDdata}");
+
     _razorpay = Razorpay();
 
     _razorpay?.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
@@ -55,9 +65,10 @@ class _PreviewEventOrderScreenState extends State<PreviewEventOrderScreen> {
   void makePayment() async {
     var options = {
       'key': 'rzp_test_BQfWCSPjfpPmye',
-      'amount': 35400, //rs 200
+      'amount': widget.orderIdData['amount'], //rs 200
       'name': 'VITKART Events',
-      'description': 'test payment',
+      'order_id': widget.orderIdData['order_id'],
+      'description': widget.orderIdData['event'],
       'prefill': {
         'contact': '91XXXXXXXX',
         'email': 'test@gmail.com',
@@ -87,23 +98,47 @@ class _PreviewEventOrderScreenState extends State<PreviewEventOrderScreen> {
           ),
           child: Padding(
             padding: const EdgeInsets.all(TSizes.defaultSpace),
-            child: ElevatedButton(
-              onPressed: () {
-                // Handle booking action
-                makePayment();
-                // Get.to(() => const TicketScreen());
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: TColors.primary,
-                padding: const EdgeInsets.all(TSizes.defaultSpace * 1.25),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ActionSlider.standard(
+                  sliderBehavior: SliderBehavior.stretch,
+                  rolling: true,
+                  width: TSizes.displayWidth(context) * 0.8,
+                  backgroundColor: TColors.lightDarkBackground,
+                  toggleColor: TColors.primary,
+                  iconAlignment: Alignment.centerRight,
+                  loadingIcon: SizedBox(
+                      width: 55,
+                      child: Center(
+                          child: SizedBox(
+                        width: 24.0,
+                        height: 24.0,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2.0,
+                        ),
+                      ))),
+                  successIcon: const SizedBox(
+                      width: 55,
+                      child: Center(child: Icon(Icons.check_rounded))),
+                  icon: const SizedBox(
+                      width: 55,
+                      child: Center(child: Icon(Iconsax.arrow_right_34))),
+                  action: (controller) async {
+                    controller.loading(); //starts loading animation
+                    await Future.delayed(const Duration(seconds: 3));
+                    controller.success(); //starts success animation
+                    await Future.delayed(const Duration(seconds: 1));
+                    controller.reset();
+                    makePayment();
+                  },
+                  child: Center(
+                      child: Text(
+                    'Place Order',
+                    style: Theme.of(context).textTheme.titleLarge,
+                  )),
                 ),
-              ),
-              child: const Text(
-                'Place Order',
-                style: TextStyle(fontSize: 16),
-              ),
+              ],
             ),
           ),
         ),
@@ -111,18 +146,18 @@ class _PreviewEventOrderScreenState extends State<PreviewEventOrderScreen> {
           title: Text('Preview Order',
               style: Theme.of(context).textTheme.headlineSmall),
         ),
-        body: const SingleChildScrollView(
+        body: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.all(TSizes.defaultSpace),
+            padding: const EdgeInsets.all(TSizes.defaultSpace),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                PreviewEventCard(),
-                SizedBox(
+                PreviewEventCard(data: widget.evenDdata),
+                const SizedBox(
                   height: TSizes.spaceBtwItems,
                 ),
                 PreviewOrderSummaryCard(),
-                SizedBox(
+                const SizedBox(
                   height: TSizes.spaceBtwItems,
                 ),
                 // PreviewPaymentCard(),

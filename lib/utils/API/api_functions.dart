@@ -84,12 +84,12 @@ class APIFunctions {
     var request = http.Request('GET', Uri.parse(url));
 
     http.StreamedResponse response = await request.send();
-    log("code : ${response.statusCode}");
+    log("event : ${response.statusCode}");
     if (response.statusCode == 200) {
       Map<String, dynamic> jsonResponse =
           jsonDecode(await response.stream.bytesToString()); // Convert to JSON
       jsonResponse['isSuccess'] = true;
-      log(jsonResponse.toString());
+      log("event :" + jsonResponse.toString());
       return jsonResponse;
     } else {
       Map<String, dynamic> jsonResponse =
@@ -120,6 +120,38 @@ class APIFunctions {
           jsonDecode(await response.stream.bytesToString()); // Convert to JSON
       jsonResponse['isSuccess'] = false;
       log(jsonResponse.toString());
+      return jsonResponse;
+    }
+  }
+
+  static Future<Map<String, dynamic>> createOrderId(
+      {required String name,
+      required String regNo,
+      required String eventName,
+      required double amount}) async {
+    var headers = {'Content-Type': 'application/json'};
+    var request = http.Request('POST', Uri.parse(createOrderIdUrl));
+    request.body = json.encode({
+      "amount": amount,
+      "name": name,
+      "regId": regNo,
+      "event": eventName,
+    });
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      Map<String, dynamic> jsonResponse =
+          jsonDecode(await response.stream.bytesToString());
+      jsonResponse['isSuccess'] = true;
+      log("createOrder :$jsonResponse");
+      return jsonResponse;
+    } else {
+      Map<String, dynamic> jsonResponse =
+          jsonDecode(await response.stream.bytesToString());
+      jsonResponse['isSuccess'] = false;
+      log("createOrder :$jsonResponse");
       return jsonResponse;
     }
   }

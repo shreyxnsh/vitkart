@@ -1,14 +1,19 @@
-const url = 'http://192.168.29.118:3001/api/v1';
-// const url = 'http://192.168.56.1:3001/api/v1';
+class Domain {
+  static String domain = '192.168.29.118';
+}
 
-const registrationUrl = '$url/user/createNewAccount';
-const loginUrl = '$url/user/signIn';
-const otpVerificationUrl = '$url/emailVerification/verifyEmail';
+String url = 'http://${Domain.domain}:3001/api/v1';
+// String url = 'http://192.168.56.1:3001/api/v1';
 
-const techProductsUrl = '$url/product/getproduct?category=tech';
-const cycleProductsUrl = '$url/product/getproduct?category=cycle';
-const mattressProductsUrl = '$url/product/getproduct?category=mattress';
-const getAllProductUrl = '$url/product/getproduct';
-const getUserProducts = '$url/product/getproduct?seller=';
-const getEventsUrl = '$url/event/getEvents';
-const createProductUrl = "$url/product/createProduct?token=";
+String registrationUrl = '$url/user/createNewAccount';
+String loginUrl = '$url/user/signIn';
+String otpVerificationUrl = '$url/emailVerification/verifyEmail';
+
+String techProductsUrl = '$url/product/getproduct?category=tech';
+String cycleProductsUrl = '$url/product/getproduct?category=cycle';
+String mattressProductsUrl = '$url/product/getproduct?category=mattress';
+String getAllProductUrl = '$url/product/getproduct';
+String getUserProducts = '$url/product/getproduct?seller=';
+String getEventsUrl = '$url/event/getEvents';
+String createProductUrl = "$url/product/createProduct?token=";
+String createOrderIdUrl = "$url/razorpay/createOrderId";
