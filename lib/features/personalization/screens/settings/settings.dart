@@ -5,11 +5,15 @@ import 'package:vitkart/common/widgets/appbar/appbar.dart';
 import 'package:vitkart/common/widgets/list_tiles/settings_menu.dart';
 import 'package:vitkart/common/widgets/text/section_heading.dart';
 import 'package:vitkart/features/authentication/screens/login/login.dart';
+import 'package:vitkart/features/authentication/screens/login/widget/LoginPageSignInButton.dart';
+import 'package:vitkart/features/authentication/screens/login/widget/loginTextField.dart';
 import 'package:vitkart/features/events/screens/myTickets.dart';
 import 'package:vitkart/features/personalization/screens/address/address.dart';
 import 'package:vitkart/features/personalization/screens/profile/profile.dart';
 import 'package:vitkart/features/shop/screens/orders/orders.dart';
+import 'package:vitkart/utils/API/api_routes.dart';
 import 'package:vitkart/utils/API/userDataService.dart';
+import 'package:vitkart/utils/constants/text_strings.dart';
 
 import '../../../../../utils/constants/colors.dart';
 import '../../../../../utils/constants/sizes.dart';
@@ -45,9 +49,7 @@ class SettingScreen extends StatelessWidget {
                           ),
                     )),
                 // user profile card
-                TUserProfileTile(
-                 
-                ),
+                TUserProfileTile(),
                 const SizedBox(
                   height: TSizes.spaceBtwSections,
                 )
@@ -63,7 +65,10 @@ class SettingScreen extends StatelessWidget {
                       right: TSizes.defaultSpace, left: TSizes.defaultSpace),
                   child: Column(
                     children: [
-                      TSectionHeading(title: "Account Settings" , showActionButton: false,),
+                      TSectionHeading(
+                        title: "Account Settings",
+                        showActionButton: false,
+                      ),
                       SizedBox(
                         height: TSizes.spaceBtwItems,
                       ),
@@ -105,7 +110,7 @@ class SettingScreen extends StatelessWidget {
                         Get.to(() => const AddressScreen());
                       },
                     ),
-                    
+
                     // TSettingsMenuTile(
                     //   icon: Iconsax.discount_shape,
                     //   title: "My Coupons",
@@ -124,7 +129,6 @@ class SettingScreen extends StatelessWidget {
                       subtitle: "View all terms and conditions by VITKART 2024",
                       onTap: () {},
                     ),
-                    
                   ],
                 ),
 
@@ -189,11 +193,38 @@ class SettingScreen extends StatelessWidget {
                       child: SizedBox(
                         width: double.infinity,
                         child: OutlinedButton(
-                          child:  Text("Logout" , style: Theme.of(context).textTheme.titleMedium?.copyWith(color: TColors.white),),
+                          child: Text(
+                            "Logout",
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium
+                                ?.copyWith(color: TColors.white),
+                          ),
                           onPressed: () {
                             logOut();
                           },
                         ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: TSizes.spaceBtwSections,
+                    ),
+
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 24.0, horizontal: 16.0),
+                      child: LoginScreenTextFeild(
+                        controller: TextEditingController(
+                          text: Domain.domain,
+                        ),
+                        prefixIcon: Iconsax.global,
+                        labelText: "Domain",
+                        onChanged: (value) {
+                          Domain.domain = value;
+                        },
+                        onFieldSubmitted: (value) {
+                          FocusScope.of(context).unfocus();
+                        },
                       ),
                     ),
                   ],

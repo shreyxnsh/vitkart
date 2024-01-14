@@ -1,146 +1,155 @@
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:intl/intl.dart';
+import 'package:vitkart/features/authentication/controllers/eventDetail/eventDetail_controller.dart';
 import 'package:vitkart/utils/constants/colors.dart';
 import 'package:vitkart/utils/constants/sizes.dart';
 import 'package:vitkart/utils/helpers/helper_functions.dart';
 
 class PreviewEventCard extends StatelessWidget {
-  const PreviewEventCard({Key? key}) : super(key: key);
+  PreviewEventCard({Key? key, required this.data}) : super(key: key);
+  final Map<String, dynamic> data;
+  EventDetailController eventDetailController = Get.find();
 
   @override
   Widget build(BuildContext context) {
+    log("preview :${data.toString()}");
+
     final dark = THelperFunctions.isDarkMode(context);
-    return GestureDetector(
-      onTap: () {
-        
-      },
-      child: Container(
-        width: double.infinity,
-        decoration: BoxDecoration(
-          color: dark ? TColors.lightDarkBackground : TColors.light,
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Top Section with Background Image
-            Container(
-              padding: const EdgeInsets.all(10),
-              width: double.infinity,
-             // Set the desired height for the background image
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Image.asset(
-                "assets/icons/events/previewimage.png",
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: dark ? TColors.lightDarkBackground : TColors.light,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Top Section with Background Image
+          Padding(
+            padding: const EdgeInsets.all(TSizes.defaultSpace),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: Image.network(
+                data['eventImages'][1],
+                fit: BoxFit.cover,
+                width: double.infinity,
+                height: TSizes.displayHeight(context) * 0.22,
               ),
             ),
+          ),
 
-            // Bottom Section with Event Details
-            Container(
-              padding: const EdgeInsets.only(left: 10 , right: 10),
-              decoration: BoxDecoration(
-                color: dark ? TColors.lightDarkBackground : TColors.light,
-                borderRadius: const BorderRadius.only(
-                  bottomLeft: Radius.circular(12),
-                  bottomRight: Radius.circular(12),
-                ),
-                border: Border.all(
-                  color: dark ? TColors.lightDarkBackground : TColors.light,
-                ),
+          // Bottom Section with Event Details
+          Container(
+            padding: const EdgeInsets.only(left: 10, right: 10),
+            decoration: BoxDecoration(
+              color: dark ? TColors.lightDarkBackground : TColors.light,
+              borderRadius: const BorderRadius.only(
+                bottomLeft: Radius.circular(12),
+                bottomRight: Radius.circular(12),
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Text(
-                        "Advitya Pro Show 2024",
-                        style: Theme.of(context).textTheme.headlineSmall,
-                      ),
-                      
-                    ],
-                  ),
-                  const SizedBox(height: 7),
-                  Text(
-                    "VIT Bhopal",
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyLarge
-                        ?.copyWith(fontStyle: FontStyle.italic),
-                  ),
-                  const SizedBox(height: TSizes.spaceBtwItems / 2),
-                  Row(
-                    children: [
-                      Row(
-                        children: [
-                          Icon(Iconsax.calendar5,
-                              color: Theme.of(context).primaryColor),
-                          const SizedBox(
-                            width: 3,
-                          ),
-                          Text(
-                            " 22 Feb 2024",
-                            style: Theme.of(context).textTheme.titleSmall,
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        width: 8,
-                      ),
-                      Row(
-                        children: [
-                          Icon(Iconsax.location5,
-                              color: Theme.of(context).primaryColor),
-                          const SizedBox(
-                            width: 3,
-                          ),
-                          Text(
-                            "Parking Area",
-                            style: Theme.of(context).textTheme.titleSmall,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: TSizes.spaceBtwItems,
-                  ),
-                  Row(children: [
+              border: Border.all(
+                color: dark ? TColors.lightDarkBackground : TColors.light,
+              ),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      data['eventName'],
+                      style: Theme.of(context).textTheme.headlineSmall,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 7),
+                Text(
+                  "VIT Bhopal",
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyLarge
+                      ?.copyWith(fontStyle: FontStyle.italic),
+                ),
+                const SizedBox(height: TSizes.spaceBtwItems / 2),
+                Row(
+                  children: [
+                    Row(
+                      children: [
+                        Icon(Iconsax.calendar5,
+                            color: Theme.of(context).primaryColor),
+                        const SizedBox(
+                          width: 3,
+                        ),
+                        Text(
+                          " ${DateFormat('dd MMM yyyy').format(DateTime.parse(data['eventDate']))}",
+                          style: Theme.of(context).textTheme.titleSmall,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      width: 8,
+                    ),
+                    Row(
+                      children: [
+                        Icon(Iconsax.location5,
+                            color: Theme.of(context).primaryColor),
+                        const SizedBox(
+                          width: 3,
+                        ),
+                        Text(
+                          " ${data['eventVenue']}",
+                          style: Theme.of(context).textTheme.titleSmall,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: TSizes.spaceBtwItems,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
                     Text(
                       "Time",
                       style: Theme.of(context).textTheme.titleSmall,
                     ),
-                    const Spacer(),
                     Text(
-                      "OD",
+                      "Ticket Type",
                       style: Theme.of(context).textTheme.titleSmall,
                     )
-                  ]),
-                  const SizedBox(
-                    height: 4,
-                  ),
-                  Row(children: [
+                  ],
+                ),
+                const SizedBox(
+                  height: 4,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
                     Text(
-                      "06:30 PM - 00:00 AM",
+                      "${DateFormat('hh:mm a').format(DateTime.parse(data['eventStartTime']))} - ${DateFormat('hh:mm a').format(DateTime.parse(data['eventEndTime']))}",
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
-                    const Spacer(),
                     Text(
-                      "Yes",
+                      data['ticketTypes']
+                              [eventDetailController.optionsSelection.value]
+                          ['ticketTypeName'],
                       style: Theme.of(context).textTheme.titleMedium,
                     )
-                  ]),
-                  const SizedBox(
-                    height: TSizes.spaceBtwItems / 2,
-                  ),
-                  const SizedBox(height: 5),
-                ],
-              ),
+                  ],
+                ),
+                const SizedBox(
+                  height: TSizes.spaceBtwItems / 2,
+                ),
+                const SizedBox(height: 5),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

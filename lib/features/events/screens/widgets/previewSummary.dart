@@ -1,19 +1,18 @@
-
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:vitkart/features/authentication/controllers/eventDetail/eventDetail_controller.dart';
 import 'package:vitkart/utils/constants/colors.dart';
 import 'package:vitkart/utils/constants/sizes.dart';
 import 'package:vitkart/utils/helpers/helper_functions.dart';
 
 class PreviewOrderSummaryCard extends StatelessWidget {
-  const PreviewOrderSummaryCard({Key? key}) : super(key: key);
-
+  PreviewOrderSummaryCard({Key? key}) : super(key: key);
+  EventDetailController eventDetailController = Get.find();
   @override
   Widget build(BuildContext context) {
     final dark = THelperFunctions.isDarkMode(context);
     return GestureDetector(
-      onTap: () {
-        
-      },
+      onTap: () {},
       child: Container(
         width: double.infinity,
         decoration: BoxDecoration(
@@ -56,7 +55,7 @@ class PreviewOrderSummaryCard extends StatelessWidget {
                     ),
                     const Spacer(),
                     Text(
-                      "₹ 300",
+                      "₹ ${double.parse(eventDetailController.data["ticketTypes"][eventDetailController.optionsSelection.value]["basePrice"].toString())}",
                       style: Theme.of(context).textTheme.titleMedium,
                     )
                   ]),
@@ -70,14 +69,13 @@ class PreviewOrderSummaryCard extends StatelessWidget {
                     ),
                     const Spacer(),
                     Text(
-                      "₹ 54",
+                      "₹ ${eventDetailController.data["ticketTypes"][eventDetailController.optionsSelection.value]["basePrice"] * 0.18}",
                       style: Theme.of(context).textTheme.titleMedium,
                     )
                   ]),
                   const SizedBox(
                     height: TSizes.spaceBtwItems / 2,
                   ),
-                 
                   const SizedBox(
                     height: TSizes.spaceBtwItems / 2,
                   ),
@@ -90,16 +88,16 @@ class PreviewOrderSummaryCard extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(TSizes.defaultSpace),
                       child: Row(children: [
-                    Text(
-                      "Total",
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                    const Spacer(),
-                    Text(
-                      "₹ 354.00",
-                      style: Theme.of(context).textTheme.titleMedium,
-                    )
-                  ]),
+                        Text(
+                          "Total",
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                        const Spacer(),
+                        Text(
+                          "₹ ${double.parse(eventDetailController.data["ticketTypes"][eventDetailController.optionsSelection.value]["totalPrice"].toString())}",
+                          style: Theme.of(context).textTheme.titleMedium,
+                        )
+                      ]),
                     ),
                   )
                 ],

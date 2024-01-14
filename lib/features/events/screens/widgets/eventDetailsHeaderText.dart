@@ -13,7 +13,8 @@ class TEventDetailsHeaderText extends StatelessWidget {
     super.key,
     required this.ename,
     required this.edate,
-    required this.etime,
+    required this.estarttime,
+    required this.eendtime,
     required this.evenue,
     required this.eprice,
     required this.eticketsLeft,
@@ -21,7 +22,8 @@ class TEventDetailsHeaderText extends StatelessWidget {
 
   final String ename;
   final String edate;
-  final String etime;
+  final String estarttime;
+  final String eendtime;
   final String evenue;
   final String eprice;
   final int eticketsLeft;
@@ -63,7 +65,7 @@ class TEventDetailsHeaderText extends StatelessWidget {
                   width: 5,
                 ),
                 Text(
-                  "${etime} - _______",
+                  "${DateFormat('hh:mm a').format(DateTime.parse(estarttime))} - ${DateFormat('hh:mm a').format(DateTime.parse(eendtime))} ",
                   style: Theme.of(context).textTheme.titleSmall,
                 ),
               ],

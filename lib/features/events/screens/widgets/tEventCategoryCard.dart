@@ -86,7 +86,8 @@ class TEventCategoryCard extends StatelessWidget {
                     clubName: data['eventOrg'],
                     datetime:
                         // ignore: prefer_interpolation_to_compose_strings
-                        "${DateFormat("dd MMM yyyy").format(DateTime.parse(data['eventDate']))} ${data['eventTime']}",
+                        "${DateFormat("dd MMM yyyy").format(DateTime.parse(data['eventDate']))} ${DateFormat("hh:mm a").format(DateTime.parse(data['eventStartTime']))}",
+                    // "${DateFormat("dd MMM yyyy").format(DateTime.parse(data['eventDate']))} ${data['eventTime']}",
                     ticketPrice: data['ticketPrice'] ?? "100",
                   ),
                 ),
@@ -196,7 +197,7 @@ class EventDetailsContainer extends StatelessWidget {
                 width: 8,
               ),
               SizedBox(
-                width: TSizes.displayWidth(context) * 0.24,
+                width: TSizes.displayWidth(context) * 0.2,
                 child: Text(
                   venue,
                   maxLines: 1,
