@@ -195,11 +195,16 @@ class EventDetailsContainer extends StatelessWidget {
               const SizedBox(
                 width: 8,
               ),
-              Text(
-                venue,
-                style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                      color: TColors.white,
-                    ),
+              SizedBox(
+                width: TSizes.displayWidth(context) * 0.24,
+                child: Text(
+                  venue,
+                  maxLines: 1,
+                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                        color: TColors.white,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                ),
               ),
             ],
           ),

@@ -431,15 +431,18 @@ class _EventDetailScreenState extends State<EventDetailScreen>
                               mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  widget.data['eventOrg'],
-                                  maxLines: 1,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleLarge!
-                                      .copyWith(
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
+                                SizedBox(
+                                  width: TSizes.displayWidth(context) * 0.5,
+                                  child: Text(
+                                    widget.data['eventOrg'],
+                                    maxLines: 1,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleLarge!
+                                        .copyWith(
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                  ),
                                 ),
                                 const SizedBox(
                                   height: 12,
@@ -455,19 +458,19 @@ class _EventDetailScreenState extends State<EventDetailScreen>
                                         overflow: TextOverflow.ellipsis,
                                       ),
                                 ),
-                                Text(
-                                  widget.data['clubEmail'] != null &&
-                                          widget.data['clubEmail'].length > 27
-                                      ? '${widget.data['clubEmail']!.substring(0, 27)}...'
-                                      : widget.data['clubEmail'] ?? '',
-                                  // maxLines: 2,
-                                  //  softWrap: false,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyLarge!
-                                      .copyWith(
-                                        overflow: TextOverflow.fade,
-                                      ),
+                                SizedBox(
+                                  width: TSizes.displayWidth(context) * 0.5,
+                                  child: Text(
+                                    widget.data['clubEmail'] ,
+                                    maxLines: 1,
+                                    //  softWrap: false,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyLarge!
+                                        .copyWith(
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                  ),
                                 ),
                                 Text(
                                   widget.data['clubPhone'],
@@ -529,27 +532,34 @@ class TicketTypeSelectionWidget extends StatelessWidget {
         backgroundColor: dark ? TColors.lightDarkBackground : TColors.light,
         radius: TSizes.sm,
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(4.0),
           child: Row(
             children: [
               const Expanded(
                 child: Icon(
                   Iconsax.ticket,
                   color: TColors.white,
-                  size: 24,
+                  size: 30,
                 ),
               ),
               Expanded(
                 flex: 3,
                 child: Text(
                   ticketName,
-                  style: Theme.of(context).textTheme.titleLarge,
+                  style: Theme.of(context).textTheme.headlineSmall,
                 ),
               ),
               Expanded(
-                child: Text(
-                  ticketPrice,
-                  style: Theme.of(context).textTheme.titleLarge,
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text(
+                      ticketPrice,
+                      style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: TColors.primary),
+                    ),
+                  ],
                 ),
               ),
               Expanded(
