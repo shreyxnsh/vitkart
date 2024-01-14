@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:action_slider/action_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
@@ -71,6 +72,8 @@ class _EventDetailScreenState extends State<EventDetailScreen>
 
   ScrollController _scrollController = ScrollController();
 
+  
+
   List<double> getXYfromKey(GlobalKey key) {
     log('X Y : --${key.currentContext!.findRenderObject() as RenderBox}');
     RenderBox box = key.currentContext!.findRenderObject() as RenderBox;
@@ -81,6 +84,8 @@ class _EventDetailScreenState extends State<EventDetailScreen>
 
     return [previewWidgetX, previewWidgetY];
   }
+
+  final _controller = ActionSliderController();
 
   @override
   void initState() {
@@ -110,38 +115,69 @@ class _EventDetailScreenState extends State<EventDetailScreen>
     final dark = THelperFunctions.isDarkMode(context);
     final double timelineSpace = TSizes.displayWidth(context) / 5.24;
     return Scaffold(
-      extendBody: true, // Set extendBody to true
-      bottomNavigationBar: Container(
-        decoration: const BoxDecoration(
-          color: Colors.transparent, // Set the desired transparent color
-          boxShadow: <BoxShadow>[
-            BoxShadow(
-              color: Colors.black12, // Add a shadow if needed
-              blurRadius: 10.0,
-            ),
+      // extendBody: true, // Set extendBody to true
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child:
+
+    
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ActionSlider.standard(
+                    sliderBehavior: SliderBehavior.stretch,
+                    rolling: true,
+                    width: TSizes.displayWidth(context) * 0.8 ,
+                    backgroundColor: TColors.lightDarkBackground,
+                    toggleColor: TColors.primary,
+                    iconAlignment: Alignment.centerRight,
+                    loadingIcon: SizedBox(
+                        width: 55,
+                        child: Center(
+                            child: SizedBox(
+                          width: 24.0,
+                          height: 24.0,
+                          child: CircularProgressIndicator(
+                              strokeWidth: 2.0, ),
+                        ))),
+                    successIcon: const SizedBox(
+                        width: 55, child: Center(child: Icon(Icons.check_rounded))),
+                    icon: const SizedBox(
+                        width: 55, child: Center(child: Icon(Iconsax.arrow_right_34))),
+                    action: (controller) async {
+                      controller.loading(); //starts loading animation
+                      await Future.delayed(const Duration(seconds: 3));
+                      controller.success(); //starts success animation
+                      await Future.delayed(const Duration(seconds: 1));
+                      controller.reset(); 
+                      Get.to(() => const PreviewEventOrderScreen());//resets the slider
+                    },
+                    child:  Center(child: Text('Slide to Book TIckets' , style: Theme.of(context).textTheme.titleLarge,)),
+                  ),
           ],
         ),
-        child: Padding(
-          padding: const EdgeInsets.all(TSizes.defaultSpace),
-          child: ElevatedButton(
-            onPressed: () {
-              // Handle booking action
-              Get.to(() => const PreviewEventOrderScreen());
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: TColors.primary,
-              padding: const EdgeInsets.all(TSizes.defaultSpace * 1.25),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-            ),
-            child: const Text(
-              'Book Now',
-              style: TextStyle(fontSize: 16),
-            ),
-          ),
-        ),
+            
+        
+        
+        //  ElevatedButton(
+        //       onPressed: () {
+        //         // Handle booking action
+        //         Get.to(() => const PreviewEventOrderScreen());
+        //       },
+        //       style: ElevatedButton.styleFrom(
+        //         backgroundColor: TColors.primary,
+        //         padding: const EdgeInsets.all(TSizes.defaultSpace * 1.25),
+        //         shape: RoundedRectangleBorder(
+        //           borderRadius: BorderRadius.circular(12),
+        //         ),
+        //       ),
+        //       child: const Text(
+        //         'Book Now',
+        //         style: TextStyle(fontSize: 16),
+        //       ),
+        //     ),
       ),
+    
       body: Obx(
         () => SingleChildScrollView(
             controller: _scrollController,
@@ -345,6 +381,13 @@ class _EventDetailScreenState extends State<EventDetailScreen>
                         title: "Select Ticket",
                         showActionButton: false,
                       ),
+
+              
+
+            const SizedBox(
+              height: TSizes.spaceBtwItems,
+            ), 
+            
 
                       const SizedBox(
                         height: TSizes.spaceBtwItems,
