@@ -46,7 +46,7 @@ class SettingScreen extends StatelessWidget {
                     )),
                 // user profile card
                 TUserProfileTile(
-                  onPressed: () => Get.to(() => const ProfileScreen()),
+                 
                 ),
                 const SizedBox(
                   height: TSizes.spaceBtwSections,
@@ -63,7 +63,7 @@ class SettingScreen extends StatelessWidget {
                       right: TSizes.defaultSpace, left: TSizes.defaultSpace),
                   child: Column(
                     children: [
-                      TSectionHeading(title: "Account Settings"),
+                      TSectionHeading(title: "Account Settings" , showActionButton: false,),
                       SizedBox(
                         height: TSizes.spaceBtwItems,
                       ),
@@ -73,6 +73,14 @@ class SettingScreen extends StatelessWidget {
 
                 Column(
                   children: [
+                    TSettingsMenuTile(
+                      icon: Iconsax.profile_2user,
+                      title: "My Profile",
+                      subtitle: "View your Profile and edit details.",
+                      onTap: () {
+                        Get.to(() => const ProfileScreen());
+                      },
+                    ),
                     TSettingsMenuTile(
                       icon: Iconsax.bag_tick,
                       title: "My Orders",
@@ -97,24 +105,13 @@ class SettingScreen extends StatelessWidget {
                         Get.to(() => const AddressScreen());
                       },
                     ),
-                    TSettingsMenuTile(
-                      icon: Iconsax.shopping_cart,
-                      title: "My Cart",
-                      subtitle: "Add, remove products and move to checkout",
-                      onTap: () {},
-                    ),
-                    TSettingsMenuTile(
-                      icon: Iconsax.bank,
-                      title: "Bank Account",
-                      subtitle: "Withdraw balance to registered bank account",
-                      onTap: () {},
-                    ),
-                    TSettingsMenuTile(
-                      icon: Iconsax.discount_shape,
-                      title: "My Coupons",
-                      subtitle: "List of all available coupons",
-                      onTap: () {},
-                    ),
+                    
+                    // TSettingsMenuTile(
+                    //   icon: Iconsax.discount_shape,
+                    //   title: "My Coupons",
+                    //   subtitle: "List of all available coupons",
+                    //   onTap: () {},
+                    // ),
                     TSettingsMenuTile(
                       icon: Iconsax.notification,
                       title: "Notifications",
@@ -122,11 +119,12 @@ class SettingScreen extends StatelessWidget {
                       onTap: () {},
                     ),
                     TSettingsMenuTile(
-                      icon: Iconsax.security_card,
-                      title: "Account Privacy",
-                      subtitle: "Manage data usage and connected accounts",
+                      icon: Iconsax.document,
+                      title: "Terms & Conditions",
+                      subtitle: "View all terms and conditions by VITKART 2024",
                       onTap: () {},
                     ),
+                    
                   ],
                 ),
 
@@ -134,56 +132,56 @@ class SettingScreen extends StatelessWidget {
                 const SizedBox(
                   height: TSizes.spaceBtwSections,
                 ),
-                const Padding(
-                  padding: EdgeInsets.only(
-                      right: TSizes.defaultSpace, left: TSizes.defaultSpace),
-                  child: Column(
-                    children: [
-                      TSectionHeading(title: "App Settings"),
-                      SizedBox(
-                        height: TSizes.spaceBtwItems,
-                      ),
-                    ],
-                  ),
-                ),
+                // const Padding(
+                //   padding: EdgeInsets.only(
+                //       right: TSizes.defaultSpace, left: TSizes.defaultSpace),
+                //   child: Column(
+                //     children: [
+                //       TSectionHeading(title: "App Settings"),
+                //       SizedBox(
+                //         height: TSizes.spaceBtwItems,
+                //       ),
+                //     ],
+                //   ),
+                // ),
                 Column(
                   children: [
-                    TSettingsMenuTile(
-                      icon: Iconsax.document_upload,
-                      title: "Load Data",
-                      subtitle: "Upload data to cloud firestore",
-                      onTap: () {},
-                    ),
-                    TSettingsMenuTile(
-                      icon: Iconsax.location,
-                      title: "Location",
-                      subtitle: "Let VITKART access your location",
-                      trailing: Switch(
-                        value: true,
-                        onChanged: (value) {},
-                      ),
-                    ),
-                    TSettingsMenuTile(
-                      icon: Iconsax.security_user,
-                      title: "Safe Mode",
-                      subtitle: "Search Result is safe for all ages",
-                      trailing: Switch(
-                        value: false,
-                        onChanged: (value) {},
-                      ),
-                    ),
-                    TSettingsMenuTile(
-                      icon: Iconsax.image,
-                      title: "Enhanced Image Quality",
-                      subtitle: "Set higher image quality",
-                      trailing: Switch(
-                        value: false,
-                        onChanged: (value) {},
-                      ),
-                    ),
-                    const SizedBox(
-                      height: TSizes.spaceBtwSections,
-                    ),
+                    // TSettingsMenuTile(
+                    //   icon: Iconsax.document_upload,
+                    //   title: "Load Data",
+                    //   subtitle: "Upload data to cloud firestore",
+                    //   onTap: () {},
+                    // ),
+                    // TSettingsMenuTile(
+                    //   icon: Iconsax.location,
+                    //   title: "Location",
+                    //   subtitle: "Let VITKART access your location",
+                    //   trailing: Switch(
+                    //     value: true,
+                    //     onChanged: (value) {},
+                    //   ),
+                    // ),
+                    // TSettingsMenuTile(
+                    //   icon: Iconsax.security_user,
+                    //   title: "Safe Mode",
+                    //   subtitle: "Search Result is safe for all ages",
+                    //   trailing: Switch(
+                    //     value: false,
+                    //     onChanged: (value) {},
+                    //   ),
+                    // ),
+                    // TSettingsMenuTile(
+                    //   icon: Iconsax.image,
+                    //   title: "Enhanced Image Quality",
+                    //   subtitle: "Set higher image quality",
+                    //   trailing: Switch(
+                    //     value: false,
+                    //     onChanged: (value) {},
+                    //   ),
+                    // ),
+                    // const SizedBox(
+                    //   height: TSizes.spaceBtwSections,
+                    // ),
                     Padding(
                       padding: const EdgeInsets.only(
                           right: TSizes.defaultSpace,
@@ -191,7 +189,7 @@ class SettingScreen extends StatelessWidget {
                       child: SizedBox(
                         width: double.infinity,
                         child: OutlinedButton(
-                          child: const Text("Logout"),
+                          child:  Text("Logout" , style: Theme.of(context).textTheme.titleMedium?.copyWith(color: TColors.white),),
                           onPressed: () {
                             logOut();
                           },
