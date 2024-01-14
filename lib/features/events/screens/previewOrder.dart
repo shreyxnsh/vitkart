@@ -1,5 +1,7 @@
+import 'package:action_slider/action_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:vitkart/common/widgets/appbar/appbar.dart';
 import 'package:vitkart/features/authentication/screens/register/widget/cherryToast.dart';
@@ -87,24 +89,41 @@ class _PreviewEventOrderScreenState extends State<PreviewEventOrderScreen> {
           ),
           child: Padding(
             padding: const EdgeInsets.all(TSizes.defaultSpace),
-            child: ElevatedButton(
-              onPressed: () {
-                // Handle booking action
-                makePayment();
-                // Get.to(() => const TicketScreen());
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: TColors.primary,
-                padding: const EdgeInsets.all(TSizes.defaultSpace * 1.25),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-              child: const Text(
-                'Place Order',
-                style: TextStyle(fontSize: 16),
-              ),
-            ),
+            child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ActionSlider.standard(
+                    sliderBehavior: SliderBehavior.stretch,
+                    rolling: true,
+                    width: TSizes.displayWidth(context) * 0.8 ,
+                    backgroundColor: TColors.lightDarkBackground,
+                    toggleColor: TColors.primary,
+                    iconAlignment: Alignment.centerRight,
+                    loadingIcon: SizedBox(
+                        width: 55,
+                        child: Center(
+                            child: SizedBox(
+                          width: 24.0,
+                          height: 24.0,
+                          child: CircularProgressIndicator(
+                              strokeWidth: 2.0, ),
+                        ))),
+                    successIcon: const SizedBox(
+                        width: 55, child: Center(child: Icon(Icons.check_rounded))),
+                    icon: const SizedBox(
+                        width: 55, child: Center(child: Icon(Iconsax.arrow_right_34))),
+                    action: (controller) async {
+                      controller.loading(); //starts loading animation
+                      await Future.delayed(const Duration(seconds: 3));
+                      controller.success(); //starts success animation
+                      await Future.delayed(const Duration(seconds: 1));
+                      controller.reset(); 
+                      makePayment();
+                    },
+                    child:  Center(child: Text('Place Order' , style: Theme.of(context).textTheme.titleLarge,)),
+                  ),
+          ],
+        ),
           ),
         ),
         appBar: TAppBar(
