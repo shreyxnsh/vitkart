@@ -158,7 +158,7 @@ class EventDetailsContainer extends StatelessWidget {
                     "₹ $ticketPrice",
                     style: Theme.of(context)
                         .textTheme
-                        .headlineMedium
+                        .headlineSmall
                         ?.copyWith(color: TColors.primary),
                   ),
                 ],
@@ -172,7 +172,7 @@ class EventDetailsContainer extends StatelessWidget {
             clubName,
             style: Theme.of(context)
                 .textTheme
-                .bodyMedium
+                .bodySmall
                 ?.copyWith(fontStyle: FontStyle.italic),
           ),
           const SizedBox(

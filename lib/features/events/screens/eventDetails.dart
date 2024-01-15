@@ -103,10 +103,17 @@ class _EventDetailScreenState extends State<EventDetailScreen>
                 eventDetailController.createOrderIdApiHit();
               },
               child: Center(
-                  child: Text(
-                'Slide to Book TIckets',
-                style: Theme.of(context).textTheme.titleLarge,
-              )),
+                  child: Row(
+                    children: [
+                       SizedBox(
+                        width: TSizes.displayWidth(context) * 0.15,
+                      ),
+                      Text(
+                                      'Slide to Book Tickets',
+                                      style: Theme.of(context).textTheme.titleLarge,
+                                    ),
+                    ],
+                  )),
             ),
           ],
         ),
@@ -396,7 +403,7 @@ class _EventDetailScreenState extends State<EventDetailScreen>
                   height: TSizes.spaceBtwItems,
                 ),
                 TRoundedContainer(
-                  height: TSizes.displayHeight(context) * 0.16,
+                  height: TSizes.displayHeight(context) * 0.17,
                   padding: const EdgeInsets.all(TSizes.md),
                   width: double.infinity,
                   backgroundColor:
@@ -518,7 +525,7 @@ class TicketTypeSelectionWidget extends StatelessWidget {
         Row(
           children: [
             SizedBox(
-              width: TSizes.displayWidth(context) * 0.1,
+              width: TSizes.displayWidth(context) * 0.09,
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -530,7 +537,7 @@ class TicketTypeSelectionWidget extends StatelessWidget {
                         ? ticketName.substring(0, 6) + "..."
                         : ticketName,
                     maxLines: 1,
-                    style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                           overflow: TextOverflow.ellipsis,
                         ),
                   ),

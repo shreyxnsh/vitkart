@@ -132,13 +132,13 @@ class PreviewEventCard extends StatelessWidget {
                   children: [
                     Text(
                       "${DateFormat('hh:mm a').format(DateTime.parse(data['eventStartTime']))} - ${DateFormat('hh:mm a').format(DateTime.parse(data['eventEndTime']))}",
-                      style: Theme.of(context).textTheme.titleMedium,
+                      style: Theme.of(context).textTheme.bodyMedium,
                     ),
                     Text(
                       data['ticketTypes']
                               [eventDetailController.optionsSelection.value]
                           ['ticketTypeName'],
-                      style: Theme.of(context).textTheme.titleMedium,
+                      style: Theme.of(context).textTheme.bodyMedium,
                     )
                   ],
                 ),

@@ -144,8 +144,8 @@ class _TicketScreenState extends State<TicketScreen> {
               curve: Curves.easeInOut,
               padding: const EdgeInsets.all(TSizes.lg),
               margin: const EdgeInsets.all(TSizes.lg),
-              width: showQr ? 0 : TSizes.displayWidth(context) * 72,
-              height: showQr ? 0 : TSizes.displayWidth(context) * 72,
+              width: showQr ? 0 : TSizes.displayWidth(context) * 25,
+              height: showQr ? 0 : TSizes.displayWidth(context) * 25,
               decoration: BoxDecoration(
                 color: TColors.light,
                 borderRadius: BorderRadius.circular(12),
@@ -154,6 +154,7 @@ class _TicketScreenState extends State<TicketScreen> {
                 qrImage: qrImage,
                 decoration: const PrettyQrDecoration(
                   image: PrettyQrDecorationImage(
+                    scale: 0.3,
                     image: AssetImage(
                       "assets/icons/vitkart/vitkart_logogreen.png",
                     ),
