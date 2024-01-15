@@ -57,6 +57,7 @@ dependencies:
   shimmer: ^3.0.0
   timelines: ^0.1.0
   action_slider: ^0.7.0
+  pretty_qr_code:
 
   #--------------- ./ PACKAGES END ------------------#
 

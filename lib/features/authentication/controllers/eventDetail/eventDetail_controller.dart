@@ -19,11 +19,23 @@ class EventDetailController extends GetxController {
     ticketsLeft.value = total - sold;
   }
 
+  double getTotoalPrice() {
+    if (data['ticketTypes'][optionsSelection.value]['totalPrice'] == null) {
+      double basePrice = double.parse(
+          data['ticketTypes'][optionsSelection.value]['basePrice'].toString());
+      return basePrice + (basePrice * 0.18);
+    }
+    return double.parse(
+        data['ticketTypes'][optionsSelection.value]['totalPrice'].toString());
+  }
+
+  String getBannerImage() {
+    return data['eventImages'][1];
+  }
+
   Future<void> createOrderIdApiHit() async {
     Map<String, dynamic> response = await APIFunctions.createOrderId(
-      amount: double.parse((data['ticketTypes'][optionsSelection.value]
-              ['totalPrice'])
-          .toString()),
+      amount: getTotoalPrice(),
       name: UserDataService.getUserName(),
       regNo: UserDataService.getUserRegID(),
       eventName: data['eventName'],
@@ -36,5 +48,17 @@ class EventDetailController extends GetxController {
       return;
     }
     Get.snackbar('Error', 'Something went wrong');
+  }
+
+  DateTime getStartTime() {
+    return DateTime.parse(data['eventStartTime'].toString());
+  }
+
+  DateTime getEndTime() {
+    return DateTime.parse(data['eventEndTime'].toString());
+  }
+
+  DateTime getEventDate() {
+    return DateTime.parse(data['eventDate'].toString());
   }
 }

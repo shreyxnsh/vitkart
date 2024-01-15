@@ -155,4 +155,42 @@ class APIFunctions {
       return jsonResponse;
     }
   }
+
+  static Future<Map<String, dynamic>> createEventTicekt({
+    required String userId,
+    required String eventId,
+    required String ticketTypeId,
+    required String orderId,
+    required String paymentId,
+  }) async {
+    var headers = {'Content-Type': 'application/json'};
+    var request = http.Request('POST', Uri.parse(createTicketUrl));
+    log("ticket : $createTicketUrl");
+    request.body = json.encode({
+      "userId": userId,
+      "eventId": eventId,
+      "ticketTypeId": ticketTypeId,
+      "orderId": orderId,
+      "paymentId": paymentId,
+    });
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    log("ticket : ${response.statusCode}");
+
+    if (response.statusCode == 201) {
+      Map<String, dynamic> jsonResponse =
+          jsonDecode(await response.stream.bytesToString()); // Convert to JSON
+      jsonResponse['isSuccess'] = true;
+      log("ticket : $jsonResponse");
+      return jsonResponse;
+    } else {
+      Map<String, dynamic> jsonResponse =
+          jsonDecode(await response.stream.bytesToString()); // Convert to JSON
+      jsonResponse['isSuccess'] = false;
+      log("ticket : $jsonResponse");
+      return jsonResponse;
+    }
+  }
 }

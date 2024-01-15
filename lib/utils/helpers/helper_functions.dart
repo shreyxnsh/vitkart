@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
@@ -161,6 +162,11 @@ class THelperFunctions {
       context,
       MaterialPageRoute(builder: (_) => screen),
     );
+  }
+
+  static void copyToClipBoard(String text, BuildContext context) {
+    Clipboard.setData(ClipboardData(text: text));
+    showSuccessToast(context, "Copied to clipboard");
   }
 
   static String truncateText(String text, int maxLength) {

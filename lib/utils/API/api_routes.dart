@@ -17,3 +17,4 @@ String getUserProducts = '$url/product/getproduct?seller=';
 String getEventsUrl = '$url/event/getEvents';
 String createProductUrl = "$url/product/createProduct?token=";
 String createOrderIdUrl = "$url/razorpay/createOrderId";
+String createTicketUrl = "$url/ticket/createTicket";
