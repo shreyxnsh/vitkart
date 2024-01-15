@@ -87,6 +87,7 @@ class _EventDetailScreenState extends State<EventDetailScreen>
                     height: 24.0,
                     child: CircularProgressIndicator(
                       strokeWidth: 2.0,
+                      color: Colors.white,
                     ),
                   ))),
               successIcon: const SizedBox(
@@ -178,7 +179,7 @@ class _EventDetailScreenState extends State<EventDetailScreen>
                   eendtime: widget.data['eventEndTime'],
                   evenue: widget.data['eventVenue'],
                   eprice: widget.data['ticketTypes'][0]['basePrice'].toString(),
-                  eticketsLeft: eventDetailController.ticketsLeft.value,
+                  eticketsLeft: widget.data['ticketTypes'][0]['availableQuantity'],
                 ),
                 const SizedBox(
                   height: TSizes.spaceBtwSections,

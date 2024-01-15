@@ -154,6 +154,7 @@ class _PreviewEventOrderScreenState extends State<PreviewEventOrderScreen> {
                         height: 24.0,
                         child: CircularProgressIndicator(
                           strokeWidth: 2.0,
+                          color: Colors.white,
                         ),
                       ))),
                   successIcon: const SizedBox(
