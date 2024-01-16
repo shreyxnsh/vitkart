@@ -83,18 +83,16 @@ flutter:
 
   #--------------- LOCAL ASSETS ------------------#
   assets:
-    - assets/logos/
+
     - assets/images/content/
     - assets/images/banners/
     - assets/images/products/
     - assets/images/products/biscuit.png
     - assets/icons/categories/
     - assets/icons/events/
-    - assets/images/animations/
     - assets/icons/payment_methods/
     - assets/images/content/back.png
     - assets/icons/vitkart/
-    - assets/images/on_boarding_images/
     - assets/lottie/
 
   #--------------- LOCAL FONTS ------------------#
