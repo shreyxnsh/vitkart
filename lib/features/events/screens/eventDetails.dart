@@ -97,7 +97,7 @@ class _EventDetailScreenState extends State<EventDetailScreen>
                   child: Center(child: Icon(Iconsax.arrow_right_34))),
               action: (controller) async {
                 controller.loading(); //starts loading animation
-                await Future.delayed(const Duration(seconds: 3));
+                await Future.delayed(const Duration(seconds: 2));
                 controller.success(); //starts success animation
                 await Future.delayed(const Duration(seconds: 1));
                 controller.reset();

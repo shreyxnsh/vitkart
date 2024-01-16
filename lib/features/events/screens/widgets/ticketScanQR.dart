@@ -88,7 +88,7 @@ class _TicketScanQRContainerState extends State<TicketScanQRContainer> {
                         ),
                         // const Spacer(),
                         SizedBox(
-                          width: TSizes.displayWidth(context) * 0.2,
+                          width: TSizes.displayWidth(context) * 0.18,
                           child: Text(
                             widget.ticketId,
                             maxLines: 1,
@@ -123,8 +123,8 @@ class _TicketScanQRContainerState extends State<TicketScanQRContainer> {
                   color: TColors.white,
                   borderRadius: BorderRadius.circular(6),
                 ),
-                width: TSizes.displayWidth(context) * 0.27,
-                height: TSizes.displayWidth(context) * 0.27,
+                width: TSizes.displayWidth(context) * 0.24,
+                height: TSizes.displayWidth(context) * 0.24,
                 child: Expanded(
                   child: GestureDetector(
                     onTap: widget.onTap,

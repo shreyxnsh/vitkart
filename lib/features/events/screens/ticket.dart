@@ -56,6 +56,7 @@ class _TicketScreenState extends State<TicketScreen> {
     // showQr = false;
     return Scaffold(
       appBar: TAppBar(
+        showBackArrow: false,
         title: Text(
           "Tickets",
           style: Theme.of(context).textTheme.headlineSmall,

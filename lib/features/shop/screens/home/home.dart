@@ -146,9 +146,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         categoryName: "Advitya 2024",
                       ),
                     ],
-                    banners: const [
+                    banners:  [
                       TImages.promoBanner1,
-                      TImages.promoBanner1,
+                      TImages.promoBanner2,
                       TImages.promoBanner1,
                     ],
                   ),
@@ -226,7 +226,7 @@ class EventsHorizontalListFromAPI extends StatelessWidget {
         return PopularEventList(
           data: snapshot.requireData['events'],
         );
-      },
+      },  
     );
   }
 }
