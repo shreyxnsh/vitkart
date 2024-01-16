@@ -183,7 +183,7 @@ class _EventDetailScreenState extends State<EventDetailScreen>
                         "${eventDetailController.data['ticketTypes'][eventDetailController.optionsSelection.value]['basePrice']}",
                     eticketsLeft: eventDetailController.data['ticketTypes']
                             [eventDetailController.optionsSelection.value]
-                        ['basePrice'],
+                        ['availableQuantity'],
                   ),
                 ),
                 const SizedBox(

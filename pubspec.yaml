@@ -46,7 +46,7 @@ dependencies:
   fade_shimmer: ^2.2.0
   animated_segmented_tab_control: ^1.2.0
   dotted_border: ^2.1.0
-  path_provider: ^2.1.1
+  path_provider: ^2.1.2
   image_picker: ^1.0.5
   image_cropper: ^5.0.1
   flutter_launcher_icons: 
@@ -58,6 +58,9 @@ dependencies:
   timelines: ^0.1.0
   action_slider: ^0.7.0
   pretty_qr_code:
+  dio: ^4.0.6
+  device_info_plus: 
+  image_gallery_saver: ^2.0.3
   
 
   #--------------- ./ PACKAGES END ------------------#

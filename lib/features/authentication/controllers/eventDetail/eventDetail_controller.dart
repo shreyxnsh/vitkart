@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vitkart/features/authentication/screens/register/widget/cherryToast.dart';
@@ -36,6 +38,7 @@ class EventDetailController extends GetxController {
   }
 
   Future<void> createOrderIdApiHit(BuildContext context) async {
+    log("event id : ${data['_id']}");
     Map<String, dynamic> response = await APIFunctions.createOrderId(
       eventId: data['_id'],
       amount: getTotoalPrice(),

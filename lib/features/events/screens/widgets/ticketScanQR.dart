@@ -125,16 +125,14 @@ class _TicketScanQRContainerState extends State<TicketScanQRContainer> {
                 ),
                 width: TSizes.displayWidth(context) * 0.24,
                 height: TSizes.displayWidth(context) * 0.24,
-                child: Expanded(
-                  child: GestureDetector(
-                    onTap: widget.onTap,
-                    child: PrettyQrView(
-                      qrImage: qrImage,
-                      decoration: const PrettyQrDecoration(
-                        image: PrettyQrDecorationImage(
-                          image: AssetImage(
-                            "assets/icons/vitkart/vitkart_logogreen.png",
-                          ),
+                child: GestureDetector(
+                  onTap: widget.onTap,
+                  child: PrettyQrView(
+                    qrImage: qrImage,
+                    decoration: const PrettyQrDecoration(
+                      image: PrettyQrDecorationImage(
+                        image: AssetImage(
+                          "assets/icons/vitkart/vitkart_logogreen.png",
                         ),
                       ),
                     ),

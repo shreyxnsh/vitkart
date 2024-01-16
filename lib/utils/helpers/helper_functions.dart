@@ -202,6 +202,16 @@ class THelperFunctions {
     return list.toSet().toList();
   }
 
+  Future requestStoragePermission() async {
+    const platform = MethodChannel(
+        'com.example.androidstorage.android_12_flutter_storage/storage');
+    try {
+      await platform.invokeMethod('requestStoragePermission');
+    } on PlatformException catch (e) {
+      print(e);
+    }
+  }
+
   static List<Widget> wrapWidgets(List<Widget> widgets, int rowSize) {
     final wrappedList = <Widget>[];
     for (var i = 0; i < widgets.length; i += rowSize) {

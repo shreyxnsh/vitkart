@@ -62,16 +62,19 @@ class TEventCategoryCard extends StatelessWidget {
         ),
         child: Stack(
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: DiscountContainer(discount: data['discount'] ?? ""),
-                ),
-                const Spacer(),
-              ],
+            Visibility(
+              visible: data['discount'] != null,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: DiscountContainer(discount: data['discount'] ?? ""),
+                  ),
+                  const Spacer(),
+                ],
+              ),
             ),
             Positioned(
               bottom: 10,

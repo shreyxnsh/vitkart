@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
 import 'package:vitkart/features/authentication/controllers/eventDetail/eventDetail_controller.dart';
 import 'package:vitkart/utils/API/userDataService.dart';
@@ -8,10 +9,10 @@ import 'package:vitkart/utils/constants/sizes.dart';
 import 'package:vitkart/utils/helpers/helper_functions.dart';
 
 class TicketDetailsContainer extends StatelessWidget {
-  TicketDetailsContainer({super.key});
+  TicketDetailsContainer({super.key, this.onCapture});
 
   EventDetailController eventDetailController = Get.find();
-
+  final void Function()? onCapture;
   @override
   Widget build(BuildContext context) {
     final dark = THelperFunctions.isDarkMode(context);
@@ -31,11 +32,19 @@ class TicketDetailsContainer extends StatelessWidget {
             height: TSizes.spaceBtwItems / 2,
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 eventDetailController.data["eventName"],
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
+              IconButton(
+                onPressed: onCapture,
+                icon: Icon(
+                  Iconsax.direct_inbox4,
+                  color: TColors.primary,
+                ),
+              )
             ],
           ),
           const SizedBox(height: TSizes.spaceBtwItems),
