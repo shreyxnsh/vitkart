@@ -149,7 +149,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     banners:  [
                       TImages.promoBanner1,
                       TImages.promoBanner2,
-                      TImages.promoBanner1,
+                      TImages.promoBanner3,
                     ],
                   ),
                   const SizedBox(

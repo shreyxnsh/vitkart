@@ -58,6 +58,7 @@ dependencies:
   timelines: ^0.1.0
   action_slider: ^0.7.0
   pretty_qr_code:
+  
 
   #--------------- ./ PACKAGES END ------------------#
 
@@ -83,10 +84,8 @@ flutter:
   #--------------- LOCAL ASSETS ------------------#
   assets:
     - assets/logos/
-    - assets/icons/brands/
     - assets/images/content/
     - assets/images/banners/
-    - assets/images/reviews/
     - assets/images/products/
     - assets/images/products/biscuit.png
     - assets/icons/categories/
