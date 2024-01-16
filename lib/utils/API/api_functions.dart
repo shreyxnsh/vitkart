@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:vitkart/utils/API/api_routes.dart';
+import 'package:vitkart/utils/API/userDataService.dart';
 
 class APIFunctions {
   static Future<Map<String, dynamic>> createProduct({
@@ -124,18 +125,21 @@ class APIFunctions {
     }
   }
 
-  static Future<Map<String, dynamic>> createOrderId(
-      {required String name,
-      required String regNo,
-      required String eventName,
-      required double amount}) async {
+  static Future<Map<String, dynamic>> createOrderId({
+    required String name,
+    required String regNo,
+    required String eventName,
+    required String eventId,
+    required double amount,
+  }) async {
     var headers = {'Content-Type': 'application/json'};
     var request = http.Request('POST', Uri.parse(createOrderIdUrl));
     request.body = json.encode({
       "amount": amount,
-      "name": name,
-      "regId": regNo,
-      "event": eventName,
+      "userId": UserDataService.getUserID(),
+      "eventId": eventId,
+      "userRegId": UserDataService.getUserRegID(),
+      "eventName": eventName
     });
     request.headers.addAll(headers);
 
@@ -190,6 +194,31 @@ class APIFunctions {
           jsonDecode(await response.stream.bytesToString()); // Convert to JSON
       jsonResponse['isSuccess'] = false;
       log("ticket : $jsonResponse");
+      return jsonResponse;
+    }
+  }
+
+  static Future<Map<String, dynamic>> updatePaymentStatus({
+    required String orderId,
+  }) async {
+    var headers = {'Content-Type': 'application/json'};
+    var request = http.Request('PATCH', Uri.parse(updatePaymentStatusUrl));
+    request.body = json.encode({"order_id": orderId});
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+    log("updatePaymentStatus : ${response.statusCode}");
+    if (response.statusCode == 200) {
+      Map<String, dynamic> jsonResponse =
+          jsonDecode(await response.stream.bytesToString()); // Convert to JSON
+      jsonResponse['isSuccess'] = true;
+      log("updatePaymentStatus : $jsonResponse");
+      return jsonResponse;
+    } else {
+      Map<String, dynamic> jsonResponse =
+          jsonDecode(await response.stream.bytesToString()); // Convert to JSON
+      jsonResponse['isSuccess'] = false;
+      log("updatePaymentStatus : $jsonResponse");
       return jsonResponse;
     }
   }

@@ -101,20 +101,20 @@ class _EventDetailScreenState extends State<EventDetailScreen>
                 controller.success(); //starts success animation
                 await Future.delayed(const Duration(seconds: 1));
                 controller.reset();
-                eventDetailController.createOrderIdApiHit();
+                eventDetailController.createOrderIdApiHit(context);
               },
               child: Center(
                   child: Row(
-                    children: [
-                       SizedBox(
-                        width: TSizes.displayWidth(context) * 0.15,
-                      ),
-                      Text(
-                                      'Slide to Book Tickets',
-                                      style: Theme.of(context).textTheme.titleLarge,
-                                    ),
-                    ],
-                  )),
+                children: [
+                  SizedBox(
+                    width: TSizes.displayWidth(context) * 0.15,
+                  ),
+                  Text(
+                    'Slide to Book Tickets',
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                ],
+              )),
             ),
           ],
         ),
@@ -172,14 +172,19 @@ class _EventDetailScreenState extends State<EventDetailScreen>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                TEventDetailsHeaderText(
-                  ename: widget.data['eventName'],
-                  edate: widget.data['eventDate'],
-                  estarttime: widget.data['eventStartTime'],
-                  eendtime: widget.data['eventEndTime'],
-                  evenue: widget.data['eventVenue'],
-                  eprice: widget.data['ticketTypes'][0]['basePrice'].toString(),
-                  eticketsLeft: widget.data['ticketTypes'][0]['availableQuantity'],
+                Obx(
+                  () => TEventDetailsHeaderText(
+                    ename: widget.data['eventName'],
+                    edate: widget.data['eventDate'],
+                    estarttime: widget.data['eventStartTime'],
+                    eendtime: widget.data['eventEndTime'],
+                    evenue: widget.data['eventVenue'],
+                    eprice:
+                        "${eventDetailController.data['ticketTypes'][eventDetailController.optionsSelection.value]['basePrice']}",
+                    eticketsLeft: eventDetailController.data['ticketTypes']
+                            [eventDetailController.optionsSelection.value]
+                        ['basePrice'],
+                  ),
                 ),
                 const SizedBox(
                   height: TSizes.spaceBtwSections,
@@ -346,10 +351,10 @@ class _EventDetailScreenState extends State<EventDetailScreen>
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: widget.data["ticketTypes"].length,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    crossAxisSpacing: 2,
-                    mainAxisSpacing: 2,
-                    childAspectRatio: 1.5,
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 8,
+                    mainAxisSpacing: 8,
+                    childAspectRatio: 2,
                     // Add spacing between items horizontally
                   ),
                   itemBuilder: (context, index) {
@@ -358,21 +363,23 @@ class _EventDetailScreenState extends State<EventDetailScreen>
                         onTap: () {
                           eventDetailController.optionsSelection.value = index;
                         },
-                        child: TicketTypeSelectionWidget(
-                          isSeleted:
-                              eventDetailController.optionsSelection.value ==
-                                  index,
-                          ticketName: widget.data["ticketTypes"][index]
-                              ["ticketTypeName"],
-                          ticketPrice:
-                              "₹ ${widget.data["ticketTypes"][index]["basePrice"]}",
+                        child: Center(
+                          child: TicketTypeSelectionWidget(
+                            isSeleted:
+                                eventDetailController.optionsSelection.value ==
+                                    index,
+                            ticketName: widget.data["ticketTypes"][index]
+                                ["ticketTypeName"],
+                            ticketPrice:
+                                "₹ ${widget.data["ticketTypes"][index]["basePrice"]}",
+                          ),
                         ),
                       ),
                     );
                   },
                 ),
                 const SizedBox(
-                  height: TSizes.spaceBtwItems,
+                  height: TSizes.spaceBtwSections,
                 ),
 
                 Column(
@@ -522,23 +529,26 @@ class TicketTypeSelectionWidget extends StatelessWidget {
           color: dark
               ? (isSeleted ? TColors.primary : TColors.lightDarkBackground)
               : (isSeleted ? TColors.primary : TColors.light),
+          fit: BoxFit.fill,
+          width: double.infinity,
         ),
         Row(
           children: [
             SizedBox(
-              width: TSizes.displayWidth(context) * 0.09,
+              width: TSizes.displayWidth(context) * 0.14,
             ),
             Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
               children: [
                 Center(
                   child: Text(
-                    ticketName.length > 6
-                        ? ticketName.substring(0, 6) + "..."
+                    ticketName.length > 8
+                        ? ticketName.substring(0, 8) + "..."
                         : ticketName,
                     maxLines: 1,
-                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                    style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                           overflow: TextOverflow.ellipsis,
                         ),
                   ),
@@ -548,7 +558,7 @@ class TicketTypeSelectionWidget extends StatelessWidget {
                 // ),
                 Text(
                   ticketPrice,
-                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                  style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                         color: isSeleted ? TColors.white : TColors.primary,
                       ),
                 ),

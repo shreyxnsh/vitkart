@@ -45,6 +45,18 @@ class _PreviewEventOrderScreenState extends State<PreviewEventOrderScreen> {
       showErrorToast(context, "OrderId is null");
       return;
     }
+
+    // update the order status
+    Map<String, dynamic> updatePaymentStatus =
+        await APIFunctions.updatePaymentStatus(
+      orderId: response.orderId!,
+    );
+
+    if (!updatePaymentStatus['isSuccess']) {
+      showErrorToast(context, updatePaymentStatus['message']);
+      return;
+    }
+
     Map<String, dynamic> ticket = await APIFunctions.createEventTicekt(
         userId: UserDataService.getUserID(),
         eventId: eventDetailController.data["_id"],

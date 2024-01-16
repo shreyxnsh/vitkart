@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:vitkart/features/authentication/screens/register/widget/cherryToast.dart';
 import 'package:vitkart/features/events/screens/previewOrder.dart';
 import 'package:vitkart/utils/API/api_functions.dart';
 import 'package:vitkart/utils/API/userDataService.dart';
@@ -33,8 +35,9 @@ class EventDetailController extends GetxController {
     return data['eventImages'][1];
   }
 
-  Future<void> createOrderIdApiHit() async {
+  Future<void> createOrderIdApiHit(BuildContext context) async {
     Map<String, dynamic> response = await APIFunctions.createOrderId(
+      eventId: data['_id'],
       amount: getTotoalPrice(),
       name: UserDataService.getUserName(),
       regNo: UserDataService.getUserRegID(),
@@ -47,7 +50,7 @@ class EventDetailController extends GetxController {
           ));
       return;
     }
-    Get.snackbar('Error', 'Something went wrong');
+    showErrorToast(context, response['message']);
   }
 
   DateTime getStartTime() {

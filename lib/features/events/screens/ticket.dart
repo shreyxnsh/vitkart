@@ -53,7 +53,7 @@ class _TicketScreenState extends State<TicketScreen> {
   @override
   Widget build(BuildContext context) {
     final dark = THelperFunctions.isDarkMode(context);
-    showQr = false;
+    // showQr = false;
     return Scaffold(
       appBar: TAppBar(
         title: Text(
@@ -142,13 +142,27 @@ class _TicketScreenState extends State<TicketScreen> {
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 400),
               curve: Curves.easeInOut,
-              padding: const EdgeInsets.all(TSizes.lg),
-              margin: const EdgeInsets.all(TSizes.lg),
-              width: showQr ? 0 : TSizes.displayWidth(context) * 25,
-              height: showQr ? 0 : TSizes.displayWidth(context) * 25,
+              padding: const EdgeInsets.all(TSizes.sm),
+              margin: const EdgeInsets.all(TSizes.sm),
+              width: showQr ? TSizes.displayWidth(context) * 0.8 : 0,
+              height: showQr ? TSizes.displayWidth(context) * 0.8 : 0,
               decoration: BoxDecoration(
+                boxShadow: showQr
+                    ? [
+                        BoxShadow(
+                          color: TColors.light.withOpacity(0.4),
+                          blurRadius: 100,
+                          offset: const Offset(0, 0),
+                          spreadRadius: 60,
+                        )
+                      ]
+                    : null,
                 color: TColors.light,
                 borderRadius: BorderRadius.circular(12),
+                border: Border.all(
+                  color: TColors.black,
+                  width: 8,
+                ),
               ),
               child: PrettyQrView(
                 qrImage: qrImage,
