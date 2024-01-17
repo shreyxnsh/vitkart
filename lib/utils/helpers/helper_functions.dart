@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
@@ -163,6 +164,11 @@ class THelperFunctions {
     );
   }
 
+  static void copyToClipBoard(String text, BuildContext context) {
+    Clipboard.setData(ClipboardData(text: text));
+    showSuccessToast(context, "Copied to clipboard");
+  }
+
   static String truncateText(String text, int maxLength) {
     if (text.length <= maxLength) {
       return text;
@@ -194,6 +200,16 @@ class THelperFunctions {
 
   static List<T> removeDuplicates<T>(List<T> list) {
     return list.toSet().toList();
+  }
+
+  Future requestStoragePermission() async {
+    const platform = MethodChannel(
+        'com.example.androidstorage.android_12_flutter_storage/storage');
+    try {
+      await platform.invokeMethod('requestStoragePermission');
+    } on PlatformException catch (e) {
+      print(e);
+    }
   }
 
   static List<Widget> wrapWidgets(List<Widget> widgets, int rowSize) {

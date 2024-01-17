@@ -8,6 +8,7 @@ import 'package:vitkart/utils/helpers/helper_functions.dart';
 class PreviewOrderSummaryCard extends StatelessWidget {
   PreviewOrderSummaryCard({Key? key}) : super(key: key);
   EventDetailController eventDetailController = Get.find();
+
   @override
   Widget build(BuildContext context) {
     final dark = THelperFunctions.isDarkMode(context);
@@ -94,7 +95,7 @@ class PreviewOrderSummaryCard extends StatelessWidget {
                         ),
                         const Spacer(),
                         Text(
-                          "₹ ${double.parse(eventDetailController.data["ticketTypes"][eventDetailController.optionsSelection.value]["totalPrice"].toString())}",
+                          "₹ ${eventDetailController.getTotoalPrice()}",
                           style: Theme.of(context).textTheme.titleMedium,
                         )
                       ]),

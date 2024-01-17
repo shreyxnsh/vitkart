@@ -34,6 +34,9 @@ class TPromoSlider extends StatelessWidget {
           items: List.generate(
             onTapRoutes.length,
             (index) => TRoundedImage(
+              width: TSizes.displayWidth(context) * 0.85,
+              height: TSizes.displayWidth(context) * 0.4,
+              fit: BoxFit.fill,
               imageUrl: banners[index],
               onPressed: () => Get.to(onTapRoutes[index]),
             ),

@@ -12,7 +12,7 @@ class EventTicketVertical extends StatelessWidget {
     final dark = THelperFunctions.isDarkMode(context);
     return GestureDetector(
       onTap: () {
-        Get.to(() => const TicketScreen());
+        // Get.to(() => const TicketScreen());
       },
       child: Container(
         width: double.infinity,
@@ -34,82 +34,78 @@ class EventTicketVertical extends StatelessWidget {
         ),
         child: Column(
           children: [
-            
-                 Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      // Left Content
-                      Padding(
-                        padding: const EdgeInsets.all(8),
-                        child: Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "ID 212345",
-                                style: Theme.of(context).textTheme.bodySmall,
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              Text(
-                                "Advitya Pro Show 2024",
-                                style: Theme.of(context).textTheme.bodyLarge,
-                              ),
-                              const SizedBox(
-                                height: 4,
-                              ),
-                              Row(
-                                children: [
-                                  Text(
-                                    "22 Feb 2024",
-                                    style: Theme.of(context).textTheme.labelLarge,
-                                  ),
-                                ],
-                              ),
-                              Text(
-                                "Football Ground",
-                                style: Theme.of(context).textTheme.labelLarge,
-                              ),
-                            ],
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                // Left Content
+                Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "ID 212345",
+                          style: Theme.of(context).textTheme.bodySmall,
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          "Advitya Pro Show 2024",
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                        const SizedBox(
+                          height: 4,
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              "22 Feb 2024",
+                              style: Theme.of(context).textTheme.labelLarge,
+                            ),
+                          ],
+                        ),
+                        Text(
+                          "Football Ground",
+                          style: Theme.of(context).textTheme.labelLarge,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+
+                // Oval Borders and Dotted Line
+
+                // Right Content
+                Row(
+                  children: [
+                    SizedBox(
+                      child: Image.asset(
+                        "assets/icons/events/verticaldotted.png",
+                        color: dark ? TColors.darkBackground : TColors.light,
+                        height: 115,
+                        fit: BoxFit.fitHeight,
+                      ),
+                    ),
+                    Padding(
+                      padding:
+                          const EdgeInsets.only(top: 10, bottom: 10, right: 10),
+                      child: Center(
+                        child: SizedBox(
+                          child: Image.asset(
+                            "assets/icons/events/dummyqr.png",
+                            width: 90,
+                            height: 90,
                           ),
                         ),
                       ),
-
-                      // Oval Borders and Dotted Line
-                      
-
-                      // Right Content
-                      Row(
-                        children: [
-                          SizedBox(
-                              child: Image.asset(
-                                "assets/icons/events/verticaldotted.png",
-                                color: dark ? TColors.darkBackground : TColors.light,
-                                height: 115,
-                                fit: BoxFit.fitHeight,
-                              ),
-                          ),
-                         
-                          Padding(
-                            padding: const EdgeInsets.only(top: 10 , bottom: 10, right: 10),
-                            child: Center(
-                              child: SizedBox(
-                                child: Image.asset(
-                                  "assets/icons/events/dummyqr.png",
-                                  width: 90,
-                                  height: 90,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                
- 
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ],
         ),
       ),

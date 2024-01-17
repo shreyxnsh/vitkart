@@ -6,11 +6,14 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:vitkart/common/widgets/appbar/appbar.dart';
+import 'package:vitkart/features/authentication/controllers/eventDetail/eventDetail_controller.dart';
 import 'package:vitkart/features/authentication/screens/register/widget/cherryToast.dart';
 import 'package:vitkart/features/events/screens/ticket.dart';
 import 'package:vitkart/features/events/screens/widgets/previewEventCard.dart';
 import 'package:vitkart/features/events/screens/widgets/previewPayment.dart';
 import 'package:vitkart/features/events/screens/widgets/previewSummary.dart';
+import 'package:vitkart/utils/API/api_functions.dart';
+import 'package:vitkart/utils/API/userDataService.dart';
 import 'package:vitkart/utils/constants/colors.dart';
 import 'package:vitkart/utils/constants/sizes.dart';
 
@@ -28,14 +31,61 @@ class PreviewEventOrderScreen extends StatefulWidget {
 class _PreviewEventOrderScreenState extends State<PreviewEventOrderScreen> {
   Razorpay? _razorpay;
 
-  void _handlePaymentSuccess(PaymentSuccessResponse response) {
+  EventDetailController eventDetailController = Get.find();
+
+  void _handlePaymentSuccess(PaymentSuccessResponse response) async {
     // Do something when payment succeeds
-    showSuccessToast(context, "Success : ${response.paymentId}");
+
     log("responsee : ${response.signature} : ${response.paymentId} : ${response.orderId}");
-    Future.delayed(Duration(seconds: 2), () {
-      // Navigate to TicketScreen using Get.to
-      Get.to(() => TicketScreen());
-    });
+    if (response.paymentId == null) {
+      showErrorToast(context, "PaymentId is null");
+      return;
+    }
+    if (response.orderId == null) {
+      showErrorToast(context, "OrderId is null");
+      return;
+    }
+
+    // update the order status
+    Map<String, dynamic> updatePaymentStatus =
+        await APIFunctions.updatePaymentStatus(
+      orderId: response.orderId!,
+    );
+
+    if (!updatePaymentStatus['isSuccess']) {
+      showErrorToast(context, updatePaymentStatus['message']);
+      return;
+    }
+
+    Map<String, dynamic> ticket = await APIFunctions.createEventTicekt(
+        userId: UserDataService.getUserID(),
+        eventId: eventDetailController.data["_id"],
+        ticketTypeId: eventDetailController.data["ticketTypes"]
+            [eventDetailController.optionsSelection.value]["_id"],
+        orderId: response.orderId!,
+        paymentId: response.paymentId!);
+
+    if (ticket['isSuccess']) {
+      showSuccessToast(context, "Success : ${response.paymentId}");
+      Get.to(() => TicketScreen(
+            ticketData: ticket,
+          ));
+      return;
+    }
+
+    showErrorToast(context, ticket['message'] ?? "Something went wrong");
+    return;
+
+    // if (response.signature == null) {
+    //   showErrorToast(context, "Signature is null");
+    //   return;
+    // }
+    // Hit Create Ticket API
+
+    // Future.delayed(Duration(seconds: 2), () {
+    // Navigate to TicketScreen using Get.to
+
+    // })
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {
@@ -116,6 +166,7 @@ class _PreviewEventOrderScreenState extends State<PreviewEventOrderScreen> {
                         height: 24.0,
                         child: CircularProgressIndicator(
                           strokeWidth: 2.0,
+                          color: Colors.white,
                         ),
                       ))),
                   successIcon: const SizedBox(

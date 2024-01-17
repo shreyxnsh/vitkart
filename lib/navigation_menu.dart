@@ -1,4 +1,8 @@
+import 'dart:developer';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:iconsax/iconsax.dart';
@@ -98,7 +102,6 @@ class _NavigationMenuState extends State<NavigationMenu> {
                 color: TColors.primary,
               ),
             ),
-            
             NavigationDestination(
               icon: Icon(Iconsax.personalcard),
               label: "Account",
@@ -110,7 +113,38 @@ class _NavigationMenuState extends State<NavigationMenu> {
           ],
         ),
       ),
-      body: Obx(() => controller.screens[controller.selectedIndex.value]),
+      body: PopScope(
+          canPop: false,
+          onPopInvoked: (didPop) {
+            showCupertinoDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return CupertinoAlertDialog(
+                  title: const Text("Exit"),
+                  content: const Text("Are you sure you want to exit"),
+                  actions: [
+                    CupertinoDialogAction(
+                        child: const Text(
+                          "Yes",
+                          style: TextStyle(color: TColors.primary),
+                        ),
+                        onPressed: () {
+                          SystemNavigator.pop();
+                        }),
+                    CupertinoDialogAction(
+                        child: const Text(
+                          "No",
+                          style: TextStyle(color: TColors.primary),
+                        ),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        }),
+                  ],
+                );
+              },
+            );
+          },
+          child: Obx(() => controller.screens[controller.selectedIndex.value])),
     );
   }
 }
