@@ -18,6 +18,7 @@ import 'package:vitkart/features/authentication/controllers/eventDetail/eventDet
 import 'package:vitkart/features/authentication/screens/register/widget/cherryToast.dart';
 import 'package:vitkart/features/events/screens/widgets/ticketDetails.dart';
 import 'package:vitkart/features/events/screens/widgets/ticketScanQR.dart';
+import 'package:vitkart/features/shop/screens/home/home.dart';
 import 'package:vitkart/navigation_menu.dart';
 import 'package:vitkart/utils/API/userDataService.dart';
 import 'package:vitkart/utils/constants/colors.dart';
@@ -134,7 +135,7 @@ class _TicketScreenState extends State<TicketScreen> {
         }
         showCupertinoDialog(
           context: context,
-          builder: (BuildContext context) {
+          builder: (BuildContext _context) {
             return CupertinoAlertDialog(
               title: const Text("Exit"),
               content: const Text("Are you sure you want to exit"),
@@ -142,12 +143,15 @@ class _TicketScreenState extends State<TicketScreen> {
                 CupertinoDialogAction(
                     child: const Text("Yes"),
                     onPressed: () {
-                      Get.toEnd(() => const NavigationMenu());
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (context) {
+                        return const NavigationMenu();
+                      }));
                     }),
                 CupertinoDialogAction(
                     child: const Text("No"),
                     onPressed: () {
-                      Navigator.pop(context);
+                      Navigator.pop(_context);
                     }),
               ],
             );
