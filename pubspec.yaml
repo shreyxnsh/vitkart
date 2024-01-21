@@ -61,6 +61,7 @@ dependencies:
   dio: ^4.0.6
   device_info_plus: 
   image_gallery_saver: ^2.0.3
+  flutter_easy_faq: ^1.0.1
   
 
   #--------------- ./ PACKAGES END ------------------#
