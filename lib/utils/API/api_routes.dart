@@ -1,8 +1,8 @@
 class Domain {
-  static String domain = '192.168.29.118';
+  static String domain = 'vitkart.fun';
 }
 
-String url = 'http://${Domain.domain}:3001/api/v1';
+String url = 'http://${Domain.domain}/api/v1';
 // String url = 'http://192.168.56.1:3001/api/v1';
 
 String registrationUrl = '$url/user/createNewAccount';
@@ -15,6 +15,7 @@ String mattressProductsUrl = '$url/product/getproduct?category=mattress';
 String getAllProductUrl = '$url/product/getproduct';
 String getUserProducts = '$url/product/getproduct?seller=';
 String getEventsUrl = '$url/event/getEvents';
+String getUserTicketsUrl = '$url/ticket/getTickets?user=';
 String createProductUrl = "$url/product/createProduct?token=";
 String createOrderIdUrl = "$url/razorpay/createOrderId";
 String createTicketUrl = "$url/ticket/createTicket";

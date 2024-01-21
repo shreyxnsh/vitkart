@@ -101,6 +101,31 @@ class APIFunctions {
     }
   }
 
+  static Future<Map<String, dynamic>> getUserTickets(
+      String id) async {
+    String url = getUserTicketsUrl + id;
+    log("code : $url");
+    var request = http.Request('GET', Uri.parse(url));
+
+    http.StreamedResponse response = await request.send();
+    log("ticket : ${response.statusCode}");
+
+    if (response.statusCode == 200) {
+      Map<String, dynamic> jsonResponse =
+          jsonDecode(await response.stream.bytesToString());
+          jsonResponse['isSuccess'] = true;
+          log("Tickets :  ${jsonResponse.toString()}"); // Convert to JSON
+      return jsonResponse;
+    } else {
+      Map<String, dynamic> jsonResponse =
+          jsonDecode(await response.stream.bytesToString()); 
+          jsonResponse['isSuccess'] = false;// Convert to JSON
+      
+      log("Error :  ${jsonResponse.toString()}");
+      return jsonResponse;
+    }
+  }
+
   static Future<Map<String, dynamic>> otpVerify(
       {required String email, required String otp}) async {
     var headers = {'Content-Type': 'application/json'};
