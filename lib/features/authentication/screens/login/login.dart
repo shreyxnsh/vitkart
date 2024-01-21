@@ -16,24 +16,31 @@ class LoginScreen extends StatelessWidget {
           height: TSizes.displayHeight(context),
           width: TSizes.displayWidth(context),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Image.asset(
-                "assets/icons/vitkart/vitkart_logo_white.png",
-                width: TSizes.displayWidth(context) * (170 / 420),
-                height: TSizes.displayHeight(context) * (170 / 840),
+              Container(
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Image.asset(
+                      "assets/images/banners/loginframe.png",
+                      fit: BoxFit.fill,
+                    ),
+                    Lottie.asset(
+                      "assets/lottie/login_screen_hi.json",
+                      width: TSizes.displayWidth(context) * (140 / 420),
+                      height: TSizes.displayHeight(context) * (140 / 840),
+                    ),
+                  ],
+                ),
               ),
-
-              // Lottie.asset(
-              //   "assets/lottie/login_screen_hi.json",
-              //   width: TSizes.displayWidth(context) * (170 / 420),
-              //   height: TSizes.displayHeight(context) * (170 / 840),
-              // ),
-              SizedBox(
-                height: TSizes.displayHeight(context) * (72 / 840),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  const LoginPageForm(),
+                ],
               ),
-              const LoginPageForm(),
             ],
           ),
         ),
