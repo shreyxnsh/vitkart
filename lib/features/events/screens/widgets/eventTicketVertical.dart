@@ -1,22 +1,61 @@
+import 'dart:developer';
+import 'dart:typed_data';
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import 'package:pretty_qr_code/pretty_qr_code.dart';
 import 'package:vitkart/features/events/screens/ticket.dart';
 import 'package:vitkart/utils/constants/colors.dart';
+import 'package:vitkart/utils/constants/sizes.dart';
 import 'package:vitkart/utils/helpers/helper_functions.dart';
 
-class EventTicketVertical extends StatelessWidget {
-  const EventTicketVertical({super.key});
+class EventTicketVertical extends StatefulWidget {
+  final Map<String, dynamic> data;
+
+  const EventTicketVertical({super.key, required this.data});
+
+  @override
+  State<EventTicketVertical> createState() => _EventTicketVerticalState();
+}
+
+class _EventTicketVerticalState extends State<EventTicketVertical> {
+  late QrCode qrCode;
+
+  late QrImage qrImage = QrImage(qrCode);
+
+  late ByteData? imageBytes;
+
+  @override
+  void initState() {
+    super.initState();
+    makeQr();
+  }
+
+  Future<void> makeQr() async {
+    qrCode = QrCode.fromData(
+      data: widget.data['_id'],
+      errorCorrectLevel: QrErrorCorrectLevel.H,
+    );
+    qrImage = QrImage(qrCode);
+    imageBytes = await qrImage.toImageAsBytes(
+      size: 512,
+      format: ImageByteFormat.png,
+      decoration: const PrettyQrDecoration(),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
+    log("Data : ${widget.data}");
     final dark = THelperFunctions.isDarkMode(context);
     return GestureDetector(
       onTap: () {
-        // Get.to(() => const TicketScreen());
+        Get.to(() =>  TicketScreen(ticketData: widget.data,));
       },
       child: Container(
         width: double.infinity,
-        height: 115,
         clipBehavior: Clip.antiAlias,
         decoration: ShapeDecoration(
           color: dark ? TColors.lightDarkBackground : TColors.primary,
@@ -46,15 +85,15 @@ class EventTicketVertical extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "ID 212345",
+                          widget.data['event']['eventOrg'].toString(),
                           style: Theme.of(context).textTheme.bodySmall,
                         ),
                         const SizedBox(
                           height: 5,
                         ),
                         Text(
-                          "Advitya Pro Show 2024",
-                          style: Theme.of(context).textTheme.bodyLarge,
+                          widget.data['event']['eventName'].toString(),
+                          style: Theme.of(context).textTheme.titleMedium,
                         ),
                         const SizedBox(
                           height: 4,
@@ -62,13 +101,15 @@ class EventTicketVertical extends StatelessWidget {
                         Row(
                           children: [
                             Text(
-                              "22 Feb 2024",
+
+                              DateFormat('dd MMM yyyy').format(DateTime.parse(widget.data['event']['eventDate'])),
+                               
                               style: Theme.of(context).textTheme.labelLarge,
                             ),
                           ],
                         ),
                         Text(
-                          "Football Ground",
+                          widget.data['event']['eventVenue'].toString(),
                           style: Theme.of(context).textTheme.labelLarge,
                         ),
                       ],
@@ -80,28 +121,41 @@ class EventTicketVertical extends StatelessWidget {
 
                 // Right Content
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SizedBox(
-                      child: Image.asset(
-                        "assets/icons/events/verticaldotted.png",
-                        color: dark ? TColors.darkBackground : TColors.light,
-                        height: 115,
-                        fit: BoxFit.fitHeight,
-                      ),
-                    ),
-                    Padding(
-                      padding:
-                          const EdgeInsets.only(top: 10, bottom: 10, right: 10),
-                      child: Center(
-                        child: SizedBox(
-                          child: Image.asset(
-                            "assets/icons/events/dummyqr.png",
-                            width: 90,
-                            height: 90,
+                    // SizedBox(
+                    //   child: Image.asset(
+                    //     "assets/icons/events/verticaldotted.png",
+                    //     color: dark ? TColors.darkBackground : TColors.light,
+                    //     height: 115,
+                    //     fit: BoxFit.fitHeight,
+                    //   ),
+                    // ),
+                     Padding(
+                       padding: const EdgeInsets.all(12.0),
+                       child: Container(
+                            padding: const EdgeInsets.all(2),
+                            decoration: BoxDecoration(
+                              color: TColors.white,
+                            ),
+                            width: TSizes.displayWidth(context) * 0.22,
+                            height: TSizes.displayWidth(context) * 0.22,
+                            child: PrettyQrView(
+                              qrImage: qrImage,
+                              decoration: const PrettyQrDecoration(
+                                image: PrettyQrDecorationImage(
+                                  scale: 0.4,
+                                  image: AssetImage(
+                                    "assets/icons/vitkart/vitkart_logogreen.png",
+                                  ),
+                                ),
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-                    ),
+                     ),
+                      
+                    
                   ],
                 ),
               ],

@@ -200,7 +200,7 @@ class EventDetailsContainer extends StatelessWidget {
                 width: 8,
               ),
               SizedBox(
-                width: TSizes.displayWidth(context) * 0.2,
+                width: TSizes.displayWidth(context) * 0.17,
                 child: Text(
                   venue,
                   maxLines: 1,
