@@ -102,4 +102,11 @@ class TTexts {
   static const String productDescription = "Product Description";
   static const String productPrice = "Product Price";
   static const String productQuantity = "Product Quantity";
+  
+  static const String vitkartOps = "Welcome to VITKart – your ultimate ticketing solution for students at VIT Bhopal University! \n\nDiscover, buy, and even host events seamlessly with our user-friendly app. Browse through a variety of university events, from cultural shows to academic gatherings, and purchase tickets effortlessly. Feeling creative? Take the lead and host your own events, making event planning accessible to every student. Our app ensures secure transactions and keeps you updated with real-time event notifications. \nJoin the VITKart community today, where entertainment and collaboration thrive – your gateway to a vibrant campus culture! Download now for a hassle-free event experience.";
+
+  // terms and conditions
+
+
+
 }

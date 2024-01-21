@@ -10,9 +10,12 @@ import 'package:vitkart/features/authentication/screens/login/widget/loginTextFi
 import 'package:vitkart/features/events/screens/myTickets.dart';
 import 'package:vitkart/features/personalization/screens/address/address.dart';
 import 'package:vitkart/features/personalization/screens/profile/profile.dart';
+import 'package:vitkart/features/personalization/screens/settings/notifications.dart';
+import 'package:vitkart/features/personalization/screens/settings/terms.dart';
 import 'package:vitkart/features/shop/screens/orders/orders.dart';
 import 'package:vitkart/utils/API/api_routes.dart';
 import 'package:vitkart/utils/API/userDataService.dart';
+import 'package:vitkart/utils/constants/staticData.dart';
 import 'package:vitkart/utils/constants/text_strings.dart';
 
 import '../../../../../utils/constants/colors.dart';
@@ -99,7 +102,7 @@ class SettingScreen extends StatelessWidget {
                       title: "My Tickets",
                       subtitle: "Get All your event tickets here!",
                       onTap: () {
-                        Get.to(() => const MyTicketScreen());
+                        Get.to(() =>  MyTicketScreen());
                       },
                     ),
                     TSettingsMenuTile(
@@ -107,7 +110,7 @@ class SettingScreen extends StatelessWidget {
                       title: "My Addresses",
                       subtitle: "Set shopping delivery address",
                       onTap: () {
-                        Get.to(() => const AddressScreen());
+                        Get.to(() =>  AddressScreen());
                       },
                     ),
 
@@ -121,13 +124,17 @@ class SettingScreen extends StatelessWidget {
                       icon: Iconsax.notification,
                       title: "Notifications",
                       subtitle: "All Notifications sent by VITKART",
-                      onTap: () {},
+                      onTap: () {
+                        Get.to(() =>  NotificationScreen());
+                      },
                     ),
                     TSettingsMenuTile(
                       icon: Iconsax.document,
                       title: "Terms & Conditions",
                       subtitle: "View all terms and conditions by VITKART 2024",
-                      onTap: () {},
+                      onTap: () {
+                        Get.to(() =>  TermsAndConditionScreen());
+                      },
                     ),
                   ],
                 ),
@@ -210,23 +217,23 @@ class SettingScreen extends StatelessWidget {
                       height: TSizes.spaceBtwSections,
                     ),
 
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 24.0, horizontal: 16.0),
-                      child: LoginScreenTextFeild(
-                        controller: TextEditingController(
-                          text: Domain.domain,
-                        ),
-                        prefixIcon: Iconsax.global,
-                        labelText: "Domain",
-                        onChanged: (value) {
-                          Domain.domain = value;
-                        },
-                        onFieldSubmitted: (value) {
-                          FocusScope.of(context).unfocus();
-                        },
-                      ),
-                    ),
+                    // Padding(
+                    //   padding: const EdgeInsets.symmetric(
+                    //       vertical: 24.0, horizontal: 16.0),
+                    //   child: LoginScreenTextFeild(
+                    //     controller: TextEditingController(
+                    //       text: Domain.domain,
+                    //     ),
+                    //     prefixIcon: Iconsax.global,
+                    //     labelText: "Domain",
+                    //     onChanged: (value) {
+                    //       Domain.domain = value;
+                    //     },
+                    //     onFieldSubmitted: (value) {
+                    //       FocusScope.of(context).unfocus();
+                    //     },
+                    //   ),
+                    // ),
                   ],
                 ),
                 const SizedBox(
