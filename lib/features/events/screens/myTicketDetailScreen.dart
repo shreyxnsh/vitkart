@@ -35,7 +35,7 @@ class TicketDetailScreen extends StatefulWidget {
 }
 
 class _TicketDetailScreenState extends State<TicketDetailScreen> {
-  EventDetailController eventDetailController = Get.find();
+  
 
   GlobalKey qrKey = GlobalKey();
 
@@ -59,6 +59,8 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
   //   Uint8List bytes = await file.readAsBytes();
   //   await fileDef.writeAsBytes(bytes);
   // }
+
+
 
   Future<String> _getFilePath(String fileName) async {
     DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
@@ -103,7 +105,7 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
 
   Future<void> makeQr() async {
     qrCode = QrCode.fromData(
-      data: widget.ticketData['Ticket']['_id'],
+      data: widget.ticketData['_id'],
       errorCorrectLevel: QrErrorCorrectLevel.H,
     );
     qrImage = QrImage(qrCode);
@@ -117,6 +119,8 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
   @override
   void initState() {
     super.initState();
+    log("TIcket Data : ${widget.ticketData}");
+    log("Ticket ID Data : ${widget.ticketData['_id']}");
     makeQr();
   }
 
@@ -193,26 +197,26 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               // Top Section with Background Image
-                              Container(
-                                padding: const EdgeInsets.all(12),
-                                width: double.infinity,
-                                clipBehavior: Clip.hardEdge,
-                                // height:
-                                //     150, // Set the desired height for the background image
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(20),
-                                  child: Image.network(
-                                    eventDetailController.getBannerImage(),
-                                    height:
-                                        TSizes.displayHeight(context) * 0.24,
-                                    width: double.infinity,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              ),
+                              // Container(
+                              //   padding: const EdgeInsets.all(12),
+                              //   width: double.infinity,
+                              //   clipBehavior: Clip.hardEdge,
+                              //   // height:
+                              //   //     150, // Set the desired height for the background image
+                              //   decoration: BoxDecoration(
+                              //     borderRadius: BorderRadius.circular(20),
+                              //   ),
+                              //   child: ClipRRect(
+                              //     borderRadius: BorderRadius.circular(20),
+                              //     child: Image.network(
+                              //       ,
+                              //       height:
+                              //           TSizes.displayHeight(context) * 0.24,
+                              //       width: double.infinity,
+                              //       fit: BoxFit.cover,
+                              //     ),
+                              //   ),
+                              // ),
 
                               TicketDetailsContainer(
                                 onCapture: () {

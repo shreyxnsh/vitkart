@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:pretty_qr_code/pretty_qr_code.dart';
+import 'package:vitkart/features/events/screens/myTicketDetailScreen.dart';
+import 'package:vitkart/features/events/screens/myTickets.dart';
 import 'package:vitkart/features/events/screens/ticket.dart';
 import 'package:vitkart/utils/constants/colors.dart';
 import 'package:vitkart/utils/constants/sizes.dart';
@@ -52,7 +54,7 @@ class _EventTicketVerticalState extends State<EventTicketVertical> {
     final dark = THelperFunctions.isDarkMode(context);
     return GestureDetector(
       onTap: () {
-        Get.to(() =>  TicketScreen(ticketData: widget.data,));
+        Get.to(() =>  TicketDetailScreen(ticketData: widget.data,));
       },
       child: Container(
         width: double.infinity,

@@ -1,5 +1,5 @@
 class Domain {
-  static String domain = 'vitkart.fun';
+  static String domain = 'api.vitkart.fun';
 }
 
 String url = 'http://${Domain.domain}/api/v1';
