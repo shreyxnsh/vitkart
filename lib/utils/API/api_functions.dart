@@ -101,8 +101,26 @@ class APIFunctions {
     }
   }
 
-  static Future<Map<String, dynamic>> getUserTickets(
-      String id) async {
+  static Future<Map<String, dynamic>> getBanners() async {
+    var request = http.Request(
+        'GET', Uri.parse(getBannersUrl)); // Replace with the actual URL
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      Map<String, dynamic> jsonResponse =
+          jsonDecode(await response.stream.bytesToString()); // Convert to JSON
+      jsonResponse['isSuccess'] = true;
+      return jsonResponse;
+    } else {
+      Map<String, dynamic> jsonResponse =
+          jsonDecode(await response.stream.bytesToString()); // Convert to JSON
+      jsonResponse['isSuccess'] = false;
+      return jsonResponse;
+    }
+  }
+
+  static Future<Map<String, dynamic>> getUserTickets(String id) async {
     String url = getUserTicketsUrl + id;
     log("code : $url");
     var request = http.Request('GET', Uri.parse(url));
@@ -113,14 +131,14 @@ class APIFunctions {
     if (response.statusCode == 200) {
       Map<String, dynamic> jsonResponse =
           jsonDecode(await response.stream.bytesToString());
-          jsonResponse['isSuccess'] = true;
-          log("Tickets :  ${jsonResponse.toString()}"); // Convert to JSON
+      jsonResponse['isSuccess'] = true;
+      log("Tickets :  ${jsonResponse.toString()}"); // Convert to JSON
       return jsonResponse;
     } else {
       Map<String, dynamic> jsonResponse =
-          jsonDecode(await response.stream.bytesToString()); 
-          jsonResponse['isSuccess'] = false;// Convert to JSON
-      
+          jsonDecode(await response.stream.bytesToString());
+      jsonResponse['isSuccess'] = false; // Convert to JSON
+
       log("Error :  ${jsonResponse.toString()}");
       return jsonResponse;
     }
