@@ -16,6 +16,7 @@ import 'package:pretty_qr_code/pretty_qr_code.dart';
 import 'package:vitkart/common/widgets/appbar/appbar.dart';
 import 'package:vitkart/features/authentication/controllers/eventDetail/eventDetail_controller.dart';
 import 'package:vitkart/features/authentication/screens/register/widget/cherryToast.dart';
+import 'package:vitkart/features/events/screens/widgets/MyTicketDetails.dart';
 import 'package:vitkart/features/events/screens/widgets/ticketDetails.dart';
 import 'package:vitkart/features/events/screens/widgets/ticketScanQR.dart';
 import 'package:vitkart/features/shop/screens/home/home.dart';
@@ -35,8 +36,6 @@ class TicketDetailScreen extends StatefulWidget {
 }
 
 class _TicketDetailScreenState extends State<TicketDetailScreen> {
-  
-
   GlobalKey qrKey = GlobalKey();
 
   bool showQr = false;
@@ -59,8 +58,6 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
   //   Uint8List bytes = await file.readAsBytes();
   //   await fileDef.writeAsBytes(bytes);
   // }
-
-
 
   Future<String> _getFilePath(String fileName) async {
     DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
@@ -128,178 +125,144 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
   Widget build(BuildContext context) {
     final dark = THelperFunctions.isDarkMode(context);
     // showQr = false;
-    return PopScope(
-      canPop: false,
-      onPopInvoked: (didPop) {
-        if (showQr) {
-          setState(() {
-            showQr = false;
-          });
-          return;
-        }
-        showCupertinoDialog(
-          context: context,
-          builder: (BuildContext _context) {
-            return CupertinoAlertDialog(
-              title: const Text("Exit"),
-              content: const Text("Are you sure you want to exit"),
-              actions: [
-                CupertinoDialogAction(
-                    child: const Text("Yes"),
-                    onPressed: () {
-                      Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (context) {
-                        return const NavigationMenu();
-                      }));
-                    }),
-                CupertinoDialogAction(
-                    child: const Text("No"),
-                    onPressed: () {
-                      Navigator.pop(_context);
-                    }),
-              ],
-            );
-          },
-        );
-      },
-      child: Scaffold(
-        appBar: TAppBar(
-          showBackArrow: false,
-          title: Text(
-            "Tickets",
-            style: Theme.of(context).textTheme.headlineSmall,
-          ),
+    return Scaffold(
+      appBar: TAppBar(
+        showBackArrow: true,
+        title: Text(
+          "Tickets",
+          style: Theme.of(context).textTheme.headlineSmall,
         ),
-        body: Stack(
-          alignment: Alignment.center,
-          children: [
-            SizedBox(
-              height: TSizes.displayHeight(context),
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                      right: TSizes.defaultSpace,
-                      left: TSizes.defaultSpace,
-                      bottom: TSizes.defaultSpace),
-                  child: Column(
-                    children: [
-                      RepaintBoundary(
-                        key: qrKey,
-                        child: Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            color: dark
-                                ? TColors.lightDarkBackground
-                                : TColors.primary,
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              // Top Section with Background Image
-                              // Container(
-                              //   padding: const EdgeInsets.all(12),
-                              //   width: double.infinity,
-                              //   clipBehavior: Clip.hardEdge,
-                              //   // height:
-                              //   //     150, // Set the desired height for the background image
-                              //   decoration: BoxDecoration(
-                              //     borderRadius: BorderRadius.circular(20),
-                              //   ),
-                              //   child: ClipRRect(
-                              //     borderRadius: BorderRadius.circular(20),
-                              //     child: Image.network(
-                              //       ,
-                              //       height:
-                              //           TSizes.displayHeight(context) * 0.24,
-                              //       width: double.infinity,
-                              //       fit: BoxFit.cover,
-                              //     ),
-                              //   ),
-                              // ),
+      ),
+      body: Stack(
+        alignment: Alignment.center,
+        children: [
+          SizedBox(
+            height: TSizes.displayHeight(context),
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    right: TSizes.defaultSpace,
+                    left: TSizes.defaultSpace,
+                    bottom: TSizes.defaultSpace),
+                child: Column(
+                  children: [
+                    RepaintBoundary(
+                      key: qrKey,
+                      child: Container(
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: dark
+                              ? TColors.lightDarkBackground
+                              : TColors.primary,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // Top Section with Background Image
+                            Container(
+                              padding: const EdgeInsets.all(12),
+                              width: double.infinity,
+                              clipBehavior: Clip.hardEdge,
+                              // height:
+                              //     150, // Set the desired height for the background image
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(20),
+                                child: Image.network(
+                                  widget.ticketData['event']['eventImages'][1],
+                                  height: TSizes.displayHeight(context) * 0.24,
+                                  width: double.infinity,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
 
-                              TicketDetailsContainer(
-                                onCapture: () {
-                                  saveWidgetImageIntoGallery(context);
-                                },
-                              ),
+                            MyTicketDetailsContainer(
+                              data: widget.ticketData,
+                              onCapture: () {
+                                saveWidgetImageIntoGallery(context);
+                              },
+                            ),
 
-                              SizedBox(
-                                  child: dark
-                                      ? Image.asset(
-                                          "assets/icons/events/horizontaldotted.png",
-                                          fit: BoxFit.fitWidth,
-                                        )
-                                      : Image.asset(
-                                          "assets/icons/events/horizontalwhitedot.png",
-                                          fit: BoxFit.fitWidth,
-                                        )),
-                              TicketScanQRContainer(
-                                ticketId: widget.ticketData['Ticket']['_id'],
-                                onTap: () {
-                                  setState(() {
-                                    showQr = !showQr;
-                                  });
-                                },
-                              ),
-                              const SizedBox(
-                                height: TSizes.spaceBtwSections,
-                              ),
-                            ],
-                          ),
+                            SizedBox(
+                                child: dark
+                                    ? Image.asset(
+                                        "assets/icons/events/horizontaldotted.png",
+                                        fit: BoxFit.fitWidth,
+                                      )
+                                    : Image.asset(
+                                        "assets/icons/events/horizontalwhitedot.png",
+                                        fit: BoxFit.fitWidth,
+                                      )),
+                            TicketScanQRContainer(
+                              // ticketId: widget.ticketData['tickets']['_id'],
+                              ticketId: widget.ticketData['_id'],
+                              onTap: () {
+                                setState(() {
+                                  showQr = !showQr;
+                                });
+                              },
+                            ),
+                            const SizedBox(
+                              height: TSizes.spaceBtwSections,
+                            ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),
-            GestureDetector(
-              onTap: () {
-                setState(() {
-                  showQr = !showQr;
-                });
-              },
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 400),
-                curve: Curves.fastEaseInToSlowEaseOut,
-                padding: const EdgeInsets.all(TSizes.sm),
-                margin: const EdgeInsets.all(TSizes.sm),
-                width: showQr ? TSizes.displayWidth(context) * 0.8 : 0,
-                height: showQr ? TSizes.displayWidth(context) * 0.8 : 0,
-                decoration: BoxDecoration(
-                  boxShadow: showQr
-                      ? [
-                          BoxShadow(
-                            color: TColors.light.withOpacity(0.4),
-                            blurRadius: 100,
-                            offset: const Offset(0, 0),
-                            spreadRadius: 60,
-                          )
-                        ]
-                      : null,
-                  color: TColors.light,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(
-                    color: TColors.black,
-                    width: 8,
-                  ),
+          ),
+          GestureDetector(
+            onTap: () {
+              setState(() {
+                showQr = !showQr;
+              });
+            },
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 400),
+              curve: Curves.fastEaseInToSlowEaseOut,
+              padding: const EdgeInsets.all(TSizes.sm),
+              margin: const EdgeInsets.all(TSizes.sm),
+              width: showQr ? TSizes.displayWidth(context) * 0.8 : 0,
+              height: showQr ? TSizes.displayWidth(context) * 0.8 : 0,
+              decoration: BoxDecoration(
+                boxShadow: showQr
+                    ? [
+                        BoxShadow(
+                          color: TColors.light.withOpacity(0.4),
+                          blurRadius: 100,
+                          offset: const Offset(0, 0),
+                          spreadRadius: 60,
+                        )
+                      ]
+                    : null,
+                color: TColors.light,
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(
+                  color: TColors.black,
+                  width: 8,
                 ),
-                child: PrettyQrView(
-                  qrImage: qrImage,
-                  decoration: const PrettyQrDecoration(
-                    image: PrettyQrDecorationImage(
-                      scale: 0.3,
-                      image: AssetImage(
-                        "assets/icons/vitkart/vitkart_logogreen.png",
-                      ),
+              ),
+              child: PrettyQrView(
+                qrImage: qrImage,
+                decoration: const PrettyQrDecoration(
+                  image: PrettyQrDecorationImage(
+                    scale: 0.3,
+                    image: AssetImage(
+                      "assets/icons/vitkart/vitkart_logogreen.png",
                     ),
                   ),
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

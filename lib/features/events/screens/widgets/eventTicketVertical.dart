@@ -32,6 +32,7 @@ class _EventTicketVerticalState extends State<EventTicketVertical> {
   @override
   void initState() {
     super.initState();
+    log("Data- : ${widget.data}");
     makeQr();
   }
 
@@ -54,7 +55,9 @@ class _EventTicketVerticalState extends State<EventTicketVertical> {
     final dark = THelperFunctions.isDarkMode(context);
     return GestureDetector(
       onTap: () {
-        Get.to(() =>  TicketDetailScreen(ticketData: widget.data,));
+        Get.to(() => TicketDetailScreen(
+              ticketData: widget.data,
+            ));
       },
       child: Container(
         width: double.infinity,
@@ -82,40 +85,37 @@ class _EventTicketVerticalState extends State<EventTicketVertical> {
                 // Left Content
                 Padding(
                   padding: const EdgeInsets.all(8),
-                  child: Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          widget.data['event']['eventOrg'].toString(),
-                          style: Theme.of(context).textTheme.bodySmall,
-                        ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        Text(
-                          widget.data['event']['eventName'].toString(),
-                          style: Theme.of(context).textTheme.titleMedium,
-                        ),
-                        const SizedBox(
-                          height: 4,
-                        ),
-                        Row(
-                          children: [
-                            Text(
-
-                              DateFormat('dd MMM yyyy').format(DateTime.parse(widget.data['event']['eventDate'])),
-                               
-                              style: Theme.of(context).textTheme.labelLarge,
-                            ),
-                          ],
-                        ),
-                        Text(
-                          widget.data['event']['eventVenue'].toString(),
-                          style: Theme.of(context).textTheme.labelLarge,
-                        ),
-                      ],
-                    ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        widget.data['event']['eventOrg'].toString(),
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Text(
+                        widget.data['event']['eventName'].toString(),
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                      const SizedBox(
+                        height: 4,
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            DateFormat('dd MMM yyyy').format(DateTime.parse(
+                                widget.data['event']['eventDate'])),
+                            style: Theme.of(context).textTheme.labelLarge,
+                          ),
+                        ],
+                      ),
+                      Text(
+                        widget.data['event']['eventVenue'].toString(),
+                        style: Theme.of(context).textTheme.labelLarge,
+                      ),
+                    ],
                   ),
                 ),
 
@@ -134,30 +134,29 @@ class _EventTicketVerticalState extends State<EventTicketVertical> {
                     //     fit: BoxFit.fitHeight,
                     //   ),
                     // ),
-                     Padding(
-                       padding: const EdgeInsets.all(12.0),
-                       child: Container(
-                            padding: const EdgeInsets.all(2),
-                            decoration: BoxDecoration(
-                              color: TColors.white,
-                            ),
-                            width: TSizes.displayWidth(context) * 0.22,
-                            height: TSizes.displayWidth(context) * 0.22,
-                            child: PrettyQrView(
-                              qrImage: qrImage,
-                              decoration: const PrettyQrDecoration(
-                                image: PrettyQrDecorationImage(
-                                  scale: 0.4,
-                                  image: AssetImage(
-                                    "assets/icons/vitkart/vitkart_logogreen.png",
-                                  ),
-                                ),
+                    Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Container(
+                        padding: const EdgeInsets.all(4),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(4),
+                          color: TColors.white,
+                        ),
+                        width: TSizes.displayWidth(context) * 0.22,
+                        height: TSizes.displayWidth(context) * 0.22,
+                        child: PrettyQrView(
+                          qrImage: qrImage,
+                          decoration: const PrettyQrDecoration(
+                            image: PrettyQrDecorationImage(
+                              scale: 0.4,
+                              image: AssetImage(
+                                "assets/icons/vitkart/vitkart_logogreen.png",
                               ),
                             ),
                           ),
-                     ),
-                      
-                    
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ],

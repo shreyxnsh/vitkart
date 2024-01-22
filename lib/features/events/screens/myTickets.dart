@@ -21,29 +21,22 @@ class MyTicketScreen extends StatefulWidget {
 }
 
 class _MyTicketScreenState extends State<MyTicketScreen> {
-
-
   @override
   void initState() {
     super.initState();
     fetchUserTickets();
   }
 
-   Future<Map<String, dynamic>> fetchUserTickets() async {
+  Future<Map<String, dynamic>> fetchUserTickets() async {
     try {
       Map<String, dynamic> response = await APIFunctions.getUserTickets(
         UserDataService.getUserID(),
       );
 
-      
-
       log("Data : ${response.toString()}");
       if (response['isSuccess']) {
-         return response;
-      
+        return response;
       }
-     
-      
     } catch (error) {
       log(error.toString());
       // Handle error
@@ -82,27 +75,26 @@ class _MyTicketScreenState extends State<MyTicketScreen> {
                           children: List.generate(
                             4,
                             (index) => Shimmer.fromColors(
-                              baseColor: TColors.lightDarkBackground.withOpacity(0.4),
+                              baseColor:
+                                  TColors.lightDarkBackground.withOpacity(0.4),
                               highlightColor: TColors.grey.withOpacity(0.18),
                               child: Container(
                                 margin: const EdgeInsets.only(bottom: 18),
                                 height: 240,
                                 width: double.infinity,
                                 color: TColors.primary,
-                                
                               ),
                             ),
                           ),
                         ),
                       ),
                     );
-                  } 
-                    if (snapshot.hasError) {
-                      return Text('${snapshot.error}');
-                    }
-                    // data call
-                    return screenUI(snapshot.data!['tickets']);
-                  
+                  }
+                  if (snapshot.hasError) {
+                    return Text('${snapshot.error}');
+                  }
+                  // data call
+                  return screenUI(snapshot.data!['tickets']);
                 },
               ),
             ],
@@ -115,14 +107,14 @@ class _MyTicketScreenState extends State<MyTicketScreen> {
   SingleChildScrollView screenUI(List data) {
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.symmetric( vertical : TSizes.defaultSpace),
+        padding: const EdgeInsets.symmetric(vertical: TSizes.defaultSpace),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: List.generate(
             data.length,
             (index) => Container(
               margin: const EdgeInsets.only(bottom: 18),
-              height: TSizes.displayHeight(context) * 0.147,
+              // height: TSizes.displayHeight(context) * 0.147,
               width: double.infinity,
               child: EventTicketVertical(
                 data: data[index],
