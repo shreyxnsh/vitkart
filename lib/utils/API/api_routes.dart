@@ -5,7 +5,7 @@ class Domain {
 String url = 'http://${Domain.domain}/api/v1';
 // String url = 'http://192.168.56.1:3001/api/v1';
 
-String registrationUrl = '$url/user/createNewAccount';
+String registrationUrl = '$url/user/signUp';
 String loginUrl = '$url/user/signIn';
 String otpVerificationUrl = '$url/emailVerification/verifyEmail';
 

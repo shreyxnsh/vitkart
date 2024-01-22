@@ -117,7 +117,7 @@ class RegisterController extends GetxController {
         print(regBody);
         Map<String, dynamic> reponse =
             await APIFunctions.createUser(data: regBody);
-        if (reponse['status'] == true) {
+        if (reponse['isSuccess']) {
           showErrorToast(
             Get.context!,
             reponse['message'],

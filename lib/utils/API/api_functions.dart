@@ -54,8 +54,8 @@ class APIFunctions {
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
-
-    if (response.statusCode == 200) {
+    log("response : ${response.statusCode}");
+    if (response.statusCode == 201) {
       Map<String, dynamic> jsonResponse =
           jsonDecode(await response.stream.bytesToString()); // Convert to JSON
       jsonResponse['isSuccess'] = true;
