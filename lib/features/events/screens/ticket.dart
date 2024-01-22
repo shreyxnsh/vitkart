@@ -141,7 +141,7 @@ class _TicketScreenState extends State<TicketScreen> {
               content: const Text("Are you sure you want to exit"),
               actions: [
                 CupertinoDialogAction(
-                    child: const Text("Yes"),
+                    child: const Text("Yes" , style: TextStyle(color: TColors.primary),),
                     onPressed: () {
                       Navigator.pushReplacement(context,
                           MaterialPageRoute(builder: (context) {
@@ -149,7 +149,7 @@ class _TicketScreenState extends State<TicketScreen> {
                       }));
                     }),
                 CupertinoDialogAction(
-                    child: const Text("No"),
+                    child: const Text("No", style: TextStyle(color: TColors.primary),),
                     onPressed: () {
                       Navigator.pop(_context);
                     }),
