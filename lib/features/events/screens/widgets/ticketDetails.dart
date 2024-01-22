@@ -11,7 +11,7 @@ import 'package:vitkart/utils/helpers/helper_functions.dart';
 class TicketDetailsContainer extends StatelessWidget {
   TicketDetailsContainer({super.key, this.onCapture});
 
-  // EventDetailController eventDetailController = Get.find();
+  EventDetailController eventDetailController = Get.find();
   final void Function()? onCapture;
   @override
   Widget build(BuildContext context) {
@@ -35,9 +35,7 @@ class TicketDetailsContainer extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                // eventDetailController.data["eventName"]
-                "jden"
-                ,
+                eventDetailController.data["eventName"],
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
               IconButton(
@@ -96,15 +94,15 @@ class TicketDetailsContainer extends StatelessWidget {
           const SizedBox(height: 5),
           Row(
             children: [
-              // Text(
-              //   "${DateFormat('hh:mma').format(eventDetailController.getStartTime())} - ${DateFormat('hh:mma').format(eventDetailController.getEndTime())}",
-              //   style: Theme.of(context).textTheme.bodyLarge,
-              // ),
-              // const Spacer(),
-              // Text(
-              //   " ${DateFormat('dd MMM yyyy').format(eventDetailController.getEventDate())}",
-              //   style: Theme.of(context).textTheme.bodyLarge,
-              // ),
+              Text(
+                "${DateFormat('hh:mma').format(eventDetailController.getStartTime())} - ${DateFormat('hh:mma').format(eventDetailController.getEndTime())}",
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+              const Spacer(),
+              Text(
+                " ${DateFormat('dd MMM yyyy').format(eventDetailController.getEventDate())}",
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
             ],
           ),
           const SizedBox(
@@ -126,17 +124,17 @@ class TicketDetailsContainer extends StatelessWidget {
           const SizedBox(height: 5),
           Row(
             children: [
-              // Text(
-              //   eventDetailController.data["eventVenue"],
-              //   style: Theme.of(context).textTheme.bodyLarge,
-              // ),
-              // const Spacer(),
-              // Text(
-              //   eventDetailController.data["ticketTypes"]
-              //           [eventDetailController.optionsSelection.value]
-              //       ["ticketTypeName"],
-              //   style: Theme.of(context).textTheme.bodyLarge,
-              // ),
+              Text(
+                eventDetailController.data["eventVenue"],
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+              const Spacer(),
+              Text(
+                eventDetailController.data["ticketTypes"]
+                        [eventDetailController.optionsSelection.value]
+                    ["ticketTypeName"],
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
             ],
           ),
           const SizedBox(
