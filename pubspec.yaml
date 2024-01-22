@@ -61,6 +61,7 @@ dependencies:
   dio: ^4.0.6
   device_info_plus: 
   image_gallery_saver: ^2.0.3
+  flutter_easy_faq: ^1.0.1
   
 
   #--------------- ./ PACKAGES END ------------------#
@@ -93,7 +94,6 @@ flutter:
     - assets/images/products/biscuit.png
     - assets/icons/categories/
     - assets/icons/events/
-    - assets/icons/payment_methods/
     - assets/images/content/back.png
     - assets/icons/vitkart/
     - assets/lottie/

@@ -69,7 +69,7 @@ class _EventCategoryScreenState extends State<EventCategoryScreen> {
                         margin: const EdgeInsets.only(bottom: 18),
                         height: 240,
                         width: double.infinity,
-                        child: TEventCategoryCard(
+                       child: TEventCategoryCard( 
                           data: widget.data[0],
                         ),
                       ),
