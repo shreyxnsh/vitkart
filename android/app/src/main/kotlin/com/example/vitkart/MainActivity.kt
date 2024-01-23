@@ -1,4 +1,4 @@
-package com.example.vitkart
+package com.shreyxnsh.vitkart
 
 import android.view.WindowManager.LayoutParams
 import io.flutter.embedding.android.FlutterActivity
