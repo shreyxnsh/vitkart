@@ -204,7 +204,7 @@ class THelperFunctions {
 
   Future requestStoragePermission() async {
     const platform = MethodChannel(
-        'com.example.androidstorage.android_12_flutter_storage/storage');
+        'com.shreyxnsh.androidstorage.android_12_flutter_storage/storage');
     try {
       await platform.invokeMethod('requestStoragePermission');
     } on PlatformException catch (e) {

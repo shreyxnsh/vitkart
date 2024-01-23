@@ -91,7 +91,7 @@ class TEventCategoryCard extends StatelessWidget {
                         // ignore: prefer_interpolation_to_compose_strings
                         "${DateFormat("dd MMM yyyy").format(DateTime.parse(data['eventDate']))} ${DateFormat("hh:mm a").format(DateTime.parse(data['eventStartTime']))}",
                     // "${DateFormat("dd MMM yyyy").format(DateTime.parse(data['eventDate']))} ${data['eventTime']}",
-                    ticketPrice: data['ticketPrice'] ?? "100",
+                    ticketPrice: data['ticketTypes'][0]['basePrice'].toString() ?? "100",
                   ),
                 ),
               ),

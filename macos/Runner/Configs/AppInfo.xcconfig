@@ -8,7 +8,7 @@
 PRODUCT_NAME = vitkart
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.example.vitkart
+PRODUCT_BUNDLE_IDENTIFIER = com.shreyxnsh.vitkart
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2023 com.example. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2023 com.shreyxnsh. All rights reserved.
