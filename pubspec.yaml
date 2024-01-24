@@ -17,7 +17,7 @@ dependencies:
   jwt_decoder:
   intl: ^0.18.1
   logger: ^2.0.1
-  url_launcher: ^6.1.12
+  url_launcher: ^6.2.4
   flutter_native_splash: ^2.3.1
   smooth_page_indicator: ^1.1.0
   loading_animation_widget: ^1.2.0+4

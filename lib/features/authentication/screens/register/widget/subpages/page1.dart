@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:vitkart/features/authentication/controllers/register/register_controller.dart';
 import 'package:vitkart/features/authentication/screens/login/widget/loginTextField.dart';
+import 'package:vitkart/utils/constants/colors.dart';
 import 'package:vitkart/utils/constants/sizes.dart';
 import 'package:vitkart/utils/constants/text_strings.dart';
 
@@ -59,15 +60,17 @@ class Page1 extends StatelessWidget {
             obscureText: !controller.isPassObscure.value,
             textInputAction: TextInputAction.next,
             suffixIcon: GestureDetector(
-              onTap: () {
-                controller.isPassObscure.value =
-                    !controller.isPassObscure.value;
-              },
-              child: Icon(
-                controller.isPassObscure.value
-                    ? Iconsax.eye
-                    : Iconsax.eye_slash,
-              ),
+                onTap: () {
+                  controller.isPassObscure.value = !controller.isPassObscure.value;
+                },
+                child: Icon(
+                  controller.isPassObscure.value ? Iconsax.eye : Iconsax.eye_slash,
+                  size: 18,
+                  color: !controller.isPassObscure.value
+                      ? TColors.white
+                      : TColors.primary,
+                ),
+              
             ),
           ),
           const SizedBox(
