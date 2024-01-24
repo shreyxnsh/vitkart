@@ -94,7 +94,7 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
       // AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
       final result =
           await ImageGallerySaver.saveImage(imageDate.buffer.asUint8List());
-      showSuccessToast(context, "Image saved in gallery");
+      showSuccessToast(context, "Ticket Saved in Gallery :)");
     } catch (e) {
       log(e.toString());
     }
