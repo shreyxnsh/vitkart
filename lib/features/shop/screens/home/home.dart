@@ -41,6 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
   List<ProductData> products = [];
   late String userId;
   late String userName;
+  // late String userContact;
 
   @override
   void initState() {
@@ -57,10 +58,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
       userId = jwtDecodedToken['userID'];
       userName = jwtDecodedToken['userName'];
+      // userContact = jwtDecodedToken['userContactNum'];
       // userId = jwtDecodedToken['_id'];
       print("User token in HomeScreen is : $userToken");
       print("User ID in HomeScreen is : $userId");
       print("User Name in HomeScreen is : $userName");
+      // print("User Name in HomeScreen is : $userContact");
     } else {
       // Handle the case where the token is null
       print("Token is null");
