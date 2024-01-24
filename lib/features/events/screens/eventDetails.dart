@@ -12,6 +12,7 @@ import 'package:vitkart/common/widgets/images/t_circular.image.dart';
 import 'package:vitkart/common/widgets/text/product_price_text.dart';
 import 'package:vitkart/common/widgets/text/section_heading.dart';
 import 'package:vitkart/features/authentication/controllers/eventDetail/eventDetail_controller.dart';
+import 'package:vitkart/features/authentication/screens/register/widget/cherryToast.dart';
 import 'package:vitkart/features/events/screens/previewOrder.dart';
 import 'package:vitkart/features/events/screens/widgets/eventDetailHeader.dart';
 import 'package:vitkart/features/events/screens/widgets/eventDetailsHeaderText.dart';
@@ -54,6 +55,7 @@ class _EventDetailScreenState extends State<EventDetailScreen>
   void initState() {
     super.initState();
     eventDetailController.data = widget.data;
+    eventDetailController.optionsSelection.value = 0;
     eventDetailController.ticektCountUpdate();
   }
 
@@ -101,7 +103,20 @@ class _EventDetailScreenState extends State<EventDetailScreen>
                 controller.success(); //starts success animation
                 await Future.delayed(const Duration(seconds: 1));
                 controller.reset();
-                eventDetailController.createOrderIdApiHit(context);
+                if (eventDetailController.data['ticketTypes']
+                            [eventDetailController.optionsSelection.value]
+                        ['availableQuantity'] == 0) {
+                  log("No tickets available");
+                  showErrorToast(context, "No tickets available");
+                } else {
+                  log("full tickets available");
+                  eventDetailController.createOrderIdApiHit(context);
+                }
+                // 
+                // else{
+
+                // }
+                
               },
               child: Center(
                   child: Row(

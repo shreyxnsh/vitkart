@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:vitkart/common/widgets/appbar/appbar.dart';
 import 'package:vitkart/common/widgets/list_tiles/settings_menu.dart';
 import 'package:vitkart/common/widgets/text/section_heading.dart';
@@ -102,7 +103,7 @@ class SettingScreen extends StatelessWidget {
                       title: "My Tickets",
                       subtitle: "Get All your event tickets here!",
                       onTap: () {
-                        Get.to(() =>  MyTicketScreen());
+                        Get.to(() => MyTicketScreen());
                       },
                     ),
                     TSettingsMenuTile(
@@ -110,7 +111,7 @@ class SettingScreen extends StatelessWidget {
                       title: "My Addresses",
                       subtitle: "Set shopping delivery address",
                       onTap: () {
-                        Get.to(() =>  AddressScreen());
+                        Get.to(() => AddressScreen());
                       },
                     ),
 
@@ -125,7 +126,7 @@ class SettingScreen extends StatelessWidget {
                       title: "Notifications",
                       subtitle: "All Notifications sent by VITKART",
                       onTap: () {
-                        Get.to(() =>  NotificationScreen());
+                        Get.to(() => NotificationScreen());
                       },
                     ),
                     TSettingsMenuTile(
@@ -133,7 +134,7 @@ class SettingScreen extends StatelessWidget {
                       title: "Terms & Conditions",
                       subtitle: "View all terms and conditions by VITKART 2024",
                       onTap: () {
-                        Get.to(() =>  TermsAndConditionScreen());
+                        Get.to(() => TermsAndConditionScreen());
                       },
                     ),
                   ],
@@ -238,6 +239,95 @@ class SettingScreen extends StatelessWidget {
                 ),
                 const SizedBox(
                   height: TSizes.spaceBtwSections * 2.5,
+                ),
+                Center(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Developed with ❤️ (App Version : v1.0.0)",
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodySmall!
+                            .copyWith(fontStyle: FontStyle.normal),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          GestureDetector(
+                            onTap: () async {
+                              String url =
+                                  "https://www.linkedin.com/in/yaviral17/";
+                              var urllaunchable = await canLaunchUrl(Uri.parse(
+                                  url)); //canLaunch is from url_launcher package
+                              if (urllaunchable) {
+                                await launchUrl(Uri.parse(
+                                    url)); //launch is from url_launcher package to launch URL
+                              } else {
+                                print("URL can't be launched.");
+                              }
+                            },
+                            child: Text(
+                              "@yaviral17  |",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall!
+                                  .copyWith(color: TColors.primary),
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () async {
+                              String url =
+                                  "https://www.linkedin.com/in/shreyxnsh/";
+                              var urllaunchable = await canLaunchUrl(Uri.parse(
+                                  url)); //canLaunch is from url_launcher package
+                              if (urllaunchable) {
+                                await launchUrl(Uri.parse(
+                                    url)); //launch is from url_launcher package to launch URL
+                              } else {
+                                print("URL can't be launched.");
+                              }
+                            },
+                            child: Text(
+                              "  @shreyxnsh  |",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall!
+                                  .copyWith(color: TColors.primary),
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () async {
+                              String url =
+                                  "https://www.linkedin.com/in/anand-lahoti/";
+                              var urllaunchable = await canLaunchUrl(Uri.parse(
+                                  url)); //canLaunch is from url_launcher package
+                              if (urllaunchable) {
+                                await launchUrl(Uri.parse(
+                                    url)); //launch is from url_launcher package to launch URL
+                              } else {
+                                print("URL can't be launched.");
+                              }
+                            },
+                            child: Text(
+                              "   @foundanand ",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall!
+                                  .copyWith(color: TColors.primary),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: TSizes.spaceBtwSections,
                 ),
               ],
             ),

@@ -51,12 +51,17 @@ class ProfileScreen extends StatelessWidget {
               ),
               TProfileMenu(
                 title: 'Contact',
-                value: '+91 9494315111',
+                value: UserDataService.getUserBatch(),
                 onPressed: () {},
               ),
               TProfileMenu(
                 title: 'Date of Birth',
                 value: UserDataService.getUserBirthDate(),
+                onPressed: () {},
+              ),
+              TProfileMenu(
+                title: 'Gender',
+                value: UserDataService.getUserGender(),
                 onPressed: () {},
               ),
 
