@@ -55,6 +55,7 @@ class _EventDetailScreenState extends State<EventDetailScreen>
   void initState() {
     super.initState();
     eventDetailController.data = widget.data;
+    eventDetailController.optionsSelection.value = 0;
     eventDetailController.ticektCountUpdate();
   }
 
