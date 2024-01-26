@@ -62,6 +62,7 @@ dependencies:
   device_info_plus: 
   image_gallery_saver: ^2.0.3
   flutter_easy_faq: ^1.0.1
+  cached_network_image: ^3.3.1
   
 
   #--------------- ./ PACKAGES END ------------------#
