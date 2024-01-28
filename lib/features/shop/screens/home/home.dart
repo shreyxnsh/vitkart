@@ -21,6 +21,7 @@ import 'package:vitkart/features/shop/screens/home/widgets/home_categories.dart'
 import 'package:vitkart/features/shop/screens/home/widgets/promo_slider.dart';
 import 'package:vitkart/utils/API/api_functions.dart';
 import 'package:vitkart/utils/API/api_routes.dart';
+import 'package:vitkart/utils/constants/check_mark_indicator.dart';
 import 'package:vitkart/utils/constants/colors.dart';
 
 import 'package:vitkart/utils/constants/image_strings.dart';
@@ -41,6 +42,9 @@ class _HomeScreenState extends State<HomeScreen> {
   List<ProductData> products = [];
   late String userId;
   late String userName;
+
+  var _forceRefresh = Object();
+
   // late String userContact;
 
   @override
@@ -110,122 +114,134 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const TPrimaryHeaderContainer(
-              // height: TSizes.displayHeight(context) * 0.3,
-              child: Column(
-                children: [
-                  /// App Bar
-                  SizedBox(
-                    height: 16,
-                  ),
-                  ThemeHomeAppBar(),
-                  SizedBox(
-                    height: TSizes.spaceBtwInputFields,
-                  ),
+      body: CheckMarkIndicator(
+        onRefresh: () async {
+          setState(() {
+            _forceRefresh = Object();
+          });
+        },
+        child: SingleChildScrollView(
+          child: Column(
+            key: ValueKey(_forceRefresh),
+            children: [
+              const TPrimaryHeaderContainer(
+                // height: TSizes.displayHeight(context) * 0.3,
+                child: Column(
+                  children: [
+                    /// App Bar
+                    SizedBox(
+                      height: 16,
+                    ),
+                    ThemeHomeAppBar(
+                      key: ValueKey([0]),
+                    ),
+                    SizedBox(
+                      height: TSizes.spaceBtwInputFields,
+                    ),
 
-                  // Search Bar
-                  TSearchContainer(
-                    text: "Search Event",
-                    icon: Iconsax.search_normal,
-                  ),
-                  SizedBox(
-                    height: TSizes.spaceBtwSections + 24,
-                  ),
-                  // category
-                ],
+                    // Search Bar
+                    TSearchContainer(
+                      text: "Search Event",
+                      icon: Iconsax.search_normal,
+                    ),
+                    SizedBox(
+                      height: TSizes.spaceBtwSections + 24,
+                    ),
+                    // category
+                  ],
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(
-                TSizes.defaultSpace,
-              ),
-              child: Column(
-                children: [
-                  FutureBuilder(
-                    future: getBanners(),
-                    builder: (context, snapshot) {
-                      if (!snapshot.hasData) {
-                        return SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(children: [
-                            ...List.generate(
-                              2,
-                              (index) => Shimmer.fromColors(
-                                baseColor: TColors.lightDarkBackground
-                                    .withOpacity(0.4),
-                                highlightColor: TColors.grey.withOpacity(0.18),
-                                child: TRoundedContainer(
-                                  margin: const EdgeInsets.symmetric(
-                                      horizontal: TSizes.defaultSpace),
-                                  radius: 12,
-                                  backgroundColor: TColors.light,
-                                  height: TSizes.displayHeight(context) * 0.24,
-                                  width: TSizes.displayWidth(context) * 0.8,
+              Padding(
+                padding: const EdgeInsets.all(
+                  TSizes.defaultSpace,
+                ),
+                child: Column(
+                  children: [
+                    FutureBuilder(
+                      future: getBanners(),
+                      builder: (context, snapshot) {
+                        if (!snapshot.hasData) {
+                          return SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(children: [
+                              ...List.generate(
+                                2,
+                                (index) => Shimmer.fromColors(
+                                  baseColor: TColors.lightDarkBackground
+                                      .withOpacity(0.4),
+                                  highlightColor:
+                                      TColors.grey.withOpacity(0.18),
+                                  child: TRoundedContainer(
+                                    margin: const EdgeInsets.symmetric(
+                                        horizontal: TSizes.defaultSpace),
+                                    radius: 12,
+                                    backgroundColor: TColors.light,
+                                    height:
+                                        TSizes.displayHeight(context) * 0.24,
+                                    width: TSizes.displayWidth(context) * 0.8,
+                                  ),
                                 ),
                               ),
-                            ),
-                          ]),
+                            ]),
+                          );
+                        }
+                        return TPromoSlider(
+                          onTapRoutes: [
+                            ...List.generate(
+                              (snapshot.data!['banners'] ?? 0).length,
+                              (index) {
+                                return EventCategoryScreen(
+                                  data: SampleDataForUI.eventCategoryData,
+                                  categoryName: snapshot.data!['banners'][index]
+                                      ['bannerTitle'],
+                                );
+                              },
+                            )
+                          ],
+                          banners: [
+                            ...List.generate(
+                              (snapshot.data!['banners'] ?? 0).length,
+                              (index) {
+                                return snapshot.data!['banners'][index]
+                                    ['bannerImage'][0];
+                              },
+                            )
+                          ],
                         );
-                      }
-                      return TPromoSlider(
-                        onTapRoutes: [
-                          ...List.generate(
-                            (snapshot.data!['banners'] ?? 0).length,
-                            (index) {
-                              return EventCategoryScreen(
-                                data: SampleDataForUI.eventCategoryData,
-                                categoryName: snapshot.data!['banners'][index]
-                                    ['bannerTitle'],
-                              );
-                            },
-                          )
-                        ],
-                        banners: [
-                          ...List.generate(
-                            (snapshot.data!['banners'] ?? 0).length,
-                            (index) {
-                              return snapshot.data!['banners'][index]
-                                  ['bannerImage'][0];
-                            },
-                          )
-                        ],
-                      );
-                    },
-                  ),
-                  const SizedBox(
-                    height: TSizes.spaceBtwItems,
-                  ),
-                  TSectionHeading(
-                    title: "Advitya 2024 ",
-                    showActionButton: true,
-                    onPressed: () {
-                      Get.to(const PopularProductScreen());
-                    },
-                  ),
-                  EventsHorizontalListFromAPI(category: 'advitya'),
-                  TSectionHeading(
-                    title: "Upcoming Events",
-                    showActionButton: true,
-                    onPressed: () {
-                      Get.to(const PopularProductScreen());
-                    },
-                  ),
-                  EventsHorizontalListFromAPI(),
-                  TSectionHeading(
-                    title: "Popular Events",
-                    showActionButton: true,
-                    onPressed: () {
-                      Get.to(const PopularProductScreen());
-                    },
-                  ),
-                  EventsHorizontalListFromAPI(),
-                ],
-              ),
-            )
-          ],
+                      },
+                    ),
+                    const SizedBox(
+                      height: TSizes.spaceBtwItems,
+                    ),
+                    TSectionHeading(
+                      title: "Advitya 2024 ",
+                      showActionButton: true,
+                      onPressed: () {
+                        Get.to(const PopularProductScreen());
+                      },
+                    ),
+                    EventsHorizontalListFromAPI(category: 'advitya'),
+                    TSectionHeading(
+                      title: "Upcoming Events",
+                      showActionButton: true,
+                      onPressed: () {
+                        Get.to(const PopularProductScreen());
+                      },
+                    ),
+                    EventsHorizontalListFromAPI(),
+                    TSectionHeading(
+                      title: "Popular Events",
+                      showActionButton: true,
+                      onPressed: () {
+                        Get.to(const PopularProductScreen());
+                      },
+                    ),
+                    EventsHorizontalListFromAPI(),
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

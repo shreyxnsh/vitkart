@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:action_slider/action_slider.dart';
+import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
@@ -18,6 +19,7 @@ import 'package:vitkart/features/events/screens/widgets/eventDetailHeader.dart';
 import 'package:vitkart/features/events/screens/widgets/eventDetailsHeaderText.dart';
 import 'package:vitkart/features/events/screens/widgets/eventPriceCard.dart';
 import 'package:vitkart/utils/API/api_functions.dart';
+import 'package:vitkart/utils/constants/check_mark_indicator.dart';
 import 'package:vitkart/utils/constants/colors.dart';
 import 'package:vitkart/utils/constants/image_strings.dart';
 import 'package:vitkart/utils/constants/sizes.dart';
@@ -44,11 +46,6 @@ class _EventDetailScreenState extends State<EventDetailScreen>
   EventDetailController eventDetailController =
       Get.put(EventDetailController());
 
-  // Event Timeline
-
-  int selectedTimeLine = 0;
-  int selectedTicket = -1;
-
   final _controller = ActionSliderController();
 
   @override
@@ -57,6 +54,22 @@ class _EventDetailScreenState extends State<EventDetailScreen>
     eventDetailController.data = widget.data;
     eventDetailController.optionsSelection.value = 0;
     eventDetailController.ticektCountUpdate();
+  }
+
+  onRefresh(BuildContext context) async {
+    Map<String, dynamic> response =
+        await APIFunctions.getEvents(id: eventDetailController.data['_id']);
+    if (response['isSuccess']) {
+      if (response['events'].isEmpty) {
+        showErrorToast(context, 'No events found');
+        return;
+      }
+      setState(() {
+        eventDetailController.data = response['events'][0];
+      });
+      return;
+    }
+    showErrorToast(context, response['message']);
   }
 
   // @override
@@ -105,18 +118,18 @@ class _EventDetailScreenState extends State<EventDetailScreen>
                 controller.reset();
                 if (eventDetailController.data['ticketTypes']
                             [eventDetailController.optionsSelection.value]
-                        ['availableQuantity'] == 0) {
+                        ['availableQuantity'] ==
+                    0) {
                   log("No tickets available");
                   showErrorToast(context, "No tickets available");
                 } else {
                   log("full tickets available");
                   eventDetailController.createOrderIdApiHit(context);
                 }
-                // 
+                //
                 // else{
 
                 // }
-                
               },
               child: Center(
                   child: Row(
@@ -153,371 +166,384 @@ class _EventDetailScreenState extends State<EventDetailScreen>
         //     ),
       ),
 
-      body: SingleChildScrollView(
-          child: Column(
-        children: [
-          TEventHeaderContainer(
-              height: TSizes.displayHeight(context) * 0.36,
-              image: widget.data['eventImages'][1],
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Column(
+      body: CheckMarkIndicator(
+        onRefresh: () async {
+          await onRefresh(context);
+        },
+        child: SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            child: Column(
+              children: [
+                TEventHeaderContainer(
+                    height: TSizes.displayHeight(context) * 0.36,
+                    image: widget.data['eventImages'][1],
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                Get.back();
+                              },
+                              child: Image.asset(
+                                "assets/images/content/back.png",
+                                width: 40,
+                                height: 40,
+                              ),
+                            ),
+                          ]),
+                    )),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: TSizes.defaultSpace,
+                    vertical: 4,
+                  ),
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Get.back();
-                        },
-                        child: Image.asset(
-                          "assets/images/content/back.png",
-                          width: 40,
-                          height: 40,
-                        ),
-                      ),
-                    ]),
-              )),
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: TSizes.defaultSpace,
-              vertical: 4,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Obx(
-                  () => TEventDetailsHeaderText(
-                    ename: widget.data['eventName'],
-                    edate: widget.data['eventDate'],
-                    estarttime: widget.data['eventStartTime'],
-                    eendtime: widget.data['eventEndTime'],
-                    evenue: widget.data['eventVenue'],
-                    eprice:
-                        "${eventDetailController.data['ticketTypes'][eventDetailController.optionsSelection.value]['basePrice']}",
-                    eticketsLeft: eventDetailController.data['ticketTypes']
-                            [eventDetailController.optionsSelection.value]
-                        ['availableQuantity'],
-                  ),
-                ),
-                const SizedBox(
-                  height: TSizes.spaceBtwSections,
-                ),
-                // const TSectionHeading(
-                //   title: "Timeline",
-                //   showActionButton: false,
-                // ),
-                // Stack(
-                //   children: [
-                //     // AnimatedPositioned(
-                //     //   duration: const Duration(milliseconds: 400),
-                //     //   curve: Curves.easeInOut,
-                //     //   left: previewWidgetX -
-                //     //       (TSizes.displayWidth(context) * 0.048),
-                //     //   top: previewWidgetY -
-                //     //       (TSizes.displayHeight(context) * 0.486),
-                //     //   child: AnimatedContainer(
-                //     //     duration: Duration(milliseconds: 400),
-                //     //     curve: Curves.easeInOut,
-                //     //     width: 36,
-                //     //     height: 36,
-                //     //     decoration: BoxDecoration(
-                //     //       color: TColors.primary,
-                //     //       borderRadius: BorderRadius.circular(100),
-                //     //       border: Border.all(
-                //     //         color: TColors.primary,
-                //     //       ),
-                //     //     ),
-                //     //   ),
-                //     // ),
-                //     Column(
-                //       children: [
-                //         const SizedBox(
-                //           height: TSizes.spaceBtwItems,
-                //         ),
-                //         Center(
-                //           child: FixedTimeline(
-                //             theme: TimelineThemeData(
-                //               direction: Axis.horizontal,
-                //             ),
-                //             // direction: Axis.horizontal,
-                //             mainAxisSize: MainAxisSize.min,
-                //             children: [
-                //               InkWell(
-                //                 borderRadius: BorderRadius.circular(20),
-                //                 onTap: () {
-                //                   selectedTimeLine = 0;
-                //                   log("X Y : ${getXYfromKey(keys[0])}");
-                //                 },
-                //                 child: OutlinedDotIndicator(
-                //                   key: keys[0],
-                //                   borderWidth: 2,
-                //                   size: 28,
-                //                   child: Icon(
-                //                     Iconsax.tick_circle,
-                //                     size: 18,
-                //                   ),
-                //                   color: TColors.primary,
-                //                   backgroundColor: TColors.primary,
-                //                 ),
-                //               ),
-                //               SizedBox(
-                //                 width: timelineSpace,
-                //                 child: SolidLineConnector(
-                //                   color: TColors.primary,
-                //                   thickness: 2,
-                //                 ),
-                //               ),
-                //               InkWell(
-                //                 borderRadius: BorderRadius.circular(20),
-                //                 onTap: () {
-                //                   selectedTimeLine = 1;
-                //                   log("X Y : ${getXYfromKey(keys[1])}");
-                //                 },
-                //                 child: OutlinedDotIndicator(
-                //                   key: keys[1],
-                //                   borderWidth: 2,
-                //                   size: 28,
-                //                   child: Icon(
-                //                     Iconsax.tick_circle,
-                //                     size: 18,
-                //                   ),
-                //                   color: TColors.primary,
-                //                   backgroundColor: TColors.primary,
-                //                 ),
-                //               ),
-                //               SizedBox(
-                //                 width: timelineSpace,
-                //                 child: DashedLineConnector(
-                //                   color: TColors.warning,
-                //                   thickness: 2,
-                //                   dash: 8,
-                //                   gap: 4,
-                //                 ),
-                //               ),
-                //               InkWell(
-                //                 borderRadius: BorderRadius.circular(20),
-                //                 onTap: () {
-                //                   selectedTimeLine = 2;
-                //                   log("X Y : ${getXYfromKey(keys[2])}");
-                //                 },
-                //                 child: OutlinedDotIndicator(
-                //                   key: keys[2],
-                //                   borderWidth: 2,
-                //                   size: 28,
-                //                   child: Icon(
-                //                     Iconsax.clock,
-                //                     size: 18,
-                //                   ),
-                //                   color: TColors.warning,
-                //                   backgroundColor: TColors.warning,
-                //                 ),
-                //               ),
-                //               SizedBox(
-                //                 width: timelineSpace,
-                //                 child: DashedLineConnector(
-                //                   color: Colors.blue[800],
-                //                   thickness: 2,
-                //                   gap: 4,
-                //                 ),
-                //               ),
-                //               InkWell(
-                //                 borderRadius: BorderRadius.circular(20),
-                //                 onTap: () {
-                //                   selectedTimeLine = 3;
-                //                   log("X Y : ${getXYfromKey(keys[3])}");
-                //                 },
-                //                 child: OutlinedDotIndicator(
-                //                   key: keys[3],
-                //                   borderWidth: 2,
-                //                   size: 28,
-                //                   child: Icon(
-                //                     Icons.circle_outlined,
-                //                     size: 18,
-                //                     color: TColors.white,
-                //                   ),
-                //                   color: Colors.blue[800],
-                //                   backgroundColor: Colors.blue[800],
-                //                 ),
-                //               ),
-                //             ],
-                //           ),
-                //         ),
-                //         const SizedBox(
-                //           height: TSizes.spaceBtwItems,
-                //         ),
-                //       ],
-                //     ),
-                //   ],
-                // ),
-
-                // const SizedBox(
-                //   height: TSizes.spaceBtwItems,
-                // ),
-
-                Text(
-                  "Select Ticket",
-                  style: Theme.of(context).textTheme.headlineSmall,
-                ),
-
-                GridView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: widget.data["ticketTypes"].length,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 8,
-                    mainAxisSpacing: 8,
-                    childAspectRatio: 2,
-                    // Add spacing between items horizontally
-                  ),
-                  itemBuilder: (context, index) {
-                    return Obx(
-                      () => GestureDetector(
-                        onTap: () {
-                          eventDetailController.optionsSelection.value = index;
-                        },
-                        child: Center(
-                          child: TicketTypeSelectionWidget(
-                            isSeleted:
-                                eventDetailController.optionsSelection.value ==
-                                    index,
-                            ticketName: widget.data["ticketTypes"][index]
-                                ["ticketTypeName"],
-                            ticketPrice:
-                                "₹ ${widget.data["ticketTypes"][index]["basePrice"]}",
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                ),
-                const SizedBox(
-                  height: TSizes.spaceBtwSections,
-                ),
-
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const TSectionHeading(
-                      title: "Description",
-                      showActionButton: false,
-                    ),
-                    const SizedBox(
-                      height: TSizes.spaceBtwItems,
-                    ),
-                    Text(
-                      widget.data['eventDesc'],
-                      style: Theme.of(context).textTheme.titleSmall,
-                      maxLines: 4,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: TSizes.spaceBtwItems,
-                ),
-                const TSectionHeading(
-                  title: "Club Details",
-                  showActionButton: false,
-                ),
-                const SizedBox(
-                  height: TSizes.spaceBtwItems,
-                ),
-                TRoundedContainer(
-                  height: TSizes.displayHeight(context) * 0.17,
-                  padding: const EdgeInsets.all(TSizes.md),
-                  width: double.infinity,
-                  backgroundColor:
-                      dark ? TColors.lightDarkBackground : TColors.light,
-                  child: Row(
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(100),
-                        child: Image.network(
-                          widget.data['eventImages'][0],
-                          fit: BoxFit.fill,
-                          width: TSizes.displayWidth(context) * 0.27,
+                      Obx(
+                        () => TEventDetailsHeaderText(
+                          ename: widget.data['eventName'],
+                          edate: widget.data['eventDate'],
+                          estarttime: widget.data['eventStartTime'],
+                          eendtime: widget.data['eventEndTime'],
+                          evenue: widget.data['eventVenue'],
+                          eprice:
+                              "${eventDetailController.data['ticketTypes'][eventDetailController.optionsSelection.value]['basePrice']}",
+                          eticketsLeft: eventDetailController
+                                      .data['ticketTypes']
+                                  [eventDetailController.optionsSelection.value]
+                              ['availableQuantity'],
                         ),
                       ),
                       const SizedBox(
-                        width: TSizes.md,
+                        height: TSizes.spaceBtwSections,
                       ),
+                      // const TSectionHeading(
+                      //   title: "Timeline",
+                      //   showActionButton: false,
+                      // ),
+                      // Stack(
+                      //   children: [
+                      //     // AnimatedPositioned(
+                      //     //   duration: const Duration(milliseconds: 400),
+                      //     //   curve: Curves.easeInOut,
+                      //     //   left: previewWidgetX -
+                      //     //       (TSizes.displayWidth(context) * 0.048),
+                      //     //   top: previewWidgetY -
+                      //     //       (TSizes.displayHeight(context) * 0.486),
+                      //     //   child: AnimatedContainer(
+                      //     //     duration: Duration(milliseconds: 400),
+                      //     //     curve: Curves.easeInOut,
+                      //     //     width: 36,
+                      //     //     height: 36,
+                      //     //     decoration: BoxDecoration(
+                      //     //       color: TColors.primary,
+                      //     //       borderRadius: BorderRadius.circular(100),
+                      //     //       border: Border.all(
+                      //     //         color: TColors.primary,
+                      //     //       ),
+                      //     //     ),
+                      //     //   ),
+                      //     // ),
+                      //     Column(
+                      //       children: [
+                      //         const SizedBox(
+                      //           height: TSizes.spaceBtwItems,
+                      //         ),
+                      //         Center(
+                      //           child: FixedTimeline(
+                      //             theme: TimelineThemeData(
+                      //               direction: Axis.horizontal,
+                      //             ),
+                      //             // direction: Axis.horizontal,
+                      //             mainAxisSize: MainAxisSize.min,
+                      //             children: [
+                      //               InkWell(
+                      //                 borderRadius: BorderRadius.circular(20),
+                      //                 onTap: () {
+                      //                   selectedTimeLine = 0;
+                      //                   log("X Y : ${getXYfromKey(keys[0])}");
+                      //                 },
+                      //                 child: OutlinedDotIndicator(
+                      //                   key: keys[0],
+                      //                   borderWidth: 2,
+                      //                   size: 28,
+                      //                   child: Icon(
+                      //                     Iconsax.tick_circle,
+                      //                     size: 18,
+                      //                   ),
+                      //                   color: TColors.primary,
+                      //                   backgroundColor: TColors.primary,
+                      //                 ),
+                      //               ),
+                      //               SizedBox(
+                      //                 width: timelineSpace,
+                      //                 child: SolidLineConnector(
+                      //                   color: TColors.primary,
+                      //                   thickness: 2,
+                      //                 ),
+                      //               ),
+                      //               InkWell(
+                      //                 borderRadius: BorderRadius.circular(20),
+                      //                 onTap: () {
+                      //                   selectedTimeLine = 1;
+                      //                   log("X Y : ${getXYfromKey(keys[1])}");
+                      //                 },
+                      //                 child: OutlinedDotIndicator(
+                      //                   key: keys[1],
+                      //                   borderWidth: 2,
+                      //                   size: 28,
+                      //                   child: Icon(
+                      //                     Iconsax.tick_circle,
+                      //                     size: 18,
+                      //                   ),
+                      //                   color: TColors.primary,
+                      //                   backgroundColor: TColors.primary,
+                      //                 ),
+                      //               ),
+                      //               SizedBox(
+                      //                 width: timelineSpace,
+                      //                 child: DashedLineConnector(
+                      //                   color: TColors.warning,
+                      //                   thickness: 2,
+                      //                   dash: 8,
+                      //                   gap: 4,
+                      //                 ),
+                      //               ),
+                      //               InkWell(
+                      //                 borderRadius: BorderRadius.circular(20),
+                      //                 onTap: () {
+                      //                   selectedTimeLine = 2;
+                      //                   log("X Y : ${getXYfromKey(keys[2])}");
+                      //                 },
+                      //                 child: OutlinedDotIndicator(
+                      //                   key: keys[2],
+                      //                   borderWidth: 2,
+                      //                   size: 28,
+                      //                   child: Icon(
+                      //                     Iconsax.clock,
+                      //                     size: 18,
+                      //                   ),
+                      //                   color: TColors.warning,
+                      //                   backgroundColor: TColors.warning,
+                      //                 ),
+                      //               ),
+                      //               SizedBox(
+                      //                 width: timelineSpace,
+                      //                 child: DashedLineConnector(
+                      //                   color: Colors.blue[800],
+                      //                   thickness: 2,
+                      //                   gap: 4,
+                      //                 ),
+                      //               ),
+                      //               InkWell(
+                      //                 borderRadius: BorderRadius.circular(20),
+                      //                 onTap: () {
+                      //                   selectedTimeLine = 3;
+                      //                   log("X Y : ${getXYfromKey(keys[3])}");
+                      //                 },
+                      //                 child: OutlinedDotIndicator(
+                      //                   key: keys[3],
+                      //                   borderWidth: 2,
+                      //                   size: 28,
+                      //                   child: Icon(
+                      //                     Icons.circle_outlined,
+                      //                     size: 18,
+                      //                     color: TColors.white,
+                      //                   ),
+                      //                   color: Colors.blue[800],
+                      //                   backgroundColor: Colors.blue[800],
+                      //                 ),
+                      //               ),
+                      //             ],
+                      //           ),
+                      //         ),
+                      //         const SizedBox(
+                      //           height: TSizes.spaceBtwItems,
+                      //         ),
+                      //       ],
+                      //     ),
+                      //   ],
+                      // ),
+
+                      // const SizedBox(
+                      //   height: TSizes.spaceBtwItems,
+                      // ),
+
+                      Text(
+                        "Select Ticket",
+                        style: Theme.of(context).textTheme.headlineSmall,
+                      ),
+
+                      GridView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: widget.data["ticketTypes"].length,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 8,
+                          mainAxisSpacing: 8,
+                          childAspectRatio: 2,
+                          // Add spacing between items horizontally
+                        ),
+                        itemBuilder: (context, index) {
+                          return Obx(
+                            () => GestureDetector(
+                              onTap: () {
+                                eventDetailController.optionsSelection.value =
+                                    index;
+                              },
+                              child: Center(
+                                child: TicketTypeSelectionWidget(
+                                  isSeleted: eventDetailController
+                                          .optionsSelection.value ==
+                                      index,
+                                  ticketName: widget.data["ticketTypes"][index]
+                                      ["ticketTypeName"],
+                                  ticketPrice:
+                                      "₹ ${widget.data["ticketTypes"][index]["basePrice"]}",
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                      const SizedBox(
+                        height: TSizes.spaceBtwSections,
+                      ),
+
                       Column(
-                        mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SizedBox(
-                            width: TSizes.displayWidth(context) * 0.5,
-                            child: Text(
-                              widget.data['eventOrg'],
-                              maxLines: 1,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleLarge!
-                                  .copyWith(
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                            ),
+                          const TSectionHeading(
+                            title: "Description",
+                            showActionButton: false,
                           ),
                           const SizedBox(
-                            height: 12,
+                            height: TSizes.spaceBtwItems,
                           ),
                           Text(
-                            widget.data['clubPerson'],
-                            maxLines: 1,
-                            softWrap: false,
-                            style:
-                                Theme.of(context).textTheme.bodyLarge!.copyWith(
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
+                            widget.data['eventDesc'],
+                            style: Theme.of(context).textTheme.titleSmall,
+                            maxLines: 4,
+                            overflow: TextOverflow.ellipsis,
                           ),
-                          SizedBox(
-                            width: TSizes.displayWidth(context) * 0.5,
-                            child: Text(
-                              widget.data['clubEmail'],
-                              maxLines: 1,
-                              //  softWrap: false,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyLarge!
-                                  .copyWith(
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                            ),
-                          ),
-                          Text(
-                            widget.data['clubPhone'],
-                            maxLines: 1,
-                            style:
-                                Theme.of(context).textTheme.bodyLarge!.copyWith(
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                          )
                         ],
-                      )
+                      ),
+                      const SizedBox(
+                        height: TSizes.spaceBtwItems,
+                      ),
+                      const TSectionHeading(
+                        title: "Club Details",
+                        showActionButton: false,
+                      ),
+                      const SizedBox(
+                        height: TSizes.spaceBtwItems,
+                      ),
+                      TRoundedContainer(
+                        height: TSizes.displayHeight(context) * 0.17,
+                        padding: const EdgeInsets.all(TSizes.md),
+                        width: double.infinity,
+                        backgroundColor:
+                            dark ? TColors.lightDarkBackground : TColors.light,
+                        child: Row(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(100),
+                              child: Image.network(
+                                widget.data['eventImages'][0],
+                                fit: BoxFit.fill,
+                                width: TSizes.displayWidth(context) * 0.27,
+                              ),
+                            ),
+                            const SizedBox(
+                              width: TSizes.md,
+                            ),
+                            Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  width: TSizes.displayWidth(context) * 0.5,
+                                  child: Text(
+                                    widget.data['eventOrg'],
+                                    maxLines: 1,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleLarge!
+                                        .copyWith(
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 12,
+                                ),
+                                Text(
+                                  widget.data['clubPerson'],
+                                  maxLines: 1,
+                                  softWrap: false,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge!
+                                      .copyWith(
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                ),
+                                SizedBox(
+                                  width: TSizes.displayWidth(context) * 0.5,
+                                  child: Text(
+                                    widget.data['clubEmail'],
+                                    maxLines: 1,
+                                    //  softWrap: false,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyLarge!
+                                        .copyWith(
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                  ),
+                                ),
+                                Text(
+                                  widget.data['clubPhone'],
+                                  maxLines: 1,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge!
+                                      .copyWith(
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                )
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+
+                      const SizedBox(
+                        height: TSizes.spaceBtwItems,
+                      ),
+                      const SizedBox(
+                        height: TSizes.spaceBtwSections,
+                      ),
+                      const SizedBox(
+                        height: TSizes.spaceBtwSections,
+                      ),
+                      const SizedBox(
+                        height: TSizes.spaceBtwSections,
+                      ),
                     ],
                   ),
-                ),
-
-                const SizedBox(
-                  height: TSizes.spaceBtwItems,
-                ),
-                const SizedBox(
-                  height: TSizes.spaceBtwSections,
-                ),
-                const SizedBox(
-                  height: TSizes.spaceBtwSections,
-                ),
-                const SizedBox(
-                  height: TSizes.spaceBtwSections,
-                ),
+                )
               ],
-            ),
-          )
-        ],
-      )),
+            )),
+      ),
     );
   }
 }
