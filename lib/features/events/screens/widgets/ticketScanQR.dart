@@ -123,8 +123,8 @@ class _TicketScanQRContainerState extends State<TicketScanQRContainer> {
                   color: TColors.white,
                   borderRadius: BorderRadius.circular(6),
                 ),
-                width: TSizes.displayWidth(context) * 0.24,
-                height: TSizes.displayWidth(context) * 0.24,
+                width: TSizes.displayWidth(context) * 0.22,
+                height: TSizes.displayWidth(context) * 0.22,
                 child: GestureDetector(
                   onTap: widget.onTap,
                   child: PrettyQrView(
