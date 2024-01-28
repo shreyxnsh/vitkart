@@ -10,6 +10,7 @@ import 'package:vitkart/features/events/screens/widgets/tEventCategoryCard.dart'
 import 'package:vitkart/common/widgets/products/products_cart/product_card_vertical.dart';
 import 'package:vitkart/utils/API/api_functions.dart';
 import 'package:vitkart/utils/API/api_routes.dart';
+import 'package:vitkart/utils/constants/check_mark_indicator.dart';
 import 'package:vitkart/utils/constants/colors.dart';
 
 import 'package:vitkart/utils/constants/sizes.dart';
@@ -34,6 +35,8 @@ class _EventCategoryScreenState extends State<EventCategoryScreen> {
     widget.data.shuffle();
   }
 
+  var _forceRefresh = Object();
+
   Future<Map<String, dynamic>> fetchAllAdvitiyaEvents() async {
     Map<String, dynamic> response = await APIFunctions.getEvents(
         category: widget.categoryName.split(' ').first.toLowerCase());
@@ -53,6 +56,7 @@ class _EventCategoryScreenState extends State<EventCategoryScreen> {
         showBackArrow: true,
       ),
       body: FutureBuilder(
+        key: ValueKey(_forceRefresh),
         future: fetchAllAdvitiyaEvents(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
@@ -69,7 +73,7 @@ class _EventCategoryScreenState extends State<EventCategoryScreen> {
                         margin: const EdgeInsets.only(bottom: 18),
                         height: 240,
                         width: double.infinity,
-                       child: TEventCategoryCard( 
+                        child: TEventCategoryCard(
                           data: widget.data[0],
                         ),
                       ),
@@ -89,21 +93,29 @@ class _EventCategoryScreenState extends State<EventCategoryScreen> {
     );
   }
 
-  SingleChildScrollView screenUI(List data) {
+  Widget screenUI(List data) {
     log("code : ${data.toString()}");
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(TSizes.defaultSpace),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: List.generate(
-            data.length,
-            (index) => Container(
-              margin: const EdgeInsets.only(bottom: 18),
-              height: 240,
-              width: double.infinity,
-              child: TEventCategoryCard(
-                data: data[index],
+    return CheckMarkIndicator(
+      onRefresh: () async {
+        setState(() {
+          _forceRefresh = Object();
+        });
+      },
+      child: SingleChildScrollView(
+        physics: const AlwaysScrollableScrollPhysics(),
+        child: Padding(
+          padding: const EdgeInsets.all(TSizes.defaultSpace),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: List.generate(
+              data.length,
+              (index) => Container(
+                margin: const EdgeInsets.only(bottom: 18),
+                height: 240,
+                width: double.infinity,
+                child: TEventCategoryCard(
+                  data: data[index],
+                ),
               ),
             ),
           ),

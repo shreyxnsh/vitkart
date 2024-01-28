@@ -79,7 +79,7 @@ class _TicketScanQRContainerState extends State<TicketScanQRContainer> {
                     height: TSizes.spaceBtwItems,
                   ),
                   SizedBox(
-                    width: TSizes.displayHeight(context) * 0.24,
+                    width: TSizes.displayHeight(context) * 0.25,
                     child: Row(
                       children: [
                         Text(

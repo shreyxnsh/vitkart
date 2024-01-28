@@ -133,136 +133,150 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
           style: Theme.of(context).textTheme.headlineSmall,
         ),
       ),
-      body: Stack(
-        alignment: Alignment.center,
-        children: [
-          SizedBox(
-            height: TSizes.displayHeight(context),
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.only(
-                    right: TSizes.defaultSpace,
-                    left: TSizes.defaultSpace,
-                    bottom: TSizes.defaultSpace),
-                child: Column(
-                  children: [
-                    RepaintBoundary(
-                      key: qrKey,
-                      child: Container(
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: dark
-                              ? TColors.lightDarkBackground
-                              : TColors.primary,
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            // Top Section with Background Image
-                            Container(
-                              padding: const EdgeInsets.all(12),
-                              width: double.infinity,
-                              clipBehavior: Clip.hardEdge,
-                              // height:
-                              //     150, // Set the desired height for the background image
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(20),
-                                child: Image.network(
-                                  widget.ticketData['event']['eventImages'][1],
-                                  height: TSizes.displayHeight(context) * 0.24,
-                                  width: double.infinity,
-                                  fit: BoxFit.cover,
+      body: PopScope(
+        canPop: !showQr,
+        onPopInvoked: (didPop) {
+          setState(() {
+            showQr = false;
+          });
+        },
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            SizedBox(
+              height: TSizes.displayHeight(context),
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      right: TSizes.defaultSpace,
+                      left: TSizes.defaultSpace,
+                      bottom: TSizes.defaultSpace),
+                  child: Column(
+                    children: [
+                      RepaintBoundary(
+                        key: qrKey,
+                        child: Container(
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            color: dark
+                                ? TColors.lightDarkBackground
+                                : TColors.primary,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // Top Section with Background Image
+                              Container(
+                                padding: const EdgeInsets.all(12),
+                                width: double.infinity,
+                                clipBehavior: Clip.hardEdge,
+                                // height:
+                                //     150, // Set the desired height for the background image
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(20),
+                                  child: Image.network(
+                                    widget.ticketData['event']['eventImages']
+                                        [1],
+                                    height:
+                                        TSizes.displayHeight(context) * 0.24,
+                                    width: double.infinity,
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
-                            ),
 
-                            MyTicketDetailsContainer(
-                              data: widget.ticketData,
-                              onCapture: () {
-                                saveWidgetImageIntoGallery(context);
-                              },
-                            ),
+                              MyTicketDetailsContainer(
+                                data: widget.ticketData,
+                                onCapture: () {
+                                  saveWidgetImageIntoGallery(context);
+                                },
+                              ),
 
-                            SizedBox(
-                                child: dark
-                                    ? Image.asset(
-                                        "assets/icons/events/horizontaldotted.png",
-                                        fit: BoxFit.fitWidth,
-                                      )
-                                    : Image.asset(
-                                        "assets/icons/events/horizontalwhitedot.png",
-                                        fit: BoxFit.fitWidth,
-                                      )),
-                            TicketScanQRContainer(
-                              // ticketId: widget.ticketData['tickets']['_id'],
-                              ticketId: widget.ticketData['_id'],
-                              onTap: () {
-                                setState(() {
-                                  showQr = !showQr;
-                                });
-                              },
-                            ),
-                            const SizedBox(
-                              height: TSizes.spaceBtwSections,
-                            ),
-                          ],
+                              SizedBox(
+                                  child: dark
+                                      ? Image.asset(
+                                          "assets/icons/events/horizontaldotted.png",
+                                          fit: BoxFit.fitWidth,
+                                        )
+                                      : Image.asset(
+                                          "assets/icons/events/horizontalwhitedot.png",
+                                          fit: BoxFit.fitWidth,
+                                        )),
+                              TicketScanQRContainer(
+                                // ticketId: widget.ticketData['tickets']['_id'],
+                                ticketId: widget.ticketData['_id'],
+                                onTap: () {
+                                  setState(() {
+                                    showQr = !showQr;
+                                  });
+                                },
+                              ),
+                              const SizedBox(
+                                height: TSizes.spaceBtwSections,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-          GestureDetector(
-            onTap: () {
-              setState(() {
-                showQr = !showQr;
-              });
-            },
-            child: AnimatedContainer(
-              duration: const Duration(milliseconds: 400),
-              curve: Curves.fastEaseInToSlowEaseOut,
-              padding: const EdgeInsets.all(TSizes.sm),
-              margin: const EdgeInsets.all(TSizes.sm),
-              width: showQr ? TSizes.displayWidth(context) * 0.8 : 0,
-              height: showQr ? TSizes.displayWidth(context) * 0.8 : 0,
-              decoration: BoxDecoration(
-                boxShadow: showQr
-                    ? [
-                        BoxShadow(
-                          color: TColors.light.withOpacity(0.4),
-                          blurRadius: 100,
-                          offset: const Offset(0, 0),
-                          spreadRadius: 60,
-                        )
-                      ]
-                    : null,
-                color: TColors.light,
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(
-                  color: TColors.black,
-                  width: 8,
-                ),
-              ),
-              child: PrettyQrView(
-                qrImage: qrImage,
-                decoration: const PrettyQrDecoration(
-                  image: PrettyQrDecorationImage(
-                    scale: 0.3,
-                    image: AssetImage(
-                      "assets/icons/vitkart/vitkart_logogreen.png",
+            GestureDetector(
+              onTap: () {
+                setState(() {
+                  showQr = !showQr;
+                });
+              },
+              child: BackdropFilter(
+                filter: ImageFilter.blur(
+                    sigmaX: !showQr ? 0 : 5.0, sigmaY: !showQr ? 0 : 5.0),
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 400),
+                  curve: Curves.fastEaseInToSlowEaseOut,
+                  padding: const EdgeInsets.all(TSizes.sm),
+                  margin: const EdgeInsets.all(TSizes.sm),
+                  width: showQr ? TSizes.displayWidth(context) * 0.8 : 0,
+                  height: showQr ? TSizes.displayWidth(context) * 0.8 : 0,
+                  decoration: BoxDecoration(
+                    boxShadow: showQr
+                        ? [
+                            BoxShadow(
+                              color: TColors.light.withOpacity(0.4),
+                              blurRadius: 100,
+                              offset: const Offset(0, 0),
+                              spreadRadius: 60,
+                            )
+                          ]
+                        : null,
+                    color: TColors.light,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                      color: TColors.black,
+                      width: 8,
+                    ),
+                  ),
+                  child: PrettyQrView(
+                    qrImage: qrImage,
+                    decoration: const PrettyQrDecoration(
+                      image: PrettyQrDecorationImage(
+                        scale: 0.3,
+                        image: AssetImage(
+                          "assets/icons/vitkart/vitkart_logogreen.png",
+                        ),
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
