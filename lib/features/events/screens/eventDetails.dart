@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:action_slider/action_slider.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -456,10 +457,20 @@ class _EventDetailScreenState extends State<EventDetailScreen>
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(100),
-                              child: Image.network(
-                                widget.data['eventImages'][0],
+                              child: CachedNetworkImage(
+                                imageUrl: widget.data['eventImages'][0],
                                 fit: BoxFit.fill,
                                 width: TSizes.displayWidth(context) * 0.27,
+                                placeholder: (context, url) => Container(
+                                  // Add a placeholder widget if needed
+                                  color: Colors
+                                      .grey, // Placeholder background color
+                                ),
+                                errorWidget: (context, url, error) => Container(
+                                  // Add an error widget if needed
+                                  color: Colors.red, // Error background color
+                                  child: Icon(Icons.error),
+                                ),
                               ),
                             ),
                             const SizedBox(
