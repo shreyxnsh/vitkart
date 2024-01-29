@@ -1,6 +1,8 @@
 import 'dart:developer';
+import 'dart:ui';
 
 import 'package:action_slider/action_slider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -110,6 +112,35 @@ class _PreviewEventOrderScreenState extends State<PreviewEventOrderScreen> {
     _razorpay?.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
     _razorpay?.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
     _razorpay?.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
+    showCupertinoModalPopup(
+      filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+      context: context,
+      builder: (context) => CupertinoActionSheet(
+        title: Text(
+          'Please Confirm',
+          style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                color: TColors.warning,
+                fontWeight: FontWeight.bold,
+              ),
+        ),
+        message: Text(
+          'You have only 10 minutes to book the ticket and in case of failure, there will be 10 mins of cooldown to prevent any forther payment failure',
+          style: Theme.of(context).textTheme.bodyMedium,
+        ),
+        cancelButton: CupertinoActionSheetAction(
+          onPressed: () {
+            Get.back();
+          },
+          child: Text(
+            'Okay, Got it',
+            style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                  color: TColors.primary,
+                  fontWeight: FontWeight.bold,
+                ),
+          ),
+        ),
+      ),
+    );
   }
 
   void makePayment() async {
