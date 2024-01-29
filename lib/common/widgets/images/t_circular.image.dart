@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:vitkart/utils/constants/colors.dart';
 import 'package:vitkart/utils/constants/sizes.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class TCircularImage extends StatelessWidget {
   const TCircularImage({
-    super.key,
+    Key? key,
     required this.dark,
     this.fit = BoxFit.cover,
     required this.image,
@@ -14,10 +15,9 @@ class TCircularImage extends StatelessWidget {
     this.width = 56,
     this.height = 56,
     this.padding = TSizes.sm,
-  });
+  }) : super(key: key);
 
   final bool dark;
-
   final BoxFit? fit;
   final String image;
   final bool isNetworkImage;
@@ -35,11 +35,15 @@ class TCircularImage extends StatelessWidget {
         color: backgroundColor ?? (dark ? TColors.black : TColors.white),
         borderRadius: BorderRadius.circular(100),
       ),
-      child: Image(
-        image: isNetworkImage
-            ? NetworkImage(image)
-            : AssetImage(image) as ImageProvider,
-        color: overlayColor,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(100),
+        child: CachedNetworkImage(
+          imageUrl: isNetworkImage ? image : '', // Use empty string for non-network images
+          placeholder: (context, url) => CircularProgressIndicator(),
+          errorWidget: (context, url, error) => Icon(Icons.error),
+          fit: fit,
+          color: overlayColor,
+        ),
       ),
     );
   }

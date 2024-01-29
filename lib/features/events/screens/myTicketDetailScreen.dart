@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:ui';
 import 'dart:ui' as ui;
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -177,16 +178,23 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
                                   borderRadius: BorderRadius.circular(20),
                                 ),
                                 child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(20),
-                                  child: Image.network(
-                                    widget.ticketData['event']['eventImages']
-                                        [1],
-                                    height:
-                                        TSizes.displayHeight(context) * 0.24,
-                                    width: double.infinity,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
+  borderRadius: BorderRadius.circular(20),
+  child: CachedNetworkImage(
+    imageUrl: widget.ticketData['event']['eventImages'][1],
+    height: TSizes.displayHeight(context) * 0.24,
+    width: double.infinity,
+    fit: BoxFit.fill,
+    placeholder: (context, url) => Container(
+      // Add a placeholder widget if needed
+      color: Colors.grey, // Placeholder background color
+    ),
+    errorWidget: (context, url, error) => Container(
+      // Add an error widget if needed
+      color: Colors.red, // Error background color
+      child: Icon(Icons.error),
+    ),
+  ),
+),
                               ),
 
                               MyTicketDetailsContainer(

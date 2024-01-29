@@ -60,7 +60,7 @@ class LoginScreenTextFeild extends StatelessWidget {
     final dark = THelperFunctions.isDarkMode(context);
 
     return SizedBox(
-      height: height ?? MediaQuery.of(context).size.height * (54 / 840),
+      height: height ?? MediaQuery.of(context).size.height * (63 / 840),
       child: TextFormField(
         enabled: enabled,
         controller: controller,

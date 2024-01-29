@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -33,11 +34,20 @@ class PreviewEventCard extends StatelessWidget {
             padding: const EdgeInsets.all(TSizes.defaultSpace),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(12),
-              child: Image.network(
-                data['eventImages'][1],
-                fit: BoxFit.cover,
+              child: CachedNetworkImage(
+                imageUrl: data['eventImages'][1],
+                fit: BoxFit.fill,
                 width: double.infinity,
                 height: TSizes.displayHeight(context) * 0.22,
+                placeholder: (context, url) => Container(
+                  // Add a placeholder widget if needed
+                  color: Colors.grey, // Placeholder background color
+                ),
+                errorWidget: (context, url, error) => Container(
+                  // Add an error widget if needed
+                  color: Colors.red, // Error background color
+                  child: Icon(Icons.error),
+                ),
               ),
             ),
           ),

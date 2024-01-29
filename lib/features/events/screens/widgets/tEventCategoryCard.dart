@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -52,53 +53,52 @@ class TEventCategoryCard extends StatelessWidget {
         );
       },
       child: Container(
-        width: 280,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          image: DecorationImage(
-            image: NetworkImage(data['eventImages'][1]),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: Stack(
+  width: 280,
+  decoration: BoxDecoration(
+    borderRadius: BorderRadius.circular(12),
+    image: DecorationImage(
+      // Replace the NetworkImage with CachedNetworkImage
+      image: CachedNetworkImageProvider(data['eventImages'][1]),
+      fit: BoxFit.cover,
+    ),
+  ),
+  child: Stack(
+    children: [
+      Visibility(
+        visible: data['discount'] != null,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Visibility(
-              visible: data['discount'] != null,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: DiscountContainer(discount: data['discount'] ?? ""),
-                  ),
-                  const Spacer(),
-                ],
-              ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: DiscountContainer(discount: data['discount'] ?? ""),
             ),
-            Positioned(
-              bottom: 10,
-              left: 10,
-              right: 10,
-              child: Padding(
-                padding: const EdgeInsets.all(0.0),
-                child: ClipRect(
-                  child: EventDetailsContainer(
-                    eventName: data['eventName'],
-                    venue: data['eventVenue'],
-                    clubName: data['eventOrg'],
-                    datetime:
-                        // ignore: prefer_interpolation_to_compose_strings
-                        "${DateFormat("dd MMM yyyy").format(DateTime.parse(data['eventDate']))} ${DateFormat("hh:mm a").format(DateTime.parse(data['eventStartTime']))}",
-                    // "${DateFormat("dd MMM yyyy").format(DateTime.parse(data['eventDate']))} ${data['eventTime']}",
-                    ticketPrice: data['ticketTypes'][0]['basePrice'].toString() ?? "100",
-                  ),
-                ),
-              ),
-            ),
+            const Spacer(),
           ],
         ),
       ),
+      Positioned(
+        bottom: 10,
+        left: 10,
+        right: 10,
+        child: Padding(
+          padding: const EdgeInsets.all(0.0),
+          child: ClipRect(
+            child: EventDetailsContainer(
+              eventName: data['eventName'],
+              venue: data['eventVenue'],
+              clubName: data['eventOrg'],
+              datetime:
+                  "${DateFormat("dd MMM yyyy").format(DateTime.parse(data['eventDate']))} ${DateFormat("hh:mm a").format(DateTime.parse(data['eventStartTime']))}",
+              ticketPrice: data['ticketTypes'][0]['basePrice'].toString() ?? "100",
+            ),
+          ),
+        ),
+      ),
+    ],
+  ),
+),
     );
   }
 }

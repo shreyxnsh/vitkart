@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:ui';
 import 'dart:ui' as ui;
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -141,7 +142,10 @@ class _TicketScreenState extends State<TicketScreen> {
               content: const Text("Are you sure you want to exit"),
               actions: [
                 CupertinoDialogAction(
-                    child: const Text("Yes" , style: TextStyle(color: TColors.primary),),
+                    child: const Text(
+                      "Yes",
+                      style: TextStyle(color: TColors.primary),
+                    ),
                     onPressed: () {
                       Navigator.pushReplacement(context,
                           MaterialPageRoute(builder: (context) {
@@ -149,7 +153,10 @@ class _TicketScreenState extends State<TicketScreen> {
                       }));
                     }),
                 CupertinoDialogAction(
-                    child: const Text("No", style: TextStyle(color: TColors.primary),),
+                    child: const Text(
+                      "No",
+                      style: TextStyle(color: TColors.primary),
+                    ),
                     onPressed: () {
                       Navigator.pop(_context);
                     }),
@@ -204,12 +211,25 @@ class _TicketScreenState extends State<TicketScreen> {
                                 ),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(20),
-                                  child: Image.network(
-                                    eventDetailController.getBannerImage(),
+                                  child: CachedNetworkImage(
+                                    imageUrl:
+                                        eventDetailController.getBannerImage(),
                                     height:
                                         TSizes.displayHeight(context) * 0.24,
                                     width: double.infinity,
-                                    fit: BoxFit.cover,
+                                    fit: BoxFit.fill,
+                                    placeholder: (context, url) => Container(
+                                      // Add a placeholder widget if needed
+                                      color: Colors
+                                          .grey, // Placeholder background color
+                                    ),
+                                    errorWidget: (context, url, error) =>
+                                        Container(
+                                      // Add an error widget if needed
+                                      color:
+                                          Colors.red, // Error background color
+                                      child: Icon(Icons.error),
+                                    ),
                                   ),
                                 ),
                               ),

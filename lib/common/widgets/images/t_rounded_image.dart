@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:vitkart/utils/constants/colors.dart';
 import 'package:vitkart/utils/constants/sizes.dart';
@@ -50,12 +51,17 @@ class TRoundedImage extends StatelessWidget {
           borderRadius: applyImageRadius
               ? BorderRadius.circular(borderRadius)
               : BorderRadius.zero,
-          child: Image(
-            image: isFileImage == true
-                ? FileImage(File(imageUrl))
-                : isNetworkImage
-                    ? NetworkImage(imageUrl)
-                    : AssetImage(imageUrl) as ImageProvider,
+          child: CachedNetworkImage(
+            imageUrl: imageUrl,
+            placeholder: (context, url) => Container(
+              // Add a placeholder widget if needed
+              color: Colors.grey, // Placeholder background color
+            ),
+            errorWidget: (context, url, error) => Container(
+              // Add an error widget if needed
+              color: Colors.red, // Error background color
+              child: Icon(Icons.error),
+            ),
             fit: fit,
           ),
         ),
