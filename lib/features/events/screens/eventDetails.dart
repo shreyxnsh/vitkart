@@ -1,8 +1,10 @@
 import 'dart:developer';
+import 'dart:ui';
 
 import 'package:action_slider/action_slider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
@@ -125,7 +127,31 @@ class _EventDetailScreenState extends State<EventDetailScreen>
                   showErrorToast(context, "No tickets available");
                 } else {
                   log("full tickets available");
-                  eventDetailController.createOrderIdApiHit(context);
+                  showCupertinoDialog(
+                    context: context,
+                    builder: (context) => CupertinoAlertDialog(
+                      title: const Text('Confirm Booking'),
+                      content: const Text(
+                          'Are you sure you want to book this event?'),
+                      actions: <Widget>[
+                        CupertinoDialogAction(
+                          child: const Text('No'),
+                          onPressed: () {
+                            Get.back();
+                          },
+                        ),
+                        CupertinoDialogAction(
+                          child: const Text('Yes'),
+                          onPressed: () {
+                            Get.back();
+                            controller.loading(); //starts loading animation
+                            eventDetailController.createOrderIdApiHit(
+                                context, controller);
+                          },
+                        ),
+                      ],
+                    ),
+                  );
                 }
                 //
                 // else{
