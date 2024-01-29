@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:action_slider/action_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vitkart/features/authentication/screens/register/widget/cherryToast.dart';
@@ -37,7 +38,8 @@ class EventDetailController extends GetxController {
     return data['eventImages'][1];
   }
 
-  Future<void> createOrderIdApiHit(BuildContext context) async {
+  Future<void> createOrderIdApiHit(
+      BuildContext context, ActionSliderController _controller) async {
     log("event id : ${data['_id']}");
     Map<String, dynamic> response = await APIFunctions.createOrderId(
       eventId: data['_id'],
@@ -47,6 +49,7 @@ class EventDetailController extends GetxController {
       eventName: data['eventName'],
     );
     if (response['isSuccess']) {
+      _controller.success();
       Get.to(() => PreviewEventOrderScreen(
             evenDdata: data,
             orderIdData: response,
@@ -54,6 +57,10 @@ class EventDetailController extends GetxController {
       return;
     }
     showErrorToast(context, response['message']);
+    _controller.failure();
+    Future.delayed(Duration(seconds: 2), () {
+      _controller.reset();
+    });
   }
 
   DateTime getStartTime() {
