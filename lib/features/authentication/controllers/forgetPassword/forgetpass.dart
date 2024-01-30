@@ -89,8 +89,8 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                 return;
               }
               if (GetUtils.isEmail(_emailController.text.trim()) == false ||
-                  _emailController.text.trim().contains("vitbhopal.ac.in") ==
-                      false ||
+                  (_emailController.text.trim().split("@").last ==
+                      "vitbhopal.ac.in") ||
                   _emailController.text.trim().contains("+")) {
                 showErrorToast(context, "Invalid Email");
                 return;

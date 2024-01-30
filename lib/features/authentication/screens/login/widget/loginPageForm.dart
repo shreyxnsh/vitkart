@@ -77,6 +77,7 @@ class _LoginPageFormState extends State<LoginPageForm> {
 
   void loginUser() async {
     // check if user has added data
+
     if (_emailController.text.isEmpty) {
       // Show CherryToast for empty email field
       // CherryToast.error(

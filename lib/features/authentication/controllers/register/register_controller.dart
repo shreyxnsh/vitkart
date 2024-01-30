@@ -213,7 +213,8 @@ class RegisterController extends GetxController {
         );
         return;
       }
-      if (!GetUtils.isEmail(emailController.text)) {
+      if (!GetUtils.isEmail(emailController.text) ||
+          emailController.text.contains("+")) {
         showErrorToast(
           context,
           "Email is not valid",
