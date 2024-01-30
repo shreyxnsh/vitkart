@@ -1,12 +1,15 @@
 import 'dart:developer';
+import 'dart:ui';
 
 import 'package:action_slider/action_slider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vitkart/features/authentication/screens/register/widget/cherryToast.dart';
 import 'package:vitkart/features/events/screens/previewOrder.dart';
 import 'package:vitkart/utils/API/api_functions.dart';
 import 'package:vitkart/utils/API/userDataService.dart';
+import 'package:vitkart/utils/constants/colors.dart';
 
 class EventDetailController extends GetxController {
   RxInt optionsSelection = (0).obs;
@@ -49,7 +52,6 @@ class EventDetailController extends GetxController {
       eventName: data['eventName'],
     );
     if (response['isSuccess']) {
-      _controller.success();
       Get.to(() => PreviewEventOrderScreen(
             evenDdata: data,
             orderIdData: response,
@@ -57,10 +59,6 @@ class EventDetailController extends GetxController {
       return;
     }
     showErrorToast(context, response['message']);
-    _controller.failure();
-    Future.delayed(Duration(seconds: 2), () {
-      _controller.reset();
-    });
   }
 
   DateTime getStartTime() {

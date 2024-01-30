@@ -11,6 +11,7 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
 import 'package:timelines/timelines.dart';
+import 'package:timer_count_down/timer_count_down.dart';
 import 'package:vitkart/common/widgets/custom_shapes/containers/t_rounded_containers.dart';
 import 'package:vitkart/common/widgets/images/t_circular.image.dart';
 import 'package:vitkart/common/widgets/text/product_price_text.dart';
@@ -116,9 +117,8 @@ class _EventDetailScreenState extends State<EventDetailScreen>
               action: (controller) async {
                 controller.loading(); //starts loading animation
                 await Future.delayed(const Duration(seconds: 2));
-                controller.success(); //starts success animation
-                await Future.delayed(const Duration(seconds: 1));
-                controller.reset();
+                //starts success animation
+
                 if (eventDetailController.data['ticketTypes']
                             [eventDetailController.optionsSelection.value]
                         ['availableQuantity'] ==
@@ -136,23 +136,84 @@ class _EventDetailScreenState extends State<EventDetailScreen>
                       actions: <Widget>[
                         CupertinoDialogAction(
                           child: const Text('No'),
-                          onPressed: () {
+                          onPressed: () async {
+                            await Future.delayed(const Duration(seconds: 1));
+                            controller.success();
+                            controller.reset();
                             Get.back();
                           },
                         ),
                         CupertinoDialogAction(
                           child: const Text('Yes'),
-                          onPressed: () {
-                            Get.back();
-                            controller.loading(); //starts loading animation
-                            eventDetailController.createOrderIdApiHit(
+                          onPressed: () async {
+                            //starts loading animation
+                            DateTime coundDown = DateTime.now();
+                            await showCupertinoModalPopup(
+                              filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                              context: context,
+                              builder: (_context) => CupertinoActionSheet(
+                                title: Text(
+                                  'Please Confirm',
+                                  style: Theme.of(_context)
+                                      .textTheme
+                                      .titleSmall!
+                                      .copyWith(
+                                        color: TColors.warning,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                ),
+                                message: Text(
+                                  'You have only 10 minutes to book the ticket and in case of failure, there will be 10 mins of cooldown to prevent any further payment failure',
+                                  style:
+                                      Theme.of(_context).textTheme.bodyMedium,
+                                ),
+                                cancelButton: CupertinoActionSheetAction(
+                                  onPressed: () {
+                                    if (DateTime.now()
+                                            .difference(coundDown)
+                                            .inSeconds <
+                                        5) {
+                                      return;
+                                    }
+
+                                    Get.back();
+                                  },
+                                  child: Countdown(
+                                    seconds: 5,
+                                    build: (BuildContext context, double time) {
+                                      return Text(
+                                        time > 0
+                                            ? 'Wait for ${time.toInt()} seconds'
+                                            : 'Okay, Got it',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleLarge!
+                                            .copyWith(
+                                              color: time > 0
+                                                  ? TColors.warning
+                                                  : TColors.primary,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                      );
+                                    },
+                                    interval: const Duration(seconds: 1),
+                                  ),
+                                ),
+                              ),
+                            );
+                            // return;
+                            await eventDetailController.createOrderIdApiHit(
                                 context, controller);
+                            await Future.delayed(const Duration(seconds: 1));
+                            controller.success();
+                            controller.reset();
                           },
                         ),
                       ],
                     ),
                   );
                 }
+
                 //
                 // else{
 

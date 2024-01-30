@@ -14,6 +14,7 @@ import 'package:vitkart/features/events/screens/ticket.dart';
 import 'package:vitkart/features/events/screens/widgets/previewEventCard.dart';
 import 'package:vitkart/features/events/screens/widgets/previewPayment.dart';
 import 'package:vitkart/features/events/screens/widgets/previewSummary.dart';
+import 'package:vitkart/navigation_menu.dart';
 import 'package:vitkart/utils/API/api_functions.dart';
 import 'package:vitkart/utils/API/userDataService.dart';
 import 'package:vitkart/utils/constants/colors.dart';
@@ -34,6 +35,8 @@ class _PreviewEventOrderScreenState extends State<PreviewEventOrderScreen> {
   Razorpay? _razorpay;
 
   EventDetailController eventDetailController = Get.find();
+
+  late DateTime screenFirstOpenAt;
 
   void _handlePaymentSuccess(PaymentSuccessResponse response) async {
     // Do something when payment succeeds
@@ -106,41 +109,12 @@ class _PreviewEventOrderScreenState extends State<PreviewEventOrderScreen> {
     super.initState();
 
     log("initState : ${widget.orderIdData} : ${widget.evenDdata}");
-
+    screenFirstOpenAt = DateTime.now();
     _razorpay = Razorpay();
 
     _razorpay?.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
     _razorpay?.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
     _razorpay?.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
-    showCupertinoModalPopup(
-      filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-      context: context,
-      builder: (context) => CupertinoActionSheet(
-        title: Text(
-          'Please Confirm',
-          style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                color: TColors.warning,
-                fontWeight: FontWeight.bold,
-              ),
-        ),
-        message: Text(
-          'You have only 10 minutes to book the ticket and in case of failure, there will be 10 mins of cooldown to prevent any forther payment failure',
-          style: Theme.of(context).textTheme.bodyMedium,
-        ),
-        cancelButton: CupertinoActionSheetAction(
-          onPressed: () {
-            Get.back();
-          },
-          child: Text(
-            'Okay, Got it',
-            style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                  color: TColors.primary,
-                  fontWeight: FontWeight.bold,
-                ),
-          ),
-        ),
-      ),
-    );
   }
 
   void makePayment() async {
@@ -225,34 +199,85 @@ class _PreviewEventOrderScreenState extends State<PreviewEventOrderScreen> {
           ),
         ),
         appBar: TAppBar(
+          showBackArrow: false,
           title: Text('Preview Order',
               style: Theme.of(context).textTheme.headlineSmall),
         ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(TSizes.defaultSpace),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                PreviewEventCard(data: widget.evenDdata),
-                const SizedBox(
-                  height: TSizes.spaceBtwItems,
-                ),
-                PreviewOrderSummaryCard(),
-                const SizedBox(
-                  height: TSizes.spaceBtwItems,
-                ),
-                // PreviewPaymentCard(),
-                SizedBox(
-                  height: TSizes.spaceBtwSections,
-                ),
-                SizedBox(
-                  height: TSizes.spaceBtwSections,
-                ),
-                SizedBox(
-                  height: TSizes.spaceBtwSections,
-                ),
-              ],
+        body: PopScope(
+          canPop: false,
+          onPopInvoked: (didPop) {
+            showCupertinoModalPopup(
+              context: context,
+              builder: (context) {
+                return CupertinoActionSheet(
+                  title: Text("Please Note",
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineSmall!
+                          .copyWith(color: TColors.warning)),
+                  message: Text(
+                      "If you go back, your order will be considered as failure. And you will have to place order again in ${screenFirstOpenAt.add(Duration(minutes: 10)).difference(DateTime.now()).inMinutes} minutes.",
+                      style: Theme.of(context).textTheme.bodyText1!),
+                  actions: [
+                    CupertinoActionSheetAction(
+                      onPressed: () {
+                        Navigator.of(context).pushAndRemoveUntil(
+                            MaterialPageRoute(
+                              builder: (context) => const NavigationMenu(),
+                            ),
+                            (route) => false);
+                      },
+                      child: Text(
+                        "Yes",
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineSmall!
+                            .copyWith(color: TColors.primary),
+                      ),
+                    ),
+                    CupertinoActionSheetAction(
+                      onPressed: () {
+                        Get.back();
+                      },
+                      child: Text(
+                        "No",
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineSmall!
+                            .copyWith(color: TColors.primary),
+                      ),
+                    ),
+                  ],
+                );
+              },
+            );
+          },
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(TSizes.defaultSpace),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  PreviewEventCard(data: widget.evenDdata),
+                  const SizedBox(
+                    height: TSizes.spaceBtwItems,
+                  ),
+                  PreviewOrderSummaryCard(),
+                  const SizedBox(
+                    height: TSizes.spaceBtwItems,
+                  ),
+                  // PreviewPaymentCard(),
+                  SizedBox(
+                    height: TSizes.spaceBtwSections,
+                  ),
+                  SizedBox(
+                    height: TSizes.spaceBtwSections,
+                  ),
+                  SizedBox(
+                    height: TSizes.spaceBtwSections,
+                  ),
+                ],
+              ),
             ),
           ),
         ));
