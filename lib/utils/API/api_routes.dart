@@ -21,3 +21,5 @@ String createOrderIdUrl = "$url/razorpay/createOrderId";
 String createTicketUrl = "$url/ticket/createTicket";
 String updatePaymentStatusUrl = "$url/razorpay/updatePaymentStatus";
 String getBannersUrl = "$url/banner/getBanners";
+String forgetPasswordMailSendUrl = "$url/fp/passwordResetRequest";
+String resetPasswordUrl = "$url/fp/resetPassword";

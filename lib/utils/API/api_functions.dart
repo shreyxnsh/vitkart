@@ -265,4 +265,55 @@ class APIFunctions {
       return jsonResponse;
     }
   }
+
+  static Future<Map<String, dynamic>> resetPasswordSendMail(
+      {required String email}) async {
+    var headers = {'Content-Type': 'application/json'};
+    var request = http.Request('POST', Uri.parse(forgetPasswordMailSendUrl));
+    request.body = json.encode({"userEmail": email});
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      Map<String, dynamic> jsonResponse =
+          jsonDecode(await response.stream.bytesToString());
+      jsonResponse['isSuccess'] = true;
+      log(jsonResponse.toString());
+      return jsonResponse;
+    } else {
+      Map<String, dynamic> jsonResponse =
+          jsonDecode(await response.stream.bytesToString());
+      jsonResponse['isSuccess'] = false;
+      log(jsonResponse.toString());
+      return jsonResponse;
+    }
+  }
+
+  static Future<Map<String, dynamic>> resetPasswordAPI(
+      {required String email,
+      required String otp,
+      required String newPassword}) async {
+    var headers = {'Content-Type': 'application/json'};
+    var request = http.Request('POST', Uri.parse(resetPasswordUrl));
+    request.body = json
+        .encode({"userEmail": email, "otp": otp, "newPassword": newPassword});
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      Map<String, dynamic> jsonResponse =
+          jsonDecode(await response.stream.bytesToString());
+      jsonResponse['isSuccess'] = true;
+      log(jsonResponse.toString());
+      return jsonResponse;
+    } else {
+      Map<String, dynamic> jsonResponse =
+          jsonDecode(await response.stream.bytesToString());
+      jsonResponse['isSuccess'] = false;
+      log(jsonResponse.toString());
+      return jsonResponse;
+    }
+  }
 }

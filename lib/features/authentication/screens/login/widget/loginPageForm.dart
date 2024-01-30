@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:vitkart/features/authentication/controllers/forgetPassword/forgetpass.dart';
 import 'package:vitkart/features/authentication/controllers/login/login_controller.dart';
 import 'package:vitkart/features/authentication/screens/login/widget/DontHaveAccountButtonText.dart';
 import 'package:vitkart/features/authentication/screens/login/widget/forgotPaswordButtonText.dart';
@@ -69,6 +70,10 @@ class _LoginPageFormState extends State<LoginPageForm> {
   //     print(response.reasonPhrase);
   //   }
   // }
+
+  forgetPassword() {
+    Get.to(() => const ForgetPasswordScreen());
+  }
 
   void loginUser() async {
     // check if user has added data
@@ -207,7 +212,11 @@ class _LoginPageFormState extends State<LoginPageForm> {
             const SizedBox(
               height: TSizes.spaceBtwItems,
             ),
-            const ForgotPasswordTextButton(),
+            ForgotPasswordTextButton(
+              onPressed: () {
+                controller.forgotPassword();
+              },
+            ),
             const SizedBox(
               height: TSizes.spaceBtwItems,
             ),
