@@ -135,7 +135,8 @@ class _EventDetailScreenState extends State<EventDetailScreen>
                           'Are you sure you want to book this event?'),
                       actions: <Widget>[
                         CupertinoDialogAction(
-                          child: const Text('No'),
+                          child: const Text('No',
+                              style: TextStyle(color: TColors.primary)),
                           onPressed: () async {
                             await Future.delayed(const Duration(seconds: 1));
                             controller.success();
@@ -144,11 +145,16 @@ class _EventDetailScreenState extends State<EventDetailScreen>
                           },
                         ),
                         CupertinoDialogAction(
-                          child: const Text('Yes'),
+                          child: const Text(
+                            'Yes',
+                            style: TextStyle(color: TColors.primary),
+                          ),
                           onPressed: () async {
                             //starts loading animation
                             DateTime coundDown = DateTime.now();
+                            Get.back();
                             await showCupertinoModalPopup(
+                              barrierDismissible: false,
                               filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
                               context: context,
                               builder: (_context) => CupertinoActionSheet(
@@ -172,14 +178,14 @@ class _EventDetailScreenState extends State<EventDetailScreen>
                                     if (DateTime.now()
                                             .difference(coundDown)
                                             .inSeconds <
-                                        5) {
+                                        10) {
                                       return;
                                     }
 
                                     Get.back();
                                   },
                                   child: Countdown(
-                                    seconds: 5,
+                                    seconds: 10,
                                     build: (BuildContext context, double time) {
                                       return Text(
                                         time > 0
@@ -264,7 +270,7 @@ class _EventDetailScreenState extends State<EventDetailScreen>
               children: [
                 TEventHeaderContainer(
                     height: TSizes.displayHeight(context) * 0.36,
-                    image: widget.data['eventImages'][1],
+                    image: widget.data['eventImages'][0],
                     child: Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: Column(
@@ -545,7 +551,7 @@ class _EventDetailScreenState extends State<EventDetailScreen>
                             ClipRRect(
                               borderRadius: BorderRadius.circular(100),
                               child: CachedNetworkImage(
-                                imageUrl: widget.data['eventImages'][0],
+                                imageUrl: widget.data['clubId']['clubLogo'][0],
                                 fit: BoxFit.fill,
                                 width: TSizes.displayWidth(context) * 0.27,
                                 placeholder: (context, url) => Container(
@@ -570,7 +576,8 @@ class _EventDetailScreenState extends State<EventDetailScreen>
                                 SizedBox(
                                   width: TSizes.displayWidth(context) * 0.5,
                                   child: Text(
-                                    widget.data['eventOrg'],
+                                    widget.data['clubId']['clubName']
+                                        .toString(),
                                     maxLines: 1,
                                     style: Theme.of(context)
                                         .textTheme
@@ -584,7 +591,7 @@ class _EventDetailScreenState extends State<EventDetailScreen>
                                   height: 12,
                                 ),
                                 Text(
-                                  widget.data['clubPerson'],
+                                  widget.data['clubId']['clubDesc'].toString(),
                                   maxLines: 1,
                                   softWrap: false,
                                   style: Theme.of(context)
@@ -597,7 +604,8 @@ class _EventDetailScreenState extends State<EventDetailScreen>
                                 SizedBox(
                                   width: TSizes.displayWidth(context) * 0.5,
                                   child: Text(
-                                    widget.data['clubEmail'],
+                                    widget.data['clubId']['clubEmail']
+                                        .toString(),
                                     maxLines: 1,
                                     //  softWrap: false,
                                     style: Theme.of(context)
@@ -609,7 +617,7 @@ class _EventDetailScreenState extends State<EventDetailScreen>
                                   ),
                                 ),
                                 Text(
-                                  widget.data['clubPhone'],
+                                  widget.data['clubId']['clubPhone'].toString(),
                                   maxLines: 1,
                                   style: Theme.of(context)
                                       .textTheme

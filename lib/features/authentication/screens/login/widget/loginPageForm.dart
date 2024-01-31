@@ -15,6 +15,7 @@ import 'package:vitkart/features/authentication/screens/login/widget/loginFormHe
 import 'package:vitkart/features/authentication/screens/login/widget/loginTextField.dart';
 import 'package:vitkart/features/authentication/screens/register/widget/cherryToast.dart';
 import 'package:vitkart/navigation_menu.dart';
+import 'package:vitkart/utils/API/api_functions.dart';
 import 'package:vitkart/utils/API/api_routes.dart';
 import 'package:vitkart/utils/constants/colors.dart';
 import 'package:vitkart/utils/constants/sizes.dart';
@@ -113,13 +114,10 @@ class _LoginPageFormState extends State<LoginPageForm> {
     print(regBody);
 
     // http [post] request sent to api
-    var response = await http.post(Uri.parse(loginUrl),
-        headers: {"Content-type": "application/json"},
-        body: jsonEncode(regBody));
+    var jsonResponse = await APIFunctions.loginApi(
+        email: _emailController.text, password: _passwordController.text);
 
     //getting the response by the server
-    var jsonResponse = jsonDecode(response.body);
-    print(jsonResponse);
 
     if (jsonResponse['status']) {
       var userGender = jsonResponse['authenticatedUser']['userGender'];

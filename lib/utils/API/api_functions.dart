@@ -49,13 +49,14 @@ class APIFunctions {
   static Future<Map<String, dynamic>> createUser(
       {required Map<String, String> data}) async {
     var headers = {'Content-Type': 'application/json'};
+    log("url : $registrationUrl");
     var request = http.Request('POST', Uri.parse(registrationUrl));
     request.body = json.encode(data);
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
     log("response : ${response.statusCode}");
-    if (response.statusCode == 201) {
+    if (response.statusCode == 200) {
       Map<String, dynamic> jsonResponse =
           jsonDecode(await response.stream.bytesToString()); // Convert to JSON
       jsonResponse['isSuccess'] = true;
@@ -314,6 +315,26 @@ class APIFunctions {
       jsonResponse['isSuccess'] = false;
       log(jsonResponse.toString());
       return jsonResponse;
+    }
+  }
+
+  static Future<Map<String, dynamic>> loginApi(
+      {required String email, required String password}) async {
+    var headers = {'Content-Type': 'application/json'};
+    var request = http.Request('POST', Uri.parse(loginUrl));
+    request.body = json.encode({"userEmail": email, "userPassword": password});
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      var data = jsonDecode(await response.stream.bytesToString());
+      data["isSuccess"] = true;
+      return data;
+    } else {
+      var data = jsonDecode(await response.stream.bytesToString());
+      data["isSuccess"] = false;
+      return data;
     }
   }
 }

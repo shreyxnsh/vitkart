@@ -38,7 +38,7 @@ class EventDetailController extends GetxController {
   }
 
   String getBannerImage() {
-    return data['eventImages'][1];
+    return data['eventImages'][0];
   }
 
   Future<void> createOrderIdApiHit(

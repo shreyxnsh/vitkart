@@ -48,20 +48,41 @@ class TPromoSlider extends StatelessWidget {
         ),
         Center(
           child: Obx(
-            () => Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                for (int i = 0; i < banners.length; i++)
-                  TCirclularContainer(
-                    width: 20,
-                    height: 4,
-                    margen: const EdgeInsets.only(right: 10),
-                    backgroundColor: i == controller.carousalCurrentIndex.value
-                        ? TColors.primary
-                        : TColors.grey,
-                  ),
-              ],
-            ),
+            () {
+              if (banners.isEmpty) {
+                controller.carousalCurrentIndex.value = 0;
+              }
+              return Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: List.generate(
+                    banners.length,
+                    (index) => TCirclularContainer(
+                      width: 20,
+                      height: 4,
+                      margen: const EdgeInsets.only(right: 10),
+                      backgroundColor:
+                          index == controller.carousalCurrentIndex.value
+                              ? TColors.primary
+                              : TColors.grey,
+                    ),
+                  ));
+            },
+            // [
+            // Obx(
+            //   () {
+            //     for (int i = 0; i < banners.length; i++)
+            //       return TCirclularContainer(
+            //         width: 20,
+            //         height: 4,
+            //         margen: const EdgeInsets.only(right: 10),
+            //         backgroundColor:
+            //             i == controller.carousalCurrentIndex.value
+            //                 ? TColors.primary
+            //                 : TColors.grey,
+            //       );
+            //   },
+            // ),
+            // ],
           ),
         ),
       ],

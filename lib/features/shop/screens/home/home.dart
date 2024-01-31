@@ -51,7 +51,6 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    fetchAllProducts();
 
     final userToken = GetStorage().read('token');
 
@@ -74,33 +73,33 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  Future<void> fetchAllProducts() async {
-    final response = await http.get(Uri.parse(getAllProductUrl));
-    print(response);
+  // Future<void> fetchAllProducts() async {
+  //   final response = await http.get(Uri.parse(getAllProductUrl));
+  //   print(response);
 
-    if (response.statusCode == 200) {
-      final Map<String, dynamic> data = jsonDecode(response.body);
-      if (data['status']) {
-        final List<dynamic>? productsData = data['products'];
-        // log(productsData.toString());
-        if (productsData != null) {
-          final List<ProductData> fetchedProducts = productsData
-              .map((product) => ProductData.fromJson(product))
-              .toList();
+  //   if (response.statusCode == 200) {
+  //     final Map<String, dynamic> data = jsonDecode(response.body);
+  //     if (data['status']) {
+  //       final List<dynamic>? productsData = data['products'];
+  //       // log(productsData.toString());
+  //       if (productsData != null) {
+  //         final List<ProductData> fetchedProducts = productsData
+  //             .map((product) => ProductData.fromJson(product))
+  //             .toList();
 
-          setState(() {
-            products = fetchedProducts;
-          });
-        } else {
-          // Handle the case where 'products' is null
-          print('Products field is null');
-        }
-      }
-    } else {
-      // Handle error
-      print('Failed to load products');
-    }
-  }
+  //         setState(() {
+  //           products = fetchedProducts;
+  //         });
+  //       } else {
+  //         // Handle the case where 'products' is null
+  //         print('Products field is null');
+  //       }
+  //     }
+  //   } else {
+  //     // Handle error
+  //     print('Failed to load products');
+  //   }
+  // }
 
   Future<Map<String, dynamic>> getBanners() async {
     Map<String, dynamic> response = await APIFunctions.getBanners();
@@ -261,6 +260,7 @@ class EventsHorizontalListFromAPI extends StatelessWidget {
     return FutureBuilder(
       future: FutureBuilderFunctions.fetchAdvityaEvents(category),
       builder: (context, snapshot) {
+        log("hor : ${snapshot.data.toString()}");
         if (!snapshot.hasData) {
           return Padding(
             padding: const EdgeInsets.symmetric(
@@ -282,6 +282,23 @@ class EventsHorizontalListFromAPI extends StatelessWidget {
             ),
           );
         }
+
+        if (snapshot.data!.isEmpty) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: TSizes.defaultSpace,
+            ),
+            child: Center(
+              child: Text(
+                "No Events Found",
+                style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                      color: TColors.primary,
+                    ),
+              ),
+            ),
+          );
+        }
+
         return PopularEventList(
           data: snapshot.requireData['events'],
         );

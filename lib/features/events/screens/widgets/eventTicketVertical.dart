@@ -89,7 +89,8 @@ class _EventTicketVerticalState extends State<EventTicketVertical> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        widget.data['event']['eventOrg'].toString(),
+                        "VIT Bhopal University",
+                        // widget.data['event']['clubId'].toString(),
                         style: Theme.of(context).textTheme.bodySmall,
                       ),
                       const SizedBox(
