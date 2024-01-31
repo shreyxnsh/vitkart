@@ -97,7 +97,7 @@ class RegisterController extends GetxController {
     countdown.value = 60 * otpResendCount.value;
   }
 
-  Future<void> registerUser() async {
+  Future<bool> registerUser(BuildContext context) async {
     isLoading.value = true; // Start loading animation
 
     try {
@@ -117,19 +117,21 @@ class RegisterController extends GetxController {
         print(regBody);
         Map<String, dynamic> reponse =
             await APIFunctions.createUser(data: regBody);
+        log("dat : " + reponse.toString());
         if (reponse['isSuccess']) {
           showErrorToast(
-            Get.context!,
+            context,
             reponse['message'],
             animationCurve: Curves.fastLinearToSlowEaseIn,
           );
-          return;
+          return true;
         }
         showErrorToast(
-          Get.context!,
+          context,
           reponse['errors'] ?? "Something went wrong",
           animationCurve: Curves.fastLinearToSlowEaseIn,
         );
+        return false;
       }
     } catch (e) {
       print("Exception: $e");
@@ -137,6 +139,7 @@ class RegisterController extends GetxController {
     } finally {
       isLoading.value = false; // Stop loading animation
     }
+    return false;
   }
 
   Future<bool> OTPVerification(BuildContext context) async {
@@ -328,7 +331,11 @@ class RegisterController extends GetxController {
       log("Know From - ${knowFromController.text}");
       log("Dob - ${dob.value.toString()}");
 
-      await registerUser();
+      bool check = await registerUser(context);
+      log("Check - $check");
+      if (!check) {
+        return;
+      }
 
       otpResendCount.value++;
       countdown.value = 30 * otpResendCount.value;
