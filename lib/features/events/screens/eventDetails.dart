@@ -663,8 +663,8 @@ class TicketTypeSelectionWidget extends StatelessWidget {
     final dark = THelperFunctions.isDarkMode(context);
     return Stack(
       children: [
-        Image.network(
-          "https://imgs.search.brave.com/Y_dtw2kPVpEBPhMVHQz6yhoz1IGUN8sNqR6hKrTySeg/rs:fit:860:0:0/g:ce/aHR0cHM6Ly93d3cu/cG5nYWxsLmNvbS93/cC1jb250ZW50L3Vw/bG9hZHMvMTIvVGlj/a2V0LVBORy1IRC1J/bWFnZS5wbmc",
+        Image.asset(
+          "assets/icons/events/Ticket-PNG-HD-Image.png",
           color: dark
               ? (isSeleted ? TColors.primary : TColors.lightDarkBackground)
               : (isSeleted ? TColors.primary : TColors.light),
