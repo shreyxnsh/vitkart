@@ -90,20 +90,20 @@ class SettingScreen extends StatelessWidget {
                         Get.to(() => const ProfileScreen());
                       },
                     ),
-                    TSettingsMenuTile(
-                      icon: Iconsax.bag_tick,
-                      title: "My Orders",
-                      subtitle: "In-progress and completed orders",
-                      onTap: () {
-                        Get.to(() => const OrderScreen());
-                      },
-                    ),
+                    // TSettingsMenuTile(
+                    //   icon: Iconsax.bag_tick,
+                    //   title: "My Orders",
+                    //   subtitle: "In-progress and completed orders",
+                    //   onTap: () {
+                    //     Get.to(() => const OrderScreen());
+                    //   },
+                    // ),
                     TSettingsMenuTile(
                       icon: Iconsax.ticket,
                       title: "My Tickets",
                       subtitle: "Get All your event tickets here!",
                       onTap: () {
-                        Get.to(() => MyTicketScreen());
+                        Get.to(() => const MyTicketScreen());
                       },
                     ),
                     TSettingsMenuTile(
@@ -111,7 +111,7 @@ class SettingScreen extends StatelessWidget {
                       title: "My Addresses",
                       subtitle: "Set shopping delivery address",
                       onTap: () {
-                        Get.to(() => AddressScreen());
+                        Get.to(() => const AddressScreen());
                       },
                     ),
 
@@ -126,7 +126,7 @@ class SettingScreen extends StatelessWidget {
                       title: "Notifications",
                       subtitle: "All Notifications sent by VITKART",
                       onTap: () {
-                        Get.to(() => NotificationScreen());
+                        Get.to(() => const NotificationScreen());
                       },
                     ),
                     TSettingsMenuTile(
@@ -134,7 +134,7 @@ class SettingScreen extends StatelessWidget {
                       title: "Terms & Conditions",
                       subtitle: "View all terms and conditions by VITKART 2024",
                       onTap: () {
-                        Get.to(() => TermsAndConditionScreen());
+                        Get.to(() => const TermsAndConditionScreen());
                       },
                     ),
                   ],
