@@ -109,7 +109,7 @@ class RegisterController extends GetxController {
         "userGender": gender.value,
         "userBatch": joiningYear.value,
         "userBirthDate": dob.value,
-        "userContactNum": phoneController.text,
+        "userContact": phoneController.text,
       };
 
       print(regBody);
