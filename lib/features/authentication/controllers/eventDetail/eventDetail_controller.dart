@@ -1,11 +1,15 @@
 import 'dart:developer';
+import 'dart:ui';
 
+import 'package:action_slider/action_slider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vitkart/features/authentication/screens/register/widget/cherryToast.dart';
 import 'package:vitkart/features/events/screens/previewOrder.dart';
 import 'package:vitkart/utils/API/api_functions.dart';
 import 'package:vitkart/utils/API/userDataService.dart';
+import 'package:vitkart/utils/constants/colors.dart';
 
 class EventDetailController extends GetxController {
   RxInt optionsSelection = (0).obs;
@@ -34,10 +38,11 @@ class EventDetailController extends GetxController {
   }
 
   String getBannerImage() {
-    return data['eventImages'][1];
+    return data['eventImages'][0];
   }
 
-  Future<void> createOrderIdApiHit(BuildContext context) async {
+  Future<void> createOrderIdApiHit(
+      BuildContext context, ActionSliderController _controller) async {
     log("event id : ${data['_id']}");
     Map<String, dynamic> response = await APIFunctions.createOrderId(
       eventId: data['_id'],

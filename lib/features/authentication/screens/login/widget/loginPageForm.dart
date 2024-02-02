@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:vitkart/features/authentication/controllers/forgetPassword/forgetpass.dart';
 import 'package:vitkart/features/authentication/controllers/login/login_controller.dart';
 import 'package:vitkart/features/authentication/screens/login/widget/DontHaveAccountButtonText.dart';
 import 'package:vitkart/features/authentication/screens/login/widget/forgotPaswordButtonText.dart';
@@ -14,6 +15,7 @@ import 'package:vitkart/features/authentication/screens/login/widget/loginFormHe
 import 'package:vitkart/features/authentication/screens/login/widget/loginTextField.dart';
 import 'package:vitkart/features/authentication/screens/register/widget/cherryToast.dart';
 import 'package:vitkart/navigation_menu.dart';
+import 'package:vitkart/utils/API/api_functions.dart';
 import 'package:vitkart/utils/API/api_routes.dart';
 import 'package:vitkart/utils/constants/colors.dart';
 import 'package:vitkart/utils/constants/sizes.dart';
@@ -70,8 +72,13 @@ class _LoginPageFormState extends State<LoginPageForm> {
   //   }
   // }
 
+  forgetPassword() {
+    Get.to(() => const ForgetPasswordScreen());
+  }
+
   void loginUser() async {
     // check if user has added data
+
     if (_emailController.text.isEmpty) {
       // Show CherryToast for empty email field
       // CherryToast.error(
@@ -107,13 +114,10 @@ class _LoginPageFormState extends State<LoginPageForm> {
     print(regBody);
 
     // http [post] request sent to api
-    var response = await http.post(Uri.parse(loginUrl),
-        headers: {"Content-type": "application/json"},
-        body: jsonEncode(regBody));
+    var jsonResponse = await APIFunctions.loginApi(
+        email: _emailController.text, password: _passwordController.text);
 
     //getting the response by the server
-    var jsonResponse = jsonDecode(response.body);
-    print(jsonResponse);
 
     if (jsonResponse['status']) {
       var userGender = jsonResponse['authenticatedUser']['userGender'];
@@ -207,7 +211,11 @@ class _LoginPageFormState extends State<LoginPageForm> {
             const SizedBox(
               height: TSizes.spaceBtwItems,
             ),
-            const ForgotPasswordTextButton(),
+            ForgotPasswordTextButton(
+              onPressed: () {
+                controller.forgotPassword();
+              },
+            ),
             const SizedBox(
               height: TSizes.spaceBtwItems,
             ),

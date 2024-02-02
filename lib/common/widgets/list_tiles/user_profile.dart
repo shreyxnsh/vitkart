@@ -9,24 +9,14 @@ import '../../../utils/constants/colors.dart';
 class TUserProfileTile extends StatelessWidget {
   const TUserProfileTile({
     super.key,
-
   });
-
-
-
-
 
   @override
   Widget build(BuildContext context) {
-
-
     // Define an empty userName
     String userName = UserDataService.getUserName();
     String userEmail = UserDataService.getUserEmail();
 
-
-    
-    
     return ListTile(
       leading: const CircleAvatar(
         radius: 25,
@@ -44,7 +34,6 @@ class TUserProfileTile extends StatelessWidget {
               color: TColors.white,
             ),
       ),
-      
     );
   }
 }

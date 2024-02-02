@@ -97,46 +97,43 @@ class RegisterController extends GetxController {
     countdown.value = 60 * otpResendCount.value;
   }
 
-  Future<void> registerUser() async {
+  Future<bool> registerUser(BuildContext context) async {
     isLoading.value = true; // Start loading animation
 
-    try {
-      if (emailController.text.isNotEmpty &&
-          passwordController.text.isNotEmpty) {
-        Map<String, String> regBody = {
-          "userEmail": emailController.text,
-          "userPassword": passwordController.text,
-          "userRegID": registrationNoController.text,
-          "userName": nameController.text,
-          "userGender": gender.value,
-          "userBatch": joiningYear.value,
-          "userBirthDate": dob.value,
-          "userContactNum": phoneController.text,
-        };
+    if (emailController.text.isNotEmpty && passwordController.text.isNotEmpty) {
+      Map<String, String> regBody = {
+        "userEmail": emailController.text,
+        "userPassword": passwordController.text,
+        "userRegID": registrationNoController.text,
+        "userName": nameController.text,
+        "userGender": gender.value,
+        "userBatch": joiningYear.value,
+        "userBirthDate": dob.value,
+        "userContact": phoneController.text,
+      };
 
-        print(regBody);
-        Map<String, dynamic> reponse =
-            await APIFunctions.createUser(data: regBody);
-        if (reponse['isSuccess']) {
-          showErrorToast(
-            Get.context!,
-            reponse['message'],
-            animationCurve: Curves.fastLinearToSlowEaseIn,
-          );
-          return;
-        }
-        showErrorToast(
-          Get.context!,
-          reponse['errors'] ?? "Something went wrong",
-          animationCurve: Curves.fastLinearToSlowEaseIn,
-        );
+      print(regBody);
+      Map<String, dynamic> reponse =
+          await APIFunctions.createUser(data: regBody);
+      log("dat : " + reponse.toString());
+      if (reponse['isSuccess']) {
+        // showErrorToast(
+        //   context,
+        //   reponse['message'],
+        //   animationCurve: Curves.fastLinearToSlowEaseIn,
+        // );
+        return true;
       }
-    } catch (e) {
-      print("Exception: $e");
-      Get.snackbar("Error", "An unexpected error occurred");
-    } finally {
-      isLoading.value = false; // Stop loading animation
+      // showErrorToast(
+      //   context,
+      //   reponse['errors'] ?? "Something went wrong",
+      //   animationCurve: Curves.fastLinearToSlowEaseIn,
+      // );
+      return false;
     }
+
+    log("Returning false");
+    return false;
   }
 
   Future<bool> OTPVerification(BuildContext context) async {
@@ -176,14 +173,17 @@ class RegisterController extends GetxController {
         }
       }
     } catch (e) {
-      print("Exception: $e");
+      print("---Exception: $e");
       Get.snackbar("Error", "An unexpected error occurred");
       return false;
     } finally {
+      log("Finally");
+
       isLoading.value = false;
 
       // Stop loading animation
     }
+    log("Returning false");
     return false;
   }
 
@@ -213,7 +213,8 @@ class RegisterController extends GetxController {
         );
         return;
       }
-      if (!GetUtils.isEmail(emailController.text)) {
+      if (!GetUtils.isEmail(emailController.text) ||
+          emailController.text.contains("+")) {
         showErrorToast(
           context,
           "Email is not valid",
@@ -327,8 +328,13 @@ class RegisterController extends GetxController {
       log("Know From - ${knowFromController.text}");
       log("Dob - ${dob.value.toString()}");
 
-      await registerUser();
+      bool check = await registerUser(context);
 
+      log("Check - $check");
+      if (!check) {
+        return;
+      }
+      isLoading.value = false;
       otpResendCount.value++;
       countdown.value = 30 * otpResendCount.value;
     }

@@ -1,14 +1,17 @@
 import 'dart:developer';
+import 'dart:ui';
 
 import 'package:action_slider/action_slider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
 import 'package:timelines/timelines.dart';
+import 'package:timer_count_down/timer_count_down.dart';
 import 'package:vitkart/common/widgets/custom_shapes/containers/t_rounded_containers.dart';
 import 'package:vitkart/common/widgets/images/t_circular.image.dart';
 import 'package:vitkart/common/widgets/text/product_price_text.dart';
@@ -114,9 +117,8 @@ class _EventDetailScreenState extends State<EventDetailScreen>
               action: (controller) async {
                 controller.loading(); //starts loading animation
                 await Future.delayed(const Duration(seconds: 2));
-                controller.success(); //starts success animation
-                await Future.delayed(const Duration(seconds: 1));
-                controller.reset();
+                //starts success animation
+
                 if (eventDetailController.data['ticketTypes']
                             [eventDetailController.optionsSelection.value]
                         ['availableQuantity'] ==
@@ -125,8 +127,99 @@ class _EventDetailScreenState extends State<EventDetailScreen>
                   showErrorToast(context, "No tickets available");
                 } else {
                   log("full tickets available");
-                  eventDetailController.createOrderIdApiHit(context);
+                  showCupertinoDialog(
+                    context: context,
+                    builder: (context) => CupertinoAlertDialog(
+                      title: const Text('Confirm Booking'),
+                      content: const Text(
+                          'Are you sure you want to book this event?'),
+                      actions: <Widget>[
+                        CupertinoDialogAction(
+                          child: const Text('No',
+                              style: TextStyle(color: TColors.primary)),
+                          onPressed: () async {
+                            await Future.delayed(const Duration(seconds: 1));
+                            controller.success();
+                            controller.reset();
+                            Get.back();
+                          },
+                        ),
+                        CupertinoDialogAction(
+                          child: const Text(
+                            'Yes',
+                            style: TextStyle(color: TColors.primary),
+                          ),
+                          onPressed: () async {
+                            //starts loading animation
+                            DateTime coundDown = DateTime.now();
+                            Get.back();
+                            await showCupertinoModalPopup(
+                              barrierDismissible: false,
+                              filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                              context: context,
+                              builder: (_context) => CupertinoActionSheet(
+                                title: Text(
+                                  'Please Confirm',
+                                  style: Theme.of(_context)
+                                      .textTheme
+                                      .titleSmall!
+                                      .copyWith(
+                                        color: TColors.warning,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                ),
+                                message: Text(
+                                  'You have only 10 minutes to book the ticket and in case of failure, there will be 10 mins of cooldown to prevent any further payment failure',
+                                  style:
+                                      Theme.of(_context).textTheme.bodyMedium,
+                                ),
+                                cancelButton: CupertinoActionSheetAction(
+                                  onPressed: () {
+                                    if (DateTime.now()
+                                            .difference(coundDown)
+                                            .inSeconds <
+                                        10) {
+                                      return;
+                                    }
+
+                                    Get.back();
+                                  },
+                                  child: Countdown(
+                                    seconds: 10,
+                                    build: (BuildContext context, double time) {
+                                      return Text(
+                                        time > 0
+                                            ? 'Wait for ${time.toInt()} seconds'
+                                            : 'Okay, Got it',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleLarge!
+                                            .copyWith(
+                                              color: time > 0
+                                                  ? TColors.warning
+                                                  : TColors.primary,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                      );
+                                    },
+                                    interval: const Duration(seconds: 1),
+                                  ),
+                                ),
+                              ),
+                            );
+                            // return;
+                            await eventDetailController.createOrderIdApiHit(
+                                context, controller);
+                            await Future.delayed(const Duration(seconds: 1));
+                            controller.success();
+                            controller.reset();
+                          },
+                        ),
+                      ],
+                    ),
+                  );
                 }
+
                 //
                 // else{
 
@@ -177,7 +270,7 @@ class _EventDetailScreenState extends State<EventDetailScreen>
               children: [
                 TEventHeaderContainer(
                     height: TSizes.displayHeight(context) * 0.36,
-                    image: widget.data['eventImages'][1],
+                    image: widget.data['eventImages'][0],
                     child: Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: Column(
@@ -458,7 +551,7 @@ class _EventDetailScreenState extends State<EventDetailScreen>
                             ClipRRect(
                               borderRadius: BorderRadius.circular(100),
                               child: CachedNetworkImage(
-                                imageUrl: widget.data['eventImages'][0],
+                                imageUrl: widget.data['clubId']['clubLogo'][0],
                                 fit: BoxFit.fill,
                                 width: TSizes.displayWidth(context) * 0.27,
                                 placeholder: (context, url) => Container(
@@ -483,7 +576,8 @@ class _EventDetailScreenState extends State<EventDetailScreen>
                                 SizedBox(
                                   width: TSizes.displayWidth(context) * 0.5,
                                   child: Text(
-                                    widget.data['eventOrg'],
+                                    widget.data['clubId']['clubName']
+                                        .toString(),
                                     maxLines: 1,
                                     style: Theme.of(context)
                                         .textTheme
@@ -497,7 +591,7 @@ class _EventDetailScreenState extends State<EventDetailScreen>
                                   height: 12,
                                 ),
                                 Text(
-                                  widget.data['clubPerson'],
+                                  widget.data['clubId']['clubDesc'].toString(),
                                   maxLines: 1,
                                   softWrap: false,
                                   style: Theme.of(context)
@@ -510,7 +604,8 @@ class _EventDetailScreenState extends State<EventDetailScreen>
                                 SizedBox(
                                   width: TSizes.displayWidth(context) * 0.5,
                                   child: Text(
-                                    widget.data['clubEmail'],
+                                    widget.data['clubId']['clubEmail']
+                                        .toString(),
                                     maxLines: 1,
                                     //  softWrap: false,
                                     style: Theme.of(context)
@@ -522,7 +617,7 @@ class _EventDetailScreenState extends State<EventDetailScreen>
                                   ),
                                 ),
                                 Text(
-                                  widget.data['clubPhone'],
+                                  widget.data['clubId']['clubPhone'].toString(),
                                   maxLines: 1,
                                   style: Theme.of(context)
                                       .textTheme
@@ -576,8 +671,8 @@ class TicketTypeSelectionWidget extends StatelessWidget {
     final dark = THelperFunctions.isDarkMode(context);
     return Stack(
       children: [
-        Image.network(
-          "https://imgs.search.brave.com/Y_dtw2kPVpEBPhMVHQz6yhoz1IGUN8sNqR6hKrTySeg/rs:fit:860:0:0/g:ce/aHR0cHM6Ly93d3cu/cG5nYWxsLmNvbS93/cC1jb250ZW50L3Vw/bG9hZHMvMTIvVGlj/a2V0LVBORy1IRC1J/bWFnZS5wbmc",
+        Image.asset(
+          "assets/icons/events/Ticket-PNG-HD-Image.png",
           color: dark
               ? (isSeleted ? TColors.primary : TColors.lightDarkBackground)
               : (isSeleted ? TColors.primary : TColors.light),

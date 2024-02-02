@@ -64,6 +64,7 @@ dependencies:
   flutter_easy_faq: ^1.0.1
   cached_network_image: ^3.3.1
   custom_refresh_indicator: ^3.0.0
+  in_app_update: ^4.2.2
   
 
   #--------------- ./ PACKAGES END ------------------#

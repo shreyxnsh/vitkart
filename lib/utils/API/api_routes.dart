@@ -1,9 +1,10 @@
 class Domain {
   static String domain = 'api.vitkart.fun';
+  // static String domain = '192.168.64.220:3001';
 }
 
 String url = 'http://${Domain.domain}/api/v1';
-// String url = 'http://192.168.56.1:3001/api/v1';
+// String url = 'https://peaceful-pegasus-probably.ngrok-free.app';
 
 String registrationUrl = '$url/user/signUp';
 String loginUrl = '$url/user/signIn';
@@ -21,3 +22,5 @@ String createOrderIdUrl = "$url/razorpay/createOrderId";
 String createTicketUrl = "$url/ticket/createTicket";
 String updatePaymentStatusUrl = "$url/razorpay/updatePaymentStatus";
 String getBannersUrl = "$url/banner/getBanners";
+String forgetPasswordMailSendUrl = "$url/fp/passwordResetRequest";
+String resetPasswordUrl = "$url/fp/resetPassword";

@@ -35,7 +35,7 @@ class PreviewEventCard extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(12),
               child: CachedNetworkImage(
-                imageUrl: data['eventImages'][1],
+                imageUrl: data['eventImages'][0],
                 fit: BoxFit.fill,
                 width: double.infinity,
                 height: TSizes.displayHeight(context) * 0.22,

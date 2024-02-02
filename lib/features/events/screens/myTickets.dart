@@ -101,6 +101,13 @@ class _MyTicketScreenState extends State<MyTicketScreen> {
                         ),
                       );
                     }
+
+                    if (snapshot.data!['tickets'].length == 0) {
+                      return const Center(
+                        child: Text("No Upcoming Tickets"),
+                      );
+                    }
+
                     if (snapshot.hasError) {
                       return Text('${snapshot.error}');
                     }
