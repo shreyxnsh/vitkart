@@ -4,6 +4,5 @@ import 'package:vitkart/app.dart';
 
 void main() async {
   await GetStorage.init();
-
   runApp(const App());
 }

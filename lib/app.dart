@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:in_app_update/in_app_update.dart';
+// import 'package:in_app_update/in_app_update.dart';
 import 'package:vitkart/features/authentication/screens/login/login.dart';
 import 'package:vitkart/navigation_menu.dart';
 import 'package:vitkart/utils/API/userDataService.dart';
@@ -15,33 +15,33 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-  Future<void> checkForUpdate() async {
-    print('checking for Update');
-    InAppUpdate.checkForUpdate().then((info) {
-      setState(() {
-        if (info.updateAvailability == UpdateAvailability.updateAvailable) {
-          print('update available');
-          update();
-        }
-      });
-    }).catchError((e) {
-      print(e.toString());
-    });
-  }
+  // Future<void> checkForUpdate() async {
+  //   print('checking for Update');
+  //   InAppUpdate.checkForUpdate().then((info) {
+  //     setState(() {
+  //       if (info.updateAvailability == UpdateAvailability.updateAvailable) {
+  //         print('update available');
+  //         update();
+  //       }
+  //     });
+  //   }).catchError((e) {
+  //     print(e.toString());
+  //   });
+  // }
 
-  void update() async {
-    print('Updating');
-    await InAppUpdate.startFlexibleUpdate();
-    InAppUpdate.completeFlexibleUpdate().then((_) {}).catchError((e) {
-      print(e.toString());
-    });
-  }
+  // void update() async {
+  //   print('Updating');
+  //   await InAppUpdate.startFlexibleUpdate();
+  //   InAppUpdate.completeFlexibleUpdate().then((_) {}).catchError((e) {
+  //     print(e.toString());
+  //   });
+  // }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    checkForUpdate();
+    // checkForUpdate();
   }
 
   @override
