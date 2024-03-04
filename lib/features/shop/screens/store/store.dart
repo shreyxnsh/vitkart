@@ -13,6 +13,11 @@ import 'package:vitkart/utils/constants/colors.dart';
 import 'package:vitkart/utils/constants/sizes.dart';
 import 'package:vitkart/utils/helpers/helper_functions.dart';
 
+
+
+
+
+
 final List<Map<String, dynamic>> snackList = [
   {
     'name': "Chips",
