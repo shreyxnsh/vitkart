@@ -124,41 +124,43 @@ class SellProductCard extends StatelessWidget {
                       color: isDone ? TColors.warning : TColors.success,
                     ),
                     child: Text(
-                      isDone ? "🕐 Pending" : "✅ Delivered",
+                      isDone ? "Pending" : "Delivered",
                       style: Theme.of(context)
                           .textTheme
-                          .titleLarge!
+                          .bodySmall!
                           .apply(color: TColors.white),
                     ),
                   ),
                 ],
               ),
-              const Spacer(),
+              SizedBox(
+                height: 4,
+              ),
               SizedBox(
                 width: TSizes.displayWidth(context) * 0.42,
                 height: 36,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Expanded(
-                      child: TCirclularContainer(
-                        onTap: () => onView,
-                        width: TSizes.displayWidth(context) * (40 / 420),
-                        height: TSizes.displayWidth(context) * (40 / 420),
-                        radius: 8,
-                        backgroundColor: TColors.primary,
-                        child: Center(
-                          child: Text(
-                            'View 👀',
-                            textAlign: TextAlign.center,
-                            style: Theme.of(context).textTheme.titleLarge,
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: TSizes.sm,
-                    ),
+                    // Expanded(
+                    //   child: TCirclularContainer(
+                    //     onTap: () => onView,
+                    //     width: TSizes.displayWidth(context) * (40 / 420),
+                    //     height: TSizes.displayWidth(context) * (40 / 420),
+                    //     radius: 8,
+                    //     backgroundColor: TColors.primary,
+                    //     child: Center(
+                    //       child: Text(
+                    //         'View 👀',
+                    //         textAlign: TextAlign.center,
+                    //         style: Theme.of(context).textTheme.titleLarge,
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
+                    // const SizedBox(
+                    //   width: TSizes.sm,
+                    // ),
                     Expanded(
                       child: TCirclularContainer(
                         onTap: () => onEdit,
