@@ -78,4 +78,6 @@ class TSizes {
 
   // Grid view spacing
   static const double gridViewSpacing = 10.0;
+
+  static spaceBtwEdgesWidget({required Container child}) {}
 }
