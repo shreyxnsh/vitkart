@@ -373,35 +373,38 @@ class CreateProductScreen extends StatelessWidget {
                             ),
 
                             /// product image
-                            CreateProductImagePickerWidget(
-                              file: controller.coverImage.value,
-                              onStart: () async {
-                                userChoice(
-                                  context: context,
-                                  isCamera: () async {
-                                    controller.coverImage.value =
-                                        await THelperFunctions
-                                            .pickImageWithCrop(context, true);
-                                    if (controller.coverImage.value != null) {
-                                      controller.updateDataList(4, true);
-                                    }
-                                    Navigator.pop(context);
-                                  },
-                                  isGallery: () async {
-                                    controller.coverImage.value =
-                                        await THelperFunctions
-                                            .pickImageWithCrop(context, false);
-                                    if (controller.coverImage.value != null) {
-                                      controller.updateDataList(4, true);
-                                    }
-                                    Navigator.pop(context);
-                                  },
-                                );
-                              },
-                              onRemove: () {
-                                controller.updateDataList(4, false);
-                                controller.coverImage.value = null;
-                              },
+                            Obx(
+                              ()=> CreateProductImagePickerWidget(
+                                file: controller.coverImage.value,
+                                onStart: () async {
+                                  userChoice(
+                                    context: context,
+                                    isCamera: () async {
+                                      controller.coverImage.value =
+                                          await THelperFunctions
+                                              .pickImageWithCrop(context, true);
+                                      if (controller.coverImage.value != null) {
+                                        controller.updateDataList(4, true);
+                                      }
+                                      
+                                      Navigator.pop(context);
+                                    },
+                                    isGallery: () async {
+                                      controller.coverImage.value =
+                                          await THelperFunctions
+                                              .pickImageWithCrop(context, false);
+                                      if (controller.coverImage.value != null) {
+                                        controller.updateDataList(4, true);
+                                      }
+                                      Navigator.pop(context);
+                                    },
+                                  );
+                                },
+                                onRemove: () {
+                                  controller.updateDataList(4, false);
+                                  controller.coverImage.value = null;
+                                },
+                              ),
                             ),
 
                             const SizedBox(
@@ -806,6 +809,7 @@ class CreateProductImagePickerWidget extends StatelessWidget {
                   isFileImage: true,
                   onPressed: onStart,
                   imageUrl: file!.path,
+                  // isNetworkImage: false,
                   width: TSizes.displayWidth(context),
                   height: TSizes.displayHeight(context) * 0.36,
                 ),

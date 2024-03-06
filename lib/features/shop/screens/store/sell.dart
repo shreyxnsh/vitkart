@@ -67,67 +67,73 @@ class _SellScreenState extends State<SellScreen> {
         ),
         showBackArrow: false,
       ),
-      body: Center(
-          child: Padding(
-        padding: const EdgeInsets.all(TSizes.defaultSpace),
+      body: SingleChildScrollView(
         child: Center(
-          child: Text(
-            "Uh Oh! Wait for the V2 launch...  🧑🏻‍💻",
-            style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                  color: TColors.primary,
-                ),
-          ),
-        ),
-      )
-
-          // Padding(
-          //   padding: const EdgeInsets.all(TSizes.defaultSpace),
-          //   child: Column(
-          //     children: [
-          //       SizedBox(
-          //         width: double.infinity,
-          //         child: ElevatedButton(
-          //           onPressed: () {
-          //             Get.to(() => const CreateProductScreen());
-          //           },
-          //           child: const Text('Sell Now'),
-          //         ),
-          //       ),
-          //       const SizedBox(
-          //         height: TSizes.spaceBtwItems,
-          //       ),
-          //       TSectionHeading(
-          //         title: 'Your Products',
-          //         showActionButton: true,
-          //         onPressed: () {},
-          //       ),
-          //       const SizedBox(
-          //         height: TSizes.spaceBtwItems,
-          //       ),
-          //       ListView.builder(
-          //         shrinkWrap: true,
-          //         itemCount:
-          //             products.length, // Use the length of the products list
-          //         physics: const NeverScrollableScrollPhysics(),
-          //         itemBuilder: (context, index) {
-          //           return SellProductCard(
-          //             isDone: index % 2 == 0,
-          //             name: products[index].productName,
-          //             price: products[index].productPrice.toString(),
-          //             image: products[index].productImage,
-          //             onView: () {
-          //               log('view $index');
-          //             },
-          //             onEdit: () {
-          //               log('edit $index');
-          //             },
-          //           );
-          //         },
-          //       ),
-          //     ],
-          //   ),
-          // ),
-          ),
+            child:
+            
+        //      Padding(
+        //   padding: const EdgeInsets.all(TSizes.defaultSpace),
+        //   child: 
+          
+        //   Center(
+        //     child: Text(
+        //       "Uh Oh! Wait for the V2 launch...  🧑🏻‍💻",
+        //       style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+        //             color: TColors.primary,
+        //           ),
+        //     ),
+        //   ),
+        // )
+        
+            Padding(
+              padding: const EdgeInsets.all(TSizes.defaultSpace),
+              child: Column(
+                children: [
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Get.to(() => const CreateProductScreen());
+                      },
+                      child: const Text('Sell Now'),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: TSizes.spaceBtwItems,
+                  ),
+                  TSectionHeading(
+                    title: 'Your Products',
+                    showActionButton: true,
+                    onPressed: () {},
+                  ),
+                  const SizedBox(
+                    height: TSizes.spaceBtwItems,
+                  ),
+                  ListView.builder(
+                    shrinkWrap: true,
+                    itemCount:
+                        products.length, // Use the length of the products list
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      return SellProductCard(
+                        isDone: index % 2 == 0,
+                        name: products[index].productName,
+                        price: products[index].productPrice.toString(),
+                        image: products[index].productImage,
+                        onView: () {
+                          log('view $index');
+                        },
+                        onEdit: () {
+                          log('edit $index');
+                        },
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ),
+            ),
+      ),
     );
   }
 }

@@ -10,9 +10,10 @@ String registrationUrl = '$url/user/signUp';
 String loginUrl = '$url/user/signIn';
 String otpVerificationUrl = '$url/emailVerification/verifyEmail';
 
-String techProductsUrl = '$url/product/getproduct?category=tech';
-String cycleProductsUrl = '$url/product/getproduct?category=cycle';
-String mattressProductsUrl = '$url/product/getproduct?category=mattress';
+String techProductsUrl = '$url/product/getproduct?category=Technology';
+String cycleProductsUrl = '$url/product/getproduct?category=Cycles';
+String mattressProductsUrl = '$url/product/getproduct?category=Mattresses';
+String booksProductsUrl = '$url/product/getproduct?category=Books';
 String getAllProductUrl = '$url/product/getproduct';
 String getUserProducts = '$url/product/getproduct?seller=';
 String getEventsUrl = '$url/event/getEvents';

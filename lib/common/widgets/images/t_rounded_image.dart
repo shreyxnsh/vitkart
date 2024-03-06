@@ -51,7 +51,12 @@ class TRoundedImage extends StatelessWidget {
           borderRadius: applyImageRadius
               ? BorderRadius.circular(borderRadius)
               : BorderRadius.zero,
-          child: CachedNetworkImage(
+          child: isFileImage==true?
+          Image.file(
+            File(imageUrl),
+            fit: fit,
+            )
+           : CachedNetworkImage(
             imageUrl: imageUrl,
             placeholder: (context, url) => Container(
               // Add a placeholder widget if needed

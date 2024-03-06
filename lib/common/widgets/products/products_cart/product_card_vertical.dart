@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
@@ -33,7 +34,7 @@ class _TProductCardVerticalState extends State<TProductCardVertical> {
     final highlightColor = dark ? TColors.grey.withOpacity(0.2) : TColors.light;
 
     return GestureDetector(
-      onTap: () => Get.to(() => const ProductDetailScreen()),
+      onTap: () => Get.to(() =>  ProductDetailScreen(product: widget.product,)),
       child: Container(
         width: 140,
         padding: const EdgeInsets.all(0),
@@ -181,7 +182,7 @@ class _TProductCardVerticalState extends State<TProductCardVertical> {
                   Padding(
                     padding: const EdgeInsets.all(TSizes.xs),
                     child: TRoundedContainer(
-                      height: TSizes.productItemHeight ,
+                      height: TSizes.productItemHeight,
                       margin: const EdgeInsets.only(top: 4),
                       padding: const EdgeInsets.all(TSizes.xs),
                       clipBehavior: Clip.antiAlias,
@@ -190,30 +191,16 @@ class _TProductCardVerticalState extends State<TProductCardVertical> {
                       child: Stack(
                         children: [
                           Center(
-                            child: Image.network(
-                              widget.product.productImage,
+                            child: CachedNetworkImage(
+                              imageUrl: widget.product.productImage,
                               width: 200,
                               height: 300,
                               fit: BoxFit.fitHeight,
-                              // loadingBuilder: (BuildContext context,
-                              //     Widget child,
-                              //     ImageChunkEvent? loadingProgress) {
-                              //   if (loadingProgress == null) {
-                              //     setState(() {
-                              //       shimmerIt = false;
-                              //     });
-                              //     return child;
-                              //   } else {
-                              //     // You can return a placeholder or a loading indicator here
-                              //     return const CircularProgressIndicator();
-                              //   }
-                              // },
-                              // errorBuilder: (BuildContext context, Object error,
-                              //     StackTrace? stackTrace) {
-                              //   // You can return an error placeholder or handle errors here
-                              //   return const Icon(
-                              //       Icons.error); // Example: Show an error icon
-                              // },
+                              placeholder: (context, url) => Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                              errorWidget: (context, url, error) =>
+                                  Icon(Icons.error),
                             ),
                           ),
                           // ... Other parts of the Stack

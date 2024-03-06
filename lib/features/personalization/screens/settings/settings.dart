@@ -98,10 +98,20 @@ class SettingScreen extends StatelessWidget {
                     //     Get.to(() => const OrderScreen());
                     //   },
                     // ),
+
                     TSettingsMenuTile(
                       icon: Iconsax.ticket,
                       title: "My Tickets",
                       subtitle: "Get All your event tickets here!",
+                      onTap: () {
+                        Get.to(() => const MyTicketScreen());
+                      },
+                    ),
+                    
+                    TSettingsMenuTile(
+                      icon: Iconsax.shopping_bag,
+                      title: "My Orders",
+                      subtitle: "Get All your orders!",
                       onTap: () {
                         Get.to(() => const MyTicketScreen());
                       },
@@ -258,27 +268,27 @@ class SettingScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          GestureDetector(
-                            onTap: () async {
-                              String url =
-                                  "https://www.linkedin.com/in/yaviral17/";
-                              var urllaunchable = await canLaunchUrl(Uri.parse(
-                                  url)); //canLaunch is from url_launcher package
-                              if (urllaunchable) {
-                                await launchUrl(Uri.parse(
-                                    url)); //launch is from url_launcher package to launch URL
-                              } else {
-                                print("URL can't be launched.");
-                              }
-                            },
-                            child: Text(
-                              "@yaviral17  |",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall!
-                                  .copyWith(color: TColors.primary),
-                            ),
-                          ),
+                          // GestureDetector(
+                          //   onTap: () async {
+                          //     String url =
+                          //         "https://www.linkedin.com/in/yaviral17/";
+                          //     var urllaunchable = await canLaunchUrl(Uri.parse(
+                          //         url)); //canLaunch is from url_launcher package
+                          //     if (urllaunchable) {
+                          //       await launchUrl(Uri.parse(
+                          //           url)); //launch is from url_launcher package to launch URL
+                          //     } else {
+                          //       print("URL can't be launched.");
+                          //     }
+                          //   },
+                          //   child: Text(
+                          //     "@yaviral17  |",
+                          //     style: Theme.of(context)
+                          //         .textTheme
+                          //         .bodySmall!
+                          //         .copyWith(color: TColors.primary),
+                          //   ),
+                          // ),
                           GestureDetector(
                             onTap: () async {
                               String url =
