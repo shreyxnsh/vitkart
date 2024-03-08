@@ -109,7 +109,9 @@ class _SellScreenState extends State<SellScreen> {
                   const SizedBox(
                     height: TSizes.spaceBtwItems,
                   ),
-                  ListView.builder(
+                            products.isEmpty
+              ? Text('No products listed')
+              : ListView.builder(
                     shrinkWrap: true,
                     itemCount:
                         products.length, // Use the length of the products list
