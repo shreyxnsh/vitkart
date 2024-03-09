@@ -62,7 +62,9 @@ class _CycleScreenState extends State<CycleScreen> {
             children: [
               // ... Other UI elements
 
-              TGridLayout(
+              products.isEmpty
+              ? Text('No products listed')
+              : TGridLayout(
                 itemCount: products.length,
                 itemBuilder: (_, index) => TProductCardVertical(
                   product: products[index],

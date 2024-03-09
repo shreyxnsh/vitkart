@@ -63,7 +63,9 @@ class _MattressScreenState extends State<MattressScreen> {
             children: [
               // ... Other UI elements
 
-              TGridLayout(
+              products.isEmpty
+              ? Text('No products listed')
+              : TGridLayout(
                 itemCount: products.length,
                 itemBuilder: (_, index) => TProductCardVertical(
                   product: products[index],
