@@ -61,8 +61,9 @@ class _TechScreenState extends State<TechScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // ... Other UI elements
-
-              TGridLayout(
+              products.isEmpty
+              ? Text('No products listed')
+              : TGridLayout(
                 itemCount: products.length,
                 itemBuilder: (_, index) => TProductCardVertical(
                   product: products[index],

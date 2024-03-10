@@ -9,6 +9,7 @@ import 'package:vitkart/common/widgets/products/products_cart/product_card_verti
 import 'package:vitkart/common/widgets/text/section_heading.dart';
 import 'package:vitkart/features/shop/screens/home/widgets/circular_widget.dart';
 import 'package:vitkart/features/shop/screens/store/create_product.dart';
+import 'package:vitkart/features/shop/screens/store/sell_stats.dart';
 import 'package:vitkart/features/shop/screens/store/widgets/sellProductCard.dart';
 import 'package:vitkart/utils/API/userDataService.dart';
 import 'package:vitkart/utils/constants/colors.dart';
@@ -109,23 +110,31 @@ class _SellScreenState extends State<SellScreen> {
                   const SizedBox(
                     height: TSizes.spaceBtwItems,
                   ),
-                  ListView.builder(
+                            products.isEmpty
+              ? Text('No products listed')
+              : ListView.builder(
                     shrinkWrap: true,
                     itemCount:
                         products.length, // Use the length of the products list
                     physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
-                      return SellProductCard(
-                        isDone: index % 2 == 0,
-                        name: products[index].productName,
-                        price: products[index].productPrice.toString(),
-                        image: products[index].productImage,
-                        onView: () {
-                          log('view $index');
+                      return GestureDetector(
+                        onTap: () {
+                          log('tapped $index');
+                          Get.to(SellStatsScreen(product: products[index]));
                         },
-                        onEdit: () {
-                          log('edit $index');
-                        },
+                        child: SellProductCard(
+                          isDone: index % 2 == 0,
+                          name: products[index].productName,
+                          price: products[index].productPrice.toString(),
+                          image: products[index].productImage,
+                          onView: () {
+                            log('view $index');
+                          },
+                          onEdit: () {
+                            log('edit $index');
+                          },
+                        ),
                       );
                     },
                   ),

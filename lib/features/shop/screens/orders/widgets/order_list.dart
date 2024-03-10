@@ -38,11 +38,11 @@ class TOrderListItems extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        'Processing',
+                        'Requested Approval',
                         style: Theme.of(context).textTheme.bodyLarge!.apply(color: TColors.primary, fontWeightDelta: 1),
                       ),
                       Text(
-                        '12 Nov 2023',
+                        'Realme buds',
                         style: Theme.of(context).textTheme.headlineSmall
                       ),
                     ],
@@ -73,11 +73,11 @@ class TOrderListItems extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Text(
-                              'Order Id',
+                              'Price',
                               style: Theme.of(context).textTheme.labelMedium
                             ),
                             Text(
-                              '[#69420]',
+                              '₹ 240',
                               style: Theme.of(context).textTheme.titleMedium
                             ),
                           ],
@@ -101,7 +101,7 @@ class TOrderListItems extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Text(
-                              'Shipping Date :',
+                              'Order Date :',
                               style: Theme.of(context).textTheme.labelMedium
                             ),
                             Text(

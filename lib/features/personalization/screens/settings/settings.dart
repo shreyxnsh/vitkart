@@ -99,19 +99,28 @@ class SettingScreen extends StatelessWidget {
                     //   },
                     // ),
 
-                    TSettingsMenuTile(
-                      icon: Iconsax.ticket,
-                      title: "My Tickets",
-                      subtitle: "Get All your event tickets here!",
-                      onTap: () {
-                        Get.to(() => const MyTicketScreen());
-                      },
-                    ),
+                    
                     
                     TSettingsMenuTile(
                       icon: Iconsax.shopping_bag,
                       title: "My Orders",
                       subtitle: "Get All your orders!",
+                      onTap: () {
+                        Get.to(() => const OrderScreen());
+                      },
+                    ),
+                    // TSettingsMenuTile(
+                    //   icon: Iconsax.shopping_bag,
+                    //   title: "My Products",
+                    //   subtitle: "Get All your orders!",
+                    //   onTap: () {
+                    //     Get.to(() => const ());
+                    //   },
+                    // ),
+                    TSettingsMenuTile(
+                      icon: Iconsax.ticket,
+                      title: "My Tickets",
+                      subtitle: "Get All your event tickets here!",
                       onTap: () {
                         Get.to(() => const MyTicketScreen());
                       },

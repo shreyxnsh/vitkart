@@ -78,6 +78,14 @@ class _NavigationMenuState extends State<NavigationMenu> {
                 color: TColors.primary,
               ),
             ),
+             NavigationDestination(
+              icon: Icon(Iconsax.shopping_cart),
+              label: "Store",
+              selectedIcon: Icon(
+                Iconsax.shopping_cart5,
+                color: TColors.primary,
+              ),
+            ),
             NavigationDestination(
               icon: Icon(Iconsax.ticket),
               label: "Events",
@@ -94,14 +102,7 @@ class _NavigationMenuState extends State<NavigationMenu> {
                 color: TColors.primary,
               ),
             ),
-            NavigationDestination(
-              icon: Icon(Iconsax.shopping_cart),
-              label: "Store",
-              selectedIcon: Icon(
-                Iconsax.shopping_cart5,
-                color: TColors.primary,
-              ),
-            ),
+           
             NavigationDestination(
               icon: Icon(Iconsax.personalcard),
               label: "Account",
@@ -154,9 +155,9 @@ class NavigationController extends GetxController {
 
   final screens = [
     const HomeScreen(),
+    const StoreScreen(),
     const EventScreen(),
     const SellScreen(),
-    const StoreScreen(),
     const SettingScreen(),
   ];
 }
