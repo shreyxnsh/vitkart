@@ -3,6 +3,9 @@ import 'package:get_storage/get_storage.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 
 class UserDataService {
+  static String getToken() {
+    return GetStorage().read('token');
+  }
   static String getUserName() {
     final storedToken = GetStorage().read('token');
     if (storedToken != null) {
