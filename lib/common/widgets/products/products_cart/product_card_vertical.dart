@@ -34,7 +34,9 @@ class _TProductCardVerticalState extends State<TProductCardVertical> {
     final highlightColor = dark ? TColors.grey.withOpacity(0.2) : TColors.light;
 
     return GestureDetector(
-      onTap: () => Get.to(() =>  ProductDetailScreen(product: widget.product,)),
+      onTap: () => Get.to(() => ProductDetailScreen(
+            product: widget.product,
+          )),
       child: Container(
         width: 140,
         padding: const EdgeInsets.all(0),
@@ -306,7 +308,6 @@ class _TProductCardVerticalState extends State<TProductCardVertical> {
     );
   }
 }
-
 class ProductData {
   final String id;
   final String productName;
@@ -318,6 +319,7 @@ class ProductData {
   final bool isPopular;
   final String sellerName;
   final String productStatus;
+  final List<Bidder> bidders; // List of bidders
 
   ProductData({
     required this.id,
@@ -330,9 +332,18 @@ class ProductData {
     required this.isPopular,
     required this.sellerName,
     required this.productStatus,
+    required this.bidders,
   });
 
   factory ProductData.fromJson(Map<String, dynamic> json) {
+    // Extracting bidders from JSON
+    List<Bidder> bidders = [];
+    if (json.containsKey('bidderId')) {
+      bidders = (json['bidderId'] as List)
+          .map((bidderJson) => Bidder.fromJson(bidderJson))
+          .toList();
+    }
+
     return ProductData(
       id: json['_id'],
       productName: json['productName'],
@@ -344,6 +355,30 @@ class ProductData {
       isPopular: json['isPopular'],
       sellerName: json['sellerName'],
       productStatus: json['productStatus'],
+      bidders: bidders, // Assigning the list of bidders
     );
   }
 }
+class Bidder {
+  final String id;
+  final String userName;
+  final String userEmail;
+  final String userContact;
+
+  Bidder({
+    required this.id,
+    required this.userName,
+    required this.userEmail,
+    required this.userContact,
+  });
+
+  factory Bidder.fromJson(Map<String, dynamic> json) {
+    return Bidder(
+      id: json['_id'],
+      userName: json['userName'],
+      userEmail: json['userEmail'],
+      userContact: json['userContact'],
+    );
+  }
+}
+

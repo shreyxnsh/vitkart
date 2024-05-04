@@ -28,7 +28,7 @@ class SellScreen extends StatefulWidget {
 
 class _SellScreenState extends State<SellScreen> {
   List<ProductData> products = [];
-  final sellerName = UserDataService.getUserName();
+  final sellerId = UserDataService.getUserID();
 
   @override
   void initState() {
@@ -37,7 +37,7 @@ class _SellScreenState extends State<SellScreen> {
   }
 
   Future<void> fetchUserProducts() async {
-    final response = await http.get(Uri.parse('$getUserProducts$sellerName'));
+    final response = await http.get(Uri.parse('$getUserProducts$sellerId'));
     print(response.body);
     if (response.statusCode == 200) {
       final Map<String, dynamic> data = jsonDecode(response.body);

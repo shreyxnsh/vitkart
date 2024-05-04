@@ -22,6 +22,7 @@ import 'package:vitkart/utils/constants/colors.dart';
 import 'package:vitkart/utils/constants/image_strings.dart';
 import 'package:vitkart/utils/constants/sizes.dart';
 import 'package:vitkart/utils/helpers/helper_functions.dart';
+
 class SellStatsScreen extends StatefulWidget {
   final ProductData product;
 
@@ -39,7 +40,7 @@ class _SellStatsScreenState extends State<SellStatsScreen> {
   Widget build(BuildContext context) {
     final dark = THelperFunctions.isDarkMode(context);
     return Scaffold(
-      // bottomNavigationBar: TBootomAddToCart(),
+      // bottomNavigationBar: TBottomAddToCart(),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -51,18 +52,20 @@ class _SellStatsScreenState extends State<SellStatsScreen> {
                   children: [
                     // Main Large Image
                     SizedBox(
-  height: 420,
-  child: Padding(
-    padding: EdgeInsets.all(TSizes.productImageRadius),
-    child: Center(
-      child: CachedNetworkImage(
-        imageUrl: widget.product.productImage,
-        placeholder: (context, url) => CircularProgressIndicator(),
-        errorWidget: (context, url, error) => Icon(Icons.error),
-      ),
-    ),
-  ),
-),
+                      height: 420,
+                      child: Padding(
+                        padding: EdgeInsets.all(TSizes.productImageRadius),
+                        child: Center(
+                          child: CachedNetworkImage(
+                            imageUrl: widget.product.productImage,
+                            placeholder: (context, url) =>
+                                CircularProgressIndicator(),
+                            errorWidget: (context, url, error) =>
+                                Icon(Icons.error),
+                          ),
+                        ),
+                      ),
+                    ),
                     // Image Slider
                     // Positioned(
                     //   right: 0,
@@ -125,9 +128,8 @@ class _SellStatsScreenState extends State<SellStatsScreen> {
                   /// - Price,Title ,Stock & Brand
                   TRoundedContainer(
                     padding: const EdgeInsets.all(TSizes.md),
-                    backgroundColor: dark
-                        ? TColors.lightDarkBackground
-                        : TColors.light,
+                    backgroundColor:
+                        dark ? TColors.lightDarkBackground : TColors.light,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -143,7 +145,8 @@ class _SellStatsScreenState extends State<SellStatsScreen> {
                                   backgroundColor:
                                       TColors.secondary.withOpacity(0.8),
                                   padding: const EdgeInsets.symmetric(
-                                      horizontal: TSizes.sm, vertical: TSizes.xs),
+                                      horizontal: TSizes.sm,
+                                      vertical: TSizes.xs),
                                   child: Text(
                                     "25 %",
                                     style: Theme.of(context)
@@ -158,7 +161,10 @@ class _SellStatsScreenState extends State<SellStatsScreen> {
                                 // Price
                                 Text(
                                   "\$${widget.product.productPrice}",
-                                  style: Theme.of(context).textTheme.titleSmall!.apply(
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleSmall!
+                                      .apply(
                                         decoration: TextDecoration.lineThrough,
                                       ),
                                 ),
@@ -184,6 +190,7 @@ class _SellStatsScreenState extends State<SellStatsScreen> {
                         const SizedBox(
                           height: TSizes.spaceBtwItems / 1.5,
                         ),
+
                         /// Titile
                         TProductTitleText(
                           title: widget.product.productName,
@@ -192,6 +199,7 @@ class _SellStatsScreenState extends State<SellStatsScreen> {
                         const SizedBox(
                           height: TSizes.spaceBtwItems / 1.5,
                         ),
+
                         /// Stock Status
                         Row(
                           children: [
@@ -217,8 +225,12 @@ class _SellStatsScreenState extends State<SellStatsScreen> {
                   const SizedBox(
                     height: TSizes.spaceBtwItems,
                   ),
+
                   /// - Description
-                  TSectionHeading(title: "Description", showActionButton: false,),
+                  TSectionHeading(
+                    title: "Description",
+                    showActionButton: false,
+                  ),
                   SizedBox(height: TSizes.spaceBtwItems),
                   ReadMoreText(
                     "${widget.product.productDesc}",
@@ -226,37 +238,59 @@ class _SellStatsScreenState extends State<SellStatsScreen> {
                     trimMode: TrimMode.Line,
                     trimCollapsedText: " Show more",
                     trimExpandedText: "\n\nShow less",
-                    moreStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
-                    lessStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
+                    moreStyle:
+                        TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
+                    lessStyle:
+                        TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
                   ),
                   SizedBox(height: TSizes.spaceBtwSections),
-                  TSectionHeading(title: "Buyer", showActionButton: false,),
+                  TSectionHeading(
+                    title: "Buyer",
+                    showActionButton: false,
+                  ),
 
                   /// - Reviews
                   SizedBox(
                     height: TSizes.spaceBtwItems,
                   ),
-                  BuyerCard(name: "Shreyansh Jain", email: "shreyansh@gmail.com" , regId: "21BSA10012", onTap: () {
-                    log('Approve');
-                  
-                  },),
+                  BuyerCard(
+                    name: "Shreyansh Jain",
+                    email: "shreyansh@gmail.com",
+                    regId: "21BSA10012",
+                    onTap: () {
+                      log('Approve');
+                    },
+                  ),
                   SizedBox(height: TSizes.spaceBtwSections),
-                  TSectionHeading(title: "Bidders", showActionButton: false,),
+                  TSectionHeading(
+                    title: "Bidders",
+                    showActionButton: false,
+                  ),
 
                   /// - Reviews
                   SizedBox(
                     height: TSizes.spaceBtwItems,
                   ),
-                  BidderCard(name: "Shreyansh Jain", email: "shreyansh@gmail.com" , regId: "21BSA10012", onTap: () {
-                    log('Approve');
-                  
-                  },),
+                  for (var bidder in widget.product.bidders)
+                    Column(
+                      children: [
+                        BidderCard(
+                          name: bidder.userName,
+                          email: bidder.userEmail,
+                          regId: bidder.userContact,
+                          onTap: () {
+                            // Handle onTap event
+                            log('Approve');
+                          },
+                        ),
+                        SizedBox(
+                          height: TSizes.spaceBtwItems,
+                        
+                        )
+                      ],
+                    ),
                   SizedBox(height: TSizes.spaceBtwItems),
-                  BidderCard(name: "Anand Jain", email: "anand@gmail.com" , regId: "21MIM10012", onTap: () {
-                    log('Approve');
-                  
-                  },),
-                  SizedBox(height: TSizes.spaceBtwSections),
+                  SizedBox(height: TSizes.spaceBtwItems),
                 ],
               ),
             ),
