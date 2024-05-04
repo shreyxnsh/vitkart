@@ -35,7 +35,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   Widget build(BuildContext context) {
     final dark = THelperFunctions.isDarkMode(context);
     return Scaffold(
-      bottomNavigationBar: TBootomAddToCart(),
+      bottomNavigationBar: TBottomAddToCart(productId: widget.product.id,),
       body: SingleChildScrollView(
         child: Column(
           children: [
