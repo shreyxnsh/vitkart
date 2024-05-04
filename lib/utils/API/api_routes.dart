@@ -1,6 +1,6 @@
 class Domain {
   static String domain = 'api.vitkart.fun';
-  // static String domain = '192.168.64.220:3001';
+  // static String domain = '192.168.31.28:3000';
 }
 
 String url = 'http://${Domain.domain}/api/v1';
@@ -15,7 +15,8 @@ String cycleProductsUrl = '$url/product/getproduct?category=Cycles';
 String mattressProductsUrl = '$url/product/getproduct?category=Mattresses';
 String booksProductsUrl = '$url/product/getproduct?category=Books';
 String getAllProductUrl = '$url/product/getproduct';
-String getUserProducts = '$url/product/getproduct?seller=';
+String getUserProducts = '$url/product/getproduct?sellerId=';
+String placebidUrl = "$url/product/placebid";
 String getEventsUrl = '$url/event/getEvents';
 String getUserTicketsUrl = '$url/ticket/getTickets?user=';
 String createProductUrl = "$url/product/createProduct?token=";
