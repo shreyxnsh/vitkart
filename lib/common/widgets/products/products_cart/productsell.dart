@@ -105,7 +105,7 @@ class _SuccessScreenState extends State<SellSuccessScreen> {
                       opacity: fadeIt ? 1 : 0,
                       child: Center(
                         child: Text(
-                          'Product Bought Successfully',
+                          'Placed request successfully!',
                           textAlign: TextAlign.center,
                           style: Theme.of(context)
                               .textTheme
