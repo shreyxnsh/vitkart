@@ -374,7 +374,7 @@ class CreateProductScreen extends StatelessWidget {
 
                             /// product image
                             Obx(
-                              ()=> CreateProductImagePickerWidget(
+                              () => CreateProductImagePickerWidget(
                                 file: controller.coverImage.value,
                                 onStart: () async {
                                   userChoice(
@@ -386,13 +386,14 @@ class CreateProductScreen extends StatelessWidget {
                                       if (controller.coverImage.value != null) {
                                         controller.updateDataList(4, true);
                                       }
-                                      
+
                                       Navigator.pop(context);
                                     },
                                     isGallery: () async {
                                       controller.coverImage.value =
                                           await THelperFunctions
-                                              .pickImageWithCrop(context, false);
+                                              .pickImageWithCrop(
+                                                  context, false);
                                       if (controller.coverImage.value != null) {
                                         controller.updateDataList(4, true);
                                       }

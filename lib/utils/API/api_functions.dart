@@ -337,4 +337,88 @@ class APIFunctions {
       return data;
     }
   }
+
+  static Future<Map<String, dynamic>> placeBid(
+      {required String productId, required String bidderId}) async {
+    var headers = {
+      'token': UserDataService.getToken(),
+      'Content-Type': 'application/json'
+    };
+    log("$placeBidUrl");
+    var request = http.Request('PUT', Uri.parse(placeBidUrl));
+    log("productId : $productId bidderId : $bidderId   ${UserDataService.getToken()}");
+    request.body = json.encode({
+      "productId": productId,
+      "bidderId": bidderId,
+    });
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+    log("placeBidStatus : ${response.statusCode}");
+    if (response.statusCode == 200) {
+      Map<String, dynamic> jsonResponse =
+          jsonDecode(await response.stream.bytesToString());
+      jsonResponse['isSuccess'] = true;
+      return jsonResponse;
+    } else {
+      Map<String, dynamic> jsonResponse =
+          jsonDecode(await response.stream.bytesToString());
+      jsonResponse['isSuccess'] = false;
+      return jsonResponse;
+    }
+  }
+
+  static Future<Map<String, dynamic>> approveBit(
+      {required String productId, required String bidderId}) async {
+    var headers = {
+      'token': UserDataService.getToken(),
+      'Content-Type': 'application/json'
+    };
+    log("$approveBitUrl");
+    var request = http.Request('PUT', Uri.parse(approveBitUrl));
+    log("productId : $productId bidderId : $bidderId   ${UserDataService.getToken()}");
+    request.body = json.encode({
+      "productId": productId,
+      "bidderId": bidderId,
+    });
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+    log("placeBidStatus : ${response.statusCode}");
+    if (response.statusCode == 200) {
+      Map<String, dynamic> jsonResponse =
+          jsonDecode(await response.stream.bytesToString());
+      jsonResponse['isSuccess'] = true;
+      return jsonResponse;
+    } else {
+      Map<String, dynamic> jsonResponse =
+          jsonDecode(await response.stream.bytesToString());
+      jsonResponse['isSuccess'] = false;
+      return jsonResponse;
+    }
+  }
+
+  static Future<Map<String, dynamic>> getBiddersList(String id) async {
+    String url = getBiddersListUrl + id;
+    log("code : $url");
+    var request = http.Request('GET', Uri.parse(url));
+
+    http.StreamedResponse response = await request.send();
+    log("ticket : ${response.statusCode}");
+
+    if (response.statusCode == 200) {
+      Map<String, dynamic> jsonResponse =
+          jsonDecode(await response.stream.bytesToString());
+      jsonResponse['isSuccess'] = true;
+      log("Tickets :  ${jsonResponse.toString()}"); // Convert to JSON
+      return jsonResponse;
+    } else {
+      Map<String, dynamic> jsonResponse =
+          jsonDecode(await response.stream.bytesToString());
+      jsonResponse['isSuccess'] = false; // Convert to JSON
+
+      log("Error :  ${jsonResponse.toString()}");
+      return jsonResponse;
+    }
+  }
 }

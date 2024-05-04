@@ -6,7 +6,6 @@ import 'package:vitkart/utils/constants/colors.dart';
 import 'package:vitkart/utils/constants/sizes.dart';
 import 'package:vitkart/utils/helpers/helper_functions.dart';
 
-
 class SellProductCard extends StatelessWidget {
   const SellProductCard({
     super.key,
@@ -44,47 +43,40 @@ class SellProductCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-       
-
-
           TRoundedContainer(
-                        height: TSizes.displayWidth(context) * (160 / 420),
-                        width: TSizes.displayWidth(context) * (150 / 420),
-                        
-                        clipBehavior: Clip.antiAlias,
-                        backgroundColor:
-                            dark ? TColors.lightDarkBackground : TColors.light,
-                        child: Stack(
-                          children: [
-                            Center(
-                              child: Image.network(
-                                image,
-                                width: 200,
-                                height: double.infinity,
-                                fit: BoxFit.fitHeight,
-                                loadingBuilder: (BuildContext context,
-                                    Widget child,
-                                    ImageChunkEvent? loadingProgress) {
-                                  if (loadingProgress == null) {
-                                    
-                                    return child;
-                                  } else {
-                                    // You can return a placeholder or a loading indicator here
-                                    return const CircularProgressIndicator();
-                                  }
-                                },
-                                errorBuilder: (BuildContext context,
-                                    Object error, StackTrace? stackTrace) {
-                                  // You can return an error placeholder or handle errors here
-                                  return const Icon(Icons
-                                      .error); // Example: Show an error icon
-                                },
-                              ),
-                            ),
-                            // ... Other parts of the Stack
-                          ],
-                        ),
-                      ),
+            height: TSizes.displayWidth(context) * (160 / 420),
+            width: TSizes.displayWidth(context) * (150 / 420),
+            clipBehavior: Clip.antiAlias,
+            backgroundColor: dark ? TColors.lightDarkBackground : TColors.light,
+            child: Stack(
+              children: [
+                Center(
+                  child: Image.network(
+                    image,
+                    width: 200,
+                    height: double.infinity,
+                    fit: BoxFit.fitHeight,
+                    loadingBuilder: (BuildContext context, Widget child,
+                        ImageChunkEvent? loadingProgress) {
+                      if (loadingProgress == null) {
+                        return child;
+                      } else {
+                        // You can return a placeholder or a loading indicator here
+                        return const CircularProgressIndicator();
+                      }
+                    },
+                    errorBuilder: (BuildContext context, Object error,
+                        StackTrace? stackTrace) {
+                      // You can return an error placeholder or handle errors here
+                      return const Icon(
+                          Icons.error); // Example: Show an error icon
+                    },
+                  ),
+                ),
+                // ... Other parts of the Stack
+              ],
+            ),
+          ),
           const SizedBox(
             width: TSizes.spaceBtwItems,
           ),
@@ -94,9 +86,14 @@ class SellProductCard extends StatelessWidget {
               const SizedBox(
                 height: TSizes.spaceBtwItems,
               ),
-              Text(
-                name,
-                style: Theme.of(context).textTheme.titleLarge,
+              SizedBox(
+                width: TSizes.displayWidth(context) * 0.42,
+                child: Text(
+                  name,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
               ),
               const SizedBox(
                 height: TSizes.spaceBtwItems,

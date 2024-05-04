@@ -18,6 +18,7 @@ import 'package:vitkart/features/shop/screens/product_details/widgets/product_me
 import 'package:vitkart/features/shop/screens/product_details/widgets/rating_share_button.dart';
 import 'package:vitkart/features/shop/screens/store/widgets/bidder_card.dart';
 import 'package:vitkart/features/shop/screens/store/widgets/buyer_card.dart';
+import 'package:vitkart/utils/API/api_functions.dart';
 import 'package:vitkart/utils/constants/colors.dart';
 import 'package:vitkart/utils/constants/image_strings.dart';
 import 'package:vitkart/utils/constants/sizes.dart';
@@ -36,6 +37,17 @@ class SellStatsScreen extends StatefulWidget {
 }
 
 class _SellStatsScreenState extends State<SellStatsScreen> {
+  Stream _fetchList() async* {
+    log(widget.product.id.toString());
+    Map<String, dynamic> data =
+        await APIFunctions.getBiddersList(widget.product.id.toString());
+    if (data['isSuccess']) {
+      log(data.toString());
+      yield data;
+    }
+    yield {};
+  }
+
   @override
   Widget build(BuildContext context) {
     final dark = THelperFunctions.isDarkMode(context);
@@ -253,14 +265,41 @@ class _SellStatsScreenState extends State<SellStatsScreen> {
                   SizedBox(
                     height: TSizes.spaceBtwItems,
                   ),
-                  BuyerCard(
-                    name: "Shreyansh Jain",
-                    email: "shreyansh@gmail.com",
-                    regId: "21BSA10012",
-                    onTap: () {
-                      log('Approve');
+                  // BuyerCard(
+                  //   name: "Shreyansh Jain",
+                  //   email: "shreyansh@gmail.com",
+                  //   regId: "21BSA10012",
+                  //   onTap: () {
+                  //     log('Approve');
+                  //   },
+                  // ),
+
+                  StreamBuilder(
+                    stream: _fetchList(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                      if (snapshot.hasError) {
+                        return Center(
+                          child: Text('Error: ${snapshot.error}'),
+                        );
+                      }
+                      var data = snapshot.requireData ?? {};
+
+                      if (data.isEmpty) {
+                        return const Center(
+                          child: Text('No buyer found'),
+                        );
+                      }
+                      return Text(
+                        data['bidders'].toString(),
+                      );
                     },
                   ),
+
                   SizedBox(height: TSizes.spaceBtwSections),
                   TSectionHeading(
                     title: "Bidders",
@@ -271,24 +310,51 @@ class _SellStatsScreenState extends State<SellStatsScreen> {
                   SizedBox(
                     height: TSizes.spaceBtwItems,
                   ),
-                  for (var bidder in widget.product.bidders)
-                    Column(
-                      children: [
-                        BidderCard(
-                          name: bidder.userName,
-                          email: bidder.userEmail,
-                          regId: bidder.userContact,
-                          onTap: () {
-                            // Handle onTap event
-                            log('Approve');
-                          },
-                        ),
-                        SizedBox(
-                          height: TSizes.spaceBtwItems,
-                        
-                        )
-                      ],
-                    ),
+                  StreamBuilder(
+                    stream: _fetchList(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                      if (snapshot.hasError) {
+                        return Center(
+                          child: Text('Error: ${snapshot.error}'),
+                        );
+                      }
+                      var data = snapshot.requireData ?? {};
+                      log(data.toString());
+
+                      if (data.isEmpty) {
+                        return const Center(
+                          child: Text('No bidders found'),
+                        );
+                      }
+                      return Text(
+                        data['bidders'].toString(),
+                      );
+                    },
+                  ),
+
+                  // for (var bidder in widget.product.bidders)
+                  //   Column(
+                  //     children: [
+                  //       BidderCard(
+                  //         name: bidder.userName,
+                  //         email: bidder.userEmail,
+                  //         regId: bidder.userContact,
+                  //         onTap: () {
+                  //           // Handle onTap event
+                  //           log('Approve');
+                  //         },
+                  //       ),
+                  //       SizedBox(
+                  //         height: TSizes.spaceBtwItems,
+                  //       )
+                  //     ],
+                  //   ),
+
                   SizedBox(height: TSizes.spaceBtwItems),
                   SizedBox(height: TSizes.spaceBtwItems),
                 ],

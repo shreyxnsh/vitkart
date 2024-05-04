@@ -129,10 +129,18 @@ class CreateProductController extends GetxController
         data: {
           'productName': productNameController.text,
           'productDesc': productDescriptionController.text,
-          'productPrice': productPriceController.text,
-          'productStock': productQuantityController.text,
           'productCategory': category,
+          'productPrice': productPriceController.text,
+          'productQuantity': productQuantityController.text,
+          'sellerId': UserDataService.getUserID(),
           'sellerName': UserDataService.getUserName(),
+          // 'productName': productNameController.text,
+          // 'productDesc': productDescriptionController.text,
+          // 'productPrice': productPriceController.text,
+          // 'productQuantity': productQuantityController.text,
+          // 'productCategory': category,
+          // 'sellerName': UserDataService.getUserName(),
+          // 'sellerId': UserDataService.getUserID(),
         },
         filePaths: filePaths,
       );
@@ -308,7 +316,8 @@ class CreateProductController extends GetxController
                             padding: const EdgeInsets.all(TSizes.sm),
                             child: Text(
                               categories[i],
-                              style: Theme.of(Get.context!).textTheme.titleLarge,
+                              style:
+                                  Theme.of(Get.context!).textTheme.titleLarge,
                             ),
                           ),
                         ),
