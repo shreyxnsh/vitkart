@@ -37,6 +37,33 @@ class SellStatsScreen extends StatefulWidget {
 }
 
 class _SellStatsScreenState extends State<SellStatsScreen> {
+  late Stream<Map<String, dynamic>> _biddersStream;
+  late Stream<Map<String, dynamic>> _buyersStream;
+  late Map<String, dynamic> _biddersData;
+  late Map<String, dynamic> _buyersData;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _fetchData();
+  }
+
+  Future<void> _fetchData() async {
+    Map<String, dynamic> data =
+        await APIFunctions.getBiddersList(widget.product.id.toString());
+    setState(() {
+      _biddersData = data;
+      _biddersStream = Stream.value(data);
+    });
+
+    data = await APIFunctions.getBiddersList(widget.product.id.toString());
+    setState(() {
+      _buyersData = data;
+      _buyersStream = Stream.value(data);
+    });
+  }
+
   Stream _fetchList() async* {
     log(widget.product.id.toString());
     Map<String, dynamic> data =
@@ -274,86 +301,103 @@ class _SellStatsScreenState extends State<SellStatsScreen> {
                   //   },
                   // ),
 
-                  StreamBuilder(
-                    stream: _fetchList(),
+                  StreamBuilder<Map<String, dynamic>>(
+                    stream: _buyersStream,
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
+                        return Center(child: CircularProgressIndicator());
                       }
                       if (snapshot.hasError) {
+                        return Center(child: Text('Error: ${snapshot.error}'));
+                      }
+                      var data = snapshot.data ?? {};
+                      if (!data.containsKey('status') || !data['status']) {
                         return Center(
-                          child: Text('Error: ${snapshot.error}'),
-                        );
+                            child: Text('Error: Unable to fetch data'));
                       }
-                      var data = snapshot.requireData ?? {};
-
-                      if (data.isEmpty) {
-                        return const Center(
-                          child: Text('No buyer found'),
-                        );
+                      var buyerId = data['product']['buyerId'];
+                      if (buyerId == null) {
+                        return Center(child: Text('No buyer found'));
                       }
-                      return Text(
-                        data['bidders'].toString(),
+                      return BuyerCard(
+                        name: buyerId['userName'],
+                        email: buyerId['userEmail'],
+                        regId: buyerId['userContact'],
+                        onTap: () async {
+                          // Handle onTap event
+                          log('Remove');
+                          Map<String, dynamic> response =
+                              await APIFunctions.removeBid(
+                                  productId: widget.product.id,
+                                  bidderId: buyerId['_id']);
+                          log("Remove Response : $response");
+                           _fetchData();
+                        },
                       );
                     },
                   ),
-
-                  SizedBox(height: TSizes.spaceBtwSections),
+                  SizedBox(
+                    height: TSizes.spaceBtwItems,
+                  ),
+                  // Bidders
                   TSectionHeading(
                     title: "Bidders",
                     showActionButton: false,
+                  ),
+                  SizedBox(
+                    height: TSizes.spaceBtwItems,
+                  ),
+                  StreamBuilder<Map<String, dynamic>>(
+                    stream: _biddersStream,
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Center(child: CircularProgressIndicator());
+                      }
+                      if (snapshot.hasError) {
+                        return Center(child: Text('Error: ${snapshot.error}'));
+                      }
+                      var data = snapshot.data ?? {};
+                      if (!data.containsKey('status') || !data['status']) {
+                        return Center(
+                            child: Text('Error: Unable to fetch data'));
+                      }
+                      var bidderId = data['product']['bidderId'];
+                      if (bidderId.isEmpty) {
+                        return Center(child: Text('No bidders found'));
+                      }
+                      return Column(
+                        children: bidderId
+                            .map<Widget>((bidder) => Column(
+                              children: [
+                                BidderCard(
+                                      name: bidder['userName'],
+                                      email: bidder['userEmail'],
+                                      regId: bidder['userContact'],
+                                      onTap: () async {
+                                        log('Approve');
+                                        Map<String, dynamic> response =
+                                            await APIFunctions.approveBit(
+                                                productId: widget.product.id,
+                                                bidderId: bidder['_id']);
+                                        log("Approve Response : $response");
+                                        // Refresh the data after approving bidder
+                                        _fetchData();
+                                      },
+                                    ),
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                              ],
+                            ))
+                            .toList(),
+                      );
+                    },
                   ),
 
                   /// - Reviews
                   SizedBox(
                     height: TSizes.spaceBtwItems,
                   ),
-                  StreamBuilder(
-                    stream: _fetchList(),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }
-                      if (snapshot.hasError) {
-                        return Center(
-                          child: Text('Error: ${snapshot.error}'),
-                        );
-                      }
-                      var data = snapshot.requireData ?? {};
-                      log(data.toString());
-
-                      if (data.isEmpty) {
-                        return const Center(
-                          child: Text('No bidders found'),
-                        );
-                      }
-                      return Text(
-                        data['bidders'].toString(),
-                      );
-                    },
-                  ),
-
-                  // for (var bidder in widget.product.bidders)
-                  //   Column(
-                  //     children: [
-                  //       BidderCard(
-                  //         name: bidder.userName,
-                  //         email: bidder.userEmail,
-                  //         regId: bidder.userContact,
-                  //         onTap: () {
-                  //           // Handle onTap event
-                  //           log('Approve');
-                  //         },
-                  //       ),
-                  //       SizedBox(
-                  //         height: TSizes.spaceBtwItems,
-                  //       )
-                  //     ],
-                  //   ),
 
                   SizedBox(height: TSizes.spaceBtwItems),
                   SizedBox(height: TSizes.spaceBtwItems),
