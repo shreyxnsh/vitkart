@@ -399,19 +399,19 @@ class APIFunctions {
   }
 
   static Future<Map<String, dynamic>> removeBid(
-      {required String productId, required String bidderId}) async {
+      {required String productId, required String buyerId}) async {
     
     log("$removeBidUrl");
     var request = http.Request('PUT', Uri.parse(removeBidUrl));
-    log("productId : $productId bidderId : $bidderId ");
+    log("productId : $productId buyerId : $buyerId ");
     request.body = json.encode({
       "productId": productId,
-      "bidderId": bidderId,
+      "buyerId": buyerId,
     });
    
 
     http.StreamedResponse response = await request.send();
-    log("placeBidStatus : ${response.statusCode}");
+    log("removeBid : ${response.statusCode}");
     if (response.statusCode == 200) {
       Map<String, dynamic> jsonResponse =
           jsonDecode(await response.stream.bytesToString());

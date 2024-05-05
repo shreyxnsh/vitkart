@@ -329,7 +329,7 @@ class _SellStatsScreenState extends State<SellStatsScreen> {
                           Map<String, dynamic> response =
                               await APIFunctions.removeBid(
                                   productId: widget.product.id,
-                                  bidderId: buyerId['_id']);
+                                  buyerId: buyerId['_id']);
                           log("Remove Response : $response");
                            _fetchData();
                         },
