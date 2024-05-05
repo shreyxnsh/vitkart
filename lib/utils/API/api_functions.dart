@@ -398,19 +398,51 @@ class APIFunctions {
     }
   }
 
-  static Future<Map<String, dynamic>> getBiddersList(String id) async {
-    String url = getBiddersListUrl + id;
-    log("code : $url");
-    var request = http.Request('GET', Uri.parse(url));
+  static Future<Map<String, dynamic>> removeBid(
+      {required String productId, required String bidderId}) async {
+    
+    log("$removeBidUrl");
+    var request = http.Request('PUT', Uri.parse(removeBidUrl));
+    log("productId : $productId bidderId : $bidderId ");
+    request.body = json.encode({
+      "productId": productId,
+      "bidderId": bidderId,
+    });
+   
 
     http.StreamedResponse response = await request.send();
-    log("ticket : ${response.statusCode}");
+    log("placeBidStatus : ${response.statusCode}");
+    if (response.statusCode == 200) {
+      Map<String, dynamic> jsonResponse =
+          jsonDecode(await response.stream.bytesToString());
+      jsonResponse['isSuccess'] = true;
+      return jsonResponse;
+    } else {
+      Map<String, dynamic> jsonResponse =
+          jsonDecode(await response.stream.bytesToString());
+      jsonResponse['isSuccess'] = false;
+      return jsonResponse;
+    }
+  }
+
+  static Future<Map<String, dynamic>> getBiddersList(String id) async {
+    
+    log("code : $url");
+    var headers = {
+      'token': UserDataService.getToken(),
+      'Content-Type': 'application/json'
+    };
+
+    var request = http.Request('GET', Uri.parse(getBiddersListUrl + id));
+request.headers.addAll(headers);
+    http.StreamedResponse response = await request.send();
+    log("bidders : ${response.statusCode}");
 
     if (response.statusCode == 200) {
       Map<String, dynamic> jsonResponse =
           jsonDecode(await response.stream.bytesToString());
       jsonResponse['isSuccess'] = true;
-      log("Tickets :  ${jsonResponse.toString()}"); // Convert to JSON
+      log("Bidders :  ${jsonResponse.toString()}"); // Convert to JSON
       return jsonResponse;
     } else {
       Map<String, dynamic> jsonResponse =
