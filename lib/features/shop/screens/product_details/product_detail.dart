@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:readmore/readmore.dart';
 import 'package:vitkart/common/widgets/appbar/appbar.dart';
@@ -34,6 +37,7 @@ class ProductDetailScreen extends StatefulWidget {
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
   @override
   Widget build(BuildContext context) {
+    log("Product Detail Screen   ${widget.product.productImage.length}");
     final dark = THelperFunctions.isDarkMode(context);
     return Scaffold(
       bottomNavigationBar: TBottomAddToCart(
@@ -49,21 +53,40 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                 child: Stack(
                   children: [
                     // Main Large Image
+
                     SizedBox(
-                      height: 420,
-                      child: Padding(
-                        padding: EdgeInsets.all(TSizes.productImageRadius),
-                        child: Center(
-                          child: CachedNetworkImage(
-                            imageUrl: widget.product.productImage,
-                            placeholder: (context, url) =>
-                                CircularProgressIndicator(),
-                            errorWidget: (context, url, error) =>
-                                Icon(Icons.error),
+                      height: TSizes.displayWidth(context),
+                      child: PageView(
+                        children: List.generate(
+                          widget.product.productImage.length,
+                          (index) => Center(
+                            child: CachedNetworkImage(
+                              imageUrl: widget.product.productImage[index],
+                              placeholder: (context, url) =>
+                                  CircularProgressIndicator(),
+                              errorWidget: (context, url, error) =>
+                                  Icon(Icons.error),
+                            ),
                           ),
                         ),
                       ),
                     ),
+
+                    // SizedBox(
+                    //   height: TSizes.displayWidth(context),
+                    //   child: Padding(
+                    //     padding: EdgeInsets.all(0),
+                    //     child: Center(
+                    //       child: CachedNetworkImage(
+                    //         imageUrl: widget.product.productImage[0],
+                    //         placeholder: (context, url) =>
+                    //             CircularProgressIndicator(),
+                    //         errorWidget: (context, url, error) =>
+                    //             Icon(Icons.error),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
                     // Image Slider
                     // Positioned(
                     //   right: 0,

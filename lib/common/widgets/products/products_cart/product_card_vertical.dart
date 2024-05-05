@@ -66,7 +66,7 @@ class _TProductCardVerticalState extends State<TProductCardVertical> {
                           children: [
                             Center(
                               child: Image.network(
-                                widget.product.productImage,
+                                widget.product.productImage[0],
                                 width: 200,
                                 height: 350,
                                 fit: BoxFit.fitHeight,
@@ -199,7 +199,7 @@ class _TProductCardVerticalState extends State<TProductCardVertical> {
                             children: [
                               Center(
                                 child: CachedNetworkImage(
-                                  imageUrl: widget.product.productImage,
+                                  imageUrl: widget.product.productImage[0],
                                   width: 200,
                                   height: 300,
                                   fit: BoxFit.fitHeight,
@@ -329,7 +329,7 @@ class ProductData {
   final String id;
   final String productName;
   final String productDesc;
-  final String productImage;
+  final List productImage;
   final List<String> productCategory;
   final double productPrice;
   final int productStock;
@@ -375,12 +375,19 @@ class ProductData {
     //       .map((buyerJson) =>  Buyer.fromJson(buyerJson))
     //       .toList();
     // }
+    if (json['sellerId'] == null) {
+      log("remove this" + json.toString());
+    }
+
+    if (json['productImages'] == null) {
+      log("remove this" + json.toString());
+    }
 
     return ProductData(
       id: json['_id'],
       productName: json['productName'],
       productDesc: json['productDesc'],
-      productImage: json['productImages'][0],
+      productImage: json['productImages'],
       productCategory: List<String>.from(json['productCategory']),
       productPrice: json['productPrice'].toDouble(),
       productStock: json['productStock'],

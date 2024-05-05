@@ -167,7 +167,7 @@ class _SellScreenState extends State<SellScreen> {
                               isDone: index % 2 == 0,
                               name: products[index].productName,
                               price: products[index].productPrice.toString(),
-                              image: products[index].productImage,
+                              image: products[index].productImage[0],
                               onView: () {
                                 log('view $index');
                               },

@@ -34,13 +34,25 @@ class TBottomAddToCart extends StatelessWidget {
 
     final String bidderId = UserDataService.getUserID();
 
-    bool canBid() {
-      if (productId.seller.id == UserDataService.getUserID()) {
-        return false;
-      }
+    bool isBidder() {
       bool isBidder = false;
 
-      return true;
+      for (var i in productId.bidders) {
+        if (i.id == UserDataService.getUserID()) {
+          isBidder = true;
+          break;
+        }
+      }
+
+      return isBidder;
+    }
+
+    bool isSeller() {
+      return productId.seller.id == UserDataService.getUserID();
+    }
+
+    bool hasSoldOut() {
+      return (productId.productStock == productId.bidders.length);
     }
 
     final dark = THelperFunctions.isDarkMode(context);
@@ -193,12 +205,30 @@ class TBottomAddToCart extends StatelessWidget {
           },
           style: ElevatedButton.styleFrom(
             padding: const EdgeInsets.all(TSizes.md),
-            backgroundColor: TColors.primary,
-            side: const BorderSide(color: TColors.primary),
+            backgroundColor: hasSoldOut()
+                ? TColors.textPrimary
+                : isSeller()
+                    ? TColors.darkBackground
+                    : isBidder()
+                        ? TColors.white
+                        : TColors.primary,
           ),
           child: Text(
-            "Place Bid",
-            style: Theme.of(context).textTheme.titleLarge,
+            hasSoldOut()
+                ? "Sold Out"
+                : isSeller()
+                    ? "You can't buy your own product"
+                    : isBidder()
+                        ? "Cancel Bid"
+                        : "Place a bid",
+            style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                  color: isSeller()
+                      ? TColors.grey
+                      : isBidder()
+                          ? TColors.primary
+                          : TColors.textWhite,
+                  fontWeight: FontWeight.bold,
+                ),
           ),
         ),
       ),

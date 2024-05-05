@@ -96,7 +96,7 @@ class _SellStatsScreenState extends State<SellStatsScreen> {
                         padding: EdgeInsets.all(TSizes.productImageRadius),
                         child: Center(
                           child: CachedNetworkImage(
-                            imageUrl: widget.product.productImage,
+                            imageUrl: widget.product.productImage[0],
                             placeholder: (context, url) =>
                                 CircularProgressIndicator(),
                             errorWidget: (context, url, error) =>
