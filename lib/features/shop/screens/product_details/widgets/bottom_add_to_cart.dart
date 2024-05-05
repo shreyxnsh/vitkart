@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:timer_count_down/timer_count_down.dart';
+import 'package:vitkart/common/widgets/products/products_cart/product_card_vertical.dart';
 import 'package:vitkart/common/widgets/products/products_cart/productsell.dart';
 import 'package:vitkart/features/authentication/screens/register/widget/cherryToast.dart';
 import 'package:vitkart/utils/API/api_functions.dart';
@@ -16,7 +17,7 @@ import 'package:vitkart/utils/constants/sizes.dart';
 import 'package:vitkart/utils/helpers/helper_functions.dart';
 
 class TBottomAddToCart extends StatelessWidget {
-  final String productId;
+  final ProductData productId;
 
   const TBottomAddToCart({super.key, required this.productId});
 
@@ -26,12 +27,21 @@ class TBottomAddToCart extends StatelessWidget {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(message),
-          duration: Duration(seconds: 2),
+          duration: const Duration(seconds: 2),
         ),
       );
     }
 
     final String bidderId = UserDataService.getUserID();
+
+    bool canBid() {
+      if (productId.seller.id == UserDataService.getUserID()) {
+        return false;
+      }
+      bool isBidder = false;
+
+      return true;
+    }
 
     final dark = THelperFunctions.isDarkMode(context);
     return Container(
@@ -138,7 +148,7 @@ class TBottomAddToCart extends StatelessWidget {
 
                       Map<String, dynamic> response =
                           await APIFunctions.placeBid(
-                              productId: productId, bidderId: bidderId);
+                              productId: productId.id, bidderId: bidderId);
                       log("Response : $response");
                       if (response['isSuccess']) {
                         // showSnackBar(context, "Bid Placed Successfully");

@@ -17,6 +17,7 @@ String booksProductsUrl = '$url/product/getproduct?category=Books';
 String getAllProductUrl = '$url/product/getproduct';
 String getUserProducts = '$url/product/getproduct?sellerId=';
 String getMyProductsUrl = '$url/product/getproduct?buyerId=';
+String getMyBidsUrl = '$url/product/getproduct?bidderId=';
 String placeBidUrl = "$url/product/placebid";
 String approveBitUrl = "$url/product/acceptBid";
 String removeBidUrl = "$url/product/removeBid";

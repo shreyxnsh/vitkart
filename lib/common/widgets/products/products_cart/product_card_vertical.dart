@@ -340,6 +340,7 @@ class ProductData {
   final Buyer? buyer; // List of bidders
   final DateTime createdAt;
   final DateTime updatedAt;
+  final Seller seller;
 
   ProductData({
     required this.id,
@@ -355,6 +356,7 @@ class ProductData {
     required this.bidders,
     required this.createdAt,
     required this.updatedAt,
+    required this.seller,
     this.buyer,
   });
 
@@ -389,6 +391,7 @@ class ProductData {
       buyer: json['buyerId'] != null ? Buyer.fromJson(json['buyerId']) : null,
       createdAt: DateTime.parse(json['createdAt']),
       updatedAt: DateTime.parse(json['updatedAt']),
+      seller: Seller.fromJson(json['sellerId']),
     );
   }
 }
@@ -436,5 +439,45 @@ class Buyer {
       userEmail: json['userEmail'],
       userContact: json['userContact'],
     );
+  }
+}
+
+class Seller {
+  final String id;
+  final String userName;
+  final String userEmail;
+  final String userContact;
+  final String userBatch;
+  final String userGender;
+
+  Seller({
+    required this.id,
+    required this.userName,
+    required this.userEmail,
+    required this.userContact,
+    required this.userBatch,
+    required this.userGender,
+  });
+
+  factory Seller.fromJson(Map<String, dynamic> json) {
+    return Seller(
+      id: json['_id'],
+      userName: json['userName'],
+      userEmail: json['userEmail'],
+      userGender: json['userGender'],
+      userBatch: json['userBatch'],
+      userContact: json['userContact'],
+    );
+  }
+
+  toJson() {
+    return {
+      '_id': id,
+      'userName': userName,
+      'userEmail': userEmail,
+      'userContact': userContact,
+      'userBatch': userBatch,
+      'userGender': userGender,
+    };
   }
 }
