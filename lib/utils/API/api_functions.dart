@@ -400,7 +400,10 @@ class APIFunctions {
 
   static Future<Map<String, dynamic>> removeBid(
       {required String productId, required String buyerId}) async {
-    
+    var headers = {
+      
+      'Content-Type': 'application/json'
+    };
     log("$removeBidUrl");
     var request = http.Request('PUT', Uri.parse(removeBidUrl));
     log("productId : $productId buyerId : $buyerId ");
@@ -408,7 +411,7 @@ class APIFunctions {
       "productId": productId,
       "buyerId": buyerId,
     });
-   
+    request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
     log("removeBid : ${response.statusCode}");
