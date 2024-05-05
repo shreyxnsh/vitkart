@@ -30,7 +30,7 @@ class APIFunctions {
 
     http.StreamedResponse response = await request.send();
 
-    if (response.statusCode == 200) {
+    if (response.statusCode == 201) {
       Map<String, dynamic> jsonResponse =
           jsonDecode(await response.stream.bytesToString());
 
@@ -400,10 +400,7 @@ class APIFunctions {
 
   static Future<Map<String, dynamic>> removeBid(
       {required String productId, required String buyerId}) async {
-    var headers = {
-      
-      'Content-Type': 'application/json'
-    };
+    var headers = {'Content-Type': 'application/json'};
     log("$removeBidUrl");
     var request = http.Request('PUT', Uri.parse(removeBidUrl));
     log("productId : $productId buyerId : $buyerId ");
@@ -429,7 +426,6 @@ class APIFunctions {
   }
 
   static Future<Map<String, dynamic>> getBiddersList(String id) async {
-    
     log("code : $url");
     var headers = {
       'token': UserDataService.getToken(),
@@ -437,7 +433,7 @@ class APIFunctions {
     };
 
     var request = http.Request('GET', Uri.parse(getBiddersListUrl + id));
-request.headers.addAll(headers);
+    request.headers.addAll(headers);
     http.StreamedResponse response = await request.send();
     log("bidders : ${response.statusCode}");
 

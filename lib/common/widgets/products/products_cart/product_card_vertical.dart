@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -379,9 +381,26 @@ class ProductData {
       isPopular: json['isPopular'],
       sellerName: json['sellerName'],
       productStatus: json['productStatus'],
-      bidders: bidders, 
-      buyer:json['buyerId'] !=null? Buyer.fromJson(json['buyerId']) : null,
+      bidders: bidders,
+      buyer: json['buyerId'] != null ? Buyer.fromJson(json['buyerId']) : null,
     );
+  }
+
+  toJson() {
+    return {
+      '_id': id,
+      'productName': productName,
+      'productDesc': productDesc,
+      'productImages': [productImage],
+      'productCategory': productCategory,
+      'productPrice': productPrice,
+      'productStock': productStock,
+      'isPopular': isPopular,
+      'sellerName': sellerName,
+      'productStatus': productStatus,
+      'bidderId': bidders,
+      'buyerId': buyer,
+    };
   }
 }
 
@@ -407,6 +426,7 @@ class Bidder {
     );
   }
 }
+
 class Buyer {
   final String id;
   final String userName;
