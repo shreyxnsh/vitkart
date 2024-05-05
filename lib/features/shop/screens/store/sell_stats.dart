@@ -69,7 +69,7 @@ class _SellStatsScreenState extends State<SellStatsScreen> {
     Map<String, dynamic> data =
         await APIFunctions.getBiddersList(widget.product.id.toString());
     if (data['isSuccess']) {
-      log(data.toString());
+      log("this is ---" + data.toString());
       yield data;
     }
     yield {};
@@ -331,7 +331,7 @@ class _SellStatsScreenState extends State<SellStatsScreen> {
                                   productId: widget.product.id,
                                   buyerId: buyerId['_id']);
                           log("Remove Response : $response");
-                           _fetchData();
+                          _fetchData();
                         },
                       );
                     },
@@ -368,8 +368,8 @@ class _SellStatsScreenState extends State<SellStatsScreen> {
                       return Column(
                         children: bidderId
                             .map<Widget>((bidder) => Column(
-                              children: [
-                                BidderCard(
+                                  children: [
+                                    BidderCard(
                                       name: bidder['userName'],
                                       email: bidder['userEmail'],
                                       regId: bidder['userContact'],
@@ -387,8 +387,8 @@ class _SellStatsScreenState extends State<SellStatsScreen> {
                                     SizedBox(
                                       height: 20,
                                     ),
-                              ],
-                            ))
+                                  ],
+                                ))
                             .toList(),
                       );
                     },

@@ -78,11 +78,10 @@ class _SellScreenState extends State<SellScreen> {
           jsonDecode(await response.stream.bytesToString());
       jsonResponse['isSuccess'] = true;
       log("Produvcts :  ${jsonResponse.toString()}");
-    log("JSONRESPONSE : ${jsonResponse['products']}");
+      log("JSONRESPONSE : ${jsonResponse['products']}");
       final List<dynamic> productsData = jsonResponse['products'];
-        final List<ProductData> fetchedProducts = productsData
-            .map((product) => ProductData.fromJson(product))
-            .toList();
+      final List<ProductData> fetchedProducts =
+          productsData.map((product) => ProductData.fromJson(product)).toList();
 
       setState(() {
         products = fetchedProducts;

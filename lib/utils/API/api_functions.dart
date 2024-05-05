@@ -452,4 +452,29 @@ class APIFunctions {
       return jsonResponse;
     }
   }
+
+  static Future<Map<String, dynamic>> getMyOrdersList(
+      {required String buyerId}) async {
+    var headers = {
+      'token': UserDataService
+          .getToken(), // Replace with the actual token of the user
+    };
+    var request = http.Request('GET', Uri.parse('$getMyProductsUrl$buyerId'));
+
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      Map<String, dynamic> jsonResponse =
+          jsonDecode(await response.stream.bytesToString());
+      jsonResponse['isSuccess'] = true;
+      return jsonResponse;
+    } else {
+      Map<String, dynamic> jsonResponse =
+          jsonDecode(await response.stream.bytesToString());
+      jsonResponse['isSuccess'] = false;
+      return jsonResponse;
+    }
+  }
 }

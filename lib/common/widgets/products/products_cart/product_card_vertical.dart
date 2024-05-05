@@ -338,6 +338,8 @@ class ProductData {
   final String productStatus;
   final List<Bidder> bidders;
   final Buyer? buyer; // List of bidders
+  final DateTime createdAt;
+  final DateTime updatedAt;
 
   ProductData({
     required this.id,
@@ -351,6 +353,8 @@ class ProductData {
     required this.sellerName,
     required this.productStatus,
     required this.bidders,
+    required this.createdAt,
+    required this.updatedAt,
     this.buyer,
   });
 
@@ -383,24 +387,9 @@ class ProductData {
       productStatus: json['productStatus'],
       bidders: bidders,
       buyer: json['buyerId'] != null ? Buyer.fromJson(json['buyerId']) : null,
+      createdAt: DateTime.parse(json['createdAt']),
+      updatedAt: DateTime.parse(json['updatedAt']),
     );
-  }
-
-  toJson() {
-    return {
-      '_id': id,
-      'productName': productName,
-      'productDesc': productDesc,
-      'productImages': [productImage],
-      'productCategory': productCategory,
-      'productPrice': productPrice,
-      'productStock': productStock,
-      'isPopular': isPopular,
-      'sellerName': sellerName,
-      'productStatus': productStatus,
-      'bidderId': bidders,
-      'buyerId': buyer,
-    };
   }
 }
 
