@@ -334,7 +334,8 @@ class ProductData {
   final bool isPopular;
   final String sellerName;
   final String productStatus;
-  final List<Bidder> bidders; // List of bidders
+  final List<Bidder> bidders;
+  final Buyer? buyer; // List of bidders
 
   ProductData({
     required this.id,
@@ -348,6 +349,7 @@ class ProductData {
     required this.sellerName,
     required this.productStatus,
     required this.bidders,
+    this.buyer,
   });
 
   factory ProductData.fromJson(Map<String, dynamic> json) {
@@ -358,6 +360,13 @@ class ProductData {
           .map((bidderJson) => Bidder.fromJson(bidderJson))
           .toList();
     }
+
+    // List<Buyer> buyer = [];
+    // if (json.containsKey('buyerId')) {
+    //   buyer = (json['buyerId'])
+    //       .map((buyerJson) =>  Buyer.fromJson(buyerJson))
+    //       .toList();
+    // }
 
     return ProductData(
       id: json['_id'],
@@ -370,7 +379,8 @@ class ProductData {
       isPopular: json['isPopular'],
       sellerName: json['sellerName'],
       productStatus: json['productStatus'],
-      bidders: bidders, // Assigning the list of bidders
+      bidders: bidders, 
+      buyer:json['buyerId'] !=null? Buyer.fromJson(json['buyerId']) : null,
     );
   }
 }
@@ -390,6 +400,28 @@ class Bidder {
 
   factory Bidder.fromJson(Map<String, dynamic> json) {
     return Bidder(
+      id: json['_id'],
+      userName: json['userName'],
+      userEmail: json['userEmail'],
+      userContact: json['userContact'],
+    );
+  }
+}
+class Buyer {
+  final String id;
+  final String userName;
+  final String userEmail;
+  final String userContact;
+
+  Buyer({
+    required this.id,
+    required this.userName,
+    required this.userEmail,
+    required this.userContact,
+  });
+
+  factory Buyer.fromJson(Map<String, dynamic> json) {
+    return Buyer(
       id: json['_id'],
       userName: json['userName'],
       userEmail: json['userEmail'],
