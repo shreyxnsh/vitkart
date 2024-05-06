@@ -21,6 +21,7 @@ import 'package:vitkart/features/shop/screens/home/widgets/home_categories.dart'
 import 'package:vitkart/features/shop/screens/home/widgets/promo_slider.dart';
 import 'package:vitkart/utils/API/api_functions.dart';
 import 'package:vitkart/utils/API/api_routes.dart';
+import 'package:vitkart/utils/API/userDataService.dart';
 import 'package:vitkart/utils/constants/check_mark_indicator.dart';
 import 'package:vitkart/utils/constants/colors.dart';
 
@@ -102,7 +103,15 @@ class _HomeScreenState extends State<HomeScreen> {
   // }
 
   Future<void> fetchAllProducts() async {
-    final response = await http.get(Uri.parse(getAllProductUrl));
+    var headers = {
+      'Content-Type': 'application/json',
+      'token': UserDataService.getToken()
+    };
+    final response = await http.get(
+      Uri.parse(getAllProductUrl),
+      headers: headers,
+    );
+    // final response = await http.get(Uri.parse(getAllProductUrl));
     print(response);
 
     if (response.statusCode == 200) {
@@ -191,61 +200,59 @@ class _HomeScreenState extends State<HomeScreen> {
                   //   TImages.promoBanner2,
                   //   TImages.promoBanner3,
                   // ], onTapRoutes: [
-                    
+
                   // ],),
-                                      FutureBuilder(
-                      future: getBanners(),
-                      builder: (context, snapshot) {
-                        if (!snapshot.hasData) {
-                          return SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Row(children: [
-                              ...List.generate(
-                                2,
-                                (index) => Shimmer.fromColors(
-                                  baseColor: TColors.lightDarkBackground
-                                      .withOpacity(0.4),
-                                  highlightColor:
-                                      TColors.grey.withOpacity(0.18),
-                                  child: TRoundedContainer(
-                                    margin: const EdgeInsets.symmetric(
-                                        horizontal: TSizes.defaultSpace),
-                                    radius: 12,
-                                    backgroundColor: TColors.light,
-                                    height:
-                                        TSizes.displayHeight(context) * 0.24,
-                                    width: TSizes.displayWidth(context) * 0.8,
-                                  ),
+                  FutureBuilder(
+                    future: getBanners(),
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData) {
+                        return SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(children: [
+                            ...List.generate(
+                              2,
+                              (index) => Shimmer.fromColors(
+                                baseColor: TColors.lightDarkBackground
+                                    .withOpacity(0.4),
+                                highlightColor: TColors.grey.withOpacity(0.18),
+                                child: TRoundedContainer(
+                                  margin: const EdgeInsets.symmetric(
+                                      horizontal: TSizes.defaultSpace),
+                                  radius: 12,
+                                  backgroundColor: TColors.light,
+                                  height: TSizes.displayHeight(context) * 0.24,
+                                  width: TSizes.displayWidth(context) * 0.8,
                                 ),
                               ),
-                            ]),
-                          );
-                        }
-                        return TPromoSlider(
-                          onTapRoutes: [
-                            ...List.generate(
-                              (snapshot.data!['banners'] ?? 0).length,
-                              (index) {
-                                return EventCategoryScreen(
-                                  data: SampleDataForUI.eventCategoryData,
-                                  categoryName: snapshot.data!['banners'][index]
-                                      ['bannerTitle'],
-                                );
-                              },
-                            )
-                          ],
-                          banners: [
-                            ...List.generate(
-                              (snapshot.data!['banners'] ?? 0).length,
-                              (index) {
-                                return snapshot.data!['banners'][index]
-                                    ['bannerImage'][0];
-                              },
-                            )
-                          ],
+                            ),
+                          ]),
                         );
-                      },
-                    ),
+                      }
+                      return TPromoSlider(
+                        onTapRoutes: [
+                          ...List.generate(
+                            (snapshot.data!['banners'] ?? 0).length,
+                            (index) {
+                              return EventCategoryScreen(
+                                data: SampleDataForUI.eventCategoryData,
+                                categoryName: snapshot.data!['banners'][index]
+                                    ['bannerTitle'],
+                              );
+                            },
+                          )
+                        ],
+                        banners: [
+                          ...List.generate(
+                            (snapshot.data!['banners'] ?? 0).length,
+                            (index) {
+                              return snapshot.data!['banners'][index]
+                                  ['bannerImage'][0];
+                            },
+                          )
+                        ],
+                      );
+                    },
+                  ),
 
                   const SizedBox(
                     height: TSizes.spaceBtwItems,
@@ -275,14 +282,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
 ///// ----- advitya ------ //////
 
-  Future<Map<String, dynamic>> getBanners() async {
-    Map<String, dynamic> response = await APIFunctions.getBanners();
-    // await Future.delayed(Duration(seconds: 40));
-    if (response['isSuccess'] == true) {
-      return response;
-    }
-    return {};
+Future<Map<String, dynamic>> getBanners() async {
+  Map<String, dynamic> response = await APIFunctions.getBanners();
+  // await Future.delayed(Duration(seconds: 40));
+  if (response['isSuccess'] == true) {
+    return response;
   }
+  return {};
+}
 
 //   @override
 //   Widget build(BuildContext context) {

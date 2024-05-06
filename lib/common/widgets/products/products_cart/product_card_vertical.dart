@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -38,7 +40,7 @@ class _TProductCardVerticalState extends State<TProductCardVertical> {
             product: widget.product,
           )),
       child: Container(
-        width: 140,
+        width: TSizes.displayHeight(context) * 0.2,
         padding: const EdgeInsets.all(0),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(TSizes.productImageRadius),
@@ -64,7 +66,7 @@ class _TProductCardVerticalState extends State<TProductCardVertical> {
                           children: [
                             Center(
                               child: Image.network(
-                                widget.product.productImage,
+                                widget.product.productImage[0],
                                 width: 200,
                                 height: 350,
                                 fit: BoxFit.fitHeight,
@@ -178,128 +180,142 @@ class _TProductCardVerticalState extends State<TProductCardVertical> {
                   ],
                 ),
               )
-            : Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+            : Stack(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(TSizes.xs),
-                    child: TRoundedContainer(
-                      height: TSizes.productItemHeight,
-                      margin: const EdgeInsets.only(top: 4),
-                      padding: const EdgeInsets.all(TSizes.xs),
-                      clipBehavior: Clip.antiAlias,
-                      backgroundColor:
-                          dark ? TColors.lightDarkBackground : TColors.light,
-                      child: Stack(
-                        children: [
-                          Center(
-                            child: CachedNetworkImage(
-                              imageUrl: widget.product.productImage,
-                              width: 200,
-                              height: 300,
-                              fit: BoxFit.fitHeight,
-                              placeholder: (context, url) => Center(
-                                child: CircularProgressIndicator(),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(TSizes.xs),
+                        child: TRoundedContainer(
+                          height: TSizes.productItemHeight,
+                          margin: const EdgeInsets.only(top: 4),
+                          padding: const EdgeInsets.all(TSizes.xs),
+                          clipBehavior: Clip.antiAlias,
+                          backgroundColor: dark
+                              ? TColors.lightDarkBackground
+                              : TColors.light,
+                          child: Stack(
+                            children: [
+                              Center(
+                                child: CachedNetworkImage(
+                                  imageUrl: widget.product.productImage[0],
+                                  width: 200,
+                                  height: 300,
+                                  fit: BoxFit.fitHeight,
+                                  placeholder: (context, url) => Center(
+                                    child: CircularProgressIndicator(),
+                                  ),
+                                  errorWidget: (context, url, error) =>
+                                      Icon(Icons.error),
+                                ),
                               ),
-                              errorWidget: (context, url, error) =>
-                                  Icon(Icons.error),
-                            ),
+                              // ... Other parts of the Stack
+                            ],
                           ),
-                          // ... Other parts of the Stack
-                        ],
+                        ),
                       ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: TSizes.spaceBtwItems / 2,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        shimmerIt
-                            ? Shimmer.fromColors(
-                                baseColor: baseColor,
-                                highlightColor: highlightColor,
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(4),
-                                    color: TColors.accent,
+                      const SizedBox(
+                        height: TSizes.spaceBtwItems / 2,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            shimmerIt
+                                ? Shimmer.fromColors(
+                                    baseColor: baseColor,
+                                    highlightColor: highlightColor,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(4),
+                                        color: TColors.accent,
+                                      ),
+                                      width: 100,
+                                      height: 16,
+                                    ),
+                                  )
+                                : SizedBox(
+                                    width:
+                                        TSizes.displayWidth(context) * 0.2 - 16,
+                                    child: TProductTitleText(
+                                      title: widget.product.productName,
+                                      smallSize: true,
+                                      maxLine: 1,
+                                    ),
                                   ),
-                                  width: 100,
-                                  height: 16,
-                                ),
-                              )
-                            : TProductTitleText(
-                                title: widget.product.productName,
-                                smallSize: true,
-                              ),
-                        const SizedBox(
-                          height: TSizes.spaceBtwItems / 2,
-                        ),
-                        shimmerIt
-                            ? Shimmer.fromColors(
-                                baseColor: baseColor,
-                                highlightColor: highlightColor,
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(4),
-                                    color: TColors.accent,
-                                  ),
-                                  width: 80,
-                                  height: 16,
-                                ),
-                              )
-                            : TBrandTitleWithVerifiedIcon(
-                                title: widget.product.sellerName,
-                              ),
-                      ],
-                    ),
-                  ),
-                  // const Spacer(),
-                  Padding(
-                    padding: const EdgeInsets.only(left: TSizes.sm),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        shimmerIt
-                            ? Shimmer.fromColors(
-                                baseColor: baseColor,
-                                highlightColor: highlightColor,
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(4),
-                                    color: TColors.accent,
-                                  ),
-                                  width: 36,
-                                  height: 16,
-                                ),
-                              )
-                            : TProductPriceText(
-                                price: widget.product.productPrice.toString(),
-                              ),
-                        Container(
-                          decoration: const BoxDecoration(
-                            color: TColors.primary,
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(TSizes.cardRadiusMd),
-                              bottomRight:
-                                  Radius.circular(TSizes.productImageRadius),
+                            const SizedBox(
+                              height: TSizes.spaceBtwItems / 2,
                             ),
-                          ),
-                          child: const SizedBox(
-                            width: TSizes.iconLg * 1.2,
-                            height: TSizes.iconLg * 1.2,
-                            child: Center(
-                              child: Icon(
-                                Icons.add,
-                                color: TColors.white,
-                              ),
-                            ),
+                            shimmerIt
+                                ? Shimmer.fromColors(
+                                    baseColor: baseColor,
+                                    highlightColor: highlightColor,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(4),
+                                        color: TColors.accent,
+                                      ),
+                                      width: 80,
+                                      height: 16,
+                                    ),
+                                  )
+                                : TBrandTitleWithVerifiedIcon(
+                                    title: widget.product.sellerName,
+                                  ),
+                          ],
+                        ),
+                      ),
+                      // const Spacer(),
+                      Padding(
+                        padding: const EdgeInsets.only(left: TSizes.sm),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            shimmerIt
+                                ? Shimmer.fromColors(
+                                    baseColor: baseColor,
+                                    highlightColor: highlightColor,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(4),
+                                        color: TColors.accent,
+                                      ),
+                                      width: 36,
+                                      height: 16,
+                                    ),
+                                  )
+                                : TProductPriceText(
+                                    price:
+                                        widget.product.productPrice.toString(),
+                                  ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  Align(
+                    alignment: Alignment.bottomRight,
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        color: TColors.primary,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(TSizes.cardRadiusMd),
+                          bottomRight:
+                              Radius.circular(TSizes.productImageRadius),
+                        ),
+                      ),
+                      child: const SizedBox(
+                        width: TSizes.iconLg * 1.2,
+                        height: TSizes.iconLg * 1.2,
+                        child: Center(
+                          child: Icon(
+                            Icons.add,
+                            color: TColors.white,
                           ),
                         ),
-                      ],
+                      ),
                     ),
                   ),
                 ],
@@ -308,18 +324,23 @@ class _TProductCardVerticalState extends State<TProductCardVertical> {
     );
   }
 }
+
 class ProductData {
   final String id;
   final String productName;
   final String productDesc;
-  final String productImage;
+  final List productImage;
   final List<String> productCategory;
   final double productPrice;
   final int productStock;
   final bool isPopular;
   final String sellerName;
   final String productStatus;
-  final List<Bidder> bidders; // List of bidders
+  final List<Bidder> bidders;
+  final Buyer? buyer; // List of bidders
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  final Seller seller;
 
   ProductData({
     required this.id,
@@ -333,6 +354,10 @@ class ProductData {
     required this.sellerName,
     required this.productStatus,
     required this.bidders,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.seller,
+    this.buyer,
   });
 
   factory ProductData.fromJson(Map<String, dynamic> json) {
@@ -344,21 +369,40 @@ class ProductData {
           .toList();
     }
 
+    // List<Buyer> buyer = [];
+    // if (json.containsKey('buyerId')) {
+    //   buyer = (json['buyerId'])
+    //       .map((buyerJson) =>  Buyer.fromJson(buyerJson))
+    //       .toList();
+    // }
+    if (json['sellerId'] == null) {
+      log("remove this" + json.toString());
+    }
+
+    if (json['productImages'] == null) {
+      log("remove this" + json.toString());
+    }
+
     return ProductData(
       id: json['_id'],
       productName: json['productName'],
       productDesc: json['productDesc'],
-      productImage: json['productImages'][0],
+      productImage: json['productImages'],
       productCategory: List<String>.from(json['productCategory']),
       productPrice: json['productPrice'].toDouble(),
       productStock: json['productStock'],
       isPopular: json['isPopular'],
       sellerName: json['sellerName'],
       productStatus: json['productStatus'],
-      bidders: bidders, // Assigning the list of bidders
+      bidders: bidders,
+      buyer: json['buyerId'] != null ? Buyer.fromJson(json['buyerId']) : null,
+      createdAt: DateTime.parse(json['createdAt']),
+      updatedAt: DateTime.parse(json['updatedAt']),
+      seller: Seller.fromJson(json['sellerId']),
     );
   }
 }
+
 class Bidder {
   final String id;
   final String userName;
@@ -382,3 +426,65 @@ class Bidder {
   }
 }
 
+class Buyer {
+  final String id;
+  final String userName;
+  final String userEmail;
+  final String userContact;
+
+  Buyer({
+    required this.id,
+    required this.userName,
+    required this.userEmail,
+    required this.userContact,
+  });
+
+  factory Buyer.fromJson(Map<String, dynamic> json) {
+    return Buyer(
+      id: json['_id'],
+      userName: json['userName'],
+      userEmail: json['userEmail'],
+      userContact: json['userContact'],
+    );
+  }
+}
+
+class Seller {
+  final String id;
+  final String userName;
+  final String userEmail;
+  final String userContact;
+  final String userBatch;
+  final String userGender;
+
+  Seller({
+    required this.id,
+    required this.userName,
+    required this.userEmail,
+    required this.userContact,
+    required this.userBatch,
+    required this.userGender,
+  });
+
+  factory Seller.fromJson(Map<String, dynamic> json) {
+    return Seller(
+      id: json['_id'],
+      userName: json['userName'],
+      userEmail: json['userEmail'],
+      userGender: json['userGender'],
+      userBatch: json['userBatch'],
+      userContact: json['userContact'],
+    );
+  }
+
+  toJson() {
+    return {
+      '_id': id,
+      'userName': userName,
+      'userEmail': userEmail,
+      'userContact': userContact,
+      'userBatch': userBatch,
+      'userGender': userGender,
+    };
+  }
+}

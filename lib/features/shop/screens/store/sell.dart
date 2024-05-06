@@ -36,24 +36,64 @@ class _SellScreenState extends State<SellScreen> {
     fetchUserProducts();
   }
 
-  Future<void> fetchUserProducts() async {
-    final response = await http.get(Uri.parse('$getUserProducts$sellerId'));
-    print(response.body);
-    if (response.statusCode == 200) {
-      final Map<String, dynamic> data = jsonDecode(response.body);
-      if (data['status']) {
-        final List<dynamic> productsData = data['products'];
-        final List<ProductData> fetchedProducts = productsData
-            .map((product) => ProductData.fromJson(product))
-            .toList();
+  // Future<void> fetchUserProducts() async {
+  //   log('$getUserProducts$sellerId');
+  //   final response = await http.get(Uri.parse('$getUserProducts$sellerId'));
+  //   print(response.body);
+  //   if (response.statusCode == 200) {
+  //     log('Success ');
+  //     final Map<String, dynamic> data = jsonDecode(response.body);
+  //     if (data['status']) {
+  //       final List<dynamic> productsData = data['products'];
+  //       final List<ProductData> fetchedProducts = productsData
+  //           .map((product) => ProductData.fromJson(product))
+  //           .toList();
 
-        setState(() {
-          products = fetchedProducts;
-        });
-      }
+  //       setState(() {
+  //         products = fetchedProducts;
+  //       });
+  //     }
+  //   } else {
+  //     // Handle error
+  //     print('Failed to load products');
+  //   }
+  // }
+
+  Future<Map<String, dynamic>> fetchUserProducts() async {
+    log('$getUserProducts$sellerId');
+
+    log("code : $url");
+    var headers = {
+      'token': UserDataService.getToken(),
+      'Content-Type': 'application/json'
+    };
+
+    var request = http.Request('GET', Uri.parse(getUserProducts + sellerId));
+    request.headers.addAll(headers);
+    http.StreamedResponse response = await request.send();
+    log("Produvcts : ${response.statusCode}");
+
+    if (response.statusCode == 200) {
+      Map<String, dynamic> jsonResponse =
+          jsonDecode(await response.stream.bytesToString());
+      jsonResponse['isSuccess'] = true;
+      log("Produvcts :  ${jsonResponse.toString()}");
+      log("JSONRESPONSE : ${jsonResponse['products']}");
+      final List<dynamic> productsData = jsonResponse['products'];
+      final List<ProductData> fetchedProducts =
+          productsData.map((product) => ProductData.fromJson(product)).toList();
+
+      setState(() {
+        products = fetchedProducts;
+      }); // Convert to JSON
+      return jsonResponse;
     } else {
-      // Handle error
-      print('Failed to load products');
+      Map<String, dynamic> jsonResponse =
+          jsonDecode(await response.stream.bytesToString());
+      jsonResponse['isSuccess'] = false; // Convert to JSON
+
+      log("Error :  ${jsonResponse.toString()}");
+      return jsonResponse;
     }
   }
 
@@ -70,78 +110,78 @@ class _SellScreenState extends State<SellScreen> {
       ),
       body: SingleChildScrollView(
         child: Center(
-            child:
-            
-        //      Padding(
-        //   padding: const EdgeInsets.all(TSizes.defaultSpace),
-        //   child: 
-          
-        //   Center(
-        //     child: Text(
-        //       "Uh Oh! Wait for the V2 launch...  🧑🏻‍💻",
-        //       style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-        //             color: TColors.primary,
-        //           ),
-        //     ),
-        //   ),
-        // )
-        
-            Padding(
-              padding: const EdgeInsets.all(TSizes.defaultSpace),
-              child: Column(
-                children: [
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Get.to(() => const CreateProductScreen());
-                      },
-                      child: const Text('Sell Now'),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: TSizes.spaceBtwItems,
-                  ),
-                  TSectionHeading(
-                    title: 'Your Products',
-                    showActionButton: true,
-                    onPressed: () {},
-                  ),
-                  const SizedBox(
-                    height: TSizes.spaceBtwItems,
-                  ),
-                            products.isEmpty
-              ? Text('No products listed')
-              : ListView.builder(
-                    shrinkWrap: true,
-                    itemCount:
-                        products.length, // Use the length of the products list
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () {
-                          log('tapped $index');
-                          Get.to(SellStatsScreen(product: products[index]));
-                        },
-                        child: SellProductCard(
-                          isDone: index % 2 == 0,
-                          name: products[index].productName,
-                          price: products[index].productPrice.toString(),
-                          image: products[index].productImage,
-                          onView: () {
-                            log('view $index');
-                          },
-                          onEdit: () {
-                            log('edit $index');
-                          },
-                        ),
-                      );
+          child:
+
+              //      Padding(
+              //   padding: const EdgeInsets.all(TSizes.defaultSpace),
+              //   child:
+
+              //   Center(
+              //     child: Text(
+              //       "Uh Oh! Wait for the V2 launch...  🧑🏻‍💻",
+              //       style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+              //             color: TColors.primary,
+              //           ),
+              //     ),
+              //   ),
+              // )
+
+              Padding(
+            padding: const EdgeInsets.all(TSizes.defaultSpace),
+            child: Column(
+              children: [
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Get.to(() => const CreateProductScreen());
                     },
+                    child: const Text('Sell Now'),
                   ),
-                ],
-              ),
+                ),
+                const SizedBox(
+                  height: TSizes.spaceBtwItems,
+                ),
+                TSectionHeading(
+                  title: 'Your Products',
+                  showActionButton: true,
+                  onPressed: () {},
+                ),
+                const SizedBox(
+                  height: TSizes.spaceBtwItems,
+                ),
+                products.isEmpty
+                    ? Text('No products listed')
+                    : ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: products
+                            .length, // Use the length of the products list
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                            onTap: () {
+                              log('tapped $index');
+                              Get.to(SellStatsScreen(product: products[index]));
+                            },
+                            child: SellProductCard(
+                              isDone: index % 2 == 0,
+                              name: products[index].productName,
+                              price: products[index].productPrice.toString(),
+                              image: products[index].productImage[0],
+                              onView: () {
+                                log('view $index');
+                              },
+                              onEdit: () {
+                                log('edit $index');
+                              },
+                            ),
+                          );
+                        },
+                      ),
+              ],
             ),
-            ),
+          ),
+        ),
       ),
     );
   }

@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:readmore/readmore.dart';
 import 'package:vitkart/common/widgets/appbar/appbar.dart';
@@ -18,6 +21,7 @@ import 'package:vitkart/utils/constants/colors.dart';
 import 'package:vitkart/utils/constants/image_strings.dart';
 import 'package:vitkart/utils/constants/sizes.dart';
 import 'package:vitkart/utils/helpers/helper_functions.dart';
+
 class ProductDetailScreen extends StatefulWidget {
   final ProductData product;
 
@@ -33,9 +37,12 @@ class ProductDetailScreen extends StatefulWidget {
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
   @override
   Widget build(BuildContext context) {
+    log("Product Detail Screen   ${widget.product.productImage.length}");
     final dark = THelperFunctions.isDarkMode(context);
     return Scaffold(
-      bottomNavigationBar: TBottomAddToCart(productId: widget.product.id,),
+      bottomNavigationBar: TBottomAddToCart(
+        productId: widget.product,
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -46,19 +53,40 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                 child: Stack(
                   children: [
                     // Main Large Image
+
                     SizedBox(
-  height: 420,
-  child: Padding(
-    padding: EdgeInsets.all(TSizes.productImageRadius),
-    child: Center(
-      child: CachedNetworkImage(
-        imageUrl: widget.product.productImage,
-        placeholder: (context, url) => CircularProgressIndicator(),
-        errorWidget: (context, url, error) => Icon(Icons.error),
-      ),
-    ),
-  ),
-),
+                      height: TSizes.displayWidth(context),
+                      child: PageView(
+                        children: List.generate(
+                          widget.product.productImage.length,
+                          (index) => Center(
+                            child: CachedNetworkImage(
+                              imageUrl: widget.product.productImage[index],
+                              placeholder: (context, url) =>
+                                  CircularProgressIndicator(),
+                              errorWidget: (context, url, error) =>
+                                  Icon(Icons.error),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    // SizedBox(
+                    //   height: TSizes.displayWidth(context),
+                    //   child: Padding(
+                    //     padding: EdgeInsets.all(0),
+                    //     child: Center(
+                    //       child: CachedNetworkImage(
+                    //         imageUrl: widget.product.productImage[0],
+                    //         placeholder: (context, url) =>
+                    //             CircularProgressIndicator(),
+                    //         errorWidget: (context, url, error) =>
+                    //             Icon(Icons.error),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
                     // Image Slider
                     // Positioned(
                     //   right: 0,
@@ -121,9 +149,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   /// - Price,Title ,Stock & Brand
                   TRoundedContainer(
                     padding: const EdgeInsets.all(TSizes.md),
-                    backgroundColor: dark
-                        ? TColors.lightDarkBackground
-                        : TColors.light,
+                    backgroundColor:
+                        dark ? TColors.lightDarkBackground : TColors.light,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -139,7 +166,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                   backgroundColor:
                                       TColors.secondary.withOpacity(0.8),
                                   padding: const EdgeInsets.symmetric(
-                                      horizontal: TSizes.sm, vertical: TSizes.xs),
+                                      horizontal: TSizes.sm,
+                                      vertical: TSizes.xs),
                                   child: Text(
                                     "25 %",
                                     style: Theme.of(context)
@@ -154,7 +182,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                 // Price
                                 Text(
                                   "\$${widget.product.productPrice}",
-                                  style: Theme.of(context).textTheme.titleSmall!.apply(
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleSmall!
+                                      .apply(
                                         decoration: TextDecoration.lineThrough,
                                       ),
                                 ),
@@ -180,6 +211,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         const SizedBox(
                           height: TSizes.spaceBtwItems / 1.5,
                         ),
+
                         /// Titile
                         TProductTitleText(
                           title: widget.product.productName,
@@ -188,6 +220,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         const SizedBox(
                           height: TSizes.spaceBtwItems / 1.5,
                         ),
+
                         /// Stock Status
                         Row(
                           children: [
@@ -213,8 +246,12 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   const SizedBox(
                     height: TSizes.spaceBtwItems,
                   ),
+
                   /// - Description
-                  TSectionHeading(title: "Description", showActionButton: false,),
+                  TSectionHeading(
+                    title: "Description",
+                    showActionButton: false,
+                  ),
                   SizedBox(height: TSizes.spaceBtwItems),
                   ReadMoreText(
                     "${widget.product.productDesc}",
@@ -222,11 +259,12 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     trimMode: TrimMode.Line,
                     trimCollapsedText: " Show more",
                     trimExpandedText: "\n\nShow less",
-                    moreStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
-                    lessStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
+                    moreStyle:
+                        TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
+                    lessStyle:
+                        TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
                   ),
 
-                  
                   /// - Reviews
                   SizedBox(
                     height: TSizes.spaceBtwItems,

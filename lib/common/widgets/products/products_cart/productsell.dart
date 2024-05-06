@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -30,10 +32,15 @@ class _SuccessScreenState extends State<SellSuccessScreen> {
       });
     });
 
-    Future.delayed(Duration(milliseconds: 2000), () {
+    Future.delayed(const Duration(milliseconds: 2000), () {
       setState(() {
         fadeIt = true;
       });
+    });
+
+    // pop from the screen after 3 seconds
+    Future.delayed(const Duration(milliseconds: 4000), () {
+      Get.back();
     });
   }
 
@@ -77,59 +84,51 @@ class _SuccessScreenState extends State<SellSuccessScreen> {
       //     ),
       //   ),
       // ),
-      body: WillPopScope(
-        onWillPop: () async {
-          Get.offAll(const NavigationMenu());
-          return true;
-        },
-        child: SizedBox(
-          height: TSizes.displayHeight(context),
-          width: TSizes.displayWidth(context),
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Lottie.asset(
-                    'assets/lottie/success_animation.json',
-                    repeat: false,
-                    width: TSizes.displayWidth(context) * 0.8,
-                    fit: BoxFit.fitWidth,
-                    // animate: animateIt,
-                  ),
-                  SizedBox(
-                    width: TSizes.displayWidth(context) * 0.8,
-                    child: AnimatedOpacity(
-                      duration: animationDuratino,
-                      opacity: fadeIt ? 1 : 0,
-                      child: Center(
-                        child: Text(
-                          'Placed request successfully!',
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleMedium!
-                              .copyWith(
-                                fontSize:
-                                    TSizes.displayWidth(context) * (24 / 420),
-                                color: TColors.primary,
-                              ),
-                        ),
+      body: SizedBox(
+        height: TSizes.displayHeight(context),
+        width: TSizes.displayWidth(context),
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Lottie.asset(
+                  'assets/lottie/success_animation.json',
+                  repeat: false,
+                  width: TSizes.displayWidth(context) * 0.8,
+                  fit: BoxFit.fitWidth,
+                  // animate: animateIt,
+                ),
+                SizedBox(
+                  width: TSizes.displayWidth(context) * 0.8,
+                  child: AnimatedOpacity(
+                    duration: animationDuratino,
+                    opacity: fadeIt ? 1 : 0,
+                    child: Center(
+                      child: Text(
+                        'Placed request successfully!',
+                        textAlign: TextAlign.center,
+                        style:
+                            Theme.of(context).textTheme.titleMedium!.copyWith(
+                                  fontSize:
+                                      TSizes.displayWidth(context) * (24 / 420),
+                                  color: TColors.primary,
+                                ),
                       ),
                     ),
                   ),
-                ],
-              ),
-              Lottie.asset(
-                'assets/lottie/success_bg.json',
-                repeat: false,
-                fit: BoxFit.fitHeight,
-                height: TSizes.displayHeight(context),
-                animate: animateIt,
-              ),
-            ],
-          ),
+                ),
+              ],
+            ),
+            Lottie.asset(
+              'assets/lottie/success_bg.json',
+              repeat: false,
+              fit: BoxFit.fitHeight,
+              height: TSizes.displayHeight(context),
+              animate: animateIt,
+            ),
+          ],
         ),
       ),
     );

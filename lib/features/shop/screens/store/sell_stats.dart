@@ -18,6 +18,7 @@ import 'package:vitkart/features/shop/screens/product_details/widgets/product_me
 import 'package:vitkart/features/shop/screens/product_details/widgets/rating_share_button.dart';
 import 'package:vitkart/features/shop/screens/store/widgets/bidder_card.dart';
 import 'package:vitkart/features/shop/screens/store/widgets/buyer_card.dart';
+import 'package:vitkart/utils/API/api_functions.dart';
 import 'package:vitkart/utils/constants/colors.dart';
 import 'package:vitkart/utils/constants/image_strings.dart';
 import 'package:vitkart/utils/constants/sizes.dart';
@@ -36,6 +37,44 @@ class SellStatsScreen extends StatefulWidget {
 }
 
 class _SellStatsScreenState extends State<SellStatsScreen> {
+  late Stream<Map<String, dynamic>> _biddersStream;
+  late Stream<Map<String, dynamic>> _buyersStream;
+  late Map<String, dynamic> _biddersData;
+  late Map<String, dynamic> _buyersData;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _fetchData();
+  }
+
+  Future<void> _fetchData() async {
+    Map<String, dynamic> data =
+        await APIFunctions.getBiddersList(widget.product.id.toString());
+    setState(() {
+      _biddersData = data;
+      _biddersStream = Stream.value(data);
+    });
+
+    data = await APIFunctions.getBiddersList(widget.product.id.toString());
+    setState(() {
+      _buyersData = data;
+      _buyersStream = Stream.value(data);
+    });
+  }
+
+  Stream _fetchList() async* {
+    log(widget.product.id.toString());
+    Map<String, dynamic> data =
+        await APIFunctions.getBiddersList(widget.product.id.toString());
+    if (data['isSuccess']) {
+      log("this is ---" + data.toString());
+      yield data;
+    }
+    yield {};
+  }
+
   @override
   Widget build(BuildContext context) {
     final dark = THelperFunctions.isDarkMode(context);
@@ -57,7 +96,7 @@ class _SellStatsScreenState extends State<SellStatsScreen> {
                         padding: EdgeInsets.all(TSizes.productImageRadius),
                         child: Center(
                           child: CachedNetworkImage(
-                            imageUrl: widget.product.productImage,
+                            imageUrl: widget.product.productImage[0],
                             placeholder: (context, url) =>
                                 CircularProgressIndicator(),
                             errorWidget: (context, url, error) =>
@@ -253,42 +292,113 @@ class _SellStatsScreenState extends State<SellStatsScreen> {
                   SizedBox(
                     height: TSizes.spaceBtwItems,
                   ),
-                  BuyerCard(
-                    name: "Shreyansh Jain",
-                    email: "shreyansh@gmail.com",
-                    regId: "21BSA10012",
-                    onTap: () {
-                      log('Approve');
+                  // BuyerCard(
+                  //   name: "Shreyansh Jain",
+                  //   email: "shreyansh@gmail.com",
+                  //   regId: "21BSA10012",
+                  //   onTap: () {
+                  //     log('Approve');
+                  //   },
+                  // ),
+
+                  StreamBuilder<Map<String, dynamic>>(
+                    stream: _buyersStream,
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Center(child: CircularProgressIndicator());
+                      }
+                      if (snapshot.hasError) {
+                        return Center(child: Text('Error: ${snapshot.error}'));
+                      }
+                      var data = snapshot.data ?? {};
+                      if (!data.containsKey('status') || !data['status']) {
+                        return Center(
+                            child: Text('Error: Unable to fetch data'));
+                      }
+                      var buyerId = data['product']['buyerId'];
+                      if (buyerId == null) {
+                        return Center(child: Text('No buyer found'));
+                      }
+                      return BuyerCard(
+                        name: buyerId['userName'],
+                        email: buyerId['userEmail'],
+                        regId: buyerId['userContact'],
+                        onTap: () async {
+                          // Handle onTap event
+                          log('Remove');
+                          Map<String, dynamic> response =
+                              await APIFunctions.removeBid(
+                                  productId: widget.product.id,
+                                  buyerId: buyerId['_id']);
+                          log("Remove Response : $response");
+                          _fetchData();
+                        },
+                      );
                     },
                   ),
-                  SizedBox(height: TSizes.spaceBtwSections),
+                  SizedBox(
+                    height: TSizes.spaceBtwItems,
+                  ),
+                  // Bidders
                   TSectionHeading(
                     title: "Bidders",
                     showActionButton: false,
+                  ),
+                  SizedBox(
+                    height: TSizes.spaceBtwItems,
+                  ),
+                  StreamBuilder<Map<String, dynamic>>(
+                    stream: _biddersStream,
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Center(child: CircularProgressIndicator());
+                      }
+                      if (snapshot.hasError) {
+                        return Center(child: Text('Error: ${snapshot.error}'));
+                      }
+                      var data = snapshot.data ?? {};
+                      if (!data.containsKey('status') || !data['status']) {
+                        return Center(
+                            child: Text('Error: Unable to fetch data'));
+                      }
+                      var bidderId = data['product']['bidderId'];
+                      if (bidderId.isEmpty) {
+                        return Center(child: Text('No bidders found'));
+                      }
+                      return Column(
+                        children: bidderId
+                            .map<Widget>((bidder) => Column(
+                                  children: [
+                                    BidderCard(
+                                      name: bidder['userName'],
+                                      email: bidder['userEmail'],
+                                      regId: bidder['userContact'],
+                                      onTap: () async {
+                                        log('Approve');
+                                        Map<String, dynamic> response =
+                                            await APIFunctions.approveBit(
+                                                productId: widget.product.id,
+                                                bidderId: bidder['_id']);
+                                        log("Approve Response : $response");
+                                        // Refresh the data after approving bidder
+                                        _fetchData();
+                                      },
+                                    ),
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                  ],
+                                ))
+                            .toList(),
+                      );
+                    },
                   ),
 
                   /// - Reviews
                   SizedBox(
                     height: TSizes.spaceBtwItems,
                   ),
-                  for (var bidder in widget.product.bidders)
-                    Column(
-                      children: [
-                        BidderCard(
-                          name: bidder.userName,
-                          email: bidder.userEmail,
-                          regId: bidder.userContact,
-                          onTap: () {
-                            // Handle onTap event
-                            log('Approve');
-                          },
-                        ),
-                        SizedBox(
-                          height: TSizes.spaceBtwItems,
-                        
-                        )
-                      ],
-                    ),
+
                   SizedBox(height: TSizes.spaceBtwItems),
                   SizedBox(height: TSizes.spaceBtwItems),
                 ],

@@ -6,8 +6,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:timer_count_down/timer_count_down.dart';
+import 'package:vitkart/common/widgets/products/products_cart/product_card_vertical.dart';
 import 'package:vitkart/common/widgets/products/products_cart/productsell.dart';
 import 'package:vitkart/features/authentication/screens/register/widget/cherryToast.dart';
+import 'package:vitkart/utils/API/api_functions.dart';
 import 'package:vitkart/utils/API/userDataService.dart';
 import 'package:vitkart/utils/constants/colors.dart';
 import 'package:vitkart/utils/API/api_routes.dart';
@@ -15,7 +17,7 @@ import 'package:vitkart/utils/constants/sizes.dart';
 import 'package:vitkart/utils/helpers/helper_functions.dart';
 
 class TBottomAddToCart extends StatelessWidget {
-  final String productId;
+  final ProductData productId;
 
   const TBottomAddToCart({super.key, required this.productId});
 
@@ -25,12 +27,33 @@ class TBottomAddToCart extends StatelessWidget {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(message),
-          duration: Duration(seconds: 2),
+          duration: const Duration(seconds: 2),
         ),
       );
     }
 
     final String bidderId = UserDataService.getUserID();
+
+    bool isBidder() {
+      bool isBidder = false;
+
+      for (var i in productId.bidders) {
+        if (i.id == UserDataService.getUserID()) {
+          isBidder = true;
+          break;
+        }
+      }
+
+      return isBidder;
+    }
+
+    bool isSeller() {
+      return productId.seller.id == UserDataService.getUserID();
+    }
+
+    bool hasSoldOut() {
+      return (productId.productStock == productId.bidders.length);
+    }
 
     final dark = THelperFunctions.isDarkMode(context);
     return Container(
@@ -96,14 +119,14 @@ class TBottomAddToCart extends StatelessWidget {
                               if (DateTime.now()
                                       .difference(coundDown)
                                       .inSeconds <
-                                  10) {
+                                  2) {
                                 return;
                               }
 
                               Get.back();
                             },
                             child: Countdown(
-                              seconds: 10,
+                              seconds: 2,
                               build: (BuildContext context, double time) {
                                 return Text(
                                   time > 0
@@ -135,17 +158,42 @@ class TBottomAddToCart extends StatelessWidget {
 
                       // write a put request to the server to place a bid for the product where i will have the productId and bidderId as the two parameters where i will have my product id and store the logged in user's id respectively to the placebid url
 
-                      Map<String, dynamic> response = await placeBid(bidderId);
+                      Map<String, dynamic> response =
+                          await APIFunctions.placeBid(
+                              productId: productId.id, bidderId: bidderId);
+                      log("Response : $response");
                       if (response['isSuccess']) {
-                        showSnackBar(context, "Bid Placed Successfully");
-                        Get.to(SellSuccessScreen());
-                      } else if (response['message'] ==
-                          "You have already placed a bid on this product") {
-                        showSnackBar(context,
-                            "You have already placed a bid on this product!");
-                      } else {
-                        showSnackBar(context, "Oops, ${response['message']}");
+                        // showSnackBar(context, "Bid Placed Successfully");
+                        Get.snackbar(
+                          "Success",
+                          "Bid Placed Successfully",
+                          snackPosition: SnackPosition.TOP,
+                          backgroundColor: TColors.success,
+                        );
+                        Get.to(const SellSuccessScreen());
+                        return;
                       }
+                      if (response['message'] ==
+                          "You have already placed a bid on this product") {
+                        // showSnackBar(context,
+                        //     "You have already placed a bid on this product!");
+                        Get.snackbar(
+                          "Error",
+                          "You have already placed a bid on this product",
+                          snackPosition: SnackPosition.TOP,
+                          backgroundColor: TColors.error,
+                        );
+                        return;
+                      }
+                      log("Error : ${response['message'].toString()}");
+                      // showSnackBar(
+                      //     context, "Oops, ${response['message'].toString()}");
+                      Get.snackbar(
+                        "Error",
+                        "Oops, ${response['message'].toString()}",
+                        snackPosition: SnackPosition.TOP,
+                        backgroundColor: TColors.error,
+                      );
                     },
                   ),
                 ],
@@ -157,43 +205,61 @@ class TBottomAddToCart extends StatelessWidget {
           },
           style: ElevatedButton.styleFrom(
             padding: const EdgeInsets.all(TSizes.md),
-            backgroundColor: TColors.primary,
-            side: const BorderSide(color: TColors.primary),
+            backgroundColor: hasSoldOut()
+                ? TColors.textPrimary
+                : isSeller()
+                    ? TColors.darkBackground
+                    : isBidder()
+                        ? TColors.white
+                        : TColors.primary,
           ),
           child: Text(
-            "Place Bid",
-            style: Theme.of(context).textTheme.titleLarge,
+            hasSoldOut()
+                ? "Sold Out"
+                : isSeller()
+                    ? "You can't buy your own product"
+                    : isBidder()
+                        ? "Cancel Bid"
+                        : "Place a bid",
+            style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                  color: isSeller()
+                      ? TColors.grey
+                      : isBidder()
+                          ? TColors.primary
+                          : TColors.textWhite,
+                  fontWeight: FontWeight.bold,
+                ),
           ),
         ),
       ),
     );
   }
 
-  Future<Map<String, dynamic>> placeBid(String bidderId) async {
-    var headers = {
-      'Content-Type': 'application/json',
-      'token': UserDataService.getToken()
-    };
-    var request = http.Request('PUT', Uri.parse(placebidUrl));
-    request.body = json.encode({"bidderId": bidderId, "productId": productId});
-    request.headers.addAll(headers);
+  // Future<Map<String, dynamic>> placeBid(String bidderId) async {
+  //   var headers = {
+  //     'Content-Type': 'application/json',
+  //     'token': UserDataService.getToken()
+  //   };
+  //   var request = http.Request('PUT', Uri.parse(placeBidUrl));
+  //   request.body = json.encode({"bidderId": bidderId, "productId": productId});
+  //   request.headers.addAll(headers);
 
-    http.StreamedResponse response = await request.send();
-    log("placeBidStatus : ${response.statusCode}");
-    if (response.statusCode == 200) {
-      Map<String, dynamic> jsonResponse =
-          jsonDecode(await response.stream.bytesToString()); // Convert to JSON
-      jsonResponse['isSuccess'] = true;
-      log("placeBidStatus : $jsonResponse");
-      // showSuccessToast(context, "Success ");
-      return jsonResponse;
-    } else {
-      Map<String, dynamic> jsonResponse =
-          jsonDecode(await response.stream.bytesToString()); // Convert to JSON
-      jsonResponse['isSuccess'] = false;
-      log("placeBidStatus : $jsonResponse");
-      // showErrorToast(context, "Oops, $jsonResponse");
-      return jsonResponse;
-    }
-  }
+  //   http.StreamedResponse response = await request.send();
+  //   log("placeBidStatus : ${response.statusCode}");
+  //   if (response.statusCode == 200) {
+  //     Map<String, dynamic> jsonResponse =
+  //         jsonDecode(await response.stream.bytesToString()); // Convert to JSON
+  //     jsonResponse['isSuccess'] = true;
+  //     log("placeBidStatus : $jsonResponse");
+  //     // showSuccessToast(context, "Success ");
+  //     return jsonResponse;
+  //   } else {
+  //     Map<String, dynamic> jsonResponse =
+  //         jsonDecode(await response.stream.bytesToString()); // Convert to JSON
+  //     jsonResponse['isSuccess'] = false;
+  //     log("placeBidStatus : $jsonResponse");
+  //     // showErrorToast(context, "Oops, $jsonResponse");
+  //     return jsonResponse;
+  //   }
+  // }
 }

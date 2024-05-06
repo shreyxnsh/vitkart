@@ -57,7 +57,7 @@ class CreateProductController extends GetxController
   TextEditingController productQuantityController = TextEditingController();
 
   // Page 2 - Images
-  List<Rx<File?>> additionalImages = [];
+  RxList<Rx<File?>> additionalImages = <Rx<File?>>[].obs;
 
   Rx<File?> coverImage = Rx(null);
 
@@ -124,16 +124,30 @@ class CreateProductController extends GetxController
       // is loading
       isLoading.value = true;
 
+      Map<String, String> data = {
+        'productName': productNameController.text,
+        'productDesc': productDescriptionController.text,
+        'productPrice': productPriceController.text,
+        'productQuantity': productQuantityController.text,
+        'sellerId': UserDataService.getUserID(),
+        'sellerName': UserDataService.getUserName(),
+        // 'productName': productNameController.text,
+        // 'productDesc': productDescriptionController.text,
+        // 'productPrice': productPriceController.text,
+        // 'productQuantity': productQuantityController.text,
+        // 'productCategory': category,
+        // 'sellerName': UserDataService.getUserName(),
+        // 'sellerId': UserDataService.getUserID(),
+      };
+
+      for (int i = 0; i < selectedCategories.length; i++) {
+        data['productCategory[$i]'] = selectedCategories[i];
+      }
+
+      log("this is your data --- ${data}");
       // Create product on server and return response
       Map<String, dynamic> response = await APIFunctions.createProduct(
-        data: {
-          'productName': productNameController.text,
-          'productDesc': productDescriptionController.text,
-          'productPrice': productPriceController.text,
-          'productStock': productQuantityController.text,
-          'productCategory': category,
-          'sellerName': UserDataService.getUserName(),
-        },
+        data: data,
         filePaths: filePaths,
       );
       isLoading.value = false;
@@ -254,7 +268,7 @@ class CreateProductController extends GetxController
         () => Padding(
           padding: const EdgeInsets.all(TSizes.defaultSpace),
           child: SizedBox(
-            height: Get.height * .5,
+            // height: Get.height * .5,
             child: SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -265,7 +279,10 @@ class CreateProductController extends GetxController
                   ),
                   Text(
                     "Select Category",
-                    style: Theme.of(Get.context!).textTheme.titleLarge,
+                    style:
+                        Theme.of(Get.context!).textTheme.titleLarge!.copyWith(
+                              fontSize: 18,
+                            ),
                   ),
                   const SizedBox(
                     height: TSizes.spaceBtwItems,
@@ -278,6 +295,16 @@ class CreateProductController extends GetxController
                         InkWell(
                           borderRadius: BorderRadius.circular(8),
                           onTap: () {
+                            if (selectedCategories.length == 5 &&
+                                !selectedCategories.contains(categories[i])) {
+                              Get.snackbar(
+                                "Oops!",
+                                "You can select only 5 categories",
+                                backgroundColor: TColors.warning,
+                                colorText: TColors.white,
+                              );
+                              return;
+                            }
                             if (selectedCategories.contains(categories[i])) {
                               selectedCategories.remove(categories[i]);
                             } else {
@@ -308,11 +335,30 @@ class CreateProductController extends GetxController
                             padding: const EdgeInsets.all(TSizes.sm),
                             child: Text(
                               categories[i],
-                              style: Theme.of(Get.context!).textTheme.titleLarge,
+                              style:
+                                  Theme.of(Get.context!).textTheme.titleLarge,
                             ),
                           ),
                         ),
                     ],
+                  ),
+                  const SizedBox(
+                    height: 100,
+                  ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: TColors.primary,
+                      shape: RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.circular(TSizes.cardRadiusLg),
+                      ),
+                      maximumSize: Size(double.infinity, 50),
+                      minimumSize: Size(double.infinity, 50),
+                    ),
+                    onPressed: () {
+                      Get.back();
+                    },
+                    child: const Text("Done"),
                   ),
                 ],
               ),
