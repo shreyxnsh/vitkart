@@ -7,19 +7,26 @@ import 'package:vitkart/utils/constants/colors.dart';
 import 'package:vitkart/utils/constants/sizes.dart';
 import 'package:vitkart/utils/helpers/helper_functions.dart';
 
-class TOrderListItems extends StatelessWidget {
+class TOrderListItems extends StatefulWidget {
   final List<ProductData> productList;
+
   const TOrderListItems({
     super.key,
     this.productList = const [],
   });
 
   @override
+  State<TOrderListItems> createState() => _TOrderListItemsState();
+}
+
+class _TOrderListItemsState extends State<TOrderListItems> {
+  int extend = -1;
+  @override
   Widget build(BuildContext context) {
     final dark = THelperFunctions.isDarkMode(context);
     return ListView.separated(
       shrinkWrap: true,
-      itemCount: productList.length,
+      itemCount: widget.productList.length,
       separatorBuilder: (_, __) => const SizedBox(
         height: TSizes.spaceBtwItems,
       ),
@@ -34,7 +41,7 @@ class TOrderListItems extends StatelessWidget {
             Row(
               children: [
                 /// icon
-                const Icon(Iconsax.ship),
+                const Icon(Iconsax.box),
                 const SizedBox(
                   width: TSizes.spaceBtwItems / 2,
                 ),
@@ -52,18 +59,11 @@ class TOrderListItems extends StatelessWidget {
                             .bodyLarge!
                             .apply(color: TColors.primary, fontWeightDelta: 1),
                       ),
-                      Text(productList[index].productName,
+                      Text(widget.productList[index].productName,
                           style: Theme.of(context).textTheme.headlineSmall),
                     ],
                   ),
                 ),
-
-                IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Iconsax.arrow_right_34,
-                      size: TSizes.iconSm,
-                    ))
               ],
             ),
             const SizedBox(
@@ -90,7 +90,7 @@ class TOrderListItems extends StatelessWidget {
                           children: [
                             Text('Price',
                                 style: Theme.of(context).textTheme.labelMedium),
-                            Text('₹ ${productList[index].productPrice}',
+                            Text('₹ ${widget.productList[index].productPrice}',
                                 style: Theme.of(context).textTheme.titleMedium),
                           ],
                         ),
@@ -116,8 +116,8 @@ class TOrderListItems extends StatelessWidget {
                             Text('Order Date :',
                                 style: Theme.of(context).textTheme.labelMedium),
                             Text(
-                                DateFormat('dd : MMM : yyyy')
-                                    .format(productList[index].updatedAt),
+                                DateFormat('dd : MMM : yyyy').format(
+                                    widget.productList[index].updatedAt),
                                 style: Theme.of(context).textTheme.titleMedium),
                           ],
                         ),
@@ -126,7 +126,114 @@ class TOrderListItems extends StatelessWidget {
                   ),
                 ),
               ],
-            )
+            ),
+            const SizedBox(
+              height: TSizes.spaceBtwItems,
+            ),
+            // seller details
+            Row(
+              children: [
+                /// icon
+                const Icon(Iconsax.user),
+                const SizedBox(
+                  width: TSizes.spaceBtwItems / 2,
+                ),
+
+                /// status and date
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text('Seller',
+                          style: Theme.of(context).textTheme.labelMedium),
+                      Text(widget.productList[index].sellerName,
+                          style: Theme.of(context).textTheme.titleMedium),
+                    ],
+                  ),
+                ),
+
+                IconButton(
+                  onPressed: () {
+                    setState(() {
+                      extend = extend == index ? -1 : index;
+                    });
+                  },
+                  icon: Icon(
+                    extend == index ? Iconsax.arrow_up_2 : Iconsax.arrow_down_2,
+                    size: TSizes.iconSm,
+                  ),
+                ),
+              ],
+            ),
+            if (extend == index)
+              const SizedBox(
+                height: TSizes.spaceBtwItems,
+              ),
+            if (extend == index)
+              TRoundedContainer(
+                showBorder: true,
+                padding: const EdgeInsets.all(TSizes.md),
+                backgroundColor: dark ? TColors.dark : TColors.light,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Row(
+                      children: [
+                        /// icon
+                        const Icon(Iconsax.mobile),
+                        const SizedBox(
+                          width: TSizes.spaceBtwItems / 2,
+                        ),
+
+                        /// status and date
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text('Contact',
+                                  style:
+                                      Theme.of(context).textTheme.labelMedium),
+                              Text(widget.productList[index].seller.userContact,
+                                  style:
+                                      Theme.of(context).textTheme.titleMedium),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: TSizes.spaceBtwItems,
+                    ),
+                    Row(
+                      children: [
+                        /// icon
+                        const Icon(Icons.email_outlined),
+                        const SizedBox(
+                          width: TSizes.spaceBtwItems / 2,
+                        ),
+
+                        /// status and date
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text('Email',
+                                  style:
+                                      Theme.of(context).textTheme.labelMedium),
+                              Text(widget.productList[index].seller.userEmail,
+                                  style:
+                                      Theme.of(context).textTheme.titleMedium),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
           ],
         ),
       ),

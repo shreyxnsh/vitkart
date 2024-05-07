@@ -484,7 +484,8 @@ class APIFunctions {
       'token': UserDataService
           .getToken(), // Replace with the actual token of the user
     };
-    var request = http.Request('GET', Uri.parse('$getMyProductsUrl$bidderId'));
+    log("url : $getMyBidsUrl$bidderId");
+    var request = http.Request('GET', Uri.parse('$getMyBidsUrl$bidderId'));
 
     request.headers.addAll(headers);
 
@@ -493,6 +494,7 @@ class APIFunctions {
     if (response.statusCode == 200) {
       Map<String, dynamic> jsonResponse =
           jsonDecode(await response.stream.bytesToString());
+      log("getMyBidsList : $jsonResponse");
       jsonResponse['isSuccess'] = true;
       return jsonResponse;
     } else {

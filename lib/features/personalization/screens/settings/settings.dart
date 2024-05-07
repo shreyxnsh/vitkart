@@ -13,6 +13,7 @@ import 'package:vitkart/features/personalization/screens/address/address.dart';
 import 'package:vitkart/features/personalization/screens/profile/profile.dart';
 import 'package:vitkart/features/personalization/screens/settings/notifications.dart';
 import 'package:vitkart/features/personalization/screens/settings/terms.dart';
+import 'package:vitkart/features/shop/screens/bids/bids.dart';
 import 'package:vitkart/features/shop/screens/orders/orders.dart';
 import 'package:vitkart/utils/API/api_routes.dart';
 import 'package:vitkart/utils/API/userDataService.dart';
@@ -112,7 +113,7 @@ class SettingScreen extends StatelessWidget {
                       title: "My Bids",
                       subtitle: "Get All your Bids!",
                       onTap: () {
-                        Get.to(() => const OrderScreen());
+                        Get.to(() => const BidsScreen());
                       },
                     ),
                     // TSettingsMenuTile(

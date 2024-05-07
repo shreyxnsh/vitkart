@@ -7,9 +7,9 @@ import 'package:vitkart/utils/constants/colors.dart';
 import 'package:vitkart/utils/constants/sizes.dart';
 import 'package:vitkart/utils/helpers/helper_functions.dart';
 
-class TOrderListItems extends StatelessWidget {
+class TBidListItems extends StatelessWidget {
   final List<ProductData> productList;
-  const TOrderListItems({
+  const TBidListItems({
     super.key,
     this.productList = const [],
   });
@@ -34,7 +34,7 @@ class TOrderListItems extends StatelessWidget {
             Row(
               children: [
                 /// icon
-                const Icon(Iconsax.ship),
+                const Icon(Iconsax.box),
                 const SizedBox(
                   width: TSizes.spaceBtwItems / 2,
                 ),
@@ -46,11 +46,11 @@ class TOrderListItems extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        'Requested Approval',
+                        'Yet to Approve by Seller!',
                         style: Theme.of(context)
                             .textTheme
                             .bodyLarge!
-                            .apply(color: TColors.primary, fontWeightDelta: 1),
+                            .apply(color: TColors.warning, fontWeightDelta: 1),
                       ),
                       Text(productList[index].productName,
                           style: Theme.of(context).textTheme.headlineSmall),
