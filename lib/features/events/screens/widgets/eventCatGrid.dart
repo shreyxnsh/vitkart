@@ -1,12 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:vitkart/features/authentication/screens/login/login.dart';
 import 'package:vitkart/features/events/screens/categoryScreens/eventCategoryScreen.dart';
-import 'package:vitkart/features/events/screens/categoryScreens/culturalScreen.dart';
-import 'package:vitkart/features/events/screens/categoryScreens/danceScreen.dart';
-import 'package:vitkart/features/events/screens/categoryScreens/dramaScreen.dart';
-import 'package:vitkart/features/events/screens/categoryScreens/guestSpeakerScreen.dart';
-import 'package:vitkart/features/events/screens/categoryScreens/musicScreen.dart';
 import 'package:vitkart/features/events/screens/widgets/eventCatCard.dart';
 import 'package:vitkart/utils/constants/image_strings.dart';
 

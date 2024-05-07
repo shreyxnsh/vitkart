@@ -1,18 +1,14 @@
-import 'dart:convert';
 import 'dart:developer';
 import 'dart:ui';
-import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:timer_count_down/timer_count_down.dart';
 import 'package:vitkart/common/widgets/products/products_cart/product_card_vertical.dart';
 import 'package:vitkart/common/widgets/products/products_cart/productsell.dart';
-import 'package:vitkart/features/authentication/screens/register/widget/cherryToast.dart';
 import 'package:vitkart/utils/API/api_functions.dart';
 import 'package:vitkart/utils/API/userDataService.dart';
 import 'package:vitkart/utils/constants/colors.dart';
-import 'package:vitkart/utils/API/api_routes.dart';
 import 'package:vitkart/utils/constants/sizes.dart';
 import 'package:vitkart/utils/helpers/helper_functions.dart';
 
@@ -99,10 +95,10 @@ class TBottomAddToCart extends StatelessWidget {
                         barrierDismissible: false,
                         filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
                         context: context,
-                        builder: (_context) => CupertinoActionSheet(
+                        builder: (context) => CupertinoActionSheet(
                           title: Text(
                             'Please Confirm',
-                            style: Theme.of(_context)
+                            style: Theme.of(context)
                                 .textTheme
                                 .titleSmall!
                                 .copyWith(
@@ -112,7 +108,7 @@ class TBottomAddToCart extends StatelessWidget {
                           ),
                           message: Text(
                             'Your request will be sent to the seller of this product, please wait for approval to know more details.',
-                            style: Theme.of(_context).textTheme.bodyMedium,
+                            style: Theme.of(context).textTheme.bodyMedium,
                           ),
                           cancelButton: CupertinoActionSheetAction(
                             onPressed: () {

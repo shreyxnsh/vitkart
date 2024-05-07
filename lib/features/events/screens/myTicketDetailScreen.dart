@@ -5,30 +5,23 @@ import 'dart:ui' as ui;
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:device_info_plus/device_info_plus.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:pretty_qr_code/pretty_qr_code.dart';
 import 'package:vitkart/common/widgets/appbar/appbar.dart';
-import 'package:vitkart/features/authentication/controllers/eventDetail/eventDetail_controller.dart';
 import 'package:vitkart/features/authentication/screens/register/widget/cherryToast.dart';
 import 'package:vitkart/features/events/screens/widgets/MyTicketDetails.dart';
-import 'package:vitkart/features/events/screens/widgets/ticketDetails.dart';
 import 'package:vitkart/features/events/screens/widgets/ticketScanQR.dart';
-import 'package:vitkart/features/shop/screens/home/home.dart';
-import 'package:vitkart/navigation_menu.dart';
-import 'package:vitkart/utils/API/userDataService.dart';
 import 'package:vitkart/utils/constants/colors.dart';
 import 'package:vitkart/utils/constants/sizes.dart';
 import 'package:vitkart/utils/helpers/helper_functions.dart';
 
 class TicketDetailScreen extends StatefulWidget {
-  TicketDetailScreen({super.key, required this.ticketData});
+  const TicketDetailScreen({super.key, required this.ticketData});
 
   final Map<String, dynamic> ticketData;
 
@@ -65,7 +58,7 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
     final androidInfo = await deviceInfoPlugin.androidInfo;
     print("Device Version: ${androidInfo.version.sdkInt}");
 
-    if (Platform.isAndroid && androidInfo.version.sdkInt! >= 29) {
+    if (Platform.isAndroid && androidInfo.version.sdkInt >= 29) {
       final dir = await getExternalStorageDirectory();
       print("File Name: ${dir!.path}/$fileName");
       return "${dir.path}/$fileName";
@@ -196,7 +189,7 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
                                       // Add an error widget if needed
                                       color:
                                           Colors.red, // Error background color
-                                      child: Icon(Icons.error),
+                                      child: const Icon(Icons.error),
                                     ),
                                   ),
                                 ),

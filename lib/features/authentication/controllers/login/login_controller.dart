@@ -28,6 +28,6 @@ class LoginController extends GetxController {
   }
 
   void signUp() {
-    Get.to(() => RegisterScreen());
+    Get.to(() => const RegisterScreen());
   }
 }

@@ -91,7 +91,7 @@ class APIFunctions {
       Map<String, dynamic> jsonResponse =
           jsonDecode(await response.stream.bytesToString()); // Convert to JSON
       jsonResponse['isSuccess'] = true;
-      log("event :" + jsonResponse.toString());
+      log("event :$jsonResponse");
       return jsonResponse;
     } else {
       Map<String, dynamic> jsonResponse =
@@ -344,7 +344,7 @@ class APIFunctions {
       'token': UserDataService.getToken(),
       'Content-Type': 'application/json'
     };
-    log("$placeBidUrl");
+    log(placeBidUrl);
     var request = http.Request('PUT', Uri.parse(placeBidUrl));
     log("productId : $productId bidderId : $bidderId   ${UserDataService.getToken()}");
     request.body = json.encode({
@@ -374,7 +374,7 @@ class APIFunctions {
       'token': UserDataService.getToken(),
       'Content-Type': 'application/json'
     };
-    log("$approveBitUrl");
+    log(approveBitUrl);
     var request = http.Request('PUT', Uri.parse(approveBitUrl));
     log("productId : $productId bidderId : $bidderId   ${UserDataService.getToken()}");
     request.body = json.encode({
@@ -401,7 +401,7 @@ class APIFunctions {
   static Future<Map<String, dynamic>> removeBid(
       {required String productId, required String buyerId}) async {
     var headers = {'Content-Type': 'application/json'};
-    log("$removeBidUrl");
+    log(removeBidUrl);
     var request = http.Request('PUT', Uri.parse(removeBidUrl));
     log("productId : $productId buyerId : $buyerId ");
     request.body = json.encode({

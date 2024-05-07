@@ -1,9 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:vitkart/features/shop/screens/store/create_product.dart';
-import 'package:vitkart/features/shop/screens/store/sell.dart';
 import 'package:vitkart/navigation_menu.dart';
 import 'package:vitkart/utils/constants/colors.dart';
 import 'package:vitkart/utils/constants/sizes.dart';
@@ -30,7 +28,7 @@ class _SuccessScreenState extends State<SuccessScreen> {
       });
     });
 
-    Future.delayed(Duration(milliseconds: 2000), () {
+    Future.delayed(const Duration(milliseconds: 2000), () {
       setState(() {
         fadeIt = true;
       });
@@ -48,7 +46,7 @@ class _SuccessScreenState extends State<SuccessScreen> {
         duration: animationDuratino,
         opacity: fadeIt ? 1.0 : 0.0,
         child: Container(
-          margin: EdgeInsets.all(TSizes.spaceBtwItems),
+          margin: const EdgeInsets.all(TSizes.spaceBtwItems),
           height: TSizes.displayHeight(context) * (54 / 840),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -57,7 +55,7 @@ class _SuccessScreenState extends State<SuccessScreen> {
               Expanded(
                 child: ElevatedButton(
                   onPressed: () {
-                    Get.to(() => CreateProductScreen());
+                    Get.to(() => const CreateProductScreen());
                   },
                   child: const Center(child: Text('Add More')),
                 ),
@@ -68,7 +66,7 @@ class _SuccessScreenState extends State<SuccessScreen> {
               Expanded(
                 child: ElevatedButton(
                   onPressed: () {
-                    Get.to(() => NavigationMenu());
+                    Get.to(() => const NavigationMenu());
                   },
                   child: const Center(child: Text('View Product')),
                 ),

@@ -19,15 +19,13 @@ import 'package:vitkart/features/authentication/controllers/eventDetail/eventDet
 import 'package:vitkart/features/authentication/screens/register/widget/cherryToast.dart';
 import 'package:vitkart/features/events/screens/widgets/ticketDetails.dart';
 import 'package:vitkart/features/events/screens/widgets/ticketScanQR.dart';
-import 'package:vitkart/features/shop/screens/home/home.dart';
 import 'package:vitkart/navigation_menu.dart';
-import 'package:vitkart/utils/API/userDataService.dart';
 import 'package:vitkart/utils/constants/colors.dart';
 import 'package:vitkart/utils/constants/sizes.dart';
 import 'package:vitkart/utils/helpers/helper_functions.dart';
 
 class TicketScreen extends StatefulWidget {
-  TicketScreen({super.key, required this.ticketData});
+  const TicketScreen({super.key, required this.ticketData});
 
   final Map<String, dynamic> ticketData;
 
@@ -66,7 +64,7 @@ class _TicketScreenState extends State<TicketScreen> {
     final androidInfo = await deviceInfoPlugin.androidInfo;
     print("Device Version: ${androidInfo.version.sdkInt}");
 
-    if (Platform.isAndroid && androidInfo.version.sdkInt! >= 29) {
+    if (Platform.isAndroid && androidInfo.version.sdkInt >= 29) {
       final dir = await getExternalStorageDirectory();
       print("File Name: ${dir!.path}/$fileName");
       return "${dir.path}/$fileName";
@@ -136,7 +134,7 @@ class _TicketScreenState extends State<TicketScreen> {
         }
         showCupertinoDialog(
           context: context,
-          builder: (BuildContext _context) {
+          builder: (BuildContext context) {
             return CupertinoAlertDialog(
               title: const Text("Exit"),
               content: const Text("Are you sure you want to exit"),
@@ -158,7 +156,7 @@ class _TicketScreenState extends State<TicketScreen> {
                       style: TextStyle(color: TColors.primary),
                     ),
                     onPressed: () {
-                      Navigator.pop(_context);
+                      Navigator.pop(context);
                     }),
               ],
             );
@@ -228,7 +226,7 @@ class _TicketScreenState extends State<TicketScreen> {
                                       // Add an error widget if needed
                                       color:
                                           Colors.red, // Error background color
-                                      child: Icon(Icons.error),
+                                      child: const Icon(Icons.error),
                                     ),
                                   ),
                                 ),

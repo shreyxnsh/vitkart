@@ -50,16 +50,12 @@ class BuyerCard extends StatelessWidget {
           const SizedBox(
             height: TSizes.defaultSpace,
           ),
-          Container(
+          SizedBox(
             width: double.infinity,
             child: ElevatedButton(
               onPressed: onTap,
-              child: Text('Remove',
-                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                        color: TColors.warning,
-                      )),
               style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.all(0),
+                padding: const EdgeInsets.all(0),
                 backgroundColor: TColors.light,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
@@ -67,6 +63,10 @@ class BuyerCard extends StatelessWidget {
                 minimumSize: const Size.fromHeight(48),
                 maximumSize: const Size.fromHeight(48),
               ),
+              child: Text('Remove',
+                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                        color: TColors.warning,
+                      )),
             ),
           ),
         ],

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:lottie/lottie.dart';
 import 'package:vitkart/common/widgets/appbar/appbar.dart';
 import 'package:vitkart/common/widgets/layout/grid_layout.dart';
 import 'package:vitkart/common/widgets/products/products_cart/product_card_vertical.dart';
@@ -62,7 +63,15 @@ class _TechScreenState extends State<TechScreen> {
             children: [
               // ... Other UI elements
               products.isEmpty
-              ? Text('No products listed')
+              ? Center(
+                child: Lottie.asset(
+                      'assets/lottie/nodata.json',
+                      repeat: true,
+                      width: TSizes.displayWidth(context) * 0.8,
+                      fit: BoxFit.fitWidth,
+                      // animate: animateIt,
+                    ),
+              )
               : TGridLayout(
                 itemCount: products.length,
                 itemBuilder: (_, index) => TProductCardVertical(

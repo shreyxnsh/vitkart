@@ -34,11 +34,11 @@ class LoginScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              Column(
+              const Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  const LoginPageForm(),
+                  LoginPageForm(),
                 ],
               ),
             ],

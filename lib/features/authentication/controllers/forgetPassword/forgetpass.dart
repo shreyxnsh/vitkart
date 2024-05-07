@@ -6,10 +6,8 @@ import 'package:get/get.dart';
 import 'package:pinput/pinput.dart';
 import 'package:vitkart/common/widgets/appbar/appbar.dart';
 import 'package:vitkart/features/authentication/screens/login/login.dart';
-import 'package:vitkart/features/authentication/screens/login/widget/loginPageForm.dart';
 import 'package:vitkart/features/authentication/screens/login/widget/loginTextField.dart';
 import 'package:vitkart/features/authentication/screens/register/widget/cherryToast.dart';
-import 'package:vitkart/navigation_menu.dart';
 import 'package:vitkart/utils/API/api_functions.dart';
 import 'package:vitkart/utils/constants/sizes.dart';
 
@@ -26,7 +24,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
   final TextEditingController _newPasswordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
       TextEditingController();
-  PageController _pageController = PageController();
+  final PageController _pageController = PageController();
   final defaultPinTheme = PinTheme(
     width: 56,
     height: 56,
@@ -43,8 +41,8 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TAppBar(
-        title: const Text("Forget Password"),
+      appBar: const TAppBar(
+        title: Text("Forget Password"),
       ),
       body: SafeArea(
         child: PageView(
@@ -68,7 +66,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
           ),
           Text(
             "Enter your email address to reset your password",
-            style: Theme.of(context).textTheme.headline6,
+            style: Theme.of(context).textTheme.titleLarge,
           ),
           const SizedBox(
             height: 20,
@@ -128,7 +126,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
           ),
           Text(
             "Enter the OTP sent to your email (${_emailController.text}) address to reset your password",
-            style: Theme.of(context).textTheme.headline6,
+            style: Theme.of(context).textTheme.titleLarge,
           ),
           const SizedBox(
             height: 20,

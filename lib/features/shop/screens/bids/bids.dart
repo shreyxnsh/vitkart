@@ -1,11 +1,9 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:vitkart/common/widgets/appbar/appbar.dart';
 import 'package:vitkart/common/widgets/products/products_cart/product_card_vertical.dart';
 import 'package:vitkart/features/shop/screens/bids/widgets/bids_list.dart';
-import 'package:vitkart/features/shop/screens/orders/widgets/order_list.dart';
 import 'package:vitkart/utils/API/api_functions.dart';
 import 'package:vitkart/utils/API/userDataService.dart';
 import 'package:vitkart/utils/constants/sizes.dart';
@@ -69,7 +67,7 @@ class _BidsScreenState extends State<BidsScreen> with WidgetsBindingObserver {
   }
 
   void _stopPolling() {
-    _timer?.cancel();
+    _timer.cancel();
   }
 
   @override

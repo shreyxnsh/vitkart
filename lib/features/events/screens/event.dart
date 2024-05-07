@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:vitkart/common/widgets/text/section_heading.dart';
 import 'package:vitkart/features/events/screens/widgets/eventCatGrid.dart';
-import 'package:vitkart/features/events/screens/widgets/eventsForYou.dart';
 import 'package:vitkart/features/events/screens/widgets/eventsheader.dart';
-import 'package:vitkart/features/events/screens/widgets/tEventCategoryCard.dart';
 import 'package:vitkart/features/shop/screens/home/home.dart';
 import 'package:vitkart/utils/constants/check_mark_indicator.dart';
 
 import 'package:vitkart/utils/constants/sizes.dart';
-import 'package:vitkart/utils/constants/staticData.dart';
 
 class EventScreen extends StatefulWidget {
   const EventScreen({Key? key}) : super(key: key);

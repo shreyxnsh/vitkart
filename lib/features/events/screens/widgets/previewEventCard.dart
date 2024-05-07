@@ -46,7 +46,7 @@ class PreviewEventCard extends StatelessWidget {
                 errorWidget: (context, url, error) => Container(
                   // Add an error widget if needed
                   color: Colors.red, // Error background color
-                  child: Icon(Icons.error),
+                  child: const Icon(Icons.error),
                 ),
               ),
             ),

@@ -2,23 +2,18 @@ import 'dart:developer';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:readmore/readmore.dart';
 import 'package:vitkart/common/widgets/appbar/appbar.dart';
 import 'package:vitkart/common/widgets/custom_shapes/containers/t_rounded_containers.dart';
 import 'package:vitkart/common/widgets/icons/t_circular_icon.dart';
-import 'package:vitkart/common/widgets/images/t_rounded_image.dart';
 import 'package:vitkart/common/widgets/products/products_cart/product_card_vertical.dart';
 import 'package:vitkart/common/widgets/text/product_price_text.dart';
 import 'package:vitkart/common/widgets/text/product_title_text.dart';
 import 'package:vitkart/common/widgets/text/section_heading.dart';
 import 'package:vitkart/features/shop/screens/product_details/widgets/bottom_add_to_cart.dart';
-import 'package:vitkart/features/shop/screens/product_details/widgets/product_detail_image_slider.dart';
-import 'package:vitkart/features/shop/screens/product_details/widgets/product_meta_data.dart';
 import 'package:vitkart/features/shop/screens/product_details/widgets/rating_share_button.dart';
 import 'package:vitkart/utils/constants/colors.dart';
-import 'package:vitkart/utils/constants/image_strings.dart';
 import 'package:vitkart/utils/constants/sizes.dart';
 import 'package:vitkart/utils/helpers/helper_functions.dart';
 
@@ -40,8 +35,11 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     log("Product Detail Screen   ${widget.product.productImage.length}");
     final dark = THelperFunctions.isDarkMode(context);
     return Scaffold(
-      bottomNavigationBar: TBottomAddToCart(
-        productId: widget.product,
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: TBottomAddToCart(
+          productId: widget.product,
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -63,9 +61,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                             child: CachedNetworkImage(
                               imageUrl: widget.product.productImage[index],
                               placeholder: (context, url) =>
-                                  CircularProgressIndicator(),
+                                  const CircularProgressIndicator(),
                               errorWidget: (context, url, error) =>
-                                  Icon(Icons.error),
+                                  const Icon(Icons.error),
                             ),
                           ),
                         ),
@@ -137,7 +135,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
             ),
             // Product Details
             Padding(
-              padding: EdgeInsets.only(
+              padding: const EdgeInsets.only(
                 right: TSizes.defaultSpace,
                 left: TSizes.defaultSpace,
                 bottom: TSizes.defaultSpace,
@@ -248,28 +246,28 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   ),
 
                   /// - Description
-                  TSectionHeading(
+                  const TSectionHeading(
                     title: "Description",
                     showActionButton: false,
                   ),
-                  SizedBox(height: TSizes.spaceBtwItems),
+                  const SizedBox(height: TSizes.spaceBtwItems),
                   ReadMoreText(
-                    "${widget.product.productDesc}",
+                    widget.product.productDesc,
                     trimLines: 4,
                     trimMode: TrimMode.Line,
                     trimCollapsedText: " Show more",
                     trimExpandedText: "\n\nShow less",
                     moreStyle:
-                        TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
+                        const TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
                     lessStyle:
-                        TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
+                        const TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
                   ),
 
                   /// - Reviews
-                  SizedBox(
+                  const SizedBox(
                     height: TSizes.spaceBtwItems,
                   ),
-                  SizedBox(height: TSizes.spaceBtwSections),
+                  const SizedBox(height: TSizes.spaceBtwSections),
                 ],
               ),
             ),

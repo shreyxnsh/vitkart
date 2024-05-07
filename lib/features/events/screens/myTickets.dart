@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:vitkart/common/widgets/appbar/appbar.dart';
 import 'package:vitkart/common/widgets/text/section_heading.dart';
@@ -65,10 +64,10 @@ class _MyTicketScreenState extends State<MyTicketScreen> {
         child: SingleChildScrollView(
           physics: const AlwaysScrollableScrollPhysics(),
           child: Padding(
-            padding: EdgeInsets.all(TSizes.defaultSpace),
+            padding: const EdgeInsets.all(TSizes.defaultSpace),
             child: Column(
               children: [
-                TSectionHeading(
+                const TSectionHeading(
                   title: "Upcoming",
                   textColor: TColors.primary,
                   showActionButton: false,

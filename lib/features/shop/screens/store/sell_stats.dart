@@ -7,20 +7,15 @@ import 'package:readmore/readmore.dart';
 import 'package:vitkart/common/widgets/appbar/appbar.dart';
 import 'package:vitkart/common/widgets/custom_shapes/containers/t_rounded_containers.dart';
 import 'package:vitkart/common/widgets/icons/t_circular_icon.dart';
-import 'package:vitkart/common/widgets/images/t_rounded_image.dart';
 import 'package:vitkart/common/widgets/products/products_cart/product_card_vertical.dart';
 import 'package:vitkart/common/widgets/text/product_price_text.dart';
 import 'package:vitkart/common/widgets/text/product_title_text.dart';
 import 'package:vitkart/common/widgets/text/section_heading.dart';
-import 'package:vitkart/features/shop/screens/product_details/widgets/bottom_add_to_cart.dart';
-import 'package:vitkart/features/shop/screens/product_details/widgets/product_detail_image_slider.dart';
-import 'package:vitkart/features/shop/screens/product_details/widgets/product_meta_data.dart';
 import 'package:vitkart/features/shop/screens/product_details/widgets/rating_share_button.dart';
 import 'package:vitkart/features/shop/screens/store/widgets/bidder_card.dart';
 import 'package:vitkart/features/shop/screens/store/widgets/buyer_card.dart';
 import 'package:vitkart/utils/API/api_functions.dart';
 import 'package:vitkart/utils/constants/colors.dart';
-import 'package:vitkart/utils/constants/image_strings.dart';
 import 'package:vitkart/utils/constants/sizes.dart';
 import 'package:vitkart/utils/helpers/helper_functions.dart';
 
@@ -69,7 +64,7 @@ class _SellStatsScreenState extends State<SellStatsScreen> {
     Map<String, dynamic> data =
         await APIFunctions.getBiddersList(widget.product.id.toString());
     if (data['isSuccess']) {
-      log("this is ---" + data.toString());
+      log("this is ---$data");
       yield data;
     }
     yield {};
@@ -93,14 +88,14 @@ class _SellStatsScreenState extends State<SellStatsScreen> {
                     SizedBox(
                       height: 420,
                       child: Padding(
-                        padding: EdgeInsets.all(TSizes.productImageRadius),
+                        padding: const EdgeInsets.all(TSizes.productImageRadius),
                         child: Center(
                           child: CachedNetworkImage(
                             imageUrl: widget.product.productImage[0],
                             placeholder: (context, url) =>
-                                CircularProgressIndicator(),
+                                const CircularProgressIndicator(),
                             errorWidget: (context, url, error) =>
-                                Icon(Icons.error),
+                                const Icon(Icons.error),
                           ),
                         ),
                       ),
@@ -155,7 +150,7 @@ class _SellStatsScreenState extends State<SellStatsScreen> {
             ),
             // Product Details
             Padding(
-              padding: EdgeInsets.only(
+              padding: const EdgeInsets.only(
                 right: TSizes.defaultSpace,
                 left: TSizes.defaultSpace,
                 bottom: TSizes.defaultSpace,
@@ -266,30 +261,30 @@ class _SellStatsScreenState extends State<SellStatsScreen> {
                   ),
 
                   /// - Description
-                  TSectionHeading(
+                  const TSectionHeading(
                     title: "Description",
                     showActionButton: false,
                   ),
-                  SizedBox(height: TSizes.spaceBtwItems),
+                  const SizedBox(height: TSizes.spaceBtwItems),
                   ReadMoreText(
-                    "${widget.product.productDesc}",
+                    widget.product.productDesc,
                     trimLines: 4,
                     trimMode: TrimMode.Line,
                     trimCollapsedText: " Show more",
                     trimExpandedText: "\n\nShow less",
                     moreStyle:
-                        TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
+                        const TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
                     lessStyle:
-                        TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
+                        const TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
                   ),
-                  SizedBox(height: TSizes.spaceBtwSections),
-                  TSectionHeading(
+                  const SizedBox(height: TSizes.spaceBtwSections),
+                  const TSectionHeading(
                     title: "Buyer",
                     showActionButton: false,
                   ),
 
                   /// - Reviews
-                  SizedBox(
+                  const SizedBox(
                     height: TSizes.spaceBtwItems,
                   ),
                   // BuyerCard(
@@ -305,19 +300,19 @@ class _SellStatsScreenState extends State<SellStatsScreen> {
                     stream: _buyersStream,
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Center(child: CircularProgressIndicator());
+                        return const Center(child: CircularProgressIndicator());
                       }
                       if (snapshot.hasError) {
                         return Center(child: Text('Error: ${snapshot.error}'));
                       }
                       var data = snapshot.data ?? {};
                       if (!data.containsKey('status') || !data['status']) {
-                        return Center(
+                        return const Center(
                             child: Text('Error: Unable to fetch data'));
                       }
                       var buyerId = data['product']['buyerId'];
                       if (buyerId == null) {
-                        return Center(child: Text('No buyer found'));
+                        return const Center(child: Text('No buyer found'));
                       }
                       return BuyerCard(
                         name: buyerId['userName'],
@@ -336,34 +331,34 @@ class _SellStatsScreenState extends State<SellStatsScreen> {
                       );
                     },
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: TSizes.spaceBtwItems,
                   ),
                   // Bidders
-                  TSectionHeading(
+                  const TSectionHeading(
                     title: "Bidders",
                     showActionButton: false,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: TSizes.spaceBtwItems,
                   ),
                   StreamBuilder<Map<String, dynamic>>(
                     stream: _biddersStream,
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Center(child: CircularProgressIndicator());
+                        return const Center(child: CircularProgressIndicator());
                       }
                       if (snapshot.hasError) {
                         return Center(child: Text('Error: ${snapshot.error}'));
                       }
                       var data = snapshot.data ?? {};
                       if (!data.containsKey('status') || !data['status']) {
-                        return Center(
+                        return const Center(
                             child: Text('Error: Unable to fetch data'));
                       }
                       var bidderId = data['product']['bidderId'];
                       if (bidderId.isEmpty) {
-                        return Center(child: Text('No bidders found'));
+                        return const Center(child: Text('No bidders found'));
                       }
                       return Column(
                         children: bidderId
@@ -384,7 +379,7 @@ class _SellStatsScreenState extends State<SellStatsScreen> {
                                         _fetchData();
                                       },
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 20,
                                     ),
                                   ],
@@ -395,12 +390,12 @@ class _SellStatsScreenState extends State<SellStatsScreen> {
                   ),
 
                   /// - Reviews
-                  SizedBox(
+                  const SizedBox(
                     height: TSizes.spaceBtwItems,
                   ),
 
-                  SizedBox(height: TSizes.spaceBtwItems),
-                  SizedBox(height: TSizes.spaceBtwItems),
+                  const SizedBox(height: TSizes.spaceBtwItems),
+                  const SizedBox(height: TSizes.spaceBtwItems),
                 ],
               ),
             ),

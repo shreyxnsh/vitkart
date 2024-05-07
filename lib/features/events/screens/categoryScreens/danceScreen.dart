@@ -1,11 +1,6 @@
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:vitkart/common/widgets/appbar/appbar.dart';
-import 'package:vitkart/common/widgets/layout/grid_layout.dart';
-import 'package:vitkart/common/widgets/products/products_cart/product_card_vertical.dart';
-import 'package:vitkart/utils/API/api_routes.dart';
 
 import 'package:vitkart/utils/constants/sizes.dart';
 
@@ -54,9 +49,9 @@ class _DanceScreenState extends State<DanceScreen> {
             style: Theme.of(context).textTheme.headlineSmall),
         showBackArrow: true,
       ),
-      body: SingleChildScrollView(
+      body: const SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(TSizes.defaultSpace),
+          padding: EdgeInsets.all(TSizes.defaultSpace),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

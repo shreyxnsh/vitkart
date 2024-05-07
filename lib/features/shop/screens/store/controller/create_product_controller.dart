@@ -144,7 +144,7 @@ class CreateProductController extends GetxController
         data['productCategory[$i]'] = selectedCategories[i];
       }
 
-      log("this is your data --- ${data}");
+      log("this is your data --- $data");
       // Create product on server and return response
       Map<String, dynamic> response = await APIFunctions.createProduct(
         data: data,
@@ -352,8 +352,8 @@ class CreateProductController extends GetxController
                         borderRadius:
                             BorderRadius.circular(TSizes.cardRadiusLg),
                       ),
-                      maximumSize: Size(double.infinity, 50),
-                      minimumSize: Size(double.infinity, 50),
+                      maximumSize: const Size(double.infinity, 50),
+                      minimumSize: const Size(double.infinity, 50),
                     ),
                     onPressed: () {
                       Get.back();

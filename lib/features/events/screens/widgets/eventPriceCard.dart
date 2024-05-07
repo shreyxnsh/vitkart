@@ -10,7 +10,7 @@ class TEventPriceCard extends StatelessWidget {
   final VoidCallback? onTap;
   final bool isScelected;
 
-  TEventPriceCard({
+  const TEventPriceCard({super.key, 
     Key? key,
     required this.image,
     required this.type,

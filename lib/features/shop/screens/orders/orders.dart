@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:vitkart/common/widgets/appbar/appbar.dart';
@@ -68,7 +67,7 @@ class _OrderScreenState extends State<OrderScreen> with WidgetsBindingObserver {
   }
 
   void _stopPolling() {
-    _timer?.cancel();
+    _timer.cancel();
   }
 
   @override

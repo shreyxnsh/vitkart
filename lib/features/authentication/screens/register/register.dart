@@ -10,7 +10,7 @@ import 'package:vitkart/utils/constants/sizes.dart';
 import 'package:vitkart/utils/helpers/helper_functions.dart';
 
 class RegisterScreen extends StatefulWidget {
-  RegisterScreen({super.key});
+  const RegisterScreen({super.key});
 
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
@@ -61,17 +61,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
           showCupertinoModalPopup(
               context: context,
               builder: (context) => CupertinoAlertDialog(
-                    title: Text(""),
+                    title: const Text(""),
                     actions: [
                       CupertinoDialogAction(
-                        child: Text("Yes"),
+                        child: const Text("Yes"),
                         onPressed: () {
                           Get.back();
                           Get.back();
                         },
                       ),
                       CupertinoDialogAction(
-                        child: Text("No"),
+                        child: const Text("No"),
                         onPressed: () {
                           Get.back();
                         },

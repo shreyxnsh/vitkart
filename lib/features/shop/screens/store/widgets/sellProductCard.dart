@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:vitkart/common/widgets/custom_shapes/containers/t_rounded_containers.dart';
-import 'package:vitkart/common/widgets/images/t_rounded_image.dart';
 import 'package:vitkart/features/shop/screens/home/widgets/circular_widget.dart';
 import 'package:vitkart/utils/constants/colors.dart';
 import 'package:vitkart/utils/constants/sizes.dart';
@@ -130,7 +129,7 @@ class SellProductCard extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 4,
               ),
               SizedBox(
