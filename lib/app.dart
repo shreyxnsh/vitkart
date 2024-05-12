@@ -47,6 +47,7 @@ class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      debugShowMaterialGrid: false,
       title: TTexts.appName,
       themeMode: ThemeMode.dark,
       theme: TAppTheme.darkTheme,
