@@ -11,7 +11,7 @@ String loginUrl = '$url/user/signIn';
 String resentOtp = '$url/user/resendOTPonSignUp';
 String otpVerificationUrl = '$url/emailVerification/verifyEmail';
 
-String techProductsUrl = '$url/paroduct/getproduct?category=Technology';
+String techProductsUrl = '$url/product/getproduct?category=Technology';
 String cycleProductsUrl = '$url/product/getproduct?category=Cycles';
 String mattressProductsUrl = '$url/product/getproduct?category=Mattresses';
 String booksProductsUrl = '$url/product/getproduct?category=Books';

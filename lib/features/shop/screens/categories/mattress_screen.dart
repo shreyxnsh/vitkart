@@ -65,13 +65,26 @@ class _MattressScreenState extends State<MattressScreen> {
               // ... Other UI elements
 
               products.isEmpty
-              ? Lottie.asset(
-                    'assets/lottie/nodata.json',
-                    repeat: false,
-                    width: TSizes.displayWidth(context) * 0.8,
-                    fit: BoxFit.fitWidth,
-                    // animate: animateIt,
-                  )
+              ? Center(
+                child: Column(
+                  children: [
+                    Lottie.asset(
+                          'assets/lottie/oops.json',
+                          repeat: true,
+                          width: TSizes.displayWidth(context) * 0.8,
+                          fit: BoxFit.fitWidth,
+                          // animate: animateIt,
+                        ),
+                        // const SizedBox(
+                        //   height: TSizes.spaceBtwItems,
+                        // ),
+                        Text(
+                          'No Products Found',
+                          style: Theme.of(context).textTheme.titleLarge,
+                        ),
+                  ],
+                )
+              )
               : TGridLayout(
                 itemCount: products.length,
                 itemBuilder: (_, index) => TProductCardVertical(
