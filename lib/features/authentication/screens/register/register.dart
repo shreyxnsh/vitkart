@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:pinput/pinput.dart';
 import 'package:vitkart/features/authentication/controllers/register/register_controller.dart';
@@ -58,27 +59,34 @@ class _RegisterScreenState extends State<RegisterScreen> {
       body: PopScope(
         canPop: false,
         onPopInvoked: (didPop) {
-          showCupertinoModalPopup(
+            showCupertinoDialog(
               context: context,
-              builder: (context) => CupertinoAlertDialog(
-                    title: const Text(""),
-                    actions: [
-                      CupertinoDialogAction(
-                        child: const Text("Yes"),
+              builder: (BuildContext context) {
+                return CupertinoAlertDialog(
+                  title: const Text("Exit"),
+                  content: const Text("Are you sure you want to exit"),
+                  actions: [
+                    CupertinoDialogAction(
+                        child: const Text(
+                          "Yes",
+                          style: TextStyle(color: TColors.primary),
+                        ),
                         onPressed: () {
-                          Get.back();
-                          Get.back();
-                        },
-                      ),
-                      CupertinoDialogAction(
-                        child: const Text("No"),
+                          SystemNavigator.pop();
+                        }),
+                    CupertinoDialogAction(
+                        child: const Text(
+                          "No",
+                          style: TextStyle(color: TColors.primary),
+                        ),
                         onPressed: () {
-                          Get.back();
-                        },
-                      ),
-                    ],
-                  ));
-        },
+                          Navigator.pop(context);
+                        }),
+                  ],
+                );
+              },
+            );
+          },
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,

@@ -127,14 +127,14 @@ class SettingScreen extends StatelessWidget {
                         Get.to(() => const MyTicketScreen());
                       },
                     ),
-                    TSettingsMenuTile(
-                      icon: Iconsax.safe_home,
-                      title: "My Addresses",
-                      subtitle: "Set shopping delivery address",
-                      onTap: () {
-                        Get.to(() => const AddressScreen());
-                      },
-                    ),
+                    // TSettingsMenuTile(
+                    //   icon: Iconsax.safe_home,
+                    //   title: "My Addresses",
+                    //   subtitle: "Set shopping delivery address",
+                    //   onTap: () {
+                    //     Get.to(() => const AddressScreen());
+                    //   },
+                    // ),
 
                     // TSettingsMenuTile(
                     //   icon: Iconsax.discount_shape,
