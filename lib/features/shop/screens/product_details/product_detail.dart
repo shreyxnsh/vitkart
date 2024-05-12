@@ -2,8 +2,10 @@ import 'dart:developer';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+// import 'package:flutter_share/flutter_share.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:readmore/readmore.dart';
+// import 'package:share_plus/share_plus.dart';
 import 'package:vitkart/common/widgets/appbar/appbar.dart';
 import 'package:vitkart/common/widgets/custom_shapes/containers/t_rounded_containers.dart';
 import 'package:vitkart/common/widgets/icons/t_circular_icon.dart';
@@ -30,8 +32,21 @@ class ProductDetailScreen extends StatefulWidget {
 }
 
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
+
+
+  //  Future<void> share() async {
+  //   await FlutterShare.share(
+  //     title: 'Example share',
+  //     text: 'Example share text',
+  //     linkUrl: 'https://flutter.dev/',
+  //     chooserTitle: 'Example Chooser Title'
+  //   );
+  // }
+  
   @override
   Widget build(BuildContext context) {
+
+    final box = context.findRenderObject() as RenderBox?;
     log("Product Detail Screen   ${widget.product.productImage.length}");
     final dark = THelperFunctions.isDarkMode(context);
     return Scaffold(
@@ -159,32 +174,15 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                TRoundedContainer(
-                                  radius: TSizes.sm,
-                                  backgroundColor:
-                                      TColors.secondary.withOpacity(0.8),
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: TSizes.sm,
-                                      vertical: TSizes.xs),
-                                  child: Text(
-                                    "25 %",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .labelLarge!
-                                        .apply(color: TColors.black),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: TSizes.spaceBtwItems,
-                                ),
+                                
                                 // Price
                                 Text(
-                                  "\$${widget.product.productPrice}",
+                                  "Price : ",
                                   style: Theme.of(context)
                                       .textTheme
-                                      .titleSmall!
+                                      .bodyLarge!
                                       .apply(
-                                        decoration: TextDecoration.lineThrough,
+                                        // decoration: TextDecoration.lineThrough,
                                       ),
                                 ),
                                 const SizedBox(
@@ -198,7 +196,12 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                             ),
                             const Spacer(),
                             IconButton(
-                              onPressed: () {},
+                              onPressed: () async {
+                                log("Share Button Pressed");
+                                // SharedAppData(child: )
+                                // share();
+                                //  await Share.share('check out my website https://example.com');
+                              },
                               icon: const Icon(
                                 Icons.share,
                                 size: TSizes.iconMd,
