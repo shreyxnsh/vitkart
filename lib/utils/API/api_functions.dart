@@ -291,6 +291,30 @@ class APIFunctions {
     }
   }
 
+  static Future<Map<String, dynamic>> resendOtpSignup(
+      {required String email , required String userName}) async {
+    var headers = {'Content-Type': 'application/json'};
+    var request = http.Request('POST', Uri.parse(resentOtp));
+    request.body = json.encode({"userEmail": email , "userName" : userName});
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      Map<String, dynamic> jsonResponse =
+          jsonDecode(await response.stream.bytesToString());
+      jsonResponse['isSuccess'] = true;
+      log(jsonResponse.toString());
+      return jsonResponse;
+    } else {
+      Map<String, dynamic> jsonResponse =
+          jsonDecode(await response.stream.bytesToString());
+      jsonResponse['isSuccess'] = false;
+      log(jsonResponse.toString());
+      return jsonResponse;
+    }
+  }
+
   static Future<Map<String, dynamic>> resetPasswordAPI(
       {required String email,
       required String otp,
@@ -367,6 +391,37 @@ class APIFunctions {
       return jsonResponse;
     }
   }
+
+  static Future<Map<String, dynamic>> cancelBid(
+      {required String productId, required String bidderId}) async {
+    var headers = {
+      'token': UserDataService.getToken(),
+      'Content-Type': 'application/json'
+    };
+    log(placeBidUrl);
+    var request = http.Request('PUT', Uri.parse(cancelBidUrl));
+    log("productId : $productId bidderId : $bidderId   ${UserDataService.getToken()}");
+    request.body = json.encode({
+      "productId": productId,
+      "bidderId": bidderId,
+    });
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+    log("Cancel Bid Status : ${response.statusCode}");
+    if (response.statusCode == 200) {
+      Map<String, dynamic> jsonResponse =
+          jsonDecode(await response.stream.bytesToString());
+      jsonResponse['isSuccess'] = true;
+      return jsonResponse;
+    } else {
+      Map<String, dynamic> jsonResponse =
+          jsonDecode(await response.stream.bytesToString());
+      jsonResponse['isSuccess'] = false;
+      return jsonResponse;
+    }
+  }
+  
 
   static Future<Map<String, dynamic>> approveBit(
       {required String productId, required String bidderId}) async {

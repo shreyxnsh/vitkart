@@ -164,6 +164,7 @@ class _SellScreenState extends State<SellScreen> {
                               name: products[index].productName,
                               price: products[index].productPrice.toString(),
                               image: products[index].productImage[0],
+                              status: products[index].productStatus,
                               onView: () {
                                 log('view $index');
                               },
