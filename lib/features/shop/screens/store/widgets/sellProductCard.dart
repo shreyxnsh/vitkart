@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:vitkart/common/widgets/custom_shapes/containers/t_rounded_containers.dart';
-import 'package:vitkart/common/widgets/images/t_rounded_image.dart';
 import 'package:vitkart/features/shop/screens/home/widgets/circular_widget.dart';
 import 'package:vitkart/utils/constants/colors.dart';
 import 'package:vitkart/utils/constants/sizes.dart';
@@ -14,12 +13,13 @@ class SellProductCard extends StatelessWidget {
     required this.price,
     this.onView,
     this.onEdit,
-    required this.image,
+    required this.image, required this.status,
   });
 
   final bool isDone;
   final String name;
   final String price;
+  final String status;
   final VoidCallback? onView;
   final VoidCallback? onEdit;
   final String image;
@@ -118,10 +118,10 @@ class SellProductCard extends StatelessWidget {
                       borderRadius: const BorderRadius.all(
                         Radius.circular(6),
                       ),
-                      color: isDone ? TColors.warning : TColors.success,
+                      color: status == "pending" || status == "live" ? TColors.warning : TColors.success,
                     ),
                     child: Text(
-                      isDone ? "Pending" : "Delivered",
+                      status,
                       style: Theme.of(context)
                           .textTheme
                           .bodySmall!
@@ -130,7 +130,7 @@ class SellProductCard extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 4,
               ),
               SizedBox(

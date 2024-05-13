@@ -2,23 +2,20 @@ import 'dart:developer';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+// import 'package:flutter_share/flutter_share.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:readmore/readmore.dart';
+// import 'package:share_plus/share_plus.dart';
 import 'package:vitkart/common/widgets/appbar/appbar.dart';
 import 'package:vitkart/common/widgets/custom_shapes/containers/t_rounded_containers.dart';
 import 'package:vitkart/common/widgets/icons/t_circular_icon.dart';
-import 'package:vitkart/common/widgets/images/t_rounded_image.dart';
 import 'package:vitkart/common/widgets/products/products_cart/product_card_vertical.dart';
 import 'package:vitkart/common/widgets/text/product_price_text.dart';
 import 'package:vitkart/common/widgets/text/product_title_text.dart';
 import 'package:vitkart/common/widgets/text/section_heading.dart';
 import 'package:vitkart/features/shop/screens/product_details/widgets/bottom_add_to_cart.dart';
-import 'package:vitkart/features/shop/screens/product_details/widgets/product_detail_image_slider.dart';
-import 'package:vitkart/features/shop/screens/product_details/widgets/product_meta_data.dart';
 import 'package:vitkart/features/shop/screens/product_details/widgets/rating_share_button.dart';
 import 'package:vitkart/utils/constants/colors.dart';
-import 'package:vitkart/utils/constants/image_strings.dart';
 import 'package:vitkart/utils/constants/sizes.dart';
 import 'package:vitkart/utils/helpers/helper_functions.dart';
 
@@ -35,13 +32,29 @@ class ProductDetailScreen extends StatefulWidget {
 }
 
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
+
+
+  //  Future<void> share() async {
+  //   await FlutterShare.share(
+  //     title: 'Example share',
+  //     text: 'Example share text',
+  //     linkUrl: 'https://flutter.dev/',
+  //     chooserTitle: 'Example Chooser Title'
+  //   );
+  // }
+  
   @override
   Widget build(BuildContext context) {
+
+    final box = context.findRenderObject() as RenderBox?;
     log("Product Detail Screen   ${widget.product.productImage.length}");
     final dark = THelperFunctions.isDarkMode(context);
     return Scaffold(
-      bottomNavigationBar: TBottomAddToCart(
-        productId: widget.product,
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: TBottomAddToCart(
+          productId: widget.product,
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -63,9 +76,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                             child: CachedNetworkImage(
                               imageUrl: widget.product.productImage[index],
                               placeholder: (context, url) =>
-                                  CircularProgressIndicator(),
+                                  const CircularProgressIndicator(),
                               errorWidget: (context, url, error) =>
-                                  Icon(Icons.error),
+                                  const Icon(Icons.error),
                             ),
                           ),
                         ),
@@ -137,7 +150,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
             ),
             // Product Details
             Padding(
-              padding: EdgeInsets.only(
+              padding: const EdgeInsets.only(
                 right: TSizes.defaultSpace,
                 left: TSizes.defaultSpace,
                 bottom: TSizes.defaultSpace,
@@ -161,32 +174,15 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                TRoundedContainer(
-                                  radius: TSizes.sm,
-                                  backgroundColor:
-                                      TColors.secondary.withOpacity(0.8),
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: TSizes.sm,
-                                      vertical: TSizes.xs),
-                                  child: Text(
-                                    "25 %",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .labelLarge!
-                                        .apply(color: TColors.black),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: TSizes.spaceBtwItems,
-                                ),
+                                
                                 // Price
                                 Text(
-                                  "\$${widget.product.productPrice}",
+                                  "Price : ",
                                   style: Theme.of(context)
                                       .textTheme
-                                      .titleSmall!
+                                      .bodyLarge!
                                       .apply(
-                                        decoration: TextDecoration.lineThrough,
+                                        // decoration: TextDecoration.lineThrough,
                                       ),
                                 ),
                                 const SizedBox(
@@ -200,7 +196,12 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                             ),
                             const Spacer(),
                             IconButton(
-                              onPressed: () {},
+                              onPressed: () async {
+                                log("Share Button Pressed");
+                                // SharedAppData(child: )
+                                // share();
+                                //  await Share.share('check out my website https://example.com');
+                              },
                               icon: const Icon(
                                 Icons.share,
                                 size: TSizes.iconMd,
@@ -248,28 +249,28 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   ),
 
                   /// - Description
-                  TSectionHeading(
+                  const TSectionHeading(
                     title: "Description",
                     showActionButton: false,
                   ),
-                  SizedBox(height: TSizes.spaceBtwItems),
+                  const SizedBox(height: TSizes.spaceBtwItems),
                   ReadMoreText(
-                    "${widget.product.productDesc}",
+                    widget.product.productDesc,
                     trimLines: 4,
                     trimMode: TrimMode.Line,
                     trimCollapsedText: " Show more",
                     trimExpandedText: "\n\nShow less",
                     moreStyle:
-                        TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
+                        const TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
                     lessStyle:
-                        TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
+                        const TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
                   ),
 
                   /// - Reviews
-                  SizedBox(
+                  const SizedBox(
                     height: TSizes.spaceBtwItems,
                   ),
-                  SizedBox(height: TSizes.spaceBtwSections),
+                  const SizedBox(height: TSizes.spaceBtwSections),
                 ],
               ),
             ),

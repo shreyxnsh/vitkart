@@ -1,22 +1,21 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:vitkart/common/widgets/appbar/appbar.dart';
 import 'package:vitkart/common/widgets/products/products_cart/product_card_vertical.dart';
-import 'package:vitkart/features/shop/screens/orders/widgets/order_list.dart';
+import 'package:vitkart/features/shop/screens/bids/widgets/bids_list.dart';
 import 'package:vitkart/utils/API/api_functions.dart';
 import 'package:vitkart/utils/API/userDataService.dart';
 import 'package:vitkart/utils/constants/sizes.dart';
 
-class OrderScreen extends StatefulWidget {
-  const OrderScreen({super.key});
+class BidsScreen extends StatefulWidget {
+  const BidsScreen({super.key});
 
   @override
-  State<OrderScreen> createState() => _OrderScreenState();
+  State<BidsScreen> createState() => _BidsScreenState();
 }
 
-class _OrderScreenState extends State<OrderScreen> with WidgetsBindingObserver {
+class _BidsScreenState extends State<BidsScreen> with WidgetsBindingObserver {
   // Stream<List<ProductData>> _fetchOrderList() async* {
   //   Map<String, dynamic> response = await APIFunctions.getMyOrdersList(
   //       buyerId: UserDataService.getUserID());
@@ -54,8 +53,8 @@ class _OrderScreenState extends State<OrderScreen> with WidgetsBindingObserver {
 
   void _startPolling() {
     _timer = Timer.periodic(const Duration(seconds: 5), (timer) async {
-      Map<String, dynamic> response = await APIFunctions.getMyOrdersList(
-          buyerId: UserDataService.getUserID());
+      Map<String, dynamic> response = await APIFunctions.getMyBidsList(
+          bidderId: UserDataService.getUserID());
 
       List<ProductData> dataList = [];
       if (response['isSuccess']) {
@@ -68,7 +67,7 @@ class _OrderScreenState extends State<OrderScreen> with WidgetsBindingObserver {
   }
 
   void _stopPolling() {
-    _timer?.cancel();
+    _timer.cancel();
   }
 
   @override
@@ -85,8 +84,7 @@ class _OrderScreenState extends State<OrderScreen> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TAppBar(
-        title:
-            Text('Orders', style: Theme.of(context).textTheme.headlineMedium),
+        title: Text('Bids', style: Theme.of(context).textTheme.headlineMedium),
         showBackArrow: true,
       ),
       body: SingleChildScrollView(
@@ -108,7 +106,7 @@ class _OrderScreenState extends State<OrderScreen> with WidgetsBindingObserver {
                 );
               }
 
-              return TOrderListItems(
+              return TBidListItems(
                 productList: snapshot.requireData,
               );
             },

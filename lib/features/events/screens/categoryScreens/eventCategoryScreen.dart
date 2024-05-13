@@ -1,15 +1,10 @@
-import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:shimmer/shimmer.dart';
 import 'package:vitkart/common/widgets/appbar/appbar.dart';
-import 'package:vitkart/common/widgets/layout/grid_layout.dart';
 import 'package:vitkart/features/events/screens/widgets/tEventCategoryCard.dart';
-import 'package:vitkart/common/widgets/products/products_cart/product_card_vertical.dart';
 import 'package:vitkart/utils/API/api_functions.dart';
-import 'package:vitkart/utils/API/api_routes.dart';
 import 'package:vitkart/utils/constants/check_mark_indicator.dart';
 import 'package:vitkart/utils/constants/colors.dart';
 

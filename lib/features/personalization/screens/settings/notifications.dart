@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:vitkart/common/widgets/appbar/appbar.dart';
-import 'package:vitkart/common/widgets/text/section_heading.dart';
-import 'package:vitkart/features/events/screens/widgets/eventTicketVertical.dart';
-import 'package:vitkart/utils/constants/colors.dart';
 import 'package:vitkart/utils/constants/sizes.dart';
 
 class NotificationScreen extends StatelessWidget {

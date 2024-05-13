@@ -1,16 +1,17 @@
 class Domain {
-  static String domain = 'api.vitkart.fun';
-  // static String domain = '192.168.31.28:3000';
+  // static String domain = 'api.vitkart.fun';
+  static String domain = '192.168.1.6:3000';
 }
 
-String url = 'https://${Domain.domain}/api/v1';
+String url = 'http://${Domain.domain}/api/v1';
 // String url = 'https://peaceful-pegasus-probably.ngrok-free.app';
 
 String registrationUrl = '$url/user/signUp';
 String loginUrl = '$url/user/signIn';
+String resentOtp = '$url/user/resendOTPonSignUp';
 String otpVerificationUrl = '$url/emailVerification/verifyEmail';
 
-String techProductsUrl = '$url/paroduct/getproduct?category=Technology';
+String techProductsUrl = '$url/product/getproduct?category=Technology';
 String cycleProductsUrl = '$url/product/getproduct?category=Cycles';
 String mattressProductsUrl = '$url/product/getproduct?category=Mattresses';
 String booksProductsUrl = '$url/product/getproduct?category=Books';
@@ -19,6 +20,7 @@ String getUserProducts = '$url/product/getproduct?sellerId=';
 String getMyProductsUrl = '$url/product/getproduct?buyerId=';
 String getMyBidsUrl = '$url/product/getproduct?bidderId=';
 String placeBidUrl = "$url/product/placebid";
+String cancelBidUrl = "$url/product/cancelBid";
 String approveBitUrl = "$url/product/acceptBid";
 String removeBidUrl = "$url/product/removeBid";
 String getBiddersListUrl = "$url/product/getProductBids?productId=";

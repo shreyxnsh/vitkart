@@ -6,18 +6,14 @@ import 'package:vitkart/common/widgets/appbar/appbar.dart';
 import 'package:vitkart/common/widgets/list_tiles/settings_menu.dart';
 import 'package:vitkart/common/widgets/text/section_heading.dart';
 import 'package:vitkart/features/authentication/screens/login/login.dart';
-import 'package:vitkart/features/authentication/screens/login/widget/LoginPageSignInButton.dart';
-import 'package:vitkart/features/authentication/screens/login/widget/loginTextField.dart';
 import 'package:vitkart/features/events/screens/myTickets.dart';
 import 'package:vitkart/features/personalization/screens/address/address.dart';
 import 'package:vitkart/features/personalization/screens/profile/profile.dart';
 import 'package:vitkart/features/personalization/screens/settings/notifications.dart';
 import 'package:vitkart/features/personalization/screens/settings/terms.dart';
+import 'package:vitkart/features/shop/screens/bids/bids.dart';
 import 'package:vitkart/features/shop/screens/orders/orders.dart';
-import 'package:vitkart/utils/API/api_routes.dart';
 import 'package:vitkart/utils/API/userDataService.dart';
-import 'package:vitkart/utils/constants/staticData.dart';
-import 'package:vitkart/utils/constants/text_strings.dart';
 
 import '../../../../../utils/constants/colors.dart';
 import '../../../../../utils/constants/sizes.dart';
@@ -53,7 +49,7 @@ class SettingScreen extends StatelessWidget {
                           ),
                     )),
                 // user profile card
-                TUserProfileTile(),
+                const TUserProfileTile(),
                 const SizedBox(
                   height: TSizes.spaceBtwSections,
                 )
@@ -112,7 +108,7 @@ class SettingScreen extends StatelessWidget {
                       title: "My Bids",
                       subtitle: "Get All your Bids!",
                       onTap: () {
-                        Get.to(() => const OrderScreen());
+                        Get.to(() => const BidsScreen());
                       },
                     ),
                     // TSettingsMenuTile(
@@ -131,14 +127,14 @@ class SettingScreen extends StatelessWidget {
                         Get.to(() => const MyTicketScreen());
                       },
                     ),
-                    TSettingsMenuTile(
-                      icon: Iconsax.safe_home,
-                      title: "My Addresses",
-                      subtitle: "Set shopping delivery address",
-                      onTap: () {
-                        Get.to(() => const AddressScreen());
-                      },
-                    ),
+                    // TSettingsMenuTile(
+                    //   icon: Iconsax.safe_home,
+                    //   title: "My Addresses",
+                    //   subtitle: "Set shopping delivery address",
+                    //   onTap: () {
+                    //     Get.to(() => const AddressScreen());
+                    //   },
+                    // ),
 
                     // TSettingsMenuTile(
                     //   icon: Iconsax.discount_shape,
@@ -239,7 +235,7 @@ class SettingScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: TSizes.spaceBtwSections,
                     ),
 

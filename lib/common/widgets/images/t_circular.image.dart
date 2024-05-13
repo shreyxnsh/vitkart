@@ -39,8 +39,8 @@ class TCircularImage extends StatelessWidget {
         borderRadius: BorderRadius.circular(100),
         child: CachedNetworkImage(
           imageUrl: isNetworkImage ? image : '', // Use empty string for non-network images
-          placeholder: (context, url) => CircularProgressIndicator(),
-          errorWidget: (context, url, error) => Icon(Icons.error),
+          placeholder: (context, url) => const CircularProgressIndicator(),
+          errorWidget: (context, url, error) => const Icon(Icons.error),
           fit: fit,
           color: overlayColor,
         ),

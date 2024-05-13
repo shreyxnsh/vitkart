@@ -7,8 +7,6 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:pretty_qr_code/pretty_qr_code.dart';
 import 'package:vitkart/features/events/screens/myTicketDetailScreen.dart';
-import 'package:vitkart/features/events/screens/myTickets.dart';
-import 'package:vitkart/features/events/screens/ticket.dart';
 import 'package:vitkart/utils/constants/colors.dart';
 import 'package:vitkart/utils/constants/sizes.dart';
 import 'package:vitkart/utils/helpers/helper_functions.dart';

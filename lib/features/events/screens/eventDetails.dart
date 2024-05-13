@@ -3,31 +3,21 @@ import 'dart:ui';
 
 import 'package:action_slider/action_slider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:intl/intl.dart';
-import 'package:timelines/timelines.dart';
 import 'package:timer_count_down/timer_count_down.dart';
 import 'package:vitkart/common/widgets/custom_shapes/containers/t_rounded_containers.dart';
-import 'package:vitkart/common/widgets/images/t_circular.image.dart';
-import 'package:vitkart/common/widgets/text/product_price_text.dart';
 import 'package:vitkart/common/widgets/text/section_heading.dart';
 import 'package:vitkart/features/authentication/controllers/eventDetail/eventDetail_controller.dart';
 import 'package:vitkart/features/authentication/screens/register/widget/cherryToast.dart';
-import 'package:vitkart/features/events/screens/previewOrder.dart';
 import 'package:vitkart/features/events/screens/widgets/eventDetailHeader.dart';
 import 'package:vitkart/features/events/screens/widgets/eventDetailsHeaderText.dart';
-import 'package:vitkart/features/events/screens/widgets/eventPriceCard.dart';
 import 'package:vitkart/utils/API/api_functions.dart';
 import 'package:vitkart/utils/constants/check_mark_indicator.dart';
 import 'package:vitkart/utils/constants/colors.dart';
-import 'package:vitkart/utils/constants/image_strings.dart';
 import 'package:vitkart/utils/constants/sizes.dart';
-import 'package:vitkart/utils/constants/text_strings.dart';
 import 'package:vitkart/utils/helpers/helper_functions.dart';
 
 class EventDetailScreen extends StatefulWidget {
@@ -98,7 +88,7 @@ class _EventDetailScreenState extends State<EventDetailScreen>
               backgroundColor: TColors.lightDarkBackground,
               toggleColor: TColors.primary,
               iconAlignment: Alignment.centerRight,
-              loadingIcon: SizedBox(
+              loadingIcon: const SizedBox(
                   width: 55,
                   child: Center(
                       child: SizedBox(
@@ -157,10 +147,10 @@ class _EventDetailScreenState extends State<EventDetailScreen>
                               barrierDismissible: false,
                               filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
                               context: context,
-                              builder: (_context) => CupertinoActionSheet(
+                              builder: (context) => CupertinoActionSheet(
                                 title: Text(
                                   'Please Confirm',
-                                  style: Theme.of(_context)
+                                  style: Theme.of(context)
                                       .textTheme
                                       .titleSmall!
                                       .copyWith(
@@ -171,7 +161,7 @@ class _EventDetailScreenState extends State<EventDetailScreen>
                                 message: Text(
                                   'You have only 10 minutes to book the ticket and in case of failure, there will be 10 mins of cooldown to prevent any further payment failure',
                                   style:
-                                      Theme.of(_context).textTheme.bodyMedium,
+                                      Theme.of(context).textTheme.bodyMedium,
                                 ),
                                 cancelButton: CupertinoActionSheetAction(
                                   onPressed: () {
@@ -562,7 +552,7 @@ class _EventDetailScreenState extends State<EventDetailScreen>
                                 errorWidget: (context, url, error) => Container(
                                   // Add an error widget if needed
                                   color: Colors.red, // Error background color
-                                  child: Icon(Icons.error),
+                                  child: const Icon(Icons.error),
                                 ),
                               ),
                             ),
@@ -692,7 +682,7 @@ class TicketTypeSelectionWidget extends StatelessWidget {
                 Center(
                   child: Text(
                     ticketName.length > 8
-                        ? ticketName.substring(0, 8) + "..."
+                        ? "${ticketName.substring(0, 8)}..."
                         : ticketName,
                     maxLines: 1,
                     style: Theme.of(context).textTheme.headlineSmall!.copyWith(

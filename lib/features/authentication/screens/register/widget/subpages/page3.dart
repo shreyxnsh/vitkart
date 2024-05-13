@@ -5,6 +5,7 @@ import 'package:pinput/pinput.dart';
 import 'package:timer_count_down/timer_controller.dart';
 import 'package:timer_count_down/timer_count_down.dart';
 import 'package:vitkart/features/authentication/controllers/register/register_controller.dart';
+import 'package:vitkart/utils/API/api_functions.dart';
 import 'package:vitkart/utils/constants/colors.dart';
 import 'package:vitkart/utils/constants/sizes.dart';
 
@@ -105,7 +106,8 @@ class Page3 extends StatelessWidget {
                         style: Theme.of(context).textTheme.bodySmall,
                       ),
                       TextButton(
-                        onPressed: () {
+                        onPressed: () async {
+                          await APIFunctions.resendOtpSignup(email: controller.emailController.text, userName: controller.nameController.text);
                           controller.resendOTP();
                         },
                         child: Text(

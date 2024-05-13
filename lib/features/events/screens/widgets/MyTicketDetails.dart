@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
-import 'package:vitkart/features/authentication/controllers/eventDetail/eventDetail_controller.dart';
 import 'package:vitkart/utils/API/userDataService.dart';
 import 'package:vitkart/utils/constants/colors.dart';
 import 'package:vitkart/utils/constants/sizes.dart';
 import 'package:vitkart/utils/helpers/helper_functions.dart';
 
 class MyTicketDetailsContainer extends StatelessWidget {
-  MyTicketDetailsContainer({super.key, this.onCapture, required this.data});
+  const MyTicketDetailsContainer({super.key, this.onCapture, required this.data});
 
   final void Function()? onCapture;
   final Map<String, dynamic> data;
@@ -50,7 +48,7 @@ class MyTicketDetailsContainer extends StatelessWidget {
               ),
               IconButton(
                 onPressed: onCapture,
-                icon: Icon(
+                icon: const Icon(
                   Iconsax.direct_inbox4,
                   color: TColors.primary,
                 ),

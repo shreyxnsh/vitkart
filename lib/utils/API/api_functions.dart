@@ -91,7 +91,7 @@ class APIFunctions {
       Map<String, dynamic> jsonResponse =
           jsonDecode(await response.stream.bytesToString()); // Convert to JSON
       jsonResponse['isSuccess'] = true;
-      log("event :" + jsonResponse.toString());
+      log("event :$jsonResponse");
       return jsonResponse;
     } else {
       Map<String, dynamic> jsonResponse =
@@ -291,6 +291,30 @@ class APIFunctions {
     }
   }
 
+  static Future<Map<String, dynamic>> resendOtpSignup(
+      {required String email , required String userName}) async {
+    var headers = {'Content-Type': 'application/json'};
+    var request = http.Request('POST', Uri.parse(resentOtp));
+    request.body = json.encode({"userEmail": email , "userName" : userName});
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      Map<String, dynamic> jsonResponse =
+          jsonDecode(await response.stream.bytesToString());
+      jsonResponse['isSuccess'] = true;
+      log(jsonResponse.toString());
+      return jsonResponse;
+    } else {
+      Map<String, dynamic> jsonResponse =
+          jsonDecode(await response.stream.bytesToString());
+      jsonResponse['isSuccess'] = false;
+      log(jsonResponse.toString());
+      return jsonResponse;
+    }
+  }
+
   static Future<Map<String, dynamic>> resetPasswordAPI(
       {required String email,
       required String otp,
@@ -344,7 +368,7 @@ class APIFunctions {
       'token': UserDataService.getToken(),
       'Content-Type': 'application/json'
     };
-    log("$placeBidUrl");
+    log(placeBidUrl);
     var request = http.Request('PUT', Uri.parse(placeBidUrl));
     log("productId : $productId bidderId : $bidderId   ${UserDataService.getToken()}");
     request.body = json.encode({
@@ -368,13 +392,44 @@ class APIFunctions {
     }
   }
 
+  static Future<Map<String, dynamic>> cancelBid(
+      {required String productId, required String bidderId}) async {
+    var headers = {
+      'token': UserDataService.getToken(),
+      'Content-Type': 'application/json'
+    };
+    log(placeBidUrl);
+    var request = http.Request('PUT', Uri.parse(cancelBidUrl));
+    log("productId : $productId bidderId : $bidderId   ${UserDataService.getToken()}");
+    request.body = json.encode({
+      "productId": productId,
+      "bidderId": bidderId,
+    });
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+    log("Cancel Bid Status : ${response.statusCode}");
+    if (response.statusCode == 200) {
+      Map<String, dynamic> jsonResponse =
+          jsonDecode(await response.stream.bytesToString());
+      jsonResponse['isSuccess'] = true;
+      return jsonResponse;
+    } else {
+      Map<String, dynamic> jsonResponse =
+          jsonDecode(await response.stream.bytesToString());
+      jsonResponse['isSuccess'] = false;
+      return jsonResponse;
+    }
+  }
+  
+
   static Future<Map<String, dynamic>> approveBit(
       {required String productId, required String bidderId}) async {
     var headers = {
       'token': UserDataService.getToken(),
       'Content-Type': 'application/json'
     };
-    log("$approveBitUrl");
+    log(approveBitUrl);
     var request = http.Request('PUT', Uri.parse(approveBitUrl));
     log("productId : $productId bidderId : $bidderId   ${UserDataService.getToken()}");
     request.body = json.encode({
@@ -401,7 +456,7 @@ class APIFunctions {
   static Future<Map<String, dynamic>> removeBid(
       {required String productId, required String buyerId}) async {
     var headers = {'Content-Type': 'application/json'};
-    log("$removeBidUrl");
+    log(removeBidUrl);
     var request = http.Request('PUT', Uri.parse(removeBidUrl));
     log("productId : $productId buyerId : $buyerId ");
     request.body = json.encode({
@@ -484,7 +539,8 @@ class APIFunctions {
       'token': UserDataService
           .getToken(), // Replace with the actual token of the user
     };
-    var request = http.Request('GET', Uri.parse('$getMyProductsUrl$bidderId'));
+    log("url : $getMyBidsUrl$bidderId");
+    var request = http.Request('GET', Uri.parse('$getMyBidsUrl$bidderId'));
 
     request.headers.addAll(headers);
 
@@ -493,6 +549,7 @@ class APIFunctions {
     if (response.statusCode == 200) {
       Map<String, dynamic> jsonResponse =
           jsonDecode(await response.stream.bytesToString());
+      log("getMyBidsList : $jsonResponse");
       jsonResponse['isSuccess'] = true;
       return jsonResponse;
     } else {

@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'dart:ui';
 
 import 'package:action_slider/action_slider.dart';
 import 'package:flutter/cupertino.dart';
@@ -12,7 +11,6 @@ import 'package:vitkart/features/authentication/controllers/eventDetail/eventDet
 import 'package:vitkart/features/authentication/screens/register/widget/cherryToast.dart';
 import 'package:vitkart/features/events/screens/ticket.dart';
 import 'package:vitkart/features/events/screens/widgets/previewEventCard.dart';
-import 'package:vitkart/features/events/screens/widgets/previewPayment.dart';
 import 'package:vitkart/features/events/screens/widgets/previewSummary.dart';
 import 'package:vitkart/navigation_menu.dart';
 import 'package:vitkart/utils/API/api_functions.dart';
@@ -163,7 +161,7 @@ class _PreviewEventOrderScreenState extends State<PreviewEventOrderScreen> {
                   backgroundColor: TColors.lightDarkBackground,
                   toggleColor: TColors.primary,
                   iconAlignment: Alignment.centerRight,
-                  loadingIcon: SizedBox(
+                  loadingIcon: const SizedBox(
                       width: 55,
                       child: Center(
                           child: SizedBox(
@@ -216,8 +214,8 @@ class _PreviewEventOrderScreenState extends State<PreviewEventOrderScreen> {
                           .headlineSmall!
                           .copyWith(color: TColors.warning)),
                   message: Text(
-                      "If you go back, your order will be considered as failure. And you will have to place order again in ${screenFirstOpenAt.add(Duration(minutes: 10)).difference(DateTime.now()).inMinutes} minutes.",
-                      style: Theme.of(context).textTheme.bodyText1!),
+                      "If you go back, your order will be considered as failure. And you will have to place order again in ${screenFirstOpenAt.add(const Duration(minutes: 10)).difference(DateTime.now()).inMinutes} minutes.",
+                      style: Theme.of(context).textTheme.bodyLarge!),
                   actions: [
                     CupertinoActionSheetAction(
                       onPressed: () {
@@ -267,13 +265,13 @@ class _PreviewEventOrderScreenState extends State<PreviewEventOrderScreen> {
                     height: TSizes.spaceBtwItems,
                   ),
                   // PreviewPaymentCard(),
-                  SizedBox(
+                  const SizedBox(
                     height: TSizes.spaceBtwSections,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: TSizes.spaceBtwSections,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: TSizes.spaceBtwSections,
                   ),
                 ],

@@ -40,7 +40,7 @@ class TicketDetailsContainer extends StatelessWidget {
               ),
               IconButton(
                 onPressed: onCapture,
-                icon: Icon(
+                icon: const Icon(
                   Iconsax.direct_inbox4,
                   color: TColors.primary,
                 ),

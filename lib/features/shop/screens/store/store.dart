@@ -4,7 +4,6 @@ import 'package:vitkart/common/widgets/appbar/appbar.dart';
 import 'package:vitkart/common/widgets/appbar/tabbar.dart';
 import 'package:vitkart/common/widgets/custom_shapes/containers/search_container.dart';
 import 'package:vitkart/common/widgets/layout/grid_layout.dart';
-import 'package:vitkart/common/widgets/products/products_cart/cart_menu_item.dart';
 import 'package:vitkart/common/widgets/products/t_brand_card.dart';
 import 'package:vitkart/common/widgets/text/section_heading.dart';
 import 'package:vitkart/features/shop/screens/store/widgets/category_tab.dart';
@@ -57,7 +56,7 @@ class StoreScreen extends StatelessWidget {
                 title: Text('Store',
                     style: Theme.of(context).textTheme.headlineMedium),
                 showBackArrow: false,
-                actions: [
+                actions: const [
                   // TCartCounterIcon(
                   //   onPressed: () {
 

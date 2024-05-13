@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:vitkart/common/widgets/appbar/appbar.dart';
 import 'package:vitkart/common/widgets/layout/grid_layout.dart';
 import 'package:vitkart/common/widgets/products/products_cart/product_card_vertical.dart';
@@ -63,7 +64,26 @@ class _CycleScreenState extends State<CycleScreen> {
               // ... Other UI elements
 
               products.isEmpty
-              ? Text('No products listed')
+              ? Center(
+                child: Column(
+                  children: [
+                    Lottie.asset(
+                          'assets/lottie/oops.json',
+                          repeat: true,
+                          width: TSizes.displayWidth(context) * 0.8,
+                          fit: BoxFit.fitWidth,
+                          // animate: animateIt,
+                        ),
+                        // const SizedBox(
+                        //   height: TSizes.spaceBtwItems,
+                        // ),
+                        Text(
+                          'No Products Found',
+                          style: Theme.of(context).textTheme.titleLarge,
+                        ),
+                  ],
+                )
+              )
               : TGridLayout(
                 itemCount: products.length,
                 itemBuilder: (_, index) => TProductCardVertical(

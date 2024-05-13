@@ -1,7 +1,7 @@
 name: vitkart
 description: A new Flutter project.
 publish_to: 'none'
-version: 1.0.0+1
+version: 1.0.4+4
 
 environment:
   sdk: '>=3.0.5 <4.0.0'
@@ -16,7 +16,6 @@ dependencies:
   shared_preferences: 
   jwt_decoder:
   intl: ^0.18.1
-  logger: ^2.0.1
   url_launcher: ^6.2.4
   flutter_native_splash: ^2.3.1
   smooth_page_indicator: ^1.1.0
@@ -33,13 +32,9 @@ dependencies:
 
 
   # Product Specific
-  readmore: ^2.2.0
   carousel_slider: ^4.2.1
-  flutter_rating_bar: ^4.0.1
   capped_progress_indicator: ^0.0.2
   pinput: ^3.0.1
-  iconify: ^0.0.1
-  iconify_flutter: ^0.0.5
   cupertino_date_textbox: ^1.0.3
   drop_down_list: ^0.0.6
   timer_count_down: ^2.2.2
@@ -58,12 +53,14 @@ dependencies:
   timelines: ^0.1.0
   action_slider: ^0.7.0
   pretty_qr_code:
-  dio: ^4.0.6
   device_info_plus: 
   image_gallery_saver: ^2.0.3
   flutter_easy_faq: ^1.0.1
   cached_network_image: ^3.3.1
+  readmore:
   custom_refresh_indicator: ^3.0.0
+  # share_plus: 
+  # flutter_share: ^2.0.0
   # in_app_update: ^4.2.2
   
 

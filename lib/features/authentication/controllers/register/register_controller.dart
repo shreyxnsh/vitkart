@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:developer';
 
 import 'package:drop_down_list/drop_down_list.dart';
@@ -7,12 +6,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:http/http.dart' as http;
 import 'package:vitkart/features/authentication/screens/login/login.dart';
 import 'package:vitkart/features/authentication/screens/register/widget/cherryToast.dart';
-import 'package:vitkart/navigation_menu.dart';
 import 'package:vitkart/utils/API/api_functions.dart';
-import 'package:vitkart/utils/API/api_routes.dart';
 
 import 'package:vitkart/utils/constants/sizes.dart';
 
@@ -115,7 +111,7 @@ class RegisterController extends GetxController {
       print(regBody);
       Map<String, dynamic> reponse =
           await APIFunctions.createUser(data: regBody);
-      log("dat : " + reponse.toString());
+      log("dat : $reponse");
       if (reponse['isSuccess']) {
         // showErrorToast(
         //   context,

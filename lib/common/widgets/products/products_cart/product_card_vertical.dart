@@ -203,11 +203,11 @@ class _TProductCardVerticalState extends State<TProductCardVertical> {
                                   width: 200,
                                   height: 300,
                                   fit: BoxFit.fitHeight,
-                                  placeholder: (context, url) => Center(
+                                  placeholder: (context, url) => const Center(
                                     child: CircularProgressIndicator(),
                                   ),
                                   errorWidget: (context, url, error) =>
-                                      Icon(Icons.error),
+                                      const Icon(Icons.error),
                                 ),
                               ),
                               // ... Other parts of the Stack
@@ -376,11 +376,11 @@ class ProductData {
     //       .toList();
     // }
     if (json['sellerId'] == null) {
-      log("remove this" + json.toString());
+      log("remove this$json");
     }
 
     if (json['productImages'] == null) {
-      log("remove this" + json.toString());
+      log("remove this$json");
     }
 
     return ProductData(

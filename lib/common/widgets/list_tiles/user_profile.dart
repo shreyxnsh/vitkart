@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:iconsax/iconsax.dart';
-import 'package:vitkart/features/personalization/screens/profile/profile.dart';
 import 'package:vitkart/utils/API/userDataService.dart';
 
 import '../../../utils/constants/colors.dart';

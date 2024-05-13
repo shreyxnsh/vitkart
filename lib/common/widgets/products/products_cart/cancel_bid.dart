@@ -2,20 +2,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
-import 'package:vitkart/features/shop/screens/bids/bids.dart';
-import 'package:vitkart/navigation_menu.dart';
 import 'package:vitkart/utils/constants/colors.dart';
 import 'package:vitkart/utils/constants/sizes.dart';
 import 'package:vitkart/utils/helpers/helper_functions.dart';
 
-class SellSuccessScreen extends StatefulWidget {
-  const SellSuccessScreen({super.key});
+class CancelBidSuccess extends StatefulWidget {
+  const CancelBidSuccess({super.key});
 
   @override
-  State<SellSuccessScreen> createState() => _SuccessScreenState();
+  State<CancelBidSuccess> createState() => _CancelBidSuccessState();
 }
 
-class _SuccessScreenState extends State<SellSuccessScreen> {
+class _CancelBidSuccessState extends State<CancelBidSuccess> {
   bool animateIt = false;
   bool fadeIt = false;
   final animationDuratino = const Duration(milliseconds: 600);
@@ -47,40 +45,40 @@ class _SuccessScreenState extends State<SellSuccessScreen> {
 
     return Scaffold(
       backgroundColor: dark ? TColors.dark : TColors.light,
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: AnimatedOpacity(
-        duration: animationDuratino,
-        opacity: fadeIt ? 1.0 : 0.0,
-        child: Container(
-          margin: EdgeInsets.all(TSizes.spaceBtwItems),
-          height: TSizes.displayHeight(context) * (54 / 840),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Expanded(
-                child: ElevatedButton(
-                  onPressed: () {
-                    Get.to(() => NavigationMenu());
-                  },
-                  child: const Center(child: Text('View more')),
-                ),
-              ),
-              const SizedBox(
-                width: TSizes.spaceBtwItems,
-              ),
-              Expanded(
-                child: ElevatedButton(
-                  onPressed: () {
-                    Get.to(() => BidsScreen());
-                  },
-                  child: const Center(child: Text('View Bid')),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      // floatingActionButton: AnimatedOpacity(
+      //   duration: animationDuratino,
+      //   opacity: fadeIt ? 1.0 : 0.0,
+      //   child: Container(
+      //     margin: EdgeInsets.all(TSizes.spaceBtwItems),
+      //     height: TSizes.displayHeight(context) * (54 / 840),
+      //     child: Row(
+      //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      //       mainAxisSize: MainAxisSize.max,
+      //       children: [
+      //         Expanded(
+      //           child: ElevatedButton(
+      //             onPressed: () {
+      //               Get.to(() => CreateProductScreen());
+      //             },
+      //             child: const Center(child: Text('Add More')),
+      //           ),
+      //         ),
+      //         const SizedBox(
+      //           width: TSizes.spaceBtwItems,
+      //         ),
+      //         Expanded(
+      //           child: ElevatedButton(
+      //             onPressed: () {
+      //               Get.to(() => NavigationMenu());
+      //             },
+      //             child: const Center(child: Text('View Product')),
+      //           ),
+      //         ),
+      //       ],
+      //     ),
+      //   ),
+      // ),
       body: SizedBox(
         height: TSizes.displayHeight(context),
         width: TSizes.displayWidth(context),
@@ -104,7 +102,7 @@ class _SuccessScreenState extends State<SellSuccessScreen> {
                     opacity: fadeIt ? 1 : 0,
                     child: Center(
                       child: Text(
-                        'Placed request successfully!',
+                        'Bid Cancelled successfully!',
                         textAlign: TextAlign.center,
                         style:
                             Theme.of(context).textTheme.titleMedium!.copyWith(

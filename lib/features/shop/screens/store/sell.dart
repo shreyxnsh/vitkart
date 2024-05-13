@@ -4,16 +4,12 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vitkart/common/widgets/appbar/appbar.dart';
-import 'package:vitkart/common/widgets/images/t_rounded_image.dart';
 import 'package:vitkart/common/widgets/products/products_cart/product_card_vertical.dart';
 import 'package:vitkart/common/widgets/text/section_heading.dart';
-import 'package:vitkart/features/shop/screens/home/widgets/circular_widget.dart';
 import 'package:vitkart/features/shop/screens/store/create_product.dart';
 import 'package:vitkart/features/shop/screens/store/sell_stats.dart';
 import 'package:vitkart/features/shop/screens/store/widgets/sellProductCard.dart';
 import 'package:vitkart/utils/API/userDataService.dart';
-import 'package:vitkart/utils/constants/colors.dart';
-import 'package:vitkart/utils/constants/image_strings.dart';
 import 'package:vitkart/utils/constants/sizes.dart';
 import 'package:http/http.dart' as http;
 import 'package:vitkart/utils/API/api_routes.dart';
@@ -151,7 +147,7 @@ class _SellScreenState extends State<SellScreen> {
                   height: TSizes.spaceBtwItems,
                 ),
                 products.isEmpty
-                    ? Text('No products listed')
+                    ? const Text('No products listed')
                     : ListView.builder(
                         shrinkWrap: true,
                         itemCount: products
@@ -168,6 +164,7 @@ class _SellScreenState extends State<SellScreen> {
                               name: products[index].productName,
                               price: products[index].productPrice.toString(),
                               image: products[index].productImage[0],
+                              status: products[index].productStatus,
                               onView: () {
                                 log('view $index');
                               },

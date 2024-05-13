@@ -15,6 +15,7 @@ class TRoundedContainer extends StatelessWidget {
     this.backgroundColor = TColors.white,
     this.borderColor = TColors.borderPrimary,
     this.showBorder = false,
+    this.duration,
   });
 
   final double? width;
@@ -27,10 +28,13 @@ class TRoundedContainer extends StatelessWidget {
   final Color borderColor;
   final bool showBorder;
   final Clip? clipBehavior;
+  final Duration? duration;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return AnimatedContainer(
+      duration: duration ?? const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
       width: width,
       height: height,
       padding: padding,
