@@ -7,7 +7,6 @@ import 'package:vitkart/common/widgets/list_tiles/settings_menu.dart';
 import 'package:vitkart/common/widgets/text/section_heading.dart';
 import 'package:vitkart/features/authentication/screens/login/login.dart';
 import 'package:vitkart/features/events/screens/myTickets.dart';
-import 'package:vitkart/features/personalization/screens/address/address.dart';
 import 'package:vitkart/features/personalization/screens/profile/profile.dart';
 import 'package:vitkart/features/personalization/screens/settings/notifications.dart';
 import 'package:vitkart/features/personalization/screens/settings/terms.dart';

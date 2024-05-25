@@ -1,9 +1,20 @@
-class Domain {
-  // static String domain = 'api.vitkart.fun';
-  static String domain = '192.168.1.6:3000';
+enum Domain {
+  LOCAL,
+  PRODUCTION,
+  DEVELOPMENT;
+
+  // return string on using any enum
 }
 
-String url = 'http://${Domain.domain}/api/v1';
+// Map enum
+Map<Domain, String> domainMap = {
+  Domain.LOCAL: '192.168.31.102:3000',
+  Domain.PRODUCTION: 'api.vitkart.fun',
+  Domain.DEVELOPMENT:
+      '5c51-2409-40c4-1175-a732-1de1-3163-9608-d049.ngrok-free.app'
+};
+
+String url = 'http://${domainMap[Domain.LOCAL]}/api/v1';
 // String url = 'https://peaceful-pegasus-probably.ngrok-free.app';
 
 String registrationUrl = '$url/user/signUp';
@@ -31,5 +42,7 @@ String createOrderIdUrl = "$url/razorpay/createOrderId";
 String createTicketUrl = "$url/ticket/createTicket";
 String updatePaymentStatusUrl = "$url/razorpay/updatePaymentStatus";
 String getBannersUrl = "$url/banner/getBanners";
-String forgetPasswordMailSendUrl = "$url/fp/passwordResetRequest";
-String resetPasswordUrl = "$url/fp/resetPassword";
+
+String requestForgetPassUrl = "$url/fp/passwordResetRequest";
+String verifyOtpUrl = "$url/otp/verifyAccount";
+String newPasswordUrl = "$url/fp/resetPassword";
