@@ -267,62 +267,11 @@ class APIFunctions {
     }
   }
 
-  static Future<Map<String, dynamic>> resetPasswordSendMail(
-      {required String email}) async {
-    var headers = {'Content-Type': 'application/json'};
-    var request = http.Request('POST', Uri.parse(forgetPasswordMailSendUrl));
-    request.body = json.encode({"userEmail": email});
-    request.headers.addAll(headers);
-
-    http.StreamedResponse response = await request.send();
-
-    if (response.statusCode == 200) {
-      Map<String, dynamic> jsonResponse =
-          jsonDecode(await response.stream.bytesToString());
-      jsonResponse['isSuccess'] = true;
-      log(jsonResponse.toString());
-      return jsonResponse;
-    } else {
-      Map<String, dynamic> jsonResponse =
-          jsonDecode(await response.stream.bytesToString());
-      jsonResponse['isSuccess'] = false;
-      log(jsonResponse.toString());
-      return jsonResponse;
-    }
-  }
-
   static Future<Map<String, dynamic>> resendOtpSignup(
-      {required String email , required String userName}) async {
+      {required String email, required String userName}) async {
     var headers = {'Content-Type': 'application/json'};
     var request = http.Request('POST', Uri.parse(resentOtp));
-    request.body = json.encode({"userEmail": email , "userName" : userName});
-    request.headers.addAll(headers);
-
-    http.StreamedResponse response = await request.send();
-
-    if (response.statusCode == 200) {
-      Map<String, dynamic> jsonResponse =
-          jsonDecode(await response.stream.bytesToString());
-      jsonResponse['isSuccess'] = true;
-      log(jsonResponse.toString());
-      return jsonResponse;
-    } else {
-      Map<String, dynamic> jsonResponse =
-          jsonDecode(await response.stream.bytesToString());
-      jsonResponse['isSuccess'] = false;
-      log(jsonResponse.toString());
-      return jsonResponse;
-    }
-  }
-
-  static Future<Map<String, dynamic>> resetPasswordAPI(
-      {required String email,
-      required String otp,
-      required String newPassword}) async {
-    var headers = {'Content-Type': 'application/json'};
-    var request = http.Request('POST', Uri.parse(resetPasswordUrl));
-    request.body = json
-        .encode({"userEmail": email, "otp": otp, "newPassword": newPassword});
+    request.body = json.encode({"userEmail": email, "userName": userName});
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
@@ -345,14 +294,17 @@ class APIFunctions {
   static Future<Map<String, dynamic>> loginApi(
       {required String email, required String password}) async {
     var headers = {'Content-Type': 'application/json'};
+    log("code : $loginUrl");
     var request = http.Request('POST', Uri.parse(loginUrl));
     request.body = json.encode({"userEmail": email, "userPassword": password});
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
+    log("response : ${response.statusCode}");
 
     if (response.statusCode == 200) {
       var data = jsonDecode(await response.stream.bytesToString());
+      log("data : $data");
       data["isSuccess"] = true;
       return data;
     } else {
@@ -421,7 +373,6 @@ class APIFunctions {
       return jsonResponse;
     }
   }
-  
 
   static Future<Map<String, dynamic>> approveBit(
       {required String productId, required String bidderId}) async {
@@ -481,7 +432,7 @@ class APIFunctions {
   }
 
   static Future<Map<String, dynamic>> getBiddersList(String id) async {
-    log("code : $url");
+    // log("code : $url");
     var headers = {
       'token': UserDataService.getToken(),
       'Content-Type': 'application/json'
@@ -550,6 +501,77 @@ class APIFunctions {
       Map<String, dynamic> jsonResponse =
           jsonDecode(await response.stream.bytesToString());
       log("getMyBidsList : $jsonResponse");
+      jsonResponse['isSuccess'] = true;
+      return jsonResponse;
+    } else {
+      Map<String, dynamic> jsonResponse =
+          jsonDecode(await response.stream.bytesToString());
+      jsonResponse['isSuccess'] = false;
+      return jsonResponse;
+    }
+  }
+
+  static Future<Map<String, dynamic>> sendPasswordResetRequest(
+      {required String email}) async {
+    var headers = {'Content-Type': 'application/json'};
+    var request = http.Request(
+        'POST', Uri.parse(requestForgetPassUrl)); // Replace with the actual URL
+    request.body = json.encode({"userEmail": email});
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      Map<String, dynamic> jsonResponse =
+          jsonDecode(await response.stream.bytesToString()); // Convert to JSON
+      jsonResponse['isSuccess'] = true;
+      return jsonResponse;
+    } else {
+      Map<String, dynamic> jsonResponse =
+          jsonDecode(await response.stream.bytesToString()); // Convert to JSON
+      jsonResponse['isSuccess'] = false;
+      return jsonResponse;
+    }
+  }
+
+  static Future<Map<String, dynamic>> verifyOtp(
+      {required email, required String pin}) async {
+    var headers = {'Content-Type': 'application/json'};
+    var request = http.Request(
+        'POST', Uri.parse(verifyOtpUrl)); // Replace with the actual URL
+    request.body = json.encode({"userEmail": email, "otp": pin});
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      Map<String, dynamic> jsonResponse =
+          jsonDecode(await response.stream.bytesToString());
+      jsonResponse['isSuccess'] = true;
+      return jsonResponse;
+    } else {
+      Map<String, dynamic> jsonResponse =
+          jsonDecode(await response.stream.bytesToString());
+      jsonResponse['isSuccess'] = false;
+      return jsonResponse;
+    }
+  }
+
+  static Future<Map<String, dynamic>> newPassword(
+      {required String newPassword, required String email}) async {
+    var headers = {'Content-Type': 'application/json'};
+    var request = http.Request('POST', Uri.parse(newPasswordUrl));
+    request.body = json.encode({
+      "userEmail": email,
+      "userPassword": newPassword,
+    });
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      Map<String, dynamic> jsonResponse =
+          jsonDecode(await response.stream.bytesToString());
       jsonResponse['isSuccess'] = true;
       return jsonResponse;
     } else {

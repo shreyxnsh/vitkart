@@ -160,8 +160,7 @@ class _EventDetailScreenState extends State<EventDetailScreen>
                                 ),
                                 message: Text(
                                   'You have only 10 minutes to book the ticket and in case of failure, there will be 10 mins of cooldown to prevent any further payment failure',
-                                  style:
-                                      Theme.of(context).textTheme.bodyMedium,
+                                  style: Theme.of(context).textTheme.bodyMedium,
                                 ),
                                 cancelButton: CupertinoActionSheetAction(
                                   onPressed: () {
@@ -515,8 +514,8 @@ class _EventDetailScreenState extends State<EventDetailScreen>
                           Text(
                             widget.data['eventDesc'],
                             style: Theme.of(context).textTheme.titleSmall,
-                            maxLines: 4,
-                            overflow: TextOverflow.ellipsis,
+                            // maxLines: 4,
+                            // overflow: TextOverflow.ellipsis,
                           ),
                         ],
                       ),
