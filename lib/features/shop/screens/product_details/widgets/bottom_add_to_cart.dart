@@ -172,7 +172,7 @@ class TBottomAddToCart extends StatelessWidget {
                           snackPosition: SnackPosition.TOP,
                           backgroundColor: TColors.success,
                         );
-                        Get.to(CancelBidSuccess());
+                        Get.to(const CancelBidSuccess());
                         return;
                       }
                       if (response['message'] ==

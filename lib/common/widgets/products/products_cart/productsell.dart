@@ -52,7 +52,7 @@ class _SuccessScreenState extends State<SellSuccessScreen> {
         duration: animationDuratino,
         opacity: fadeIt ? 1.0 : 0.0,
         child: Container(
-          margin: EdgeInsets.all(TSizes.spaceBtwItems),
+          margin: const EdgeInsets.all(TSizes.spaceBtwItems),
           height: TSizes.displayHeight(context) * (54 / 840),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -61,7 +61,7 @@ class _SuccessScreenState extends State<SellSuccessScreen> {
               Expanded(
                 child: ElevatedButton(
                   onPressed: () {
-                    Get.to(() => NavigationMenu());
+                    Get.to(() => const NavigationMenu());
                   },
                   child: const Center(child: Text('View more')),
                 ),
@@ -72,7 +72,7 @@ class _SuccessScreenState extends State<SellSuccessScreen> {
               Expanded(
                 child: ElevatedButton(
                   onPressed: () {
-                    Get.to(() => BidsScreen());
+                    Get.to(() => const BidsScreen());
                   },
                   child: const Center(child: Text('View Bid')),
                 ),
