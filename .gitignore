@@ -44,4 +44,4 @@ app.*.map.json
 /android/app/release
 
 # api
-/lib/utils/API/
+/lib/utils/API/api_functions.dart
