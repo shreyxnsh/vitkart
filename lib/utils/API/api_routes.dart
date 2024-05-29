@@ -8,7 +8,7 @@ enum Domain {
 
 // Map enum
 Map<Domain, String> domainMap = {
-  Domain.LOCAL: '192.168.31.102:3000',
+  Domain.LOCAL: '192.168.31.28:3000',
   Domain.PRODUCTION: 'api.vitkart.fun',
   Domain.DEVELOPMENT:
       '5c51-2409-40c4-1175-a732-1de1-3163-9608-d049.ngrok-free.app'
